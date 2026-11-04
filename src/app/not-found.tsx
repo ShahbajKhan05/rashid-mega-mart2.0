@@ -1,63 +1,80 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Home, Search, ShoppingBag, Sparkles, Star } from "lucide-react";
+import { ArrowLeft, Home } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <main className="relative isolate flex min-h-[calc(100svh-76px)] items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_15%_20%,rgba(212,168,79,.19),transparent_28%),radial-gradient(circle_at_85%_75%,rgba(128,0,32,.10),transparent_30%),linear-gradient(145deg,#fffdf4_0%,#fff7e6_52%,#fffaf3_100%)] px-4 py-12 sm:px-6">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-        <span className="absolute left-[9%] top-[16%] h-3 w-3 animate-pulse rounded-full bg-[#d4a84f]/70" />
-        <span className="absolute right-[13%] top-[22%] h-2 w-2 animate-bounce rounded-full bg-[#800020]/40 [animation-delay:300ms]" />
-        <span className="absolute bottom-[18%] left-[17%] h-2.5 w-2.5 animate-pulse rounded-full bg-[#d4a84f]/70 [animation-delay:700ms]" />
-        <Sparkles className="absolute right-[12%] top-[58%] animate-pulse text-[#c59a4d]/60" size={25} />
-        <Star className="absolute left-[16%] top-[62%] animate-[spin_9s_linear_infinite] text-[#800020]/25" size={19} />
-        <span className="absolute -left-20 top-1/3 h-52 w-52 rounded-full bg-white/50 blur-3xl" />
-        <span className="absolute -right-16 bottom-0 h-64 w-64 rounded-full bg-[#f3dfb8]/40 blur-3xl" />
-      </div>
+    <main className="relative flex min-h-[calc(100svh-76px)] items-center justify-center overflow-hidden bg-[linear-gradient(145deg,#fffdf5_0%,#fff7e8_55%,#fffaf4_100%)] px-4 py-5 sm:py-7">
+      <section className="w-full max-w-xl text-center">
+        <Link href="/" aria-label="Rashid Mega Mart home" className="mx-auto mb-3 inline-flex rounded-2xl bg-white/80 p-2 shadow-sm ring-1 ring-[#eadfc9] transition hover:-translate-y-0.5">
+          <Image src="/Logo.png" alt="Rashid Mega Mart logo" width={150} height={64} priority className="h-12 w-auto max-w-[150px] object-contain sm:h-14" />
+        </Link>
 
-      <section className="relative w-full max-w-2xl text-center">
-        <div className="mx-auto mb-7 flex w-fit items-center gap-2 rounded-full border border-[#eadfc9] bg-white/75 px-4 py-2 text-xs font-extrabold tracking-[.19em] text-[#805d2e] shadow-sm backdrop-blur">
-          <Sparkles size={14} /> RASHID MEGA MART
+        <div className="mx-auto w-full max-w-[310px] sm:max-w-[360px]">
+          <svg viewBox="0 0 360 220" role="img" aria-label="Animated construction site with crane and safety cones" className="h-auto w-full overflow-visible">
+            <defs>
+              <linearGradient id="craneGold" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stopColor="#e7c77e" />
+                <stop offset="1" stopColor="#b78336" />
+              </linearGradient>
+            </defs>
+            <ellipse cx="180" cy="198" rx="112" ry="9" fill="#800020" opacity=".08" />
+            <path d="M55 190H305" stroke="#b9a78e" strokeWidth="3" strokeLinecap="round" strokeDasharray="5 7" />
+            {/* crane */}
+            <g className="origin-[245px_35px] animate-[sway_3s_ease-in-out_infinite]">
+              <path d="M245 35V172" stroke="#800020" strokeWidth="7" strokeLinecap="round" />
+              <path d="M245 35L315 35L300 47H245Z" fill="url(#craneGold)" stroke="#9b702f" strokeWidth="2" />
+              <path d="M270 36L245 65M292 36L245 90" stroke="#9b702f" strokeWidth="2" />
+              <path d="M302 47V93" stroke="#800020" strokeWidth="2.5" />
+              <path d="M295 93Q302 104 309 93" fill="none" stroke="#800020" strokeWidth="3" strokeLinecap="round" />
+            </g>
+            <path d="M229 172H261L270 190H220Z" fill="#d4a84f" />
+            <path d="M237 172L245 190M252 172L260 190" stroke="#fff8e9" strokeWidth="4" />
+            {/* building */}
+            <path d="M75 188V112L132 76L189 112V188Z" fill="#fff" stroke="#d8c7aa" strokeWidth="3" strokeLinejoin="round" />
+            <path d="M66 113L132 69L198 113" fill="none" stroke="#800020" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M95 130H119V154H95ZM145 130H169V154H145Z" fill="#f4e5c9" stroke="#c9a96d" strokeWidth="2" />
+            <path d="M121 188V158Q132 145 143 158V188" fill="#800020" opacity=".85" />
+            <path d="M85 165H108M156 165H179" stroke="#d4a84f" strokeWidth="3" strokeLinecap="round" />
+            {/* bouncing safety cones */}
+            <g className="origin-[47px_187px] animate-bounce">
+              <path d="M35 188L46 158L57 188Z" fill="#d4a84f" stroke="#9c6b2d" strokeWidth="2" strokeLinejoin="round" />
+              <path d="M41 174H52" stroke="#fffaf0" strokeWidth="4" />
+              <path d="M31 190H60" stroke="#800020" strokeWidth="3" strokeLinecap="round" />
+            </g>
+            <g className="origin-[319px_187px] animate-bounce [animation-delay:350ms]">
+              <path d="M307 188L318 158L329 188Z" fill="#d4a84f" stroke="#9c6b2d" strokeWidth="2" strokeLinejoin="round" />
+              <path d="M313 174H324" stroke="#fffaf0" strokeWidth="4" />
+              <path d="M303 190H332" stroke="#800020" strokeWidth="3" strokeLinecap="round" />
+            </g>
+            <path d="M22 145L27 150L36 139" fill="none" stroke="#d4a84f" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="animate-pulse" />
+            <style>{`
+              @keyframes sway { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(3deg); } }
+              @media (prefers-reduced-motion: reduce) {
+                svg *, svg *::before, svg *::after { animation: none !important; }
+              }
+            `}</style>
+          </svg>
         </div>
 
-        <div className="relative mx-auto mb-5 flex h-48 w-56 items-center justify-center sm:h-56 sm:w-64">
-          <div className="absolute bottom-3 h-8 w-40 rounded-[50%] bg-[#800020]/10 blur-md sm:w-48" />
-          <div className="absolute left-7 top-8 animate-bounce text-[#c69b4d] [animation-duration:2.8s]">
-            <Star size={25} fill="currentColor" strokeWidth={1.2} />
-          </div>
-          <div className="absolute right-7 top-12 animate-pulse text-[#800020]/65">
-            <Sparkles size={24} />
-          </div>
-          <div className="relative z-10 grid h-36 w-36 -rotate-3 place-items-center rounded-[2.3rem] border border-white bg-gradient-to-br from-white via-[#fff8e9] to-[#f4e4c7] shadow-[0_22px_50px_rgba(91,16,35,.15)] sm:h-40 sm:w-40">
-            <div className="absolute -top-5 h-12 w-16 rounded-t-full border-[7px] border-b-0 border-[#a77b3e]" />
-            <ShoppingBag className="absolute top-8 text-[#800020]/80" size={43} strokeWidth={1.5} />
-            <div className="absolute bottom-7 flex items-center gap-3">
-              <span className="h-2.5 w-2.5 rounded-full bg-[#5a1023]" />
-              <span className="h-2.5 w-2.5 rounded-full bg-[#5a1023]" />
-            </div>
-            <span className="absolute bottom-3 h-1.5 w-5 rounded-full bg-[#a77b3e]" />
-          </div>
-          <span className="absolute bottom-0 right-5 grid h-11 w-11 animate-[bounce_2.2s_ease-in-out_infinite] place-items-center rounded-2xl border border-white bg-white text-[#800020] shadow-lg">
-            <Search size={19} />
-          </span>
+        <p className="mt-1 text-[clamp(2.6rem,10vw,4.2rem)] font-black leading-none tracking-[-.07em] text-[#800020]">404</p>
+        <div className="mx-auto mt-3 inline-flex items-center gap-2 rounded-full border border-[#ead9b8] bg-white/80 px-3 py-1.5 text-[11px] font-extrabold tracking-[.16em] text-[#8a632f] sm:text-xs">
+          <span className="h-2 w-2 animate-pulse rounded-full bg-[#d4a84f]" />
+          UNDER CONSTRUCTION
         </div>
+        <h1 className="mt-3 text-xl font-extrabold tracking-tight text-[#30241f] sm:text-2xl">We’re building something better!</h1>
+        <p className="mx-auto mt-1.5 max-w-sm text-sm leading-5 text-[#786b60]">This page is not ready yet. Please visit us again soon.</p>
 
-        <p className="text-[clamp(4.5rem,15vw,7.5rem)] font-black leading-[.85] tracking-[-.08em] text-[#800020] drop-shadow-[0_5px_0_rgba(212,168,79,.18)]">404</p>
-        <h1 className="mt-5 text-2xl font-extrabold tracking-tight text-[#30241f] sm:text-3xl">Oops! This page took a little detour.</h1>
-        <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-[#786b60] sm:text-base">
-          The page you are looking for is not here. Let’s get you back to your daily essentials!
-        </p>
-
-        <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
-          <Link href="/" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#800020] px-6 text-sm font-bold text-white shadow-[0_10px_22px_rgba(128,0,32,.2)] transition duration-300 hover:-translate-y-1 hover:bg-[#650019] hover:shadow-[0_14px_28px_rgba(128,0,32,.25)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#800020]">
-            <Home size={17} /> Back to Home
+        <div className="mt-5 flex flex-col justify-center gap-2.5 sm:flex-row">
+          <Link href="/" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[#800020] px-5 text-sm font-bold text-white shadow-[0_8px_18px_rgba(128,0,32,.18)] transition hover:-translate-y-0.5 hover:bg-[#650019] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#800020]">
+            <Home size={16} /> Back to Home
           </Link>
-          <Link href="/products" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-[#e5d6bd] bg-white/80 px-6 text-sm font-bold text-[#5a1023] shadow-sm backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-[#c9a76c] hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#800020]">
-            <ShoppingBag size={17} /> Explore Store <ArrowLeft className="rotate-180" size={16} />
+          <Link href="/products" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-[#e5d6bd] bg-white/85 px-5 text-sm font-bold text-[#5a1023] transition hover:-translate-y-0.5 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#800020]">
+            <ArrowLeft size={16} /> Explore Store
           </Link>
         </div>
-        <p className="mt-8 text-xs font-medium tracking-wide text-[#9a8b7b]">A little detour, not the end of your shopping journey. <span aria-hidden="true">♡</span></p>
       </section>
     </main>
   );

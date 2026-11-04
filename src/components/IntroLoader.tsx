@@ -165,12 +165,12 @@ export default function IntroLoader() {
       >
         <div
           ref={glowRef}
-          className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[min(72vw,620px)] w-[min(72vw,620px)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(224,196,139,0.22)_0%,rgba(224,196,139,0.08)_42%,rgba(252,251,248,0)_72%)] blur-2xl"
+          className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[min(72vw,620px)] w-[min(72vw,620px)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(224,196,139,0.34)_0%,rgba(224,196,139,0.15)_34%,rgba(16,91,39,0.08)_52%,rgba(252,251,248,0)_74%)] blur-2xl"
         />
 
         <div
           ref={logoRef}
-          className="relative z-40 flex w-[min(72vw,500px)] items-center justify-center [transform-style:preserve-3d]"
+          className="relative z-40 flex w-[min(72vw,500px)] items-center justify-center rounded-[2rem] border border-[#D9C18F]/70 bg-white/90 p-5 shadow-[0_24px_80px_rgba(70,91,45,0.13),0_8px_24px_rgba(170,132,65,0.12),inset_0_1px_0_rgba(255,255,255,0.95)] backdrop-blur-xl [transform-style:preserve-3d] sm:p-8"
         >
           <Image
             src="/Logo.png"
@@ -178,7 +178,7 @@ export default function IntroLoader() {
             width={1100}
             height={1100}
             priority
-            className="h-auto max-h-[39vh] w-full object-contain drop-shadow-[0_14px_28px_rgba(89,65,35,0.08)]"
+            className="h-auto max-h-[39vh] w-full object-contain drop-shadow-[0_16px_30px_rgba(12,76,31,0.22)]"
           />
           <div
             ref={sweepRef}

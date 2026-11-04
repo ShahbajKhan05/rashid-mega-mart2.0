@@ -6,75 +6,73 @@ import { ArrowLeft, Home } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <main className="relative flex min-h-[calc(100svh-76px)] items-center justify-center overflow-hidden bg-[linear-gradient(145deg,#fffdf5_0%,#fff7e8_55%,#fffaf4_100%)] px-4 py-5 sm:py-7">
-      <section className="w-full max-w-xl text-center">
-        <Link href="/" aria-label="Rashid Mega Mart home" className="mx-auto mb-3 inline-flex rounded-2xl bg-white/80 p-2 shadow-sm ring-1 ring-[#eadfc9] transition hover:-translate-y-0.5">
-          <Image src="/Logo.png" alt="Rashid Mega Mart logo" width={150} height={64} priority className="h-12 w-auto max-w-[150px] object-contain sm:h-14" />
-        </Link>
-
-        <div className="mx-auto w-full max-w-[310px] sm:max-w-[360px]">
-          <svg viewBox="0 0 360 220" role="img" aria-label="Animated construction site with crane and safety cones" className="h-auto w-full overflow-visible">
-            <defs>
-              <linearGradient id="craneGold" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stopColor="#e7c77e" />
-                <stop offset="1" stopColor="#b78336" />
-              </linearGradient>
-            </defs>
-            <ellipse cx="180" cy="198" rx="112" ry="9" fill="#800020" opacity=".08" />
-            <path d="M55 190H305" stroke="#b9a78e" strokeWidth="3" strokeLinecap="round" strokeDasharray="5 7" />
-            {/* crane */}
-            <g className="origin-[245px_35px] animate-[sway_3s_ease-in-out_infinite]">
-              <path d="M245 35V172" stroke="#800020" strokeWidth="7" strokeLinecap="round" />
-              <path d="M245 35L315 35L300 47H245Z" fill="url(#craneGold)" stroke="#9b702f" strokeWidth="2" />
-              <path d="M270 36L245 65M292 36L245 90" stroke="#9b702f" strokeWidth="2" />
-              <path d="M302 47V93" stroke="#800020" strokeWidth="2.5" />
-              <path d="M295 93Q302 104 309 93" fill="none" stroke="#800020" strokeWidth="3" strokeLinecap="round" />
-            </g>
-            <path d="M229 172H261L270 190H220Z" fill="#d4a84f" />
-            <path d="M237 172L245 190M252 172L260 190" stroke="#fff8e9" strokeWidth="4" />
-            {/* building */}
-            <path d="M75 188V112L132 76L189 112V188Z" fill="#fff" stroke="#d8c7aa" strokeWidth="3" strokeLinejoin="round" />
-            <path d="M66 113L132 69L198 113" fill="none" stroke="#800020" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M95 130H119V154H95ZM145 130H169V154H145Z" fill="#f4e5c9" stroke="#c9a96d" strokeWidth="2" />
-            <path d="M121 188V158Q132 145 143 158V188" fill="#800020" opacity=".85" />
-            <path d="M85 165H108M156 165H179" stroke="#d4a84f" strokeWidth="3" strokeLinecap="round" />
-            {/* bouncing safety cones */}
-            <g className="origin-[47px_187px] animate-bounce">
-              <path d="M35 188L46 158L57 188Z" fill="#d4a84f" stroke="#9c6b2d" strokeWidth="2" strokeLinejoin="round" />
-              <path d="M41 174H52" stroke="#fffaf0" strokeWidth="4" />
-              <path d="M31 190H60" stroke="#800020" strokeWidth="3" strokeLinecap="round" />
-            </g>
-            <g className="origin-[319px_187px] animate-bounce [animation-delay:350ms]">
-              <path d="M307 188L318 158L329 188Z" fill="#d4a84f" stroke="#9c6b2d" strokeWidth="2" strokeLinejoin="round" />
-              <path d="M313 174H324" stroke="#fffaf0" strokeWidth="4" />
-              <path d="M303 190H332" stroke="#800020" strokeWidth="3" strokeLinecap="round" />
-            </g>
-            <path d="M22 145L27 150L36 139" fill="none" stroke="#d4a84f" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="animate-pulse" />
-            <style>{`
-              @keyframes sway { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(3deg); } }
-              @media (prefers-reduced-motion: reduce) {
-                svg *, svg *::before, svg *::after { animation: none !important; }
-              }
-            `}</style>
-          </svg>
-        </div>
-
-        <p className="mt-1 text-[clamp(2.6rem,10vw,4.2rem)] font-black leading-none tracking-[-.07em] text-[#800020]">404</p>
-        <div className="mx-auto mt-3 inline-flex items-center gap-2 rounded-full border border-[#ead9b8] bg-white/80 px-3 py-1.5 text-[11px] font-extrabold tracking-[.16em] text-[#8a632f] sm:text-xs">
-          <span className="h-2 w-2 animate-pulse rounded-full bg-[#d4a84f]" />
-          UNDER CONSTRUCTION
-        </div>
-        <h1 className="mt-3 text-xl font-extrabold tracking-tight text-[#30241f] sm:text-2xl">We’re building something better!</h1>
-        <p className="mx-auto mt-1.5 max-w-sm text-sm leading-5 text-[#786b60]">This page is not ready yet. Please visit us again soon.</p>
-
-        <div className="mt-5 flex flex-col justify-center gap-2.5 sm:flex-row">
-          <Link href="/" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[#800020] px-5 text-sm font-bold text-white shadow-[0_8px_18px_rgba(128,0,32,.18)] transition hover:-translate-y-0.5 hover:bg-[#650019] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#800020]">
-            <Home size={16} /> Back to Home
+    <main className="relative isolate flex min-h-[calc(100svh-76px)] items-center justify-center overflow-hidden bg-[#f5f0e6] px-4 py-8 sm:py-12">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 opacity-60 [background-image:linear-gradient(rgba(128,0,32,.045)_1px,transparent_1px),linear-gradient(90deg,rgba(128,0,32,.045)_1px,transparent_1px)] [background-size:34px_34px]" />
+      <section className="w-full max-w-4xl overflow-hidden rounded-[28px] border border-[#dfd1bb] bg-[#fffdf8] shadow-[0_28px_90px_rgba(69,45,24,.14)]">
+        <header className="flex items-center justify-between border-b border-[#eadfce] px-4 py-3 sm:px-7">
+          <Link href="/" aria-label="Rashid Mega Mart home" className="inline-flex items-center">
+            <Image src="/Logo.png" alt="Rashid Mega Mart" width={150} height={64} priority className="h-10 w-auto object-contain sm:h-12" />
           </Link>
-          <Link href="/products" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-[#e5d6bd] bg-white/85 px-5 text-sm font-bold text-[#5a1023] transition hover:-translate-y-0.5 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#800020]">
-            <ArrowLeft size={16} /> Explore Store
-          </Link>
+          <span className="rounded-full border border-[#e4cda8] bg-[#fff6e4] px-3 py-1 text-[10px] font-black tracking-[.18em] text-[#8b5b22] sm:text-xs">SITE WORK IN PROGRESS</span>
+        </header>
+
+        <div className="grid items-center gap-2 p-4 sm:gap-8 sm:p-8 md:grid-cols-[1.05fr_.95fr]">
+          <div className="order-2 text-center md:order-1 md:text-left">
+            <p className="text-[10px] font-black tracking-[.28em] text-[#a77b3e] sm:text-xs">RASHID MEGA MART · SITE NOTICE</p>
+            <h1 className="mt-3 text-3xl font-black leading-[.98] tracking-[-.06em] text-[#800020] sm:text-5xl">Oops! This page is still being built.</h1>
+            <p className="mt-3 text-sm leading-6 text-[#71665a] sm:text-base">Our construction crew is working on this area. The page you’re looking for isn’t ready or may have moved.</p>
+            <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#f8edda] px-3 py-2 text-[11px] font-extrabold tracking-[.1em] text-[#82531e]">
+              <span className="relative flex h-2.5 w-2.5"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#d49a3d] opacity-70" /><span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#b87926]" /></span>
+              CREW AT WORK · 404
+            </div>
+            <div className="mt-6 flex flex-col justify-center gap-2.5 sm:flex-row md:justify-start">
+              <Link href="/" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[#800020] px-5 text-sm font-bold text-white shadow-[0_8px_18px_rgba(128,0,32,.18)] transition hover:-translate-y-0.5 hover:bg-[#650019] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#800020]"><Home size={16} /> Back to Home</Link>
+              <Link href="/products" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-[#e5d6bd] bg-white px-5 text-sm font-bold text-[#5a1023] transition hover:-translate-y-0.5 hover:bg-[#fffaf0] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#800020]"><ArrowLeft size={16} /> Explore Store</Link>
+            </div>
+          </div>
+
+          <div className="order-1 rounded-2xl border border-[#e7d9c4] bg-[linear-gradient(180deg,#fffaf0,#f2e7d4)] p-2 sm:p-4 md:order-2">
+            <svg viewBox="0 0 520 390" role="img" aria-label="Animated construction site with tower crane, excavator, worker, scaffolding and safety barriers" className="h-auto w-full">
+              <defs>
+                <linearGradient id="siteSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#fdf7e9"/><stop offset="1" stopColor="#eadcc4"/></linearGradient>
+                <linearGradient id="siteGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#e8bd68"/><stop offset="1" stopColor="#a76c28"/></linearGradient>
+                <pattern id="siteBrick" width="38" height="22" patternUnits="userSpaceOnUse"><path d="M0 0H38M0 11H38M19 0V11M0 11V22" fill="none" stroke="#c7a77b" strokeWidth="1" opacity=".55"/></pattern>
+              </defs>
+              <rect x="8" y="8" width="504" height="374" rx="18" fill="url(#siteSky)"/>
+              <circle cx="435" cy="65" r="27" fill="#e8c77f" opacity=".6"/>
+              <path d="M22 315H498M22 321H498" stroke="#9e8665" strokeWidth="3" strokeDasharray="12 9"/>
+              <path d="M177 313V128L245 83L313 128V313Z" fill="#e7d8bd" stroke="#967d5b" strokeWidth="3"/>
+              <path d="M177 128L245 83L313 128V313H177Z" fill="url(#siteBrick)" opacity=".8"/>
+              <path d="M163 130L245 72L327 130" fill="none" stroke="#800020" strokeWidth="8" strokeLinejoin="round"/>
+              <path d="M198 157H229V199H198ZM261 157H292V199H261ZM198 222H229V264H198ZM261 222H292V264H261Z" fill="#f8f0df" stroke="#9b805c" strokeWidth="3"/>
+              <path d="M233 313V269Q245 249 257 269V313" fill="#800020" opacity=".82"/>
+              <g fill="none" stroke="#9a7950" strokeWidth="4"><path d="M145 145V313M115 145V313M85 145V313M75 165H157M75 218H157M75 271H157M75 165L145 218M145 165L75 218M75 218L145 271M145 218L75 271"/></g>
+              <path d="M379 313V67" stroke="#800020" strokeWidth="9"/>
+              <path d="M379 67L475 67L457 81H379Z" fill="url(#siteGold)" stroke="#98672e" strokeWidth="2"/>
+              <path d="M398 67L379 95M430 67L379 119M462 67L379 143" stroke="#98672e" strokeWidth="2"/>
+              <path d="M465 80V151" stroke="#800020" strokeWidth="3"/>
+              <g className="origin-[465px_80px] animate-pulse"><path d="M465 151V177Q465 190 478 184" fill="none" stroke="#800020" strokeWidth="4" strokeLinecap="round"/><rect x="450" y="184" width="28" height="21" rx="3" fill="url(#siteGold)" stroke="#8c602a" strokeWidth="2"/></g>
+              <path d="M365 313H393L401 327H357Z" fill="#d5a34f"/><path d="M369 313L376 327M384 313L391 327" stroke="#fff7e8" strokeWidth="4"/>
+              <g className="animate-bounce">
+                <path d="M42 295H132L145 311H35Z" fill="#51483e"/>
+                <path d="M54 288Q55 263 83 263H111L128 288Z" fill="#d7a13e" stroke="#8b642c" strokeWidth="3"/>
+                <path d="M70 266L78 248H104L115 266Z" fill="#b9d0d0" stroke="#806b4e" strokeWidth="2"/>
+                <path d="M112 270L146 238L157 245L132 282" fill="none" stroke="#c28c32" strokeWidth="10" strokeLinecap="round"/>
+                <path d="M157 245L174 260L166 276L151 264" fill="#b9822d" stroke="#805a2c" strokeWidth="3"/>
+                <circle cx="65" cy="296" r="8" fill="#b9a58a"/><circle cx="111" cy="296" r="8" fill="#b9a58a"/>
+              </g>
+              <g className="animate-pulse"><circle cx="337" cy="259" r="10" fill="#bd8650"/><path d="M326 253Q337 238 348 253Z" fill="#e0ad43" stroke="#8a642d" strokeWidth="2"/><path d="M325 272L349 272L354 306H320Z" fill="#800020"/><path d="M329 278L318 295M345 278L355 291" stroke="#bd8650" strokeWidth="6" strokeLinecap="round"/><path d="M328 306L326 316M346 306L348 316" stroke="#51483e" strokeWidth="6" strokeLinecap="round"/><path d="M325 284H350" stroke="#f3d48f" strokeWidth="4"/></g>
+              <path d="M18 335H155M18 335V355M155 335V355M18 348H155" stroke="#800020" strokeWidth="5" strokeLinecap="round"/>
+              <path d="M18 335L38 348M58 335L78 348M98 335L118 348M138 335L155 346" stroke="#f5d18c" strokeWidth="5"/>
+              <g className="animate-bounce"><path d="M418 314L431 276L444 314Z" fill="#d79d39" stroke="#8e642d" strokeWidth="2"/><path d="M424 298H438" stroke="#fff6e5" strokeWidth="5"/><path d="M413 316H449" stroke="#800020" strokeWidth="4" strokeLinecap="round"/></g>
+              <g className="animate-bounce [animation-delay:300ms]"><path d="M460 314L473 276L486 314Z" fill="#d79d39" stroke="#8e642d" strokeWidth="2"/><path d="M466 298H480" stroke="#fff6e5" strokeWidth="5"/><path d="M455 316H491" stroke="#800020" strokeWidth="4" strokeLinecap="round"/></g>
+              <style>{'@media (prefers-reduced-motion: reduce) { svg *, svg *::before, svg *::after { animation: none !important; } }'}</style>
+            </svg>
+          </div>
         </div>
+        <footer className="flex flex-wrap items-center justify-between gap-2 border-t border-[#eadfce] bg-[#fffaf1] px-4 py-3 text-[10px] font-bold tracking-[.12em] text-[#9b8261] sm:px-7">
+          <span>SAFETY FIRST · QUALITY ALWAYS</span><span>RASHID MEGA MART CONSTRUCTION ZONE</span>
+        </footer>
       </section>
     </main>
   );

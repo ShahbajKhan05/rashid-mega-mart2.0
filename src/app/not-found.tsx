@@ -124,7 +124,7 @@ export default function NotFound() {
               <g className="cone"><path d="M470 382L483 345L496 382Z" fill="#df9f36" stroke="#8a602a" strokeWidth="2"/><path d="M476 365H490" stroke="#fff5df" strokeWidth="5"/><path d="M464 384H502" stroke="#7f1930" strokeWidth="5" strokeLinecap="round"/></g>
               <g><rect x="270" y="366" width="102" height="25" rx="4" fill="url(#warningStripe)" stroke="#7e172d" strokeWidth="2"/><text x="321" y="383" textAnchor="middle" fontSize="10" fontWeight="900" fill="#401b20">CAUTION</text></g>
               <style>{`
-                .dig-arm { transform-box: fill-box; transform-origin: 151px 284px; animation: digging 2.8s ease-in-out infinite; }
+                .dig-arm { transform-origin: 151px 284px; animation: digging 2.8s ease-in-out infinite; }
                 .dirt-fall { animation: soilDrop 2.8s ease-in-out infinite; }
                 .crane-load { transform-box: fill-box; transform-origin: top center; animation: loadSwing 3.5s ease-in-out infinite; }
                 .worker-motion { transform-box: fill-box; transform-origin: center bottom; animation: workerMove 2.2s ease-in-out infinite; }

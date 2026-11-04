@@ -23,6 +23,7 @@ export default function IntroLoader() {
       const brand = root.querySelector(".intro-brand");
       const line = root.querySelector(".intro-line");
       const caption = root.querySelector(".intro-caption");
+      const revealElements = [logo, ...Array.from(rings), brand, line, caption];
 
       gsap.set([leftCurtain, rightCurtain], { xPercent: 0, force3D: true });
       gsap.set(logo, { scale: 0.72, opacity: 0, y: 18, rotate: -8 });
@@ -46,7 +47,7 @@ export default function IntroLoader() {
         .to(line, { y: 0, opacity: 1, duration: 0.55 }, 0.95)
         .to(caption, { y: 0, opacity: 1, duration: 0.5 }, 1.08)
         .to({}, { duration: 0.48 })
-        .to([logo, rings, brand, line, caption], { opacity: 0, y: -12, duration: 0.32, ease: "power2.in" }, "curtain")
+        .to(revealElements, { opacity: 0, y: -12, duration: 0.32, ease: "power2.in" }, "curtain")
         .to(leftCurtain, { xPercent: -102, duration: 1.18, ease: "power4.inOut" }, "curtain+=0.08")
         .to(rightCurtain, { xPercent: 102, duration: 1.18, ease: "power4.inOut" }, "curtain+=0.08");
     }, root);

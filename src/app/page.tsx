@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, ArrowUpRight, BadgeCheck, Heart, MapPin, Menu, Search, ShieldCheck, ShoppingBag, Sparkles, Truck, X } from "lucide-react";
 
 const categories = [
@@ -28,6 +29,7 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const ctx = gsap.context(() => {
       const intro = gsap.timeline({ defaults: { ease: "power3.out" } });

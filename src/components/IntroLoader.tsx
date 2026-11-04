@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
-export default function IntroLoader() {
+export default function IntroLoader({ scope = "public" }: { scope?: "public" | "admin" }) {
   const [visible, setVisible] = useState(true);
   const rootRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
@@ -17,6 +17,17 @@ export default function IntroLoader() {
   const rightCurtainRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const sessionKey = "rashid-mega-mart:intro-seen:" + scope;
+    try {
+      if (window.sessionStorage.getItem(sessionKey) === "1") {
+        setVisible(false);
+        return;
+      }
+      window.sessionStorage.setItem(sessionKey, "1");
+    } catch {
+      // Continue normally when session storage is unavailable.
+    }
+
     const root = rootRef.current;
     const logo = logoRef.current;
     const tagline = taglineRef.current;
@@ -135,7 +146,7 @@ export default function IntroLoader() {
       ctx.revert();
       document.body.style.overflow = oldOverflow;
     };
-  }, []);
+  }, [scope]);
 
   if (!visible) return null;
 

@@ -8,10 +8,8 @@ export default function IntroLoader() {
   const [visible, setVisible] = useState(true);
   const rootRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
-  const stageRef = useRef<HTMLDivElement>(null);
   const taglineRef = useRef<HTMLParagraphElement>(null);
   const haloRef = useRef<HTMLDivElement>(null);
-  const ringRef = useRef<HTMLDivElement>(null);
   const scanRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const countRef = useRef<HTMLSpanElement>(null);
@@ -21,17 +19,15 @@ export default function IntroLoader() {
   useEffect(() => {
     const root = rootRef.current;
     const logo = logoRef.current;
-    const stage = stageRef.current;
     const tagline = taglineRef.current;
     const halo = haloRef.current;
-    const ring = ringRef.current;
     const scan = scanRef.current;
     const progress = progressRef.current;
     const count = countRef.current;
     const leftCurtain = leftCurtainRef.current;
     const rightCurtain = rightCurtainRef.current;
 
-    if (!root || !logo || !stage || !tagline || !halo || !ring || !scan || !progress || !count || !leftCurtain || !rightCurtain) {
+    if (!root || !logo || !tagline || !halo || !scan || !progress || !count || !leftCurtain || !rightCurtain) {
       setVisible(false);
       return;
     }
@@ -69,14 +65,13 @@ export default function IntroLoader() {
         scale: 0.84,
         rotateX: 9,
         filter: "blur(10px)",
+        clipPath: "inset(0 50% 0 50% round 32px)",
         transformPerspective: 1200,
         transformOrigin: "50% 65%",
         force3D: true,
       });
-      gsap.set(stage, { autoAlpha: 0, y: 34, scale: 0.92, rotateX: 12 });
       gsap.set(tagline, { autoAlpha: 0, y: 12, filter: "blur(5px)" });
       gsap.set(halo, { autoAlpha: 0, scale: 0.72 });
-      gsap.set(ring, { autoAlpha: 0, scale: 0.78, rotation: -24 });
       gsap.set(scan, { xPercent: -150, autoAlpha: 0 });
       gsap.set(progress, { scaleX: 0, transformOrigin: "left center" });
       gsap.set([leftCurtain, rightCurtain], { xPercent: 0 });
@@ -89,14 +84,6 @@ export default function IntroLoader() {
         duration: 1.15,
         ease: "power2.out",
       }, 0)
-        .to(stage, {
-          autoAlpha: 1,
-          y: 0,
-          scale: 1,
-          rotateX: 0,
-          duration: 0.95,
-          ease: "power3.out",
-        }, 0.12)
         .to(logo, {
           autoAlpha: 1,
           y: 0,
@@ -104,7 +91,8 @@ export default function IntroLoader() {
           scale: 1,
           rotateX: 0,
           filter: "blur(0px)",
-          duration: 1.25,
+          clipPath: "inset(0 0% 0 0% round 32px)",
+          duration: 1.45,
           ease: "power3.out",
         }, 0.28)
         .to(tagline, {
@@ -114,18 +102,6 @@ export default function IntroLoader() {
           duration: 0.85,
           ease: "power3.out",
         }, 1.18)
-        .to(ring, {
-          autoAlpha: 1,
-          scale: 1,
-          rotation: 0,
-          duration: 0.9,
-          ease: "back.out(1.35)",
-        }, 0.75)
-        .to(ring, {
-          rotation: 336,
-          duration: 3.25,
-          ease: "power1.inOut",
-        }, 1.1)
         .to(scan, {
           xPercent: 150,
           autoAlpha: 0.85,
@@ -179,13 +155,6 @@ export default function IntroLoader() {
         <div className="relative z-40 flex w-full -translate-y-5 flex-col items-center px-6">
           <div className="relative flex h-[min(66vw,430px)] w-[min(78vw,500px)] items-center justify-center [perspective:1200px]">
             <div
-              ref={ringRef}
-              className="pointer-events-none absolute inset-[5%] rounded-full border border-[#D7C18F]/70 shadow-[0_0_28px_rgba(196,163,98,0.13),inset_0_0_22px_rgba(196,163,98,0.08)] [transform:rotateX(66deg)]"
-            >
-              <div className="absolute left-1/2 top-[-5px] h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-[#C4A15E] shadow-[0_0_14px_4px_rgba(196,161,94,0.35)]" />
-            </div>
-
-            <div
               ref={logoRef}
               className="relative z-20 flex w-[min(67vw,390px)] items-center justify-center rounded-[2rem] border border-white/90 bg-white/85 p-5 shadow-[0_28px_70px_rgba(27,64,39,0.14),0_10px_28px_rgba(174,143,85,0.16),inset_0_1px_0_rgba(255,255,255,1)] backdrop-blur-xl [transform-style:preserve-3d] sm:p-7"
             >
@@ -204,12 +173,6 @@ export default function IntroLoader() {
             </div>
           </div>
 
-          <div
-            ref={stageRef}
-            className="relative -mt-8 h-7 w-[min(70vw,420px)] rounded-[50%] border border-[#D9C99F]/70 bg-[linear-gradient(180deg,#FFFFFF_0%,#F4F0E7_48%,#E6DDCC_100%)] shadow-[0_13px_24px_rgba(44,63,43,0.12),inset_0_2px_3px_rgba(255,255,255,0.95)] [transform:rotateX(58deg)]"
-          >
-            <div className="absolute inset-x-[8%] top-1/2 h-px -translate-y-1/2 bg-[linear-gradient(90deg,transparent,rgba(184,148,82,0.65),transparent)]" />
-          </div>
 
           <p
             ref={taglineRef}

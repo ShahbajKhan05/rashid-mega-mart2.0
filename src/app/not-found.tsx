@@ -136,7 +136,7 @@ export default function NotFound() {
                 @keyframes coneBounce { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-3px); } }
                 @media (prefers-reduced-motion: reduce) { .dig-arm,.dirt-fall,.crane-load,.worker-motion,.cone { animation:none !important; } }
               `}</style>
-            </svg>      </svg>
+            </svg>
           </div>
         </div>
         <footer className="flex flex-wrap items-center justify-between gap-2 border-t border-[#eadfce] bg-[#fffaf1] px-4 py-3 text-[10px] font-bold tracking-[.12em] text-[#9b8261] sm:px-7">

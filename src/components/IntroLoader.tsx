@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
-const SESSION_KEY = "rmm-neoleaf-style-loader-v3";
+const SESSION_KEY = "rmm-neoleaf-style-loader-v4";
 
 export default function IntroLoader() {
   const [visible, setVisible] = useState(true);
@@ -59,7 +59,7 @@ export default function IntroLoader() {
       };
     }
 
-    fallback = window.setTimeout(finish, 5500);
+    fallback = window.setTimeout(finish, 5600);
 
     const context = gsap.context(() => {
       const progress = { value: 0 };
@@ -67,64 +67,63 @@ export default function IntroLoader() {
       gsap.set(brand, {
         autoAlpha: 0,
         x: 0,
-        y: 26,
-        z: -70,
-        rotateX: 9,
-        rotateY: -3,
-        scale: 0.94,
-        transformPerspective: 900,
+        y: 30,
+        z: -90,
+        rotateX: 10,
+        rotateY: -2,
+        scale: 0.92,
+        transformPerspective: 1100,
         transformOrigin: "50% 50%",
         force3D: true,
       });
       gsap.set(fill, { clipPath: "inset(100% 0 0 0)" });
-      gsap.set(subline, { opacity: 0, y: 9 });
+      gsap.set(subline, { opacity: 0, y: 12 });
 
       const timeline = gsap.timeline({ onComplete: finish });
 
       timeline
         .to(brand, {
           autoAlpha: 1,
-          x: 0,
           y: 0,
           z: 0,
           rotateX: 0,
           rotateY: 0,
           scale: 1,
-          duration: 0.72,
+          duration: 0.78,
           ease: "power3.out",
         }, 0)
         .to(subline, {
-          opacity: 0.82,
+          opacity: 0.9,
           y: 0,
-          duration: 0.55,
+          duration: 0.58,
           ease: "power2.out",
-        }, 0.34)
+        }, 0.38)
         .to(progress, {
           value: 100,
-          duration: 3.05,
+          duration: 3.15,
           ease: "power1.inOut",
           onUpdate: () => {
             count.textContent = String(Math.round(progress.value));
           },
-        }, 0.5)
+        }, 0.55)
         .to(fill, {
           clipPath: "inset(0% 0 0 0)",
-          duration: 3.05,
+          duration: 3.15,
           ease: "power1.inOut",
-        }, 0.5)
+        }, 0.55)
         .to(brand, {
-          scale: 5.2,
-          z: 150,
-          rotateX: -5,
-          rotateY: 3,
-          duration: 0.82,
+          scale: 5.4,
+          z: 180,
+          rotateX: -4,
+          rotateY: 2,
+          duration: 0.86,
           ease: "power4.in",
-        }, 3.72)
+        }, 3.82)
         .to(root, {
           autoAlpha: 0,
-          duration: 0.36,
+          duration: 0.38,
           ease: "power2.inOut",
-        }, 4.18);
+        }, 4.3);
     }, root);
 
     return () => {
@@ -146,32 +145,32 @@ export default function IntroLoader() {
       >
         <div
           ref={brandRef}
-          className="relative z-10 w-[94vw] max-w-[1500px] text-center [transform-style:preserve-3d]"
+          className="relative z-10 w-[94vw] max-w-[1400px] text-center [transform-style:preserve-3d]"
         >
-          <div className="relative inline-block whitespace-nowrap text-[clamp(4.4rem,18vw,15rem)] font-black leading-[0.82] tracking-[-0.095em] text-[#51202F]">
+          <div className="relative inline-block whitespace-nowrap text-[clamp(4rem,16vw,15rem)] font-black leading-[0.86] tracking-[-0.055em] text-[#51202F]">
             RASHID
             <span
               ref={fillRef}
-              className="absolute inset-0 bg-[linear-gradient(180deg,#FFF9E8_0%,#E8C77D_58%,#D4A84F_100%)] bg-clip-text text-transparent"
+              className="absolute inset-0 bg-[linear-gradient(180deg,#FFF8E6_0%,#F0D58F_54%,#D6AA54_100%)] bg-clip-text text-transparent"
               aria-hidden="true"
             >
               RASHID
             </span>
           </div>
 
-          <div className="mt-5 flex items-center justify-center gap-3 sm:mt-7">
-            <span className="h-px w-8 bg-[#9B7047]/70 sm:w-14" />
+          <div className="mt-6 flex items-center justify-center gap-3 sm:mt-7 sm:gap-4">
+            <span className="h-px w-8 bg-[#A17A4B]/75 sm:w-14" />
             <span
               ref={sublineRef}
-              className="text-[9px] font-semibold uppercase tracking-[0.48em] text-[#D9BD88] sm:text-[11px] sm:tracking-[0.62em]"
+              className="text-[9px] font-semibold uppercase tracking-[0.46em] text-[#E0C58F] sm:text-[11px] sm:tracking-[0.58em]"
             >
               MEGA MART
             </span>
-            <span className="h-px w-8 bg-[#9B7047]/70 sm:w-14" />
+            <span className="h-px w-8 bg-[#A17A4B]/75 sm:w-14" />
           </div>
 
-          <div className="absolute -bottom-9 right-[2%] flex items-center gap-1 font-sans text-[9px] font-medium tracking-[0.06em] text-[#D8C29A] sm:-bottom-11 sm:text-[10px]">
-            <span className="text-[#A8875A]">loading...</span>
+          <div className="absolute -bottom-10 right-[2%] flex items-center gap-1.5 font-sans text-[9px] font-medium tracking-[0.07em] text-[#E0C58F] sm:-bottom-12 sm:text-[10px]">
+            <span className="text-[#B18A55]">loading...</span>
             <span ref={countRef} className="tabular-nums">0</span>
             <span>%</span>
           </div>

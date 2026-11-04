@@ -8,9 +8,10 @@ export default function IntroLoader() {
   const [visible, setVisible] = useState(true);
   const rootRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
-  const nameRef = useRef<HTMLDivElement>(null);
-  const glowRef = useRef<HTMLDivElement>(null);
-  const sweepRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const haloRef = useRef<HTMLDivElement>(null);
+  const ringRef = useRef<HTMLDivElement>(null);
+  const scanRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const countRef = useRef<HTMLSpanElement>(null);
   const leftCurtainRef = useRef<HTMLDivElement>(null);
@@ -19,15 +20,16 @@ export default function IntroLoader() {
   useEffect(() => {
     const root = rootRef.current;
     const logo = logoRef.current;
-    const name = nameRef.current;
-    const glow = glowRef.current;
-    const sweep = sweepRef.current;
+    const stage = stageRef.current;
+    const halo = haloRef.current;
+    const ring = ringRef.current;
+    const scan = scanRef.current;
     const progress = progressRef.current;
     const count = countRef.current;
     const leftCurtain = leftCurtainRef.current;
     const rightCurtain = rightCurtainRef.current;
 
-    if (!root || !logo || !name || !glow || !sweep || !progress || !count || !leftCurtain || !rightCurtain) {
+    if (!root || !logo || !stage || !halo || !ring || !scan || !progress || !count || !leftCurtain || !rightCurtain) {
       setVisible(false);
       return;
     }
@@ -60,90 +62,86 @@ export default function IntroLoader() {
 
       gsap.set(logo, {
         autoAlpha: 0,
-        y: 28,
-        z: -70,
-        scale: 0.88,
-        filter: "blur(12px)",
-        rotateX: 7,
-        transformPerspective: 1100,
-        transformOrigin: "50% 50%",
+        y: 38,
+        z: -90,
+        scale: 0.84,
+        rotateX: 9,
+        filter: "blur(10px)",
+        transformPerspective: 1200,
+        transformOrigin: "50% 65%",
         force3D: true,
       });
-      gsap.set(name, { autoAlpha: 0, y: 18, filter: "blur(7px)" });
-      gsap.set(glow, { autoAlpha: 0, scale: 0.7 });
-      gsap.set(sweep, { xPercent: -135, autoAlpha: 0 });
+      gsap.set(stage, { autoAlpha: 0, y: 34, scale: 0.92, rotateX: 12 });
+      gsap.set(halo, { autoAlpha: 0, scale: 0.72 });
+      gsap.set(ring, { autoAlpha: 0, scale: 0.78, rotation: -24 });
+      gsap.set(scan, { xPercent: -150, autoAlpha: 0 });
       gsap.set(progress, { scaleX: 0, transformOrigin: "left center" });
       gsap.set([leftCurtain, rightCurtain], { xPercent: 0 });
 
       const tl = gsap.timeline({ onComplete: finish });
 
-      tl.to(glow, {
+      tl.to(halo, {
         autoAlpha: 1,
         scale: 1,
-        duration: 1.2,
+        duration: 1.15,
         ease: "power2.out",
       }, 0)
+        .to(stage, {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+          rotateX: 0,
+          duration: 0.95,
+          ease: "power3.out",
+        }, 0.12)
         .to(logo, {
           autoAlpha: 1,
           y: 0,
           z: 0,
           scale: 1,
-          filter: "blur(0px)",
           rotateX: 0,
-          duration: 1.05,
-          ease: "power3.out",
-        }, 0.12)
-        .to(sweep, {
-          xPercent: 135,
-          autoAlpha: 0.72,
-          duration: 0.95,
-          ease: "power2.inOut",
-        }, 0.95)
-        .to(sweep, { autoAlpha: 0, duration: 0.3 }, 1.62)
-        .to(name, {
-          autoAlpha: 1,
-          y: 0,
           filter: "blur(0px)",
-          duration: 0.72,
+          duration: 1.25,
           ease: "power3.out",
-        }, 1.42)
+        }, 0.28)
+        .to(ring, {
+          autoAlpha: 1,
+          scale: 1,
+          rotation: 0,
+          duration: 0.9,
+          ease: "back.out(1.35)",
+        }, 0.75)
+        .to(ring, {
+          rotation: 336,
+          duration: 3.25,
+          ease: "power1.inOut",
+        }, 1.1)
+        .to(scan, {
+          xPercent: 150,
+          autoAlpha: 0.85,
+          duration: 1.25,
+          ease: "power2.inOut",
+        }, 1.05)
+        .to(scan, { autoAlpha: 0, duration: 0.28 }, 2.05)
         .to(state, {
           value: 100,
-          duration: 1.85,
+          duration: 3.25,
           ease: "power1.inOut",
           onUpdate: () => {
             count.textContent = String(Math.round(state.value));
             gsap.set(progress, { scaleX: state.value / 100 });
           },
-        }, 1.35)
-        .to([logo, name], {
-          scale: 1.025,
-          duration: 0.42,
-          ease: "sine.inOut",
-          yoyo: true,
-          repeat: 1,
-        }, 3.05)
-        // Theatre-style split curtains: open from the centre outwards.
-        .to(leftCurtain, {
-          xPercent: -103,
-          duration: 1.35,
+        }, 1.05)
+        .to([leftCurtain, rightCurtain], {
+          xPercent: (index) => (index === 0 ? -103 : 103),
+          duration: 1.25,
           ease: "power3.inOut",
-        }, 3.78)
-        .to(rightCurtain, {
-          xPercent: 103,
-          duration: 1.35,
-          ease: "power3.inOut",
-        }, 3.78)
-        .to([logo, name, glow], {
-          autoAlpha: 0,
-          duration: 0.28,
-          ease: "power2.out",
-        }, 4.02)
+        }, 4.35)
         .to(root, {
           autoAlpha: 0,
-          duration: 0.22,
+          duration: 0.3,
           ease: "power1.out",
-        }, 5.28);
+        }, 5.42);
     }, root);
 
     return () => {
@@ -160,66 +158,74 @@ export default function IntroLoader() {
       <h1 className="sr-only">Rashid Mega Mart</h1>
       <div
         ref={rootRef}
-        className="fixed inset-0 z-[99999] isolate flex items-center justify-center overflow-hidden bg-[#FCFBF8]"
+        className="fixed inset-0 z-[99999] isolate flex items-center justify-center overflow-hidden bg-[#FFFFFF]"
         aria-hidden="true"
       >
         <div
-          ref={glowRef}
-          className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[min(72vw,620px)] w-[min(72vw,620px)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(224,196,139,0.34)_0%,rgba(224,196,139,0.15)_34%,rgba(16,91,39,0.08)_52%,rgba(252,251,248,0)_74%)] blur-2xl"
+          ref={haloRef}
+          className="pointer-events-none absolute left-1/2 top-[43%] z-0 h-[min(78vw,660px)] w-[min(78vw,660px)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(220,197,145,0.30)_0%,rgba(220,197,145,0.13)_38%,rgba(20,104,49,0.07)_57%,rgba(255,255,255,0)_74%)] blur-2xl"
         />
 
-        <div
-          ref={logoRef}
-          className="relative z-40 flex w-[min(72vw,500px)] items-center justify-center rounded-[2rem] border border-[#D9C18F]/70 bg-white/90 p-5 shadow-[0_24px_80px_rgba(70,91,45,0.13),0_8px_24px_rgba(170,132,65,0.12),inset_0_1px_0_rgba(255,255,255,0.95)] backdrop-blur-xl [transform-style:preserve-3d] sm:p-8"
-        >
-          <Image
-            src="/Logo.png"
-            alt="Rashid Mega Mart"
-            width={1100}
-            height={1100}
-            priority
-            className="h-auto max-h-[39vh] w-full object-contain drop-shadow-[0_16px_30px_rgba(12,76,31,0.22)]"
-          />
-          <div
-            ref={sweepRef}
-            className="pointer-events-none absolute inset-y-[8%] left-[-24%] w-[42%] skew-x-[-18deg] bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.12)_18%,rgba(255,255,255,0.9)_50%,rgba(224,196,139,0.24)_72%,transparent)] mix-blend-screen"
-          />
-        </div>
-
-        <div
-          ref={nameRef}
-          className="absolute left-1/2 top-[calc(50%+min(25vh,190px))] z-40 -translate-x-1/2 whitespace-nowrap text-center"
-        >
-          <div className="font-serif text-[clamp(1.05rem,3vw,1.65rem)] font-semibold uppercase tracking-[0.28em] text-[#765B36]">
-            Rashid Mega Mart
-          </div>
-          <div className="mx-auto mt-3 h-px w-16 bg-[linear-gradient(90deg,transparent,#C7A66A,transparent)]" />
-        </div>
-
-        <div className="absolute bottom-[8vh] left-1/2 z-40 flex w-[min(70vw,460px)] -translate-x-1/2 flex-col items-center gap-3">
-          <div className="h-[2px] w-full overflow-hidden rounded-full bg-[#EAE5DA]">
+        <div className="relative z-40 flex w-full -translate-y-5 flex-col items-center px-6">
+          <div className="relative flex h-[min(66vw,430px)] w-[min(78vw,500px)] items-center justify-center [perspective:1200px]">
             <div
-              ref={progressRef}
-              className="h-full w-full origin-left rounded-full bg-[linear-gradient(90deg,#C5A66B,#E8D6AD,#B58B4D)]"
-            />
+              ref={ringRef}
+              className="pointer-events-none absolute inset-[5%] rounded-full border border-[#D7C18F]/70 shadow-[0_0_28px_rgba(196,163,98,0.13),inset_0_0_22px_rgba(196,163,98,0.08)] [transform:rotateX(66deg)]"
+            >
+              <div className="absolute left-1/2 top-[-5px] h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-[#C4A15E] shadow-[0_0_14px_4px_rgba(196,161,94,0.35)]" />
+            </div>
+
+            <div
+              ref={logoRef}
+              className="relative z-20 flex w-[min(67vw,390px)] items-center justify-center rounded-[2rem] border border-white/90 bg-white/85 p-5 shadow-[0_28px_70px_rgba(27,64,39,0.14),0_10px_28px_rgba(174,143,85,0.16),inset_0_1px_0_rgba(255,255,255,1)] backdrop-blur-xl [transform-style:preserve-3d] sm:p-7"
+            >
+              <Image
+                src="/Logo.png"
+                alt="Rashid Mega Mart"
+                width={1100}
+                height={1100}
+                priority
+                className="h-auto max-h-[34vh] w-full object-contain drop-shadow-[0_15px_24px_rgba(18,76,35,0.20)]"
+              />
+              <div
+                ref={scanRef}
+                className="pointer-events-none absolute inset-y-[7%] left-[-30%] z-30 w-[38%] skew-x-[-18deg] bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.18)_15%,rgba(255,255,255,0.96)_50%,rgba(224,196,139,0.32)_76%,transparent)] mix-blend-screen"
+              />
+            </div>
           </div>
-          <div className="flex w-full items-center justify-between text-[9px] font-medium uppercase tracking-[0.2em] text-[#8A7B62] sm:text-[10px]">
-            <span>Loading your experience</span>
-            <span className="tabular-nums"><span ref={countRef}>0</span>%</span>
+
+          <div
+            ref={stageRef}
+            className="relative -mt-8 h-7 w-[min(70vw,420px)] rounded-[50%] border border-[#D9C99F]/70 bg-[linear-gradient(180deg,#FFFFFF_0%,#F4F0E7_48%,#E6DDCC_100%)] shadow-[0_13px_24px_rgba(44,63,43,0.12),inset_0_2px_3px_rgba(255,255,255,0.95)] [transform:rotateX(58deg)]"
+          >
+            <div className="absolute inset-x-[8%] top-1/2 h-px -translate-y-1/2 bg-[linear-gradient(90deg,transparent,rgba(184,148,82,0.65),transparent)]" />
+          </div>
+
+          <div className="mt-12 flex w-[min(70vw,360px)] flex-col items-center gap-3">
+            <div className="h-[3px] w-full overflow-hidden rounded-full bg-[#EEEAE2] shadow-[inset_0_1px_2px_rgba(80,70,50,0.08)]">
+              <div
+                ref={progressRef}
+                className="h-full w-full origin-left rounded-full bg-[linear-gradient(90deg,#145C2B,#8EAD73,#C6A568)] shadow-[0_0_9px_rgba(142,173,115,0.35)]"
+              />
+            </div>
+            <div className="flex w-full items-center justify-between text-[10px] font-medium tracking-[0.16em] text-[#817966]">
+              <span>PREPARING YOUR EXPERIENCE</span>
+              <span className="tabular-nums text-[#315B3B]"><span ref={countRef}>0</span>%</span>
+            </div>
           </div>
         </div>
 
         <div
           ref={leftCurtainRef}
-          className="pointer-events-none absolute inset-y-0 left-0 z-30 w-1/2 border-r border-[#D8C7A7]/70 bg-[repeating-linear-gradient(90deg,#F7F3EA_0px,#F7F3EA_34px,#F0E8D9_58px,#FFFEFA_82px,#F7F3EA_112px)] shadow-[18px_0_45px_rgba(107,82,46,0.10)]"
+          className="pointer-events-none absolute inset-y-0 left-0 z-30 w-1/2 border-r border-[#E7E1D5]/80 bg-[repeating-linear-gradient(90deg,#FFFFFF_0px,#FFFFFF_34px,#F7F5F0_58px,#FFFFFF_82px,#FBFAF7_112px)] shadow-[18px_0_45px_rgba(107,82,46,0.08)]"
         >
-          <div className="absolute inset-y-0 right-0 w-5 bg-[linear-gradient(90deg,transparent,rgba(160,126,75,0.12))]" />
+          <div className="absolute inset-y-0 right-0 w-5 bg-[linear-gradient(90deg,transparent,rgba(160,126,75,0.10))]" />
         </div>
         <div
           ref={rightCurtainRef}
-          className="pointer-events-none absolute inset-y-0 right-0 z-30 w-1/2 border-l border-[#D8C7A7]/70 bg-[repeating-linear-gradient(90deg,#F7F3EA_0px,#F7F3EA_34px,#F0E8D9_58px,#FFFEFA_82px,#F7F3EA_112px)] shadow-[-18px_0_45px_rgba(107,82,46,0.10)]"
+          className="pointer-events-none absolute inset-y-0 right-0 z-30 w-1/2 border-l border-[#E7E1D5]/80 bg-[repeating-linear-gradient(90deg,#FFFFFF_0px,#FFFFFF_34px,#F7F5F0_58px,#FFFFFF_82px,#FBFAF7_112px)] shadow-[-18px_0_45px_rgba(107,82,46,0.08)]"
         >
-          <div className="absolute inset-y-0 left-0 w-5 bg-[linear-gradient(270deg,transparent,rgba(160,126,75,0.12))]" />
+          <div className="absolute inset-y-0 left-0 w-5 bg-[linear-gradient(270deg,transparent,rgba(160,126,75,0.10))]" />
         </div>
       </div>
     </>

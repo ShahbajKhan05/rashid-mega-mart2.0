@@ -202,43 +202,43 @@ export default function Navbar() {
         {/* =========================================
             MOBILE HEADER (Clean & Professional)
             ========================================= */}
-        <div className="flex flex-col px-2.5 pb-1.5 pt-1.5 lg:hidden">
+        <div className="flex flex-col gap-1 px-3 pb-2 pt-2 lg:hidden">
 
           {/* ROW 1: Menu + Logo + Clean Icons */}
-          <div className="flex items-center justify-between gap-0.5">
+          <div className="flex min-h-10 items-center justify-between gap-2">
             
             {/* Left Side */}
-            <div className="flex items-center gap-1.5 min-w-0">
+            <div className="flex items-center gap-2 min-w-0">
               {/* Menu Button */}
               <button
                 onClick={() => setMenuOpen(true)}
-                className="flex h-7 items-center justify-center gap-1 rounded-md border border-gray-200 bg-white px-1.5 text-[11px] font-bold text-gray-700 shadow-sm active:scale-95 transition"
+                className="flex h-10 shrink-0 items-center justify-center gap-1.5 rounded-lg border border-gray-200 bg-white px-2.5 text-xs font-bold text-gray-700 shadow-sm active:scale-95 transition"
               >
-                <Menu size={13} /> Menu
+                <Menu size={17} /> Menu
               </button>
               
               {/* Logo & Location */}
-              <a href="/" className="flex items-center gap-1.5 min-w-0">
-                <Image src="/Logo.png" alt="Logo" width={22} height={22} className="h-[22px] w-[22px] object-contain shrink-0" />
+              <a href="/" className="flex min-w-0 items-center gap-2">
+                <Image src="/Logo.png" alt="Logo" width={32} height={32} className="h-8 w-8 shrink-0 object-contain" />
                 <div className="flex flex-col min-w-0">
-                  <span className="text-[11px] font-black leading-tight text-[#800020] truncate">
+                  <span className="text-sm font-black leading-tight text-[#800020] truncate">
                     Rashid Mega Mart
                   </span>
-                  <button onClick={() => setLocationModalOpen(true)} className="flex items-center gap-0.5 text-[8px] font-bold text-gray-500 mt-0.5 min-w-0">
-                    <MapPin size={9} className="text-[#138047] shrink-0" />
-                    <span className="truncate max-w-[80px]">{selectedLocation}</span>
-                    <ChevronDown size={9} className="shrink-0" />
+                  <button onClick={() => setLocationModalOpen(true)} className="mt-0.5 flex min-w-0 items-center gap-1 text-[10px] font-bold text-gray-500">
+                    <MapPin size={11} className="shrink-0 text-[#138047]" />
+                    <span className="max-w-[112px] truncate">{selectedLocation}</span>
+                    <ChevronDown size={11} className="shrink-0" />
                   </button>
                 </div>
               </a>
             </div>
 
             {/* Right Side Icons (Clean, No heavy borders) */}
-            <div className="flex items-center gap-1 shrink-0">
+            <div className="flex shrink-0 items-center gap-2">
               {/* Cart Button */}
-              <button onClick={openCart} className="relative flex h-7 w-7 items-center justify-center rounded-lg bg-[#800020] text-white shadow-sm active:scale-95 transition ml-0.5">
-                <ShoppingCart size={15} />
-                <span className="absolute -right-1 -top-1 flex h-3.5 min-w-[14px] items-center justify-center rounded-full bg-[#D4A84F] px-1 text-[8px] font-black text-[#35120D] shadow-sm">
+              <button onClick={openCart} className="relative ml-0.5 flex h-10 w-10 items-center justify-center rounded-xl bg-[#800020] text-white shadow-sm active:scale-95 transition">
+                <ShoppingCart size={19} />
+                <span className="absolute -right-1 -top-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#D4A84F] px-1 text-[9px] font-black text-[#35120D] shadow-sm">
                   {cartLabelCount}
                 </span>
               </button>
@@ -246,21 +246,21 @@ export default function Navbar() {
           </div>
 
           {/* ROW 2: Search + Language */}
-          <div className="mt-1.5 flex items-center gap-1">
+          <div className="mt-1 flex items-center gap-2">
             <button
               onClick={() => setSearchOpen(true)}
-              className="flex h-7 flex-1 items-center gap-1.5 rounded-lg border border-gray-200 bg-gray-50 px-2 text-sm text-gray-400"
+              className="flex h-10 flex-1 items-center gap-2 rounded-xl border border-gray-200 bg-gray-50 px-3 text-sm text-gray-400"
             >
-              <Search size={14} />
-              <span className="text-[10px] font-medium truncate">{isHindi ? "आटा, तेल खोजें..." : "Search atta, oil..."}</span>
+              <Search size={17} />
+              <span className="truncate text-xs font-medium">{isHindi ? "आटा, तेल खोजें..." : "Search atta, oil..."}</span>
             </button>
-            <div className="shrink-0 scale-[0.82] origin-right">
+            <div className="origin-right shrink-0 scale-95">
               <LanguageToggle language={language} onSelect={() => toggleLanguage()} />
             </div>
           </div>
 
           {/* 🔥 ROW 3: Categories with Original Icons */}
-          <div className="mt-1.5 flex items-center gap-1 overflow-x-auto pb-0.5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          <div className="mt-1 flex items-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
             {categoryOptions.map((cat) => {
               // 🔥 Har category ke liye uske naam ka sahi icon select kar rahe hain
               let Icon = LayoutGrid;
@@ -274,9 +274,9 @@ export default function Navbar() {
                 <a
                   key={cat.id}
                   href={`/products${cat.id !== "all" ? `?category=${cat.id}` : ""}`}
-                  className="shrink-0 flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-2.5 py-1 text-[9px] font-bold text-gray-700 shadow-sm hover:border-[#800020]/30 hover:text-[#800020] transition"
+                  className="flex h-9 shrink-0 items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-[11px] font-bold text-gray-700 shadow-sm transition hover:border-[#800020]/30 hover:text-[#800020]"
                 >
-                  <Icon size={13} className="text-[#800020]" />
+                  <Icon size={15} className="text-[#800020]" />
                   {isHindi ? cat.hi : cat.en}
                 </a>
               );
@@ -287,7 +287,7 @@ export default function Navbar() {
       </header>
 
       {/* Spacer */}
-      <div className="h-[108px] lg:h-[68px]" />
+      <div className="h-[148px] lg:h-[68px]" />
 
       {/* =========================================
           LOCATION MODAL

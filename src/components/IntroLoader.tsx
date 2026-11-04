@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Image from "next/image";
 
-const SESSION_KEY = "rmm-intro-seen";
+const SESSION_KEY = "rmm-intro-seen-v2";
 
 export default function IntroLoader() {
   const [isLoading, setIsLoading] = useState(true);

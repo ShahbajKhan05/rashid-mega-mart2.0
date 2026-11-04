@@ -13,6 +13,10 @@ export default function IntroLoader() {
     if (!root) return;
 
     const previousOverflow = document.body.style.overflow;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setIsLoading(false);
+      return;
+    }
     document.body.style.overflow = "hidden";
 
     const ctx = gsap.context(() => {
@@ -26,10 +30,10 @@ export default function IntroLoader() {
       const revealElements = [logo, ...Array.from(rings), brand, line, caption];
 
       gsap.set([leftCurtain, rightCurtain], { xPercent: 0, force3D: true });
-      gsap.set(logo, { scale: 0.72, opacity: 0, y: 18, rotate: -8 });
-      gsap.set(rings, { scale: 0.72, opacity: 0, rotation: -35 });
-      gsap.set(brand, { y: 22, opacity: 0, letterSpacing: "0.34em" });
-      gsap.set([line, caption], { y: 10, opacity: 0 });
+      gsap.set(logo, { scale: 0.72, opacity: 0, y: 18, rotate: -8, force3D: true });
+      gsap.set(rings, { scale: 0.72, opacity: 0, rotation: -35, force3D: true });
+      gsap.set(brand, { y: 22, opacity: 0, force3D: true });
+      gsap.set([line, caption], { y: 10, opacity: 0, force3D: true });
 
       const timeline = gsap.timeline({
         defaults: { ease: "power3.out" },
@@ -43,7 +47,7 @@ export default function IntroLoader() {
         .to(rings[0], { scale: 1, opacity: 0.9, rotation: 0, duration: 0.95, ease: "expo.out" }, 0.12)
         .to(rings[1], { scale: 1, opacity: 0.65, rotation: 0, duration: 1.05, ease: "expo.out" }, 0.22)
         .to(logo, { scale: 1, opacity: 1, y: 0, rotate: 0, duration: 0.95, ease: "back.out(1.45)" }, 0.28)
-        .to(brand, { y: 0, opacity: 1, letterSpacing: "0.2em", duration: 0.7 }, 0.72)
+        .to(brand, { y: 0, opacity: 1, duration: 0.7 }, 0.72)
         .to(line, { y: 0, opacity: 1, duration: 0.55 }, 0.95)
         .to(caption, { y: 0, opacity: 1, duration: 0.5 }, 1.08)
         .to({}, { duration: 0.48 })

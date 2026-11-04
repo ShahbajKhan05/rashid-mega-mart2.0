@@ -19,14 +19,14 @@ const DEFAULT_LOCATION = "Ghoghar, Rewa";
 
 function LanguageToggle({ language, onSelect }: { language: Language; onSelect: (l: Language) => void; }) {
   return (
-    <div className="inline-flex shrink-0 items-center rounded-lg border border-gray-200 bg-white p-0.5 shadow-sm h-9">
+    <div className="inline-flex h-9 shrink-0 items-center rounded-full border border-white/80 bg-[#eeece6] p-1 shadow-[inset_2px_2px_5px_rgba(120,110,90,0.12),inset_-2px_-2px_5px_rgba(255,255,255,0.95)]">
       {(["en", "hi"] as Language[]).map((lang) => (
         <button
           key={lang}
           type="button"
           onClick={() => onSelect(lang)}
           className={`flex h-full min-w-[32px] items-center justify-center rounded-md text-[10px] font-black transition-all ${
-            language === lang ? "bg-[#800020] text-white shadow-sm" : "text-gray-500 hover:bg-gray-100"
+            language === lang ? "bg-[#800020] text-white shadow-[3px_3px_7px_rgba(80,0,24,0.24),inset_1px_1px_2px_rgba(255,255,255,0.25)]" : "text-gray-500 hover:bg-white/70"
           }`}
         >
           {lang.toUpperCase()}
@@ -136,7 +136,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/70 bg-[#f7f5f0]/90 shadow-[0_10px_35px_rgba(75,58,35,0.10)] backdrop-blur-2xl">
 
         {/* =========================================
             DESKTOP HEADER
@@ -152,7 +152,7 @@ export default function Navbar() {
             </a>
             <button
               onClick={() => setLocationModalOpen(true)}
-              className="flex items-center gap-2 rounded-lg border border-gray-100 bg-[#FFFCF0] px-2.5 py-1.5 transition-colors hover:border-[#800020]/30 shrink-0"
+              className="flex shrink-0 items-center gap-2 rounded-2xl border border-white/90 bg-[#f4f1e9] px-3 py-2 shadow-[5px_5px_12px_rgba(120,105,80,0.12),-5px_-5px_12px_rgba(255,255,255,0.9)] transition-all hover:-translate-y-0.5 hover:shadow-[7px_7px_15px_rgba(120,105,80,0.16),-5px_-5px_12px_rgba(255,255,255,0.95)]"
             >
               <MapPin size={16} className="text-[#138047]" />
               <div className="flex flex-col items-start">
@@ -172,7 +172,7 @@ export default function Navbar() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search for atta, oil..."
-                className="h-9 w-full rounded-lg border border-gray-200 bg-gray-50 pl-11 pr-4 text-sm font-medium outline-none focus:border-[#800020] focus:bg-white"
+                className="h-10 w-full rounded-2xl border border-white/90 bg-[#eeece6] pl-11 pr-4 text-sm font-medium text-gray-700 shadow-[inset_3px_3px_7px_rgba(120,110,90,0.12),inset_-3px_-3px_7px_rgba(255,255,255,0.95)] outline-none transition focus:bg-white focus:ring-2 focus:ring-[#800020]/15"
               />
             </form>
           </div>
@@ -180,16 +180,16 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             <nav className="flex items-center gap-3">
               <a href="/" className="text-sm font-bold text-gray-700 hover:text-[#800020]">Home</a>
-              <a href="/products" className="text-sm font-bold text-gray-700 hover:text-[#800020]">Products</a>
-              <a href="/order-tracking" className="text-sm font-bold text-gray-700 hover:text-[#800020]">Track Order</a>
-              <a href="/admin" className="flex items-center gap-1 text-sm font-bold text-gray-500 hover:text-[#800020]">
+              <a href="/products" className="rounded-full px-3 py-2 text-sm font-semibold text-gray-700 transition hover:bg-white hover:text-[#800020] hover:shadow-sm">Products</a>
+              <a href="/order-tracking" className="rounded-full px-3 py-2 text-sm font-semibold text-gray-700 transition hover:bg-white hover:text-[#800020] hover:shadow-sm">Track Order</a>
+              <a href="/admin" className="flex items-center gap-1 rounded-full px-3 py-2 text-sm font-semibold text-gray-600 transition hover:bg-white hover:text-[#800020] hover:shadow-sm">
                 <ShieldCheck size={14} /> Admin
               </a>
             </nav>
 
             <LanguageToggle language={language} onSelect={() => toggleLanguage()} />
 
-            <button onClick={openCart} className="flex h-9 items-center gap-1.5 rounded-lg bg-[#800020] px-3 text-white shadow-md hover:bg-[#600018]">
+            <button onClick={openCart} className="flex h-10 items-center gap-2 rounded-2xl border border-[#a64a61]/30 bg-gradient-to-br from-[#97002c] to-[#69001d] px-4 text-white shadow-[5px_6px_12px_rgba(87,0,26,0.24),inset_1px_1px_2px_rgba(255,255,255,0.28),inset_-2px_-2px_4px_rgba(40,0,10,0.2)] transition-all hover:-translate-y-0.5 hover:shadow-[7px_8px_16px_rgba(87,0,26,0.28)] active:translate-y-0">
               <ShoppingCart size={18} />
               <span className="text-sm font-bold">Cart</span>
               <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#D4A84F] px-1 text-[10px] font-black text-[#35120D]">
@@ -202,7 +202,7 @@ export default function Navbar() {
         {/* =========================================
             MOBILE HEADER (Clean & Professional)
             ========================================= */}
-        <div className="flex flex-col gap-1 px-3 pb-2 pt-2 lg:hidden">
+        <div className="flex flex-col gap-2 border-t border-white/70 px-3 pb-3 pt-3 lg:hidden">
 
           {/* ROW 1: Menu + Logo + Clean Icons */}
           <div className="flex min-h-10 items-center justify-between gap-2">
@@ -212,7 +212,7 @@ export default function Navbar() {
               {/* Menu Button */}
               <button
                 onClick={() => setMenuOpen(true)}
-                className="flex h-10 shrink-0 items-center justify-center gap-1.5 rounded-lg border border-gray-200 bg-white px-2.5 text-xs font-bold text-gray-700 shadow-sm active:scale-95 transition"
+                className="flex h-10 shrink-0 items-center justify-center gap-1.5 rounded-2xl border border-white bg-[#f0eee8] px-3 text-xs font-bold text-gray-700 shadow-[4px_4px_9px_rgba(120,110,90,0.14),-4px_-4px_9px_rgba(255,255,255,0.95)] transition active:scale-95"
               >
                 <Menu size={17} /> Menu
               </button>
@@ -236,7 +236,7 @@ export default function Navbar() {
             {/* Right Side Icons (Clean, No heavy borders) */}
             <div className="flex shrink-0 items-center gap-2">
               {/* Cart Button */}
-              <button onClick={openCart} className="relative ml-0.5 flex h-10 w-10 items-center justify-center rounded-xl bg-[#800020] text-white shadow-sm active:scale-95 transition">
+              <button onClick={openCart} className="relative ml-0.5 flex h-10 w-10 items-center justify-center rounded-2xl border border-[#a64a61]/30 bg-gradient-to-br from-[#97002c] to-[#69001d] text-white shadow-[5px_6px_12px_rgba(87,0,26,0.24),inset_1px_1px_2px_rgba(255,255,255,0.28),inset_-2px_-2px_4px_rgba(40,0,10,0.2)] transition active:scale-95">
                 <ShoppingCart size={19} />
                 <span className="absolute -right-1 -top-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#D4A84F] px-1 text-[9px] font-black text-[#35120D] shadow-sm">
                   {cartLabelCount}
@@ -249,7 +249,7 @@ export default function Navbar() {
           <div className="mt-1 flex items-center gap-2">
             <button
               onClick={() => setSearchOpen(true)}
-              className="flex h-10 flex-1 items-center gap-2 rounded-xl border border-gray-200 bg-gray-50 px-3 text-sm text-gray-400"
+              className="flex h-10 flex-1 items-center gap-2 rounded-2xl border border-white/90 bg-[#eeece6] px-3 text-sm text-gray-500 shadow-[inset_3px_3px_7px_rgba(120,110,90,0.12),inset_-3px_-3px_7px_rgba(255,255,255,0.95)] transition active:scale-[0.99]"
             >
               <Search size={17} />
               <span className="truncate text-xs font-medium">{isHindi ? "आटा, तेल खोजें..." : "Search atta, oil..."}</span>
@@ -274,7 +274,7 @@ export default function Navbar() {
                 <a
                   key={cat.id}
                   href={`/products${cat.id !== "all" ? `?category=${cat.id}` : ""}`}
-                  className="flex h-9 shrink-0 items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-[11px] font-bold text-gray-700 shadow-sm transition hover:border-[#800020]/30 hover:text-[#800020]"
+                  className="flex h-9 shrink-0 items-center gap-2 rounded-full border border-white/90 bg-[#f0eee8] px-3 py-1.5 text-[11px] font-bold text-gray-700 shadow-[4px_4px_9px_rgba(120,110,90,0.12),-4px_-4px_9px_rgba(255,255,255,0.95)] transition-all hover:-translate-y-0.5 hover:text-[#800020] hover:shadow-[5px_6px_12px_rgba(120,110,90,0.15),-4px_-4px_9px_rgba(255,255,255,0.95)] active:translate-y-0"
                 >
                   <Icon size={15} className="text-[#800020]" />
                   {isHindi ? cat.hi : cat.en}
@@ -379,7 +379,7 @@ export default function Navbar() {
         {menuOpen && (
           <>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setMenuOpen(false)} className="fixed inset-0 z-[90] bg-black/40 backdrop-blur-sm lg:hidden" />
-            <motion.div initial={{ x: "-100%" }} animate={{ x: 0 }} exit={{ x: "-100%" }} className="fixed bottom-0 left-0 top-0 z-[100] w-[85%] max-w-sm bg-white p-5 shadow-2xl lg:hidden flex flex-col overflow-y-auto">
+            <motion.div initial={{ x: "-100%" }} animate={{ x: 0 }} exit={{ x: "-100%" }} className="fixed bottom-0 left-0 top-0 z-[100] flex w-[85%] max-w-sm flex-col overflow-y-auto border-r border-white/80 bg-[#f7f5f0] p-5 shadow-[18px_0_50px_rgba(40,30,20,0.18)] lg:hidden">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-2">
                   <Image src="/Logo.png" alt="Logo" width={40} height={40} className="h-10 w-10 object-contain" />

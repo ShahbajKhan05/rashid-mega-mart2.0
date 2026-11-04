@@ -4,8 +4,6 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
-const SESSION_KEY = "rmm-theatre-curtain-loader-v7";
-
 export default function IntroLoader() {
   const [visible, setVisible] = useState(true);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -19,16 +17,6 @@ export default function IntroLoader() {
   const rightCurtainRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    let seen = false;
-    try {
-      seen = sessionStorage.getItem(SESSION_KEY) === "1";
-    } catch {}
-
-    if (seen) {
-      setVisible(false);
-      return;
-    }
-
     const root = rootRef.current;
     const logo = logoRef.current;
     const name = nameRef.current;
@@ -53,9 +41,6 @@ export default function IntroLoader() {
       if (completed) return;
       completed = true;
       window.clearTimeout(fallback);
-      try {
-        sessionStorage.setItem(SESSION_KEY, "1");
-      } catch {}
       document.body.style.overflow = oldOverflow;
       setVisible(false);
     };
@@ -68,7 +53,7 @@ export default function IntroLoader() {
       };
     }
 
-    fallback = window.setTimeout(finish, 8000);
+    fallback = window.setTimeout(finish, 9000);
 
     const ctx = gsap.context(() => {
       const state = { value: 0 };
@@ -158,7 +143,7 @@ export default function IntroLoader() {
           autoAlpha: 0,
           duration: 0.22,
           ease: "power1.out",
-        }, 5.02);
+        }, 5.28);
     }, root);
 
     return () => {
@@ -226,7 +211,7 @@ export default function IntroLoader() {
 
         <div
           ref={leftCurtainRef}
-          className="pointer-events-none absolute inset-y-0 left-0 z-30 w-1/2 border-r border-[#D8C7A7]/70 bg-[repeating-linear-gradient(90deg,#F7F3EA_0px,#F7F3EA_34px,#F0E8D9_58px,#FFFEFA_82px,#F7F3EA_112px)] shadow-[18px_0_45px_rgba(107,82,46,0.10)]"
+          className="pointer-events-none absolute inset-y-0 left-0 z-[5] w-1/2 border-r border-[#D8C7A7]/70 bg-[repeating-linear-gradient(90deg,#F7F3EA_0px,#F7F3EA_34px,#F0E8D9_58px,#FFFEFA_82px,#F7F3EA_112px)] shadow-[18px_0_45px_rgba(107,82,46,0.10)]"
         >
           <div className="absolute inset-y-0 right-0 w-5 bg-[linear-gradient(90deg,transparent,rgba(160,126,75,0.12))]" />
         </div>

@@ -180,28 +180,14 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             <nav className="flex items-center gap-3">
               <a href="/" className="text-sm font-bold text-gray-700 hover:text-[#800020]">Home</a>
-              <a href="#kit" className="text-sm font-bold text-gray-700 hover:text-[#800020]">Kits</a>
-              <a href="/loyalty" className="flex items-center gap-1 text-sm font-bold text-[#800020] bg-[#800020]/5 px-2.5 py-1.5 rounded-lg hover:bg-[#800020]/10 transition">
-                <Star size={14} className="fill-[#800020]" /> Rewards
-              </a>
-              <a href="/loyalty/staff" title="Staff Login" className="flex items-center gap-1 text-sm font-bold text-gray-600 bg-gray-100 px-2.5 py-1.5 rounded-lg hover:bg-gray-200 transition">
-                <Lock size={14} /> Staff
-              </a>
+              <a href="/products" className="text-sm font-bold text-gray-700 hover:text-[#800020]">Products</a>
+              <a href="/order-tracking" className="text-sm font-bold text-gray-700 hover:text-[#800020]">Track Order</a>
               <a href="/admin" className="flex items-center gap-1 text-sm font-bold text-gray-500 hover:text-[#800020]">
                 <ShieldCheck size={14} /> Admin
               </a>
             </nav>
 
             <LanguageToggle language={language} onSelect={() => toggleLanguage()} />
-
-            <a href="/wishlist" className="flex h-9 w-9 items-center justify-center rounded-lg border border-[#800020]/10 text-[#800020] transition hover:border-[#800020]/30 hover:bg-[#800020]/5">
-              <Heart size={18} />
-            </a>
-
-            <a href={isLoggedIn ? "/account" : "/login"} className="flex h-9 items-center gap-1 rounded-lg border border-[#800020]/10 px-3 text-sm font-bold text-[#800020] transition hover:border-[#800020]/30 hover:bg-[#800020]/5">
-              <User size={18} />
-              <span className="hidden xl:block">{isLoggedIn ? "Account" : "Login"}</span>
-            </a>
 
             <button onClick={openCart} className="flex h-9 items-center gap-1.5 rounded-lg bg-[#800020] px-3 text-white shadow-md hover:bg-[#600018]">
               <ShoppingCart size={18} />
@@ -249,16 +235,6 @@ export default function Navbar() {
 
             {/* Right Side Icons (Clean, No heavy borders) */}
             <div className="flex items-center gap-1 shrink-0">
-              {/* Heart (Wishlist) */}
-              <a href="/wishlist" className="flex h-7 w-7 items-center justify-center rounded-full text-gray-600 hover:bg-gray-100 transition">
-                <Heart size={16} />
-              </a>
-              
-              {/* User (Login/Account) */}
-              <a href={isLoggedIn ? "/account" : "/login"} className="flex h-8 w-8 items-center justify-center rounded-full text-gray-600 hover:bg-gray-100 transition">
-                <User size={16} />
-              </a>
-              
               {/* Cart Button */}
               <button onClick={openCart} className="relative flex h-7 w-7 items-center justify-center rounded-lg bg-[#800020] text-white shadow-sm active:scale-95 transition ml-0.5">
                 <ShoppingCart size={15} />
@@ -423,29 +399,11 @@ export default function Navbar() {
 
               <div className="flex flex-col gap-2">
                 <a href="/" onClick={() => setMenuOpen(false)} className="flex items-center gap-3 rounded-xl p-3 hover:bg-gray-50"><House size={20} className="text-[#800020]" /><span className="font-bold text-gray-800">{isHindi ? "होम" : "Home"}</span></a>
-                <a href="/loyalty" onClick={() => setMenuOpen(false)} className="flex items-center gap-3 rounded-xl p-3 bg-[#FFF9D8] hover:bg-[#FFF4D6]"><Star size={20} className="text-[#D4A84F] fill-[#D4A84F]" /><span className="font-bold text-[#800020]">{isHindi ? "मेरे रिवॉर्ड्स" : "My Rewards"}</span></a>
-                <a href="/wishlist" onClick={() => setMenuOpen(false)} className="flex items-center gap-3 rounded-xl p-3 hover:bg-gray-50"><Heart size={20} className="text-[#800020]" /><span className="font-bold text-gray-800">{isHindi ? "मेरी विशलिस्ट" : "My Wishlist"}</span></a>
+                <a href="/products" onClick={() => setMenuOpen(false)} className="flex items-center gap-3 rounded-xl p-3 hover:bg-gray-50"><Package size={20} className="text-[#800020]" /><span className="font-bold text-gray-800">{isHindi ? "उत्पाद" : "Products"}</span></a>
                 <a href="/order-tracking" onClick={() => setMenuOpen(false)} className="flex items-center gap-3 rounded-xl p-3 hover:bg-gray-50"><Truck size={20} className="text-[#800020]" /><span className="font-bold text-gray-800">{isHindi ? "ऑर्डर ट्रैक करें" : "Track Order"}</span></a>
-                <a href="#categories" onClick={() => setMenuOpen(false)} className="flex items-center gap-3 rounded-xl p-3 hover:bg-gray-50"><LayoutGrid size={20} className="text-[#800020]" /><span className="font-bold text-gray-800">{isHindi ? "कैटेगरी" : "Categories"}</span></a>
-                <a href="/about" onClick={() => setMenuOpen(false)} className="flex items-center gap-3 rounded-xl p-3 hover:bg-gray-50"><User size={20} className="text-[#800020]" /><span className="font-bold text-gray-800">{isHindi ? "हमारे बारे में" : "About Us"}</span></a>
               </div>
 
-              <div className="mt-auto pt-6 border-t border-gray-100 flex flex-col gap-3">
-                {isLoggedIn ? (
-                  <>
-                    <a href="/account" onClick={() => setMenuOpen(false)} className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#800020] py-3 text-sm font-bold text-white"><User size={18} /> My Account</a>
-                    <button onClick={handleLogout} className="flex w-full items-center justify-center gap-2 rounded-xl bg-red-50 py-3 text-sm font-bold text-red-600"><LogOut size={18} /> Logout</button>
-                  </>
-                ) : (
-                  <a href="/login" onClick={() => setMenuOpen(false)} className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#800020] py-3 text-sm font-bold text-white"><User size={18} /> {isHindi ? "लॉगिन करें" : "Login / Sign Up"}</a>
-                )}
 
-                <div className="grid grid-cols-2 gap-2 mt-2">
-                  <a href="/loyalty/staff" onClick={() => setMenuOpen(false)} className="flex w-full items-center justify-center gap-1.5 rounded-xl border border-gray-200 bg-gray-50 py-2.5 text-[11px] font-bold text-gray-600"><Lock size={14} /> Staff Login</a>
-                  <a href="/admin" onClick={() => setMenuOpen(false)} className="flex w-full items-center justify-center gap-1.5 rounded-xl border border-gray-200 bg-gray-50 py-2.5 text-[11px] font-bold text-gray-600"><ShieldCheck size={14} /> Admin Panel</a>
-                </div>
-              </div>
-            </motion.div>
           </>
         )}
       </AnimatePresence>

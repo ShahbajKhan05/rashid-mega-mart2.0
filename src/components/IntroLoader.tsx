@@ -131,6 +131,9 @@ export default function IntroLoader() {
           },
           "-=0.1",
         );
+
+      // Keep the complete intro sequence to exactly 3 seconds.
+      timeline.timeScale(timeline.duration() / 3);
     }, container);
 
     return () => {

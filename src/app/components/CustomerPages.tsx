@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
-import { AlertCircle, FileDown, Headset, LoaderCircle, MapPin, Package, Phone, RotateCcw, ShieldCheck, Truck, XCircle } from "lucide-react";
+import { AlertCircle, FileDown, Headset, LoaderCircle, MapPin, Package, Phone, RotateCcw, Truck, XCircle } from "lucide-react";
 
 function CenterPage({ title }: { title: string }) {
   return (

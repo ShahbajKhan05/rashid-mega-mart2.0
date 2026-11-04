@@ -2,7 +2,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import {
   House, Package, LayoutGrid, ShoppingCart, Menu, X, ArrowUpRight,
@@ -61,7 +61,7 @@ export default function Navbar() {
 
     const user = localStorage.getItem("rmm_user");
     if (user) setIsLoggedIn(true);
-  }, [menuOpen]);
+  }, []);
 
   const handleLiveLocation = () => {
     setIsLocating(true);
@@ -108,11 +108,11 @@ export default function Navbar() {
     }
   };
 
-  const searchResults = products.filter((p) => {
+  const searchResults = useMemo(() => {
     if (!searchQuery.trim()) return [];
     const q = searchQuery.toLowerCase();
-    return p.name.toLowerCase().includes(q) || p.nameHi.includes(q);
-  });
+    return products.filter((p) => p.name.toLowerCase().includes(q) || p.nameHi.includes(q));
+  }, [searchQuery]);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -136,7 +136,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/55 bg-white/[0.26] shadow-[0_4px_24px_rgba(31,41,55,0.045)] backdrop-blur-3xl backdrop-saturate-150">
+      <header className="fixed inset-x-0 top-0 z-50 navbar-glass-shell border-b border-white/55 bg-white/[0.26] shadow-[0_4px_24px_rgba(31,41,55,0.045)] backdrop-blur-2xl backdrop-saturate-150">
 
         {/* =========================================
             DESKTOP HEADER
@@ -179,10 +179,10 @@ export default function Navbar() {
 
           <div className="flex items-center gap-3">
             <nav className="flex items-center gap-1.5">
-              <a href="/" className="rounded-lg px-3 py-2 text-[13px] font-semibold tracking-[-0.01em] text-[#65574f] transition hover:bg-[#f5f0e8] hover:text-[#68162a]">Home</a>
-              <a href="/products" className="rounded-full px-3 py-2 text-sm font-semibold text-gray-700 transition hover:bg-white hover:text-[#800020] hover:shadow-sm">Products</a>
+              <a href="/" className="nav-glass-link rounded-lg px-3 py-2 text-[13px] font-semibold tracking-[-0.01em] text-[#65574f] hover:bg-white/35 hover:text-[#68162a]">Home</a>
+              <a href="/products" className="nav-glass-link rounded-full px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-white/40 hover:text-[#800020]">Products</a>
               <a href="/order-tracking" className="rounded-full px-3 py-2 text-sm font-semibold text-gray-700 transition hover:bg-white hover:text-[#800020] hover:shadow-sm">Track Order</a>
-              <a href="/admin" className="flex items-center gap-1 rounded-lg px-3 py-2 text-[13px] font-semibold text-[#88796f] transition hover:bg-[#f5f0e8] hover:text-[#68162a]">
+              <a href="/admin" className="nav-glass-link flex items-center gap-1 rounded-lg px-3 py-2 text-[13px] font-semibold text-[#88796f] hover:bg-white/35 hover:text-[#68162a]">
                 <ShieldCheck size={14} /> Admin
               </a>
             </nav>
@@ -274,7 +274,7 @@ export default function Navbar() {
                 <a
                   key={cat.id}
                   href={`/products${cat.id !== "all" ? `?category=${cat.id}` : ""}`}
-                  className="flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-white/75 bg-white/45 px-3 py-1.5 text-[10px] font-medium text-[#514b50] shadow-[0_3px_12px_rgba(31,41,55,0.06)] backdrop-blur-xl transition hover:border-[#d9c5a8] hover:text-[#68162a] active:scale-[0.98]"
+                  className="flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-white/75 bg-white/45 px-3 py-1.5 text-[10px] font-medium text-[#514b50] shadow-[0_3px_12px_rgba(31,41,55,0.06)] backdrop-blur-xl transition-colors duration-150 hover:border-[#d9c5a8] hover:text-[#68162a] active:scale-[0.98]"
                 >
                   <Icon size={15} className="text-[#800020]" />
                   {isHindi ? cat.hi : cat.en}
@@ -295,7 +295,7 @@ export default function Navbar() {
       <AnimatePresence>
         {locationModalOpen && (
           <>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setLocationModalOpen(false)} className="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm" />
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setLocationModalOpen(false)} className="fixed inset-0 z-[100] bg-black/45" />
             <motion.div initial={{ opacity: 0, scale: 0.95, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 20 }} className="fixed left-1/2 top-1/2 z-[101] w-[92%] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-5 shadow-2xl">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-black text-[#800020] flex items-center gap-2"><MapPin size={20} /> {isHindi ? "डिलीवरी लोकेशन" : "Delivery Location"}</h3>
@@ -379,7 +379,7 @@ export default function Navbar() {
         {menuOpen && (
           <>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setMenuOpen(false)} className="fixed inset-0 z-[90] bg-slate-900/10 backdrop-blur-md lg:hidden" />
-            <motion.div initial={{ x: "-100%", opacity: 0.92 }} animate={{ x: 0, opacity: 1 }} exit={{ x: "-100%", opacity: 0.92 }} transition={{ type: "spring", stiffness: 290, damping: 30 }} className="fixed bottom-0 left-0 top-0 z-[100] flex w-[86%] max-w-[340px] flex-col overflow-y-auto border-r border-white/70 bg-white/[0.34] px-5 pb-8 pt-7 text-[#302b32] shadow-[16px_0_48px_rgba(31,41,55,0.10)] backdrop-blur-[36px] backdrop-saturate-[1.8] lg:hidden">
+            <motion.div initial={{ x: "-100%", opacity: 0.92 }} animate={{ x: 0, opacity: 1 }} exit={{ x: "-100%", opacity: 0.92 }} transition={{ type: "spring", stiffness: 290, damping: 30 }} className="fixed bottom-0 left-0 top-0 z-[100] flex w-[86%] max-w-[340px] flex-col overflow-y-auto border-r border-white/70 bg-white/[0.34] px-5 pb-8 pt-7 text-[#302b32] shadow-[16px_0_48px_rgba(31,41,55,0.10)] backdrop-blur-[24px] backdrop-saturate-[1.6] lg:hidden">
               <div className="mb-9 flex items-center justify-between border-b border-white/70 pb-6">
                 <div className="flex items-center gap-3">
                   <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/70 bg-white/45 p-1 shadow-[0_5px_18px_rgba(31,41,55,0.10)]"><Image src="/Logo.png" alt="Logo" width={40} height={40} className="h-10 w-10 object-contain" /></div>
@@ -396,7 +396,7 @@ export default function Navbar() {
 
               <div className="mb-3 text-[9px] font-medium uppercase tracking-[0.18em] text-[#8b7d70]">Explore the store</div>
               <div className="flex flex-col gap-2">
-                <a href="/" onClick={() => setMenuOpen(false)} className="group flex min-h-[50px] items-center gap-4 rounded-xl border border-white/65 bg-white/30 px-3.5 text-[#403740] shadow-[0_3px_14px_rgba(31,41,55,0.05)] backdrop-blur-xl transition hover:translate-x-1 hover:border-[#d8bd8b]/45 hover:bg-white/[0.12]"><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/45 text-[#8a6748]"><House size={18} /></span><span className="flex-1 text-[13px] font-medium">{isHindi ? "होम" : "Home"}</span><ArrowUpRight size={16} className="text-[#9b8e96] transition group-hover:text-[#68162a]" /></a>
+                <a href="/" onClick={() => setMenuOpen(false)} className="group flex min-h-[50px] items-center gap-4 rounded-xl border border-white/65 bg-white/30 px-3.5 text-[#403740] shadow-[0_3px_14px_rgba(31,41,55,0.05)] backdrop-blur-xl transition-transform duration-200 ease-out hover:translate-x-0.5 hover:border-[#d8bd8b]/45 hover:bg-white/[0.12]"><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/45 text-[#8a6748]"><House size={18} /></span><span className="flex-1 text-[13px] font-medium">{isHindi ? "होम" : "Home"}</span><ArrowUpRight size={16} className="text-[#9b8e96] transition group-hover:text-[#68162a]" /></a>
                 <a href="/products" onClick={() => setMenuOpen(false)} className="group flex min-h-[58px] items-center gap-4 rounded-2xl border border-white/75 bg-white/45 px-4 text-[#403740] shadow-[0_3px_14px_rgba(31,41,55,0.05)] backdrop-blur-xl transition hover:translate-x-1 hover:border-[#d8bd8b]/45 hover:bg-white/[0.12]"><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#efe7dc]/75 text-[#8a6748]"><Package size={18} /></span><span className="flex-1 text-[14px] font-semibold">{isHindi ? "उत्पाद" : "Products"}</span><ArrowUpRight size={16} className="text-[#9b8e96] transition group-hover:text-[#68162a]" /></a>
                 <a href="/order-tracking" onClick={() => setMenuOpen(false)} className="group flex min-h-[58px] items-center gap-4 rounded-2xl border border-white/75 bg-white/45 px-4 text-[#403740] shadow-[0_3px_14px_rgba(31,41,55,0.05)] backdrop-blur-xl transition hover:translate-x-1 hover:border-[#d8bd8b]/45 hover:bg-white/[0.12]"><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#efe7dc]/75 text-[#8a6748]"><Truck size={18} /></span><span className="flex-1 text-[14px] font-semibold">{isHindi ? "ऑर्डर ट्रैक करें" : "Track Order"}</span><ArrowUpRight size={16} className="text-[#9b8e96] transition group-hover:text-[#68162a]" /></a>
                 <a href="/admin" onClick={() => setMenuOpen(false)} className="group flex min-h-[58px] items-center gap-4 rounded-2xl border border-white/80 bg-white/65 px-4 text-[#68162a] shadow-[0_4px_16px_rgba(31,41,55,0.07)] backdrop-blur-xl transition hover:translate-x-1 hover:bg-[#d8bd8b]/15"><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/80 text-[#68162a]"><ShieldCheck size={18} /></span><span className="flex-1 text-[14px] font-semibold">{isHindi ? "एडमिन पैनल" : "Admin Panel"}</span><ArrowUpRight size={16} className="text-[#9a7950]" /></a>

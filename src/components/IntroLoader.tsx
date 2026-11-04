@@ -9,6 +9,7 @@ export default function IntroLoader() {
   const rootRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
+  const taglineRef = useRef<HTMLParagraphElement>(null);
   const haloRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
   const scanRef = useRef<HTMLDivElement>(null);
@@ -21,6 +22,7 @@ export default function IntroLoader() {
     const root = rootRef.current;
     const logo = logoRef.current;
     const stage = stageRef.current;
+    const tagline = taglineRef.current;
     const halo = haloRef.current;
     const ring = ringRef.current;
     const scan = scanRef.current;
@@ -29,7 +31,7 @@ export default function IntroLoader() {
     const leftCurtain = leftCurtainRef.current;
     const rightCurtain = rightCurtainRef.current;
 
-    if (!root || !logo || !stage || !halo || !ring || !scan || !progress || !count || !leftCurtain || !rightCurtain) {
+    if (!root || !logo || !stage || !tagline || !halo || !ring || !scan || !progress || !count || !leftCurtain || !rightCurtain) {
       setVisible(false);
       return;
     }
@@ -72,6 +74,7 @@ export default function IntroLoader() {
         force3D: true,
       });
       gsap.set(stage, { autoAlpha: 0, y: 34, scale: 0.92, rotateX: 12 });
+      gsap.set(tagline, { autoAlpha: 0, y: 12, filter: "blur(5px)" });
       gsap.set(halo, { autoAlpha: 0, scale: 0.72 });
       gsap.set(ring, { autoAlpha: 0, scale: 0.78, rotation: -24 });
       gsap.set(scan, { xPercent: -150, autoAlpha: 0 });
@@ -104,6 +107,13 @@ export default function IntroLoader() {
           duration: 1.25,
           ease: "power3.out",
         }, 0.28)
+        .to(tagline, {
+          autoAlpha: 1,
+          y: 0,
+          filter: "blur(0px)",
+          duration: 0.85,
+          ease: "power3.out",
+        }, 1.18)
         .to(ring, {
           autoAlpha: 1,
           scale: 1,
@@ -201,7 +211,14 @@ export default function IntroLoader() {
             <div className="absolute inset-x-[8%] top-1/2 h-px -translate-y-1/2 bg-[linear-gradient(90deg,transparent,rgba(184,148,82,0.65),transparent)]" />
           </div>
 
-          <div className="mt-12 flex w-[min(70vw,360px)] flex-col items-center gap-3">
+          <p
+            ref={taglineRef}
+            className="mt-1 text-center text-[10px] font-semibold uppercase tracking-[0.22em] text-[#315B3B] sm:text-xs sm:tracking-[0.28em]"
+          >
+            You Choose Quality. We Deliver Quality.
+          </p>
+
+          <div className="mt-9 flex w-[min(70vw,360px)] flex-col items-center gap-3">
             <div className="h-[3px] w-full overflow-hidden rounded-full bg-[#EEEAE2] shadow-[inset_0_1px_2px_rgba(80,70,50,0.08)]">
               <div
                 ref={progressRef}

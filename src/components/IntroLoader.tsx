@@ -170,7 +170,7 @@ export default function IntroLoader() {
 
         <div
           ref={logoRef}
-          className="relative z-10 flex w-[min(72vw,500px)] items-center justify-center [transform-style:preserve-3d]"
+          className="relative z-40 flex w-[min(72vw,500px)] items-center justify-center [transform-style:preserve-3d]"
         >
           <Image
             src="/Logo.png"
@@ -188,7 +188,7 @@ export default function IntroLoader() {
 
         <div
           ref={nameRef}
-          className="absolute left-1/2 top-[calc(50%+min(25vh,190px))] z-10 -translate-x-1/2 whitespace-nowrap text-center"
+          className="absolute left-1/2 top-[calc(50%+min(25vh,190px))] z-40 -translate-x-1/2 whitespace-nowrap text-center"
         >
           <div className="font-serif text-[clamp(1.05rem,3vw,1.65rem)] font-semibold uppercase tracking-[0.28em] text-[#765B36]">
             Rashid Mega Mart
@@ -196,7 +196,7 @@ export default function IntroLoader() {
           <div className="mx-auto mt-3 h-px w-16 bg-[linear-gradient(90deg,transparent,#C7A66A,transparent)]" />
         </div>
 
-        <div className="absolute bottom-[8vh] left-1/2 z-10 flex w-[min(70vw,460px)] -translate-x-1/2 flex-col items-center gap-3">
+        <div className="absolute bottom-[8vh] left-1/2 z-40 flex w-[min(70vw,460px)] -translate-x-1/2 flex-col items-center gap-3">
           <div className="h-[2px] w-full overflow-hidden rounded-full bg-[#EAE5DA]">
             <div
               ref={progressRef}
@@ -211,7 +211,7 @@ export default function IntroLoader() {
 
         <div
           ref={leftCurtainRef}
-          className="pointer-events-none absolute inset-y-0 left-0 z-[5] w-1/2 border-r border-[#D8C7A7]/70 bg-[repeating-linear-gradient(90deg,#F7F3EA_0px,#F7F3EA_34px,#F0E8D9_58px,#FFFEFA_82px,#F7F3EA_112px)] shadow-[18px_0_45px_rgba(107,82,46,0.10)]"
+          className="pointer-events-none absolute inset-y-0 left-0 z-30 w-1/2 border-r border-[#D8C7A7]/70 bg-[repeating-linear-gradient(90deg,#F7F3EA_0px,#F7F3EA_34px,#F0E8D9_58px,#FFFEFA_82px,#F7F3EA_112px)] shadow-[18px_0_45px_rgba(107,82,46,0.10)]"
         >
           <div className="absolute inset-y-0 right-0 w-5 bg-[linear-gradient(90deg,transparent,rgba(160,126,75,0.12))]" />
         </div>

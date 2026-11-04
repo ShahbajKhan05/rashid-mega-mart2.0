@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-plus-jakarta-sans), Arial, Helvetica, sans-serif;
+  --font-sans: var(--font-inter), Arial, Helvetica, sans-serif;
   --color-burgundy: #800020;
   --color-cream: #fff9d8;
   --color-gold: #d4a84f;
@@ -27,7 +27,11 @@ body {
  margin: 0;
  color: var(--dark);
  background: var(--cream);
- font-family: var(--font-plus-jakarta-sans), Arial, Helvetica, sans-serif;
+ font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+ font-synthesis: none;
+ text-rendering: optimizeLegibility;
+ -webkit-font-smoothing: antialiased;
+ -moz-osx-font-smoothing: grayscale;
 }
 
 .navbar {
@@ -171,11 +175,74 @@ button:focus-visible {
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
+  text-size-adjust: 100%;
 }
 
 /* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+}
+
+
+/* Motion system: animate compositor-friendly properties, never layout dimensions. */
+.navbar-glass-shell {
+  isolation: isolate;
+  transform: translateZ(0);
+}
+.navbar-glass-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(112deg, rgba(255,255,255,.28), transparent 42%, rgba(255,255,255,.12));
+}
+.nav-glass-link {
+  position: relative;
+  isolation: isolate;
+  transition: color 180ms ease, background-color 180ms ease;
+}
+.nav-glass-link::after {
+  content: "";
+  position: absolute;
+  left: 22%;
+  right: 22%;
+  bottom: 5px;
+  height: 1.5px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, #a77b3e, transparent);
+  transform: scaleX(0);
+  transform-origin: center;
+  opacity: 0;
+  transition: transform 220ms cubic-bezier(.2,.8,.2,1), opacity 180ms ease;
+}
+.nav-glass-link:hover::after,
+.nav-glass-link:focus-visible::after {
+  transform: scaleX(1);
+  opacity: 1;
+}
+.motion-transform {
+  will-change: transform;
+  transform: translateZ(0);
+}
+.intro-curtain-left,
+.intro-curtain-right,
+.intro-logo,
+.intro-ring,
+.intro-brand,
+.intro-line,
+.intro-caption {
+  backface-visibility: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
   }
 }

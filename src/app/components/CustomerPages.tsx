@@ -161,19 +161,28 @@ export function TrackOrderPage() {
               </section>
             </div>
 
-            <section className="mt-4 rounded-xl border border-white/90 bg-white/70 p-3.5 shadow-[0_8px_24px_rgba(80,32,48,0.055)] backdrop-blur-xl sm:p-4">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <h2 className="text-sm font-extrabold text-[#29211d] sm:text-base">Tracking timeline</h2>
-                <span className="text-xs font-semibold text-[#82776e]">Order journey</span>
+            <section className="mt-4 rounded-xl border border-white/90 bg-white/75 p-4 shadow-[0_8px_24px_rgba(80,32,48,0.055)] backdrop-blur-xl sm:p-5">
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <h2 className="text-base font-extrabold text-[#29211d] sm:text-lg">Your order journey</h2>
+                  <p className="mt-1 text-sm leading-5 text-[#82776e]">Simple updates from confirmation to delivery.</p>
+                </div>
+                <span className="mt-1 w-fit rounded-full bg-[#f5eee4] px-3 py-1 text-xs font-bold text-[#806342] sm:mt-0">Updates pending</span>
               </div>
-              <ol className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
-                {["Order Placed", "Processing", "Out for Delivery", "Delivered"].map((step, index) => (
-                  <li key={step} className="flex min-w-0 items-start gap-2">
-                    <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full border border-[#e4d8c7] bg-[#fffdf8] text-sm font-extrabold text-[#800020]">{index + 1}</span>
-                    <div className="min-w-0"><p className="text-sm font-bold leading-4 text-[#332923]">{step}</p><p className="mt-0.5 text-sm leading-4 text-[#82776e]">Status pending</p></div>
+              <ol className="mt-5 grid gap-4 sm:grid-cols-4 sm:gap-3">
+                {trackingSteps.map((step, index) => (
+                  <li key={step.title} className="relative flex min-w-0 items-start gap-3 sm:flex-col sm:gap-2.5">
+                    {index < trackingSteps.length - 1 && <span aria-hidden="true" className="absolute left-[15px] top-8 h-[calc(100%+8px)] w-px bg-[#e8ded1] sm:left-8 sm:top-[15px] sm:h-px sm:w-[calc(100%+12px)]" />}
+                    <span className="relative z-10 grid h-8 w-8 shrink-0 place-items-center rounded-full border-2 border-[#e6d8c8] bg-[#fffdf8] text-sm font-extrabold text-[#800020]">{index + 1}</span>
+                    <div className="min-w-0 pb-1 sm:pb-0">
+                      <p className="text-sm font-extrabold leading-5 text-[#332923]">{step.title}</p>
+                      <p className="mt-0.5 text-sm leading-5 text-[#82776e]">{step.description}</p>
+                      <p className="mt-1 text-xs font-semibold text-[#a18f7d]">Waiting for update</p>
+                    </div>
                   </li>
                 ))}
               </ol>
+              <p className="mt-4 rounded-lg bg-[#fff8ed] px-3 py-2.5 text-sm leading-5 text-[#704d20]">Enter your order ID above. Verified tracking updates will appear here once order lookup is connected.</p>
             </section>
 
             <section className="mt-4 grid gap-3 sm:grid-cols-2">

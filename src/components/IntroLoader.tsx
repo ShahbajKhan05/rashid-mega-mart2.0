@@ -4,26 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Image from "next/image";
 
-const SESSION_KEY = "rmm-intro-seen";
-
 export default function IntroLoader() {
   const [isLoading, setIsLoading] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    let alreadySeen = false;
-
-    try {
-      alreadySeen = window.sessionStorage.getItem(SESSION_KEY) === "1";
-    } catch {
-      // If storage is unavailable, play the intro normally.
-    }
-
-    if (alreadySeen) {
-      setIsLoading(false);
-      return;
-    }
-
     const container = containerRef.current;
     if (!container) {
       setIsLoading(false);
@@ -37,13 +22,6 @@ export default function IntroLoader() {
     const finish = () => {
       if (finished) return;
       finished = true;
-
-      try {
-        window.sessionStorage.setItem(SESSION_KEY, "1");
-      } catch {
-        // Do not block the page if storage is unavailable.
-      }
-
       document.body.style.overflow = previousOverflow;
       setIsLoading(false);
     };

@@ -19,7 +19,7 @@ const DEFAULT_LOCATION = "Ghoghar, Rewa";
 
 function LanguageToggle({ language, onSelect }: { language: Language; onSelect: (l: Language) => void; }) {
   return (
-    <div className="inline-flex h-9 shrink-0 items-center rounded-full border border-white/80 bg-[#eeece6] p-1 shadow-[inset_2px_2px_5px_rgba(120,110,90,0.12),inset_-2px_-2px_5px_rgba(255,255,255,0.95)]">
+    <div className="inline-flex h-9 shrink-0 items-center rounded-full border border-white/70 bg-white/45 p-1 shadow-[0_2px_12px_rgba(31,41,55,0.06)] backdrop-blur-xl">
       {(["en", "hi"] as Language[]).map((lang) => (
         <button
           key={lang}
@@ -136,7 +136,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/70 bg-[#fffdf8]/90 shadow-[0_8px_30px_rgba(48,26,18,0.07)] backdrop-blur-2xl">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/45 bg-white/[0.38] shadow-[0_8px_32px_rgba(31,41,55,0.07)] backdrop-blur-[28px] backdrop-saturate-[1.8]">
 
         {/* =========================================
             DESKTOP HEADER
@@ -182,14 +182,14 @@ export default function Navbar() {
               <a href="/" className="rounded-lg px-3 py-2 text-[13px] font-semibold tracking-[-0.01em] text-[#65574f] transition hover:bg-[#f5f0e8] hover:text-[#68162a]">Home</a>
               <a href="/products" className="rounded-full px-3 py-2 text-sm font-semibold text-gray-700 transition hover:bg-white hover:text-[#800020] hover:shadow-sm">Products</a>
               <a href="/order-tracking" className="rounded-full px-3 py-2 text-sm font-semibold text-gray-700 transition hover:bg-white hover:text-[#800020] hover:shadow-sm">Track Order</a>
-              <a href="/admin" className="flex items-center gap-1 flex items-center gap-1 rounded-lg px-3 py-2 text-[13px] font-semibold text-[#88796f] transition hover:bg-[#f5f0e8] hover:text-[#68162a]">
+              <a href="/admin" className="flex items-center gap-1 rounded-lg px-3 py-2 text-[13px] font-semibold text-[#88796f] transition hover:bg-[#f5f0e8] hover:text-[#68162a]">
                 <ShieldCheck size={14} /> Admin
               </a>
             </nav>
 
             <LanguageToggle language={language} onSelect={() => toggleLanguage()} />
 
-            <button onClick={openCart} className="flex h-11 items-center gap-2.5 rounded-xl bg-[#68162a] px-4 text-white shadow-[0_5px_14px_rgba(75,16,35,0.16)] transition hover:-translate-y-0.5 hover:bg-[#501020] active:translate-y-0">
+            <button onClick={openCart} className="flex h-11 items-center gap-2.5 rounded-xl border border-white/75 bg-white/55 px-4 text-[#68162a] shadow-[0_4px_18px_rgba(31,41,55,0.08)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white/75 active:translate-y-0">
               <ShoppingCart size={18} />
               <span className="text-sm font-bold">Cart</span>
               <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#D4A84F] px-1 text-[10px] font-black text-[#35120D]">
@@ -202,7 +202,7 @@ export default function Navbar() {
         {/* =========================================
             MOBILE HEADER (Clean & Professional)
             ========================================= */}
-        <div className="flex flex-col gap-2 border-t border-[#eee7dc]/80 px-3 pb-3 pt-3 lg:hidden">
+        <div className="flex flex-col gap-2 border-t border-white/40 px-3 pb-3 pt-3 lg:hidden">
 
           {/* ROW 1: Menu + Logo + Clean Icons */}
           <div className="flex min-h-10 items-center justify-between gap-2">
@@ -212,7 +212,7 @@ export default function Navbar() {
               {/* Menu Button */}
               <button
                 onClick={() => setMenuOpen(true)}
-                className="flex h-10 shrink-0 items-center justify-center gap-1.5 rounded-xl border border-[#eee5d9] bg-white px-3 text-xs font-bold text-[#5e514a] shadow-[0_2px_8px_rgba(56,35,24,0.05)] transition active:scale-95"
+                className="flex h-10 shrink-0 items-center justify-center gap-1.5 rounded-xl border border-white/75 bg-white/45 px-3 text-xs font-bold text-[#514b50] shadow-[0_3px_14px_rgba(31,41,55,0.06)] backdrop-blur-xl transition active:scale-95"
               >
                 <Menu size={17} /> Menu
               </button>
@@ -236,7 +236,7 @@ export default function Navbar() {
             {/* Right Side Icons (Clean, No heavy borders) */}
             <div className="flex shrink-0 items-center gap-2">
               {/* Cart Button */}
-              <button onClick={openCart} className="relative ml-0.5 flex h-10 w-10 items-center justify-center rounded-xl bg-[#68162a] text-white shadow-[0_4px_12px_rgba(75,16,35,0.18)] transition active:scale-95">
+              <button onClick={openCart} className="relative ml-0.5 flex h-10 w-10 items-center justify-center rounded-xl border border-white/75 bg-white/55 text-[#68162a] shadow-[0_3px_14px_rgba(31,41,55,0.08)] backdrop-blur-xl transition active:scale-95">
                 <ShoppingCart size={19} />
                 <span className="absolute -right-1 -top-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#D4A84F] px-1 text-[9px] font-black text-[#35120D] shadow-sm">
                   {cartLabelCount}
@@ -249,7 +249,7 @@ export default function Navbar() {
           <div className="mt-1 flex items-center gap-2">
             <button
               onClick={() => setSearchOpen(true)}
-              className="flex h-11 flex-1 items-center gap-2.5 rounded-xl border border-[#eee5d9] bg-white px-3.5 text-sm text-[#95877c] shadow-[0_2px_8px_rgba(56,35,24,0.04)] transition active:scale-[0.99]"
+              className="flex h-11 flex-1 items-center gap-2.5 rounded-xl border border-white/75 bg-white/45 px-3.5 text-sm text-[#817780] shadow-[0_3px_14px_rgba(31,41,55,0.06)] backdrop-blur-xl transition active:scale-[0.99]"
             >
               <Search size={17} />
               <span className="truncate text-xs font-medium">{isHindi ? "आटा, तेल खोजें..." : "Search atta, oil..."}</span>
@@ -274,7 +274,7 @@ export default function Navbar() {
                 <a
                   key={cat.id}
                   href={`/products${cat.id !== "all" ? `?category=${cat.id}` : ""}`}
-                  className="flex h-9 shrink-0 items-center gap-2 rounded-full border border-[#eee5d9] bg-white px-3 py-1.5 text-[11px] font-bold text-[#66584f] shadow-[0_2px_7px_rgba(56,35,24,0.04)] transition hover:border-[#d9c5a8] hover:text-[#68162a] active:scale-[0.98]"
+                  className="flex h-9 shrink-0 items-center gap-2 rounded-full border border-white/75 bg-white/45 px-3 py-1.5 text-[11px] font-bold text-[#665d66] shadow-[0_3px_12px_rgba(31,41,55,0.06)] backdrop-blur-xl transition hover:border-[#d9c5a8] hover:text-[#68162a] active:scale-[0.98]"
                 >
                   <Icon size={15} className="text-[#800020]" />
                   {isHindi ? cat.hi : cat.en}
@@ -378,31 +378,31 @@ export default function Navbar() {
       <AnimatePresence>
         {menuOpen && (
           <>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setMenuOpen(false)} className="fixed inset-0 z-[90] bg-black/40 backdrop-blur-sm lg:hidden" />
-            <motion.div initial={{ x: "-100%", opacity: 0.92 }} animate={{ x: 0, opacity: 1 }} exit={{ x: "-100%", opacity: 0.92 }} transition={{ type: "spring", stiffness: 290, damping: 30 }} className="fixed bottom-0 left-0 top-0 z-[100] flex w-[88%] max-w-[390px] flex-col overflow-y-auto border-r border-[#a77b3e]/25 bg-[radial-gradient(ellipse_at_top_left,_#81283d_0%,_#551326_48%,_#32101d_100%)] px-5 pb-8 pt-7 text-[#fffaf2] shadow-[24px_0_70px_rgba(28,5,13,0.38)] lg:hidden">
-              <div className="mb-9 flex items-center justify-between border-b border-white/15 pb-6">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setMenuOpen(false)} className="fixed inset-0 z-[90] bg-slate-900/10 backdrop-blur-md lg:hidden" />
+            <motion.div initial={{ x: "-100%", opacity: 0.92 }} animate={{ x: 0, opacity: 1 }} exit={{ x: "-100%", opacity: 0.92 }} transition={{ type: "spring", stiffness: 290, damping: 30 }} className="fixed bottom-0 left-0 top-0 z-[100] flex w-[88%] max-w-[390px] flex-col overflow-y-auto border-r border-white/70 bg-white/[0.58] px-5 pb-8 pt-7 text-[#302b32] shadow-[24px_0_70px_rgba(31,41,55,0.16)] backdrop-blur-[36px] backdrop-saturate-[1.8] lg:hidden">
+              <div className="mb-9 flex items-center justify-between border-b border-white/70 pb-6">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[#d8bd8b]/40 bg-white p-1 shadow-[0_8px_22px_rgba(0,0,0,0.18)]"><Image src="/Logo.png" alt="Logo" width={40} height={40} className="h-10 w-10 object-contain" /></div>
-                  <div className="flex flex-col gap-1"><span className="text-[17px] font-extrabold tracking-[-0.04em] text-[#fffaf2]">Rashid Mega Mart</span><span className="text-[9px] font-bold tracking-[0.28em] text-[#d8bd8b]">THE EVERYDAY LUXURY</span></div>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/80 bg-white/65 p-1 shadow-[0_5px_18px_rgba(31,41,55,0.10)]"><Image src="/Logo.png" alt="Logo" width={40} height={40} className="h-10 w-10 object-contain" /></div>
+                  <div className="flex flex-col gap-1"><span className="text-[17px] font-extrabold tracking-[-0.04em] text-[#4b3440]">Rashid Mega Mart</span><span className="text-[9px] font-bold tracking-[0.28em] text-[#9a7950]">THE EVERYDAY LUXURY</span></div>
                 </div>
-                <button onClick={() => setMenuOpen(false)} aria-label="Close menu" className="rounded-full border border-white/20 bg-white/10 p-2.5 text-[#fffaf2] transition hover:bg-white/20"><X size={19} /></button>
+                <button onClick={() => setMenuOpen(false)} aria-label="Close menu" className="rounded-full border border-white/80 bg-white/55 p-2.5 text-[#514653] transition hover:bg-white/20"><X size={19} /></button>
               </div>
 
-              <button onClick={() => { setMenuOpen(false); setLocationModalOpen(true); }} className="mb-9 flex w-full items-center gap-3 rounded-2xl border border-[#d8bd8b]/35 bg-[linear-gradient(135deg,rgba(255,250,242,0.14),rgba(255,250,242,0.06))] p-4 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] transition hover:bg-white/15">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#d8bd8b] text-[#4a1424]"><MapPin size={18} /></span>
-                <span className="flex min-w-0 flex-1 flex-col gap-1"><span className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#d8bd8b]">Delivering to</span><span className="truncate text-[14px] font-bold text-[#fffaf2]">{selectedLocation}</span></span>
-                <ChevronDown size={17} className="text-[#d8bd8b]" />
+              <button onClick={() => { setMenuOpen(false); setLocationModalOpen(true); }} className="mb-9 flex w-full items-center gap-3 rounded-2xl border border-white/80 bg-white/45 p-4 text-left shadow-[0_5px_20px_rgba(31,41,55,0.06)] backdrop-blur-xl transition hover:bg-white/70">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/80 text-[#68162a]"><MapPin size={18} /></span>
+                <span className="flex min-w-0 flex-1 flex-col gap-1"><span className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#9a7950]">Delivering to</span><span className="truncate text-[14px] font-bold text-[#514653]">{selectedLocation}</span></span>
+                <ChevronDown size={17} className="text-[#9a7950]" />
               </button>
 
-              <div className="mb-3 text-[9px] font-bold uppercase tracking-[0.28em] text-[#d8bd8b]/80">Explore the store</div>
+              <div className="mb-3 text-[9px] font-bold uppercase tracking-[0.28em] text-[#9a7950]">Explore the store</div>
               <div className="flex flex-col gap-2">
-                <a href="/" onClick={() => setMenuOpen(false)} className="group flex min-h-[58px] items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.07] px-4 text-[#fffaf2] transition hover:translate-x-1 hover:border-[#d8bd8b]/45 hover:bg-white/[0.12]"><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#d8bd8b]/15 text-[#e7c995]"><House size={18} /></span><span className="flex-1 text-[14px] font-semibold">{isHindi ? "होम" : "Home"}</span><ArrowUpRight size={16} className="text-white/35 transition group-hover:text-[#e7c995]" /></a>
-                <a href="/products" onClick={() => setMenuOpen(false)} className="group flex min-h-[58px] items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.07] px-4 text-[#fffaf2] transition hover:translate-x-1 hover:border-[#d8bd8b]/45 hover:bg-white/[0.12]"><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#d8bd8b]/15 text-[#e7c995]"><Package size={18} /></span><span className="flex-1 text-[14px] font-semibold">{isHindi ? "उत्पाद" : "Products"}</span><ArrowUpRight size={16} className="text-white/35 transition group-hover:text-[#e7c995]" /></a>
-                <a href="/order-tracking" onClick={() => setMenuOpen(false)} className="group flex min-h-[58px] items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.07] px-4 text-[#fffaf2] transition hover:translate-x-1 hover:border-[#d8bd8b]/45 hover:bg-white/[0.12]"><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#d8bd8b]/15 text-[#e7c995]"><Truck size={18} /></span><span className="flex-1 text-[14px] font-semibold">{isHindi ? "ऑर्डर ट्रैक करें" : "Track Order"}</span><ArrowUpRight size={16} className="text-white/35 transition group-hover:text-[#e7c995]" /></a>
-                <a href="/admin" onClick={() => setMenuOpen(false)} className="group flex min-h-[58px] items-center gap-4 rounded-2xl border border-[#d8bd8b]/30 bg-[#d8bd8b]/10 px-4 text-[#fffaf2] transition hover:translate-x-1 hover:bg-[#d8bd8b]/15"><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#d8bd8b] text-[#4a1424]"><ShieldCheck size={18} /></span><span className="flex-1 text-[14px] font-semibold">{isHindi ? "एडमिन पैनल" : "Admin Panel"}</span><ArrowUpRight size={16} className="text-[#d8bd8b]/70" /></a>
+                <a href="/" onClick={() => setMenuOpen(false)} className="group flex min-h-[58px] items-center gap-4 rounded-2xl border border-white/75 bg-white/45 px-4 text-[#403740] shadow-[0_3px_14px_rgba(31,41,55,0.05)] backdrop-blur-xl transition hover:translate-x-1 hover:border-[#d8bd8b]/45 hover:bg-white/[0.12]"><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#efe7dc]/75 text-[#8a6748]"><House size={18} /></span><span className="flex-1 text-[14px] font-semibold">{isHindi ? "होम" : "Home"}</span><ArrowUpRight size={16} className="text-[#9b8e96] transition group-hover:text-[#68162a]" /></a>
+                <a href="/products" onClick={() => setMenuOpen(false)} className="group flex min-h-[58px] items-center gap-4 rounded-2xl border border-white/75 bg-white/45 px-4 text-[#403740] shadow-[0_3px_14px_rgba(31,41,55,0.05)] backdrop-blur-xl transition hover:translate-x-1 hover:border-[#d8bd8b]/45 hover:bg-white/[0.12]"><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#efe7dc]/75 text-[#8a6748]"><Package size={18} /></span><span className="flex-1 text-[14px] font-semibold">{isHindi ? "उत्पाद" : "Products"}</span><ArrowUpRight size={16} className="text-[#9b8e96] transition group-hover:text-[#68162a]" /></a>
+                <a href="/order-tracking" onClick={() => setMenuOpen(false)} className="group flex min-h-[58px] items-center gap-4 rounded-2xl border border-white/75 bg-white/45 px-4 text-[#403740] shadow-[0_3px_14px_rgba(31,41,55,0.05)] backdrop-blur-xl transition hover:translate-x-1 hover:border-[#d8bd8b]/45 hover:bg-white/[0.12]"><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#efe7dc]/75 text-[#8a6748]"><Truck size={18} /></span><span className="flex-1 text-[14px] font-semibold">{isHindi ? "ऑर्डर ट्रैक करें" : "Track Order"}</span><ArrowUpRight size={16} className="text-[#9b8e96] transition group-hover:text-[#68162a]" /></a>
+                <a href="/admin" onClick={() => setMenuOpen(false)} className="group flex min-h-[58px] items-center gap-4 rounded-2xl border border-white/80 bg-white/65 px-4 text-[#68162a] shadow-[0_4px_16px_rgba(31,41,55,0.07)] backdrop-blur-xl transition hover:translate-x-1 hover:bg-[#d8bd8b]/15"><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/80 text-[#68162a]"><ShieldCheck size={18} /></span><span className="flex-1 text-[14px] font-semibold">{isHindi ? "एडमिन पैनल" : "Admin Panel"}</span><ArrowUpRight size={16} className="text-[#9a7950]" /></a>
               </div>
 
-              <div className="mt-auto pt-10"><div className="h-px bg-gradient-to-r from-transparent via-[#d8bd8b]/40 to-transparent" /><p className="pt-5 text-center text-[9px] font-semibold tracking-[0.24em] text-white/35">RASHID MEGA MART · REWA</p></div>
+              <div className="mt-auto pt-10"><div className="h-px bg-gradient-to-r from-transparent via-white/80 to-transparent" /><p className="pt-5 text-center text-[9px] font-semibold tracking-[0.24em] text-[#8e838b]">RASHID MEGA MART · REWA</p></div>
             </motion.div>
           </>
         )}

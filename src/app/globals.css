@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-inter), Arial, Helvetica, sans-serif;
+  --font-sans: var(--font-plus-jakarta), Arial, Helvetica, sans-serif;
   --color-burgundy: #800020;
   --color-cream: #fff9d8;
   --color-gold: #d4a84f;
@@ -27,7 +27,7 @@ body {
  margin: 0;
  color: var(--dark);
  background: var(--cream);
- font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+ font-family: var(--font-plus-jakarta), Arial, Helvetica, sans-serif;
  font-synthesis: none;
  text-rendering: optimizeLegibility;
  -webkit-font-smoothing: antialiased;

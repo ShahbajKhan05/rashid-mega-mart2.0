@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
-import { AlertCircle, FileDown, Headset, LoaderCircle, MapPin, Package, Phone, RotateCcw, Truck, XCircle } from "lucide-react";
+import { AlertCircle, FileDown, Headset, LoaderCircle, MapPin, Package, Phone, RotateCcw, Truck, UserRound, XCircle } from "lucide-react";
 
 function CenterPage({ title }: { title: string }) {
   return (
@@ -65,10 +65,10 @@ export function TrackOrderPage() {
   }
 
   return (
-    <main className="relative z-0 min-h-[calc(100svh-76px)] overflow-hidden bg-[#FFFCF0] px-3 py-4 sm:px-5 sm:py-6">
+    <main className="relative z-0 min-h-[calc(100svh-76px)] overflow-hidden bg-[radial-gradient(ellipse_at_top_left,_rgba(167,123,62,0.16),_transparent_42%),linear-gradient(135deg,#fffaf0_0%,#f7edf0_48%,#f8f4e9_100%)] px-3 py-4 sm:px-5 sm:py-6">
       <div className="relative mx-auto w-full max-w-[1060px]">
-        <section className="overflow-hidden rounded-2xl border border-[#eee5d8] bg-white shadow-[0_8px_28px_rgba(54,35,20,0.055)] sm:rounded-[22px]">
-          <header className="flex items-center justify-between gap-3 border-b border-[#f0ebe2] px-4 py-3.5 sm:px-6 sm:py-4">
+        <section className="overflow-hidden rounded-2xl border border-white/80 bg-white/65 shadow-[0_18px_55px_rgba(80,32,48,0.10)] backdrop-blur-2xl sm:rounded-[22px]">
+          <header className="flex items-center justify-between gap-3 border-b border-white/80 bg-white/55 px-4 py-3.5 backdrop-blur-xl sm:px-6 sm:py-4">
             <div className="flex min-w-0 items-center gap-3">
               <Image src="/Logo.png" alt="Rashid Mega Mart" width={48} height={48} priority className="h-10 w-10 shrink-0 rounded-xl object-contain sm:h-12 sm:w-12" />
               <div className="min-w-0">
@@ -99,7 +99,7 @@ export function TrackOrderPage() {
             {lookupMessage && <p role="status" className="mt-2 flex items-start gap-2 rounded-lg border border-[#f0dfc7] bg-[#fff8ed] px-3 py-2 text-xs leading-5 text-[#704d20]"><AlertCircle size={15} className="mt-0.5 shrink-0" />{lookupMessage}</p>}
 
             <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,1.25fr)_minmax(270px,.75fr)]">
-              <section className="min-w-0 rounded-xl border border-[#eee8de] bg-white p-3.5 sm:p-4">
+              <section className="min-w-0 rounded-xl border border-white/90 bg-white/70 p-3.5 shadow-[0_8px_24px_rgba(80,32,48,0.055)] backdrop-blur-xl sm:p-4">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div>
                     <h2 className="text-sm font-extrabold text-[#29211d] sm:text-base">Order details</h2>
@@ -108,7 +108,7 @@ export function TrackOrderPage() {
                   <span className="rounded-full bg-[#f5eee4] px-2.5 py-1 text-[10px] font-bold text-[#806342]">Awaiting order data</span>
                 </div>
 
-                <div className="mt-4 flex gap-3 rounded-xl bg-[#fffdf8] p-3">
+                <div className="mt-4 flex gap-3 rounded-xl bg-white/65 p-3">
                   <div className="grid h-[76px] w-[76px] shrink-0 place-items-center rounded-lg border border-[#eee5d8] bg-white text-[#a77b3e] sm:h-[88px] sm:w-[88px]">
                     <Package size={30} strokeWidth={1.6} />
                   </div>
@@ -132,19 +132,27 @@ export function TrackOrderPage() {
                 </button>
               </section>
 
-              <section className="min-w-0 rounded-xl border border-[#eee8de] bg-[#fffdf8] p-3.5 sm:p-4">
+              <section className="min-w-0 rounded-xl border border-white/90 bg-white/55 p-3.5 shadow-[0_8px_24px_rgba(80,32,48,0.045)] backdrop-blur-xl sm:p-4">
                 <h2 className="text-sm font-extrabold text-[#29211d] sm:text-base">Delivery information</h2>
                 <div className="mt-3 flex items-start gap-2.5">
                   <MapPin size={17} className="mt-0.5 shrink-0 text-[#800020]" />
                   <div><p className="text-xs font-bold text-[#332923]">Delivery address</p><p className="mt-0.5 text-xs leading-5 text-[#82776e]">Your saved delivery address will appear after secure order lookup.</p></div>
                 </div>
-                <div className="mt-4 border-t border-[#eee5d8] pt-3">
+                <div className="mt-4 border-t border-white/80 pt-3">
                   <div className="flex items-center gap-2">
                     <Truck size={17} className="text-[#800020]" />
-                    <p className="text-xs font-bold text-[#332923]">Delivery partner</p>
+                    <p className="text-xs font-bold text-[#332923]">Your delivery partner</p>
+                    <span className="ml-auto rounded-full bg-[#e8f4eb] px-2 py-1 text-[9px] font-bold text-[#28633b]">Assigned</span>
                   </div>
-                  <p className="mt-1.5 text-xs leading-5 text-[#82776e]">Partner name and contact will be shown when assigned to your order.</p>
-                  <div className="mt-2 flex items-center gap-2 text-[11px] text-[#978b80]"><Phone size={13} /> Contact details unavailable until assignment</div>
+                  <div className="mt-3 flex items-center gap-3 rounded-xl border border-white/90 bg-white/65 p-3 shadow-[0_5px_18px_rgba(80,32,48,0.045)]">
+                    <div className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#800020] to-[#a77b3e] text-sm font-extrabold text-white shadow-md">SK</div>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-extrabold text-[#332923]">Shahbaj Khan</p>
+                      <p className="mt-0.5 text-[11px] text-[#786e65]">Delivery Partner</p>
+                    </div>
+                    <span className="rounded-lg bg-[#f5eee4] px-2 py-1 text-[10px] font-bold text-[#6e4b28]">25 · Male</span>
+                  </div>
+                  <div className="mt-2 flex items-center gap-2 text-[11px] text-[#82776e]"><UserRound size={13} /> Partner profile provided by Rashid Mega Mart</div>
                 </div>
                 <div className="mt-4 rounded-lg bg-[#f5eee4] p-3">
                   <p className="text-xs font-bold text-[#5a1023]">Delivery updates</p>
@@ -153,7 +161,7 @@ export function TrackOrderPage() {
               </section>
             </div>
 
-            <section className="mt-4 rounded-xl border border-[#eee8de] bg-white p-3.5 sm:p-4">
+            <section className="mt-4 rounded-xl border border-white/90 bg-white/70 p-3.5 shadow-[0_8px_24px_rgba(80,32,48,0.055)] backdrop-blur-xl sm:p-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <h2 className="text-sm font-extrabold text-[#29211d] sm:text-base">Tracking timeline</h2>
                 <span className="text-[10px] font-semibold text-[#82776e]">Order journey</span>
@@ -169,7 +177,7 @@ export function TrackOrderPage() {
             </section>
 
             <section className="mt-4 grid gap-3 sm:grid-cols-2">
-              <div className="rounded-xl border border-[#eee8de] bg-[#fffdf8] p-3.5 sm:p-4">
+              <div className="rounded-xl border border-white/90 bg-white/55 p-3.5 shadow-[0_8px_24px_rgba(80,32,48,0.045)] backdrop-blur-xl sm:p-4">
                 <h2 className="text-sm font-extrabold text-[#29211d]">Cancel order</h2>
                 <p className="mt-1 text-xs leading-5 text-[#82776e]">Cancellation is available only when your order status and store policy allow it.</p>
                 <button type="button" onClick={() => handleUnavailableAction("Order cancellation")} className="mt-3 inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-lg border border-[#e8d8d8] bg-white px-3 py-2 text-xs font-bold text-[#800020] transition hover:bg-[#fff5f5] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#800020]"><XCircle size={15} /> Check cancellation eligibility</button>

@@ -46,7 +46,7 @@ export default function NotFound() {
               <circle cx="535" cy="70" r="31" fill="#e8c77f" opacity=".65"/>
               <path d="M25 344Q115 329 190 344T350 342T600 341V420H25Z" fill="#d5b58a" opacity=".55"/>
               <path d="M25 365H595" stroke="#947657" strokeWidth="3" strokeDasharray="10 8"/>
-              <!-- Tower crane -->
+              {/* Tower crane */}
               <g stroke="#8a1b32" strokeWidth="5" fill="none" strokeLinejoin="round">
                 <path d="M510 340V48M493 340L510 48L527 340M510 48H595L579 61H510"/>
                 <path d="M510 48L595 48M527 48L595 95M510 82L572 48M510 116L548 48"/>
@@ -54,7 +54,7 @@ export default function NotFound() {
               </g>
               <path d="M586 61V127" stroke="#6f172b" strokeWidth="3"/>
               <g className="crane-load"><path d="M586 127V145Q586 158 599 152" fill="none" stroke="#6f172b" strokeWidth="4" strokeLinecap="round"/><rect x="572" y="151" width="28" height="24" rx="3" fill="#d9a346" stroke="#80562a" strokeWidth="2"/><path d="M576 157H596M576 164H596" stroke="#fff1cb" strokeWidth="2"/></g>
-              <!-- Building skeleton and unfinished floors -->
+              {/* Building skeleton and unfinished floors */}
               <g>
                 <path d="M230 345V139L333 88L436 139V345Z" fill="#e8d9bf" stroke="#967b59" strokeWidth="3"/>
                 <path d="M230 139L333 88L436 139V345H230Z" fill="url(#bricks)" opacity=".8"/>
@@ -67,21 +67,21 @@ export default function NotFound() {
                 <path d="M242 122L242 345M424 122V345" stroke="#927958" strokeWidth="4"/>
                 <path d="M242 210H424M242 278H424" stroke="#927958" strokeWidth="3" strokeDasharray="7 5"/>
               </g>
-              <!-- Scaffolding in front of building -->
+              {/* Scaffolding in front of building */}
               <g fill="none" stroke="#9b7448" strokeWidth="4">
                 <path d="M195 125V345M165 125V345M135 125V345M120 160H210M120 220H210M120 280H210M120 160L195 220M195 160L120 220M120 220L195 280M195 220L120 280"/>
                 <path d="M165 125L180 110H210V125"/>
               </g>
               <g fill="#d6a13e" stroke="#8d632d" strokeWidth="2"><rect x="155" y="151" width="22" height="8" rx="2"/><rect x="185" y="211" width="22" height="8" rx="2"/></g>
-              <!-- Brick stacks and cement bags -->
+              {/* Brick stacks and cement bags */}
               <g stroke="#9c6849" strokeWidth="1.5"><path d="M445 326H492V344H445Z" fill="#b96f4c"/><path d="M445 317H492V326H445Z" fill="#d08b61"/><path d="M450 308H487V317H450Z" fill="#b96f4c"/><path d="M449 335H488M457 317V326M477 317V326" stroke="#f1c39b"/></g>
               <g><path d="M452 285Q468 276 484 285L488 307H449Z" fill="#e6ddc8" stroke="#a99a7c" strokeWidth="2"/><path d="M457 292H480" stroke="#a99a7c" strokeWidth="2"/></g>
-              <!-- Fresh excavation trench and soil -->
+              {/* Fresh excavation trench and soil */}
               <path d="M20 355Q83 337 142 357Q183 373 232 352L232 397H20Z" fill="url(#soil)"/>
               <path d="M26 354Q77 338 125 355T224 352" fill="none" stroke="#7e5234" strokeWidth="5"/>
               <path d="M35 369Q78 355 111 370T190 368" fill="none" stroke="#e0b37b" strokeWidth="3" opacity=".8"/>
               <g className="dirt-fall" fill="#9a673d"><circle cx="188" cy="330" r="4"/><circle cx="199" cy="340" r="3"/><circle cx="211" cy="331" r="5"/><circle cx="222" cy="344" r="3"/></g>
-              <!-- JCB excavator: tracks, body, cab -->
+              {/* JCB excavator: tracks, body, cab */}
               <ellipse cx="105" cy="361" rx="93" ry="12" fill="#5b4633" opacity=".2" filter="url(#shadow)"/>
               <g>
                 <path d="M32 332Q32 313 52 313H162Q181 313 184 332L176 359H40Z" fill="#34312d" stroke="#242321" strokeWidth="3"/>
@@ -94,7 +94,7 @@ export default function NotFound() {
                 <path d="M55 300H77V309H55Z" fill="#f7d77d"/><path d="M148 291H164V303H148Z" fill="#fff0b6"/>
                 <text x="99" y="302" fill="#713c12" fontSize="11" fontWeight="900" letterSpacing="1">JCB</text>
               </g>
-              <!-- Articulated digging arm; bucket moves down into the trench -->
+              {/* Articulated digging arm; bucket moves down into the trench */}
               <g className="dig-arm">
                 <path d="M151 284L181 251L211 264L190 300Z" fill="url(#jcbPaint)" stroke="#8a5d20" strokeWidth="4" strokeLinejoin="round"/>
                 <circle cx="177" cy="270" r="8" fill="#514337" stroke="#f1c66d" strokeWidth="3"/>
@@ -103,7 +103,7 @@ export default function NotFound() {
                 <path d="M229 309L247 329L237 352Q229 359 218 350L207 337L218 328L228 340L235 326Z" fill="#8a5b2d" stroke="#604124" strokeWidth="3" strokeLinejoin="round"/>
                 <path d="M215 342L225 350M228 344L236 351" stroke="#e2b16c" strokeWidth="3"/>
               </g>
-              <!-- Site worker on scaffold -->
+              {/* Site worker on scaffold */}
               <g className="worker-motion">
                 <circle cx="181" cy="190" r="8" fill="#b77b52"/>
                 <path d="M172 187Q181 175 190 187L191 191H171Z" fill="#e6ad39" stroke="#8b642d" strokeWidth="2"/>
@@ -111,7 +111,7 @@ export default function NotFound() {
                 <path d="M176 208L163 221M187 208L200 219" stroke="#b77b52" strokeWidth="5" strokeLinecap="round"/>
                 <path d="M175 229L171 240M187 229L191 240" stroke="#51483e" strokeWidth="5" strokeLinecap="round"/>
               </g>
-              <!-- Bricklayer working on upper floor -->
+              {/* Bricklayer working on upper floor */}
               <g>
                 <circle cx="387" cy="211" r="7" fill="#b77b52"/><path d="M379 208Q387 197 395 208L395 212H379Z" fill="#e6ad39"/>
                 <path d="M379 220H394L398 245H376Z" fill="#315f58"/>
@@ -119,7 +119,7 @@ export default function NotFound() {
                 <path d="M380 245L378 255M392 245L395 255" stroke="#51483e" strokeWidth="5"/>
                 <path d="M401 230L410 219" stroke="#8b6a45" strokeWidth="3"/>
               </g>
-              <!-- Safety barriers, warning boards and cones -->
+              {/* Safety barriers, warning boards and cones */}
               <g><path d="M22 385H202M22 385V411M202 385V411M22 400H202" stroke="#7f1930" strokeWidth="6" strokeLinecap="round"/><path d="M24 385L47 400M67 385L90 400M110 385L133 400M153 385L176 400" stroke="#f4cf7e" strokeWidth="6"/></g>
               <g className="cone"><path d="M470 382L483 345L496 382Z" fill="#df9f36" stroke="#8a602a" strokeWidth="2"/><path d="M476 365H490" stroke="#fff5df" strokeWidth="5"/><path d="M464 384H502" stroke="#7f1930" strokeWidth="5" strokeLinecap="round"/></g>
               <g><rect x="270" y="366" width="102" height="25" rx="4" fill="url(#warningStripe)" stroke="#7e172d" strokeWidth="2"/><text x="321" y="383" textAnchor="middle" fontSize="10" fontWeight="900" fill="#401b20">CAUTION</text></g>

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { ArrowRight, ArrowUpRight, Check, ChevronRight, Plus, ShoppingBag, Sparkles, Star, Tag, Truck } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, ChevronRight, Plus, Sparkles, Star, Tag, Truck } from "lucide-react";
 import { products, categoryOptions, type Product } from "./components/data";
 import { useCart } from "./components/CartProvider";
 import { useLanguage } from "./components/LanguageProvider";
@@ -163,7 +163,7 @@ export default function Home() {
       </section>
 
       {/* Offers */}
-      <section className="mx-auto max-w-[1440px] px-4 pb-9 sm:px-6 lg:px-8">
+      <section id="offers" className="mx-auto max-w-[1440px] px-4 pb-9 sm:px-6 lg:px-8">
         <div className="relative overflow-hidden rounded-[22px] border border-[#eadcc8] bg-[#f3eadb] px-5 py-5 sm:flex sm:items-center sm:justify-between sm:px-7">
           <div className="relative z-10">
             <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[.16em] text-[#987449]"><Tag size={12} /> {isHindi ? "खास ऑफर" : "Special offers"}</span>

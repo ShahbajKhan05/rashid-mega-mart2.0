@@ -4,233 +4,186 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Image from "next/image";
 
-const SESSION_KEY = "rmm-intro-seen-v2";
+const SESSION_KEY = "rmm-neoleaf-loader-seen";
 
 export default function IntroLoader() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [visible, setVisible] = useState(true);
   const rootRef = useRef<HTMLDivElement>(null);
+  const countRef = useRef<HTMLSpanElement>(null);
+  const barRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let seen = false;
     try {
-      seen = window.sessionStorage.getItem(SESSION_KEY) === "1";
+      seen = sessionStorage.getItem(SESSION_KEY) === "1";
     } catch {
-      // Storage is optional.
+      // Continue without session storage.
     }
     if (seen) {
-      setIsLoading(false);
+      setVisible(false);
       return;
     }
 
     const root = rootRef.current;
-    if (!root) {
-      setIsLoading(false);
+    const count = countRef.current;
+    const bar = barRef.current;
+    if (!root || !count || !bar) {
+      setVisible(false);
       return;
     }
 
-    const oldOverflow = document.body.style.overflow;
+    const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     let finished = false;
-    let fallbackTimer = 0;
+    let fallback = 0;
 
     const finish = () => {
       if (finished) return;
       finished = true;
-      window.clearTimeout(fallbackTimer);
+      window.clearTimeout(fallback);
       try {
-        window.sessionStorage.setItem(SESSION_KEY, "1");
+        sessionStorage.setItem(SESSION_KEY, "1");
       } catch {
-        // The intro must still finish if storage is blocked.
+        // Storage is optional.
       }
-      document.body.style.overflow = oldOverflow;
-      setIsLoading(false);
+      document.body.style.overflow = previousOverflow;
+      setVisible(false);
     };
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      const reducedTimer = window.setTimeout(finish, 180);
+      const timer = window.setTimeout(finish, 150);
       return () => {
-        window.clearTimeout(reducedTimer);
-        document.body.style.overflow = oldOverflow;
+        window.clearTimeout(timer);
+        document.body.style.overflow = previousOverflow;
       };
     }
 
-    // Fail-safe: the page is never held behind the intro indefinitely.
-    fallbackTimer = window.setTimeout(finish, 3400);
+    fallback = window.setTimeout(finish, 3600);
 
     const ctx = gsap.context(() => {
-      gsap.set(".intro-panel", { yPercent: 0 });
-      gsap.set(".intro-mark", {
-        opacity: 0,
-        scale: 0.72,
-        rotationX: -28,
-        rotationY: 22,
-        transformPerspective: 1100,
-        transformOrigin: "50% 50%",
-      });
-      gsap.set(".intro-logo-mask", { clipPath: "circle(0% at 50% 50%)" });
-      gsap.set(".intro-logo-image", { scale: 1.16, rotation: -7 });
-      gsap.set(".intro-ring", { opacity: 0, scale: 0.78 });
-      gsap.set(".intro-orbit", { opacity: 0, scale: 0 });
-      gsap.set(".intro-letter", { yPercent: 125, opacity: 0, rotateX: -75 });
-      gsap.set(".intro-caption", { opacity: 0, y: 12 });
-      gsap.set(".intro-shine", { xPercent: -160, opacity: 0 });
+      const progress = { value: 0 };
+      gsap.set(".nl-loader-content", { opacity: 0, y: 18 });
+      gsap.set(".nl-loader-rule", { scaleX: 0, transformOrigin: "left center" });
+      gsap.set(".nl-loader-curtain", { yPercent: 0 });
+      gsap.set(".nl-loader-logo", { opacity: 0, scale: 0.94, filter: "blur(8px)" });
+      gsap.set(".nl-loader-word", { opacity: 0, y: 12 });
 
-      // Independent, continuous orbital movement gives the emblem life.
-      gsap.to(".intro-ring-outer", {
-        rotation: 360,
-        duration: 5.5,
-        ease: "none",
-        repeat: -1,
-      });
-      gsap.to(".intro-ring-inner", {
-        rotation: -360,
-        duration: 7,
-        ease: "none",
-        repeat: -1,
-      });
-
-      const tl = gsap.timeline({ paused: true, onComplete: finish });
-      tl.to(".intro-mark", {
+      const tl = gsap.timeline({ onComplete: finish });
+      tl.to(".nl-loader-content", {
         opacity: 1,
-        scale: 1,
-        rotationX: 0,
-        rotationY: 0,
-        duration: 0.68,
-        ease: "back.out(1.55)",
+        y: 0,
+        duration: 0.55,
+        ease: "power3.out",
       }, 0)
-        .to(".intro-logo-mask", {
-          clipPath: "circle(72% at 50% 50%)",
-          duration: 0.72,
-          ease: "power3.out",
-        }, 0.12)
-        .to(".intro-logo-image", {
-          scale: 1,
-          rotation: 0,
-          duration: 0.72,
-          ease: "power3.out",
-        }, 0.12)
-        .to(".intro-ring", {
+        .to(".nl-loader-logo", {
           opacity: 1,
           scale: 1,
-          duration: 0.72,
-          stagger: 0.08,
+          filter: "blur(0px)",
+          duration: 0.65,
           ease: "power3.out",
         }, 0.12)
-        .to(".intro-orbit", {
-          opacity: 1,
-          scale: 1,
-          duration: 0.3,
-          ease: "back.out(2)",
-        }, 0.72)
-        .to(".intro-letter", {
-          yPercent: 0,
-          opacity: 1,
-          rotateX: 0,
-          duration: 0.58,
-          stagger: 0.026,
-          ease: "power3.out",
-        }, 0.92)
-        .to(".intro-caption", {
+        .to(".nl-loader-word", {
           opacity: 1,
           y: 0,
-          duration: 0.42,
-          stagger: 0.08,
+          duration: 0.45,
           ease: "power2.out",
-        }, 1.52)
-        .to(".intro-shine", {
-          xPercent: 260,
-          opacity: 0.85,
-          duration: 0.72,
-          ease: "power1.inOut",
-        }, 1.42)
-        .to(".intro-content", {
+        }, 0.34)
+        .to(progress, {
+          value: 100,
+          duration: 2.18,
+          ease: "power2.inOut",
+          onUpdate: () => {
+            count.textContent = String(Math.round(progress.value)).padStart(3, "0");
+          },
+        }, 0.12)
+        .to(bar, {
+          scaleX: 1,
+          duration: 2.18,
+          ease: "power2.inOut",
+        }, 0.12)
+        .to(".nl-loader-content", {
           opacity: 0,
-          y: -18,
-          scale: 0.97,
-          duration: 0.32,
+          y: -12,
+          duration: 0.24,
           ease: "power2.in",
-        }, 2.18)
-        .to(".intro-panel", {
-          yPercent: (index) => (index === 1 ? 108 : -108),
-          duration: 0.72,
-          stagger: 0.075,
+        }, 2.42)
+        .to(".nl-loader-curtain", {
+          yPercent: -105,
+          duration: 0.68,
+          stagger: 0.08,
           ease: "power4.inOut",
-        }, 2.28);
+        }, 2.52);
 
-      // The authored timeline is exactly three seconds long.
-      tl.duration(3).play(0);
+      // The loader sequence is deliberately short and predictable.
+      tl.timeScale(tl.duration() / 3.2);
     }, root);
 
     return () => {
-      window.clearTimeout(fallbackTimer);
+      window.clearTimeout(fallback);
       ctx.revert();
-      document.body.style.overflow = oldOverflow;
+      document.body.style.overflow = previousOverflow;
     };
   }, []);
 
-  if (!isLoading) return null;
-
-  const brand = "RASHID MEGA MART";
+  if (!visible) return null;
 
   return (
     <>
       <h1 className="sr-only">Rashid Mega Mart</h1>
       <div
         ref={rootRef}
-        className="fixed inset-0 z-[99999] isolate flex items-center justify-center overflow-hidden bg-[#f7f3ea]"
+        className="fixed inset-0 z-[99999] isolate flex items-center justify-center overflow-hidden bg-[#f8f7f3]"
         aria-hidden="true"
       >
         <div className="absolute inset-0 z-0 grid grid-cols-3">
-          <div className="intro-panel relative h-full border-r border-[#b99b68]/20 bg-[linear-gradient(145deg,#fbf8f0_0%,#eee5d4_100%)] shadow-[18px_0_55px_rgba(47,31,20,0.08)]" />
-          <div className="intro-panel relative h-full border-r border-[#b99b68]/20 bg-[linear-gradient(155deg,#f8f3e9_0%,#e9deca_100%)] shadow-[18px_0_55px_rgba(47,31,20,0.08)]" />
-          <div className="intro-panel relative h-full bg-[linear-gradient(145deg,#fbf8f0_0%,#eee5d4_100%)]" />
+          <div className="nl-loader-curtain border-r border-black/[0.035] bg-[#f8f7f3]" />
+          <div className="nl-loader-curtain border-r border-black/[0.035] bg-[#f6f5f0]" />
+          <div className="nl-loader-curtain bg-[#f8f7f3]" />
         </div>
 
-        <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_50%_42%,rgba(196,154,72,0.19)_0%,rgba(196,154,72,0.06)_28%,transparent_62%)]" />
-        <div className="pointer-events-none absolute inset-5 z-[2] rounded-[2px] border border-[#b99b68]/20 sm:inset-8" />
+        <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_50%_45%,rgba(145,111,67,0.08),transparent_58%)]" />
 
-        <div className="intro-content relative z-10 flex w-full flex-col items-center px-5">
-          <div
-            className="intro-mark relative flex h-44 w-44 items-center justify-center sm:h-52 sm:w-52"
-            style={{ perspective: "1100px", transformStyle: "preserve-3d" }}
-          >
-            <div className="intro-ring intro-ring-outer absolute inset-0 rounded-full border border-dashed border-[#b38a45]/80 shadow-[0_0_34px_rgba(179,138,69,0.18)]" />
-            <div className="intro-ring intro-ring-inner absolute inset-3 rounded-full border border-[#71162b]/30 sm:inset-4" />
-            <div className="intro-orbit absolute -right-1 top-1/2 h-3 w-3 rounded-full border-2 border-[#f7f3ea] bg-[#b38a45] shadow-[0_0_18px_rgba(179,138,69,0.8)]" />
-            <div className="intro-logo-mask relative flex h-32 w-32 items-center justify-center overflow-hidden rounded-full border border-white/90 bg-white/90 shadow-[0_22px_60px_rgba(63,34,28,0.18)] sm:h-40 sm:w-40">
-              <div className="intro-shine absolute inset-y-0 left-0 z-10 w-1/2 skew-x-[-18deg] bg-gradient-to-r from-transparent via-white to-transparent" />
-              <Image
-                src="/Logo.png"
-                alt="Rashid Mega Mart"
-                width={144}
-                height={144}
-                priority
-                className="intro-logo-image h-24 w-24 object-contain sm:h-32 sm:w-32"
-              />
-            </div>
+        <div className="nl-loader-content relative z-10 flex w-[min(420px,calc(100%-48px))] flex-col items-center">
+          <div className="nl-loader-logo mb-8 flex h-16 w-16 items-center justify-center rounded-2xl border border-black/[0.06] bg-white/75 shadow-[0_12px_40px_rgba(40,30,20,0.07)] sm:mb-10 sm:h-[76px] sm:w-[76px]">
+            <Image
+              src="/Logo.png"
+              alt="Rashid Mega Mart"
+              width={64}
+              height={64}
+              priority
+              className="h-12 w-12 object-contain sm:h-14 sm:w-14"
+            />
           </div>
 
-          <div className="mt-8 overflow-hidden sm:mt-10">
-            <div className="flex justify-center gap-[2px] text-center text-[clamp(1rem,4.2vw,2.15rem)] font-black tracking-[0.12em] text-[#501323] sm:gap-1 sm:tracking-[0.2em]">
-              {brand.split("").map((char, index) => (
-                <span
-                  key={index}
-                  className="intro-letter inline-block"
-                  style={{ transformOrigin: "50% 100%" }}
-                >
-                  {char === " " ? "\u00a0" : char}
-                </span>
-              ))}
-            </div>
+          <div className="nl-loader-word mb-8 text-center">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-[#8c806e]">
+              RASHID MEGA MART
+            </p>
           </div>
 
-          <div className="mt-5 flex flex-col items-center gap-2 sm:mt-7">
-            <span className="intro-caption h-px w-12 bg-gradient-to-r from-transparent via-[#b38a45] to-transparent" />
-            <span className="intro-caption text-[9px] font-semibold uppercase tracking-[0.34em] text-[#78634a] sm:text-[10px]">
-              Your Daily Needs, Our Priority
+          <div className="flex w-full items-end justify-between border-b border-[#d9d5cc] pb-3">
+            <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-[#8c806e]">
+              Loading experience
             </span>
-            <span className="intro-caption mt-1 text-[9px] font-black uppercase tracking-[0.28em] text-[#a27a3d]">
-              NOOR TECHNOLOGIES
+            <span className="font-mono text-[clamp(2.5rem,8vw,4rem)] font-light leading-none tracking-[-0.08em] text-[#211f1b]">
+              <span ref={countRef}>000</span>
+              <span className="ml-1 text-base text-[#a18a69]">%</span>
+            </span>
+          </div>
+
+          <div className="mt-4 h-[2px] w-full overflow-hidden bg-[#e5e1d8]">
+            <div
+              ref={barRef}
+              className="nl-loader-rule h-full w-full bg-[#8b6b3f]"
+            />
+          </div>
+
+          <div className="mt-4 flex w-full items-center justify-between">
+            <span className="text-[9px] font-medium uppercase tracking-[0.24em] text-[#a49a8b]">
+              Your daily needs, our priority
+            </span>
+            <span className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[#a18a69]">
+              N.T.
             </span>
           </div>
         </div>

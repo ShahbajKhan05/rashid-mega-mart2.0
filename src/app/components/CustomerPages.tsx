@@ -73,7 +73,7 @@ export function TrackOrderPage() {
               <Image src="/Logo.png" alt="Rashid Mega Mart" width={48} height={48} priority className="h-10 w-10 shrink-0 rounded-xl object-contain sm:h-12 sm:w-12" />
               <div className="min-w-0">
                 <p className="truncate text-sm font-extrabold leading-tight tracking-tight text-[#5a1023] sm:text-base">Rashid Mega Mart</p>
-                <p className="mt-0.5 text-sm font-semibold tracking-[0.13em] text-[#a77b3e] sm:text-sm">YOUR TRUSTED GROCERY STORE</p>
+                <p className="mt-0.5 text-xs font-semibold tracking-[0.13em] text-[#a77b3e] sm:text-sm">YOUR TRUSTED GROCERY STORE</p>
               </div>
             </div>
             <Link href="/" className="shrink-0 rounded-lg px-2.5 py-2 text-sm font-bold text-[#800020] transition hover:bg-[#fff6ed] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#800020] sm:text-sm">Back to store</Link>
@@ -105,7 +105,7 @@ export function TrackOrderPage() {
                     <h2 className="text-sm font-extrabold text-[#29211d] sm:text-base">Order details</h2>
                     <p className="mt-0.5 text-sm text-[#82776e]">Your items and order summary</p>
                   </div>
-                  <span className="rounded-full bg-[#f5eee4] px-2.5 py-1 text-sm font-bold text-[#806342]">Awaiting order data</span>
+                  <span className="rounded-full bg-[#f5eee4] px-2.5 py-1 text-xs font-bold text-[#806342]">Awaiting order data</span>
                 </div>
 
                 <div className="mt-4 flex gap-3 rounded-xl bg-white/65 p-3">
@@ -142,7 +142,7 @@ export function TrackOrderPage() {
                   <div className="flex items-center gap-2">
                     <Truck size={17} className="text-[#800020]" />
                     <p className="text-sm font-bold text-[#332923]">Your delivery partner</p>
-                    <span className="ml-auto rounded-full bg-[#e8f4eb] px-2 py-1 text-sm font-bold text-[#28633b]">Assigned</span>
+                    <span className="ml-auto rounded-full bg-[#e8f4eb] px-2 py-1 text-[11px] font-bold text-[#28633b]">Assigned</span>
                   </div>
                   <div className="mt-3 flex items-center gap-3 rounded-xl border border-white/90 bg-white/65 p-3 shadow-[0_5px_18px_rgba(80,32,48,0.045)]">
                     <div className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#800020] to-[#a77b3e] text-sm font-extrabold text-white shadow-md">SK</div>
@@ -150,7 +150,7 @@ export function TrackOrderPage() {
                       <p className="text-sm font-extrabold text-[#332923]">Shahbaj Khan</p>
                       <p className="mt-0.5 text-sm text-[#786e65]">Delivery Partner</p>
                     </div>
-                    <span className="rounded-lg bg-[#f5eee4] px-2 py-1 text-sm font-bold text-[#6e4b28]">25 · Male</span>
+                    <span className="rounded-lg bg-[#f5eee4] px-2 py-1 text-xs font-bold text-[#6e4b28]">25 · Male</span>
                   </div>
                   <div className="mt-2 flex items-center gap-2 text-sm text-[#82776e]"><UserRound size={13} /> Partner profile provided by Rashid Mega Mart</div>
                 </div>
@@ -164,7 +164,7 @@ export function TrackOrderPage() {
             <section className="mt-4 rounded-xl border border-white/90 bg-white/70 p-3.5 shadow-[0_8px_24px_rgba(80,32,48,0.055)] backdrop-blur-xl sm:p-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <h2 className="text-sm font-extrabold text-[#29211d] sm:text-base">Tracking timeline</h2>
-                <span className="text-sm font-semibold text-[#82776e]">Order journey</span>
+                <span className="text-xs font-semibold text-[#82776e]">Order journey</span>
               </div>
               <ol className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
                 {["Order Placed", "Processing", "Out for Delivery", "Delivered"].map((step, index) => (
@@ -195,7 +195,7 @@ export function TrackOrderPage() {
               <div><p className="text-sm font-extrabold">Need help with your order?</p><p className="mt-0.5 text-sm text-white/75">Rashid Mega Mart customer support · Rewa, Madhya Pradesh</p></div>
               <a href="https://wa.me/918962531603" target="_blank" rel="noreferrer" className="inline-flex min-h-10 items-center justify-center gap-2 rounded-lg bg-white px-4 py-2 text-sm font-extrabold text-[#5a1023] transition hover:bg-[#fff3df]"><Headset size={15} /> Contact support</a>
             </footer>
-            <p className="mt-3 text-center text-sm leading-4 text-[#978b80]">Order information, invoice and action eligibility will be displayed after secure order verification.</p>
+            <p className="mt-3 text-center text-xs leading-4 text-[#978b80]">Order information, invoice and action eligibility will be displayed after secure order verification.</p>
           </div>
         </section>
       </div>

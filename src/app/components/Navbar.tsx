@@ -403,8 +403,7 @@ export default function Navbar() {
                 <a href="/order-tracking" onClick={() => setMenuOpen(false)} className="flex items-center gap-3 rounded-xl p-3 hover:bg-gray-50"><Truck size={20} className="text-[#800020]" /><span className="font-bold text-gray-800">{isHindi ? "ऑर्डर ट्रैक करें" : "Track Order"}</span></a>
                 <a href="/admin" onClick={() => setMenuOpen(false)} className="flex items-center gap-3 rounded-xl p-3 hover:bg-gray-50"><ShieldCheck size={20} className="text-[#800020]" /><span className="font-bold text-gray-800">{isHindi ? "एडमिन पैनल" : "Admin Panel"}</span></a>
               </div>
-
-
+            </motion.div>
           </>
         )}
       </AnimatePresence>

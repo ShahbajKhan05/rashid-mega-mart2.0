@@ -8,7 +8,7 @@ const SESSION_KEY = "rmm-intro-seen";
 
 export default function IntroLoader() {
   const rootRef = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     let alreadySeen = false;
@@ -19,9 +19,10 @@ export default function IntroLoader() {
       // Storage may be unavailable; the loader can still run for this visit.
     }
 
-    if (alreadySeen) return;
-
-    setVisible(true);
+    if (alreadySeen) {
+      setVisible(false);
+      return;
+    }
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 

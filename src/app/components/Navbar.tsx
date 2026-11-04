@@ -136,7 +136,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/45 bg-white/[0.38] shadow-[0_8px_32px_rgba(31,41,55,0.07)] backdrop-blur-[28px] backdrop-saturate-[1.8]">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/55 bg-white/[0.26] shadow-[0_4px_24px_rgba(31,41,55,0.045)] backdrop-blur-3xl backdrop-saturate-150">
 
         {/* =========================================
             DESKTOP HEADER
@@ -202,7 +202,7 @@ export default function Navbar() {
         {/* =========================================
             MOBILE HEADER (Clean & Professional)
             ========================================= */}
-        <div className="flex flex-col gap-2 border-t border-white/40 px-3 pb-3 pt-3 lg:hidden">
+        <div className="flex flex-col gap-2 px-3 pb-2 pt-2 lg:hidden">
 
           {/* ROW 1: Menu + Logo + Clean Icons */}
           <div className="flex min-h-10 items-center justify-between gap-2">
@@ -219,9 +219,9 @@ export default function Navbar() {
               
               {/* Logo & Location */}
               <a href="/" className="flex min-w-0 items-center gap-2">
-                <Image src="/Logo.png" alt="Logo" width={32} height={32} className="h-8 w-8 shrink-0 object-contain" />
+                <Image src="/Logo.png" alt="Logo" width={30} height={30} className="h-[30px] w-[30px] shrink-0 object-contain" />
                 <div className="flex flex-col min-w-0">
-                  <span className="text-sm font-black leading-tight text-[#800020] truncate">
+                  <span className="truncate text-[13px] font-semibold leading-tight tracking-[-0.02em] text-[#3c3440]">
                     Rashid Mega Mart
                   </span>
                   <button onClick={() => setLocationModalOpen(true)} className="mt-0.5 flex min-w-0 items-center gap-1 text-[10px] font-bold text-gray-500">
@@ -246,10 +246,10 @@ export default function Navbar() {
           </div>
 
           {/* ROW 2: Search + Language */}
-          <div className="mt-1 flex items-center gap-2">
+          <div className="flex items-center gap-2">
             <button
               onClick={() => setSearchOpen(true)}
-              className="flex h-11 flex-1 items-center gap-2.5 rounded-xl border border-white/75 bg-white/45 px-3.5 text-sm text-[#817780] shadow-[0_3px_14px_rgba(31,41,55,0.06)] backdrop-blur-xl transition active:scale-[0.99]"
+              className="flex h-10 flex-1 items-center gap-2.5 rounded-full border border-white/75 bg-white/45 px-3.5 text-sm text-[#817780] shadow-[0_3px_14px_rgba(31,41,55,0.06)] backdrop-blur-xl transition active:scale-[0.99]"
             >
               <Search size={17} />
               <span className="truncate text-xs font-medium">{isHindi ? "आटा, तेल खोजें..." : "Search atta, oil..."}</span>
@@ -260,7 +260,7 @@ export default function Navbar() {
           </div>
 
           {/* 🔥 ROW 3: Categories with Original Icons */}
-          <div className="mt-1 flex items-center gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
             {categoryOptions.map((cat) => {
               // 🔥 Har category ke liye uske naam ka sahi icon select kar rahe hain
               let Icon = LayoutGrid;
@@ -274,7 +274,7 @@ export default function Navbar() {
                 <a
                   key={cat.id}
                   href={`/products${cat.id !== "all" ? `?category=${cat.id}` : ""}`}
-                  className="flex h-9 shrink-0 items-center gap-2 rounded-full border border-white/75 bg-white/45 px-3 py-1.5 text-[11px] font-bold text-[#665d66] shadow-[0_3px_12px_rgba(31,41,55,0.06)] backdrop-blur-xl transition hover:border-[#d9c5a8] hover:text-[#68162a] active:scale-[0.98]"
+                  className="flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-white/75 bg-white/45 px-3 py-1.5 text-[10px] font-medium text-[#514b50] shadow-[0_3px_12px_rgba(31,41,55,0.06)] backdrop-blur-xl transition hover:border-[#d9c5a8] hover:text-[#68162a] active:scale-[0.98]"
                 >
                   <Icon size={15} className="text-[#800020]" />
                   {isHindi ? cat.hi : cat.en}
@@ -287,7 +287,7 @@ export default function Navbar() {
       </header>
 
       {/* Spacer */}
-      <div className="h-[154px] lg:h-[76px]" />
+      <div className="h-[145px] lg:h-[76px]" />
 
       {/* =========================================
           LOCATION MODAL
@@ -379,24 +379,24 @@ export default function Navbar() {
         {menuOpen && (
           <>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setMenuOpen(false)} className="fixed inset-0 z-[90] bg-slate-900/10 backdrop-blur-md lg:hidden" />
-            <motion.div initial={{ x: "-100%", opacity: 0.92 }} animate={{ x: 0, opacity: 1 }} exit={{ x: "-100%", opacity: 0.92 }} transition={{ type: "spring", stiffness: 290, damping: 30 }} className="fixed bottom-0 left-0 top-0 z-[100] flex w-[88%] max-w-[390px] flex-col overflow-y-auto border-r border-white/70 bg-white/[0.58] px-5 pb-8 pt-7 text-[#302b32] shadow-[24px_0_70px_rgba(31,41,55,0.16)] backdrop-blur-[36px] backdrop-saturate-[1.8] lg:hidden">
+            <motion.div initial={{ x: "-100%", opacity: 0.92 }} animate={{ x: 0, opacity: 1 }} exit={{ x: "-100%", opacity: 0.92 }} transition={{ type: "spring", stiffness: 290, damping: 30 }} className="fixed bottom-0 left-0 top-0 z-[100] flex w-[86%] max-w-[340px] flex-col overflow-y-auto border-r border-white/70 bg-white/[0.34] px-5 pb-8 pt-7 text-[#302b32] shadow-[16px_0_48px_rgba(31,41,55,0.10)] backdrop-blur-[36px] backdrop-saturate-[1.8] lg:hidden">
               <div className="mb-9 flex items-center justify-between border-b border-white/70 pb-6">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/80 bg-white/65 p-1 shadow-[0_5px_18px_rgba(31,41,55,0.10)]"><Image src="/Logo.png" alt="Logo" width={40} height={40} className="h-10 w-10 object-contain" /></div>
-                  <div className="flex flex-col gap-1"><span className="text-[17px] font-extrabold tracking-[-0.04em] text-[#4b3440]">Rashid Mega Mart</span><span className="text-[9px] font-bold tracking-[0.28em] text-[#9a7950]">THE EVERYDAY LUXURY</span></div>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/70 bg-white/45 p-1 shadow-[0_5px_18px_rgba(31,41,55,0.10)]"><Image src="/Logo.png" alt="Logo" width={40} height={40} className="h-10 w-10 object-contain" /></div>
+                  <div className="flex flex-col gap-1"><span className="text-[16px] font-semibold tracking-[-0.035em] text-[#4b3440]">Rashid Mega Mart</span><span className="text-[9px] font-bold tracking-[0.28em] text-[#9a7950]">THE EVERYDAY LUXURY</span></div>
                 </div>
                 <button onClick={() => setMenuOpen(false)} aria-label="Close menu" className="rounded-full border border-white/80 bg-white/55 p-2.5 text-[#514653] transition hover:bg-white/20"><X size={19} /></button>
               </div>
 
-              <button onClick={() => { setMenuOpen(false); setLocationModalOpen(true); }} className="mb-9 flex w-full items-center gap-3 rounded-2xl border border-white/80 bg-white/45 p-4 text-left shadow-[0_5px_20px_rgba(31,41,55,0.06)] backdrop-blur-xl transition hover:bg-white/70">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/80 text-[#68162a]"><MapPin size={18} /></span>
-                <span className="flex min-w-0 flex-1 flex-col gap-1"><span className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#9a7950]">Delivering to</span><span className="truncate text-[14px] font-bold text-[#514653]">{selectedLocation}</span></span>
+              <button onClick={() => { setMenuOpen(false); setLocationModalOpen(true); }} className="mb-9 flex w-full items-center gap-3 rounded-xl border border-white/70 bg-white/30 p-4 text-left shadow-[0_5px_20px_rgba(31,41,55,0.06)] backdrop-blur-xl transition hover:bg-white/70">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/50 text-[#68162a]"><MapPin size={18} /></span>
+                <span className="flex min-w-0 flex-1 flex-col gap-1"><span className="text-[9px] font-medium uppercase tracking-[0.16em] text-[#8b7d70]">Delivering to</span><span className="truncate text-[14px] font-bold text-[#514653]">{selectedLocation}</span></span>
                 <ChevronDown size={17} className="text-[#9a7950]" />
               </button>
 
-              <div className="mb-3 text-[9px] font-bold uppercase tracking-[0.28em] text-[#9a7950]">Explore the store</div>
+              <div className="mb-3 text-[9px] font-medium uppercase tracking-[0.18em] text-[#8b7d70]">Explore the store</div>
               <div className="flex flex-col gap-2">
-                <a href="/" onClick={() => setMenuOpen(false)} className="group flex min-h-[58px] items-center gap-4 rounded-2xl border border-white/75 bg-white/45 px-4 text-[#403740] shadow-[0_3px_14px_rgba(31,41,55,0.05)] backdrop-blur-xl transition hover:translate-x-1 hover:border-[#d8bd8b]/45 hover:bg-white/[0.12]"><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#efe7dc]/75 text-[#8a6748]"><House size={18} /></span><span className="flex-1 text-[14px] font-semibold">{isHindi ? "होम" : "Home"}</span><ArrowUpRight size={16} className="text-[#9b8e96] transition group-hover:text-[#68162a]" /></a>
+                <a href="/" onClick={() => setMenuOpen(false)} className="group flex min-h-[50px] items-center gap-4 rounded-xl border border-white/65 bg-white/30 px-3.5 text-[#403740] shadow-[0_3px_14px_rgba(31,41,55,0.05)] backdrop-blur-xl transition hover:translate-x-1 hover:border-[#d8bd8b]/45 hover:bg-white/[0.12]"><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/45 text-[#8a6748]"><House size={18} /></span><span className="flex-1 text-[13px] font-medium">{isHindi ? "होम" : "Home"}</span><ArrowUpRight size={16} className="text-[#9b8e96] transition group-hover:text-[#68162a]" /></a>
                 <a href="/products" onClick={() => setMenuOpen(false)} className="group flex min-h-[58px] items-center gap-4 rounded-2xl border border-white/75 bg-white/45 px-4 text-[#403740] shadow-[0_3px_14px_rgba(31,41,55,0.05)] backdrop-blur-xl transition hover:translate-x-1 hover:border-[#d8bd8b]/45 hover:bg-white/[0.12]"><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#efe7dc]/75 text-[#8a6748]"><Package size={18} /></span><span className="flex-1 text-[14px] font-semibold">{isHindi ? "उत्पाद" : "Products"}</span><ArrowUpRight size={16} className="text-[#9b8e96] transition group-hover:text-[#68162a]" /></a>
                 <a href="/order-tracking" onClick={() => setMenuOpen(false)} className="group flex min-h-[58px] items-center gap-4 rounded-2xl border border-white/75 bg-white/45 px-4 text-[#403740] shadow-[0_3px_14px_rgba(31,41,55,0.05)] backdrop-blur-xl transition hover:translate-x-1 hover:border-[#d8bd8b]/45 hover:bg-white/[0.12]"><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#efe7dc]/75 text-[#8a6748]"><Truck size={18} /></span><span className="flex-1 text-[14px] font-semibold">{isHindi ? "ऑर्डर ट्रैक करें" : "Track Order"}</span><ArrowUpRight size={16} className="text-[#9b8e96] transition group-hover:text-[#68162a]" /></a>
                 <a href="/admin" onClick={() => setMenuOpen(false)} className="group flex min-h-[58px] items-center gap-4 rounded-2xl border border-white/80 bg-white/65 px-4 text-[#68162a] shadow-[0_4px_16px_rgba(31,41,55,0.07)] backdrop-blur-xl transition hover:translate-x-1 hover:bg-[#d8bd8b]/15"><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/80 text-[#68162a]"><ShieldCheck size={18} /></span><span className="flex-1 text-[14px] font-semibold">{isHindi ? "एडमिन पैनल" : "Admin Panel"}</span><ArrowUpRight size={16} className="text-[#9a7950]" /></a>

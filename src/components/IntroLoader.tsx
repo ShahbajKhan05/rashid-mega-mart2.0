@@ -34,9 +34,11 @@ export default function IntroLoader() {
     document.body.style.overflow = "hidden";
 
     let finished = false;
+    let safetyTimeout: number | undefined;
     const finish = () => {
       if (finished) return;
       finished = true;
+      if (safetyTimeout !== undefined) window.clearTimeout(safetyTimeout);
 
       try {
         window.sessionStorage.setItem(SESSION_KEY, "1");
@@ -55,6 +57,9 @@ export default function IntroLoader() {
         document.body.style.overflow = previousOverflow;
       };
     }
+
+    // Never let a failed or interrupted animation keep the storefront blocked.
+    safetyTimeout = window.setTimeout(finish, 3600);
 
     const context = gsap.context(() => {
       const timeline = gsap.timeline({ onComplete: finish });
@@ -171,6 +176,7 @@ export default function IntroLoader() {
     }, container);
 
     return () => {
+      if (safetyTimeout !== undefined) window.clearTimeout(safetyTimeout);
       context.revert();
       document.body.style.overflow = previousOverflow;
     };

@@ -178,7 +178,7 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center gap-3">
-            <nav className="flex items-center gap-3">
+            <nav className="flex items-center gap-1 rounded-full border border-white/80 bg-[#f0eee8] p-1 shadow-[inset_2px_2px_5px_rgba(120,110,90,0.10),inset_-2px_-2px_5px_rgba(255,255,255,0.9)]">
               <a href="/" className="text-sm font-bold text-gray-700 hover:text-[#800020]">Home</a>
               <a href="/products" className="rounded-full px-3 py-2 text-sm font-semibold text-gray-700 transition hover:bg-white hover:text-[#800020] hover:shadow-sm">Products</a>
               <a href="/order-tracking" className="rounded-full px-3 py-2 text-sm font-semibold text-gray-700 transition hover:bg-white hover:text-[#800020] hover:shadow-sm">Track Order</a>

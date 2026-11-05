@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { BadgePercent, Copy, Plus, Search, Ticket, Trash2 } from "lucide-react";
 
-type Coupon = { id:string; code:string; title:string; type:"flat"|"percent"; value:number; minOrder:number; expiresAt:string; createdAt:string; source:"admin"|"reward"; status:"active"|"used" };
+type Coupon = { id:string; code:string; title:string; type:"flat"|"percent"; value:number; minOrder:number; expiresAt:string; createdAt:string; source:"admin"|"reward"; status:"active"|"used"; ownerPhone?:string };
 const KEY="rmm-coupons-v1";
 const read=():Coupon[]=>{try{return JSON.parse(localStorage.getItem(KEY)||"[]") as Coupon[]}catch{return []}};
 const write=(rows:Coupon[])=>{localStorage.setItem(KEY,JSON.stringify(rows));window.dispatchEvent(new Event("rmm-coupons-change"))};

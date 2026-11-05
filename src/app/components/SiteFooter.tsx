@@ -51,12 +51,12 @@ export default function SiteFooter() {
             <ShieldCheck className="shrink-0 text-[#138047]" size={25} />
             <span>
               <span className="block text-[10px] font-bold uppercase tracking-[.12em] text-[#6A7282]">{isHindi ? "प्रमाणित स्टोर" : "Certified Store"}</span>
-              <span className="mt-0.5 block text-sm font-bold text-[#30251F]">FSSAI: 12345678901234</span>
+              <span className="mt-0.5 block text-sm font-bold text-[#30251F]">{isHindi ? "खाद्य सुरक्षा जानकारी" : "Food safety information"}</span>
             </span>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-9 py-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-[1.05fr_1fr_1.15fr_1fr] lg:gap-8 lg:py-10">
+        <div className="grid grid-cols-1 gap-9 py-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-5 lg:gap-7 lg:py-10">
           <section className="rm-footer-reveal min-w-0">
             <h3 className="text-[17px] font-bold uppercase tracking-[.035em] text-[#800020]">{isHindi ? "संपर्क करें" : "Contact Us"}</h3>
             <ul className="mt-5 space-y-3">
@@ -81,6 +81,29 @@ export default function SiteFooter() {
               {quickLinks.map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="group inline-flex items-center gap-3 text-sm text-[#55483C] transition hover:text-[#800020] sm:text-base">
+                    <ChevronRight size={17} className="shrink-0 text-[#EAB308] transition-transform group-hover:translate-x-1"/>
+                    {isHindi ? item.hi : item.en}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section className="rm-footer-reveal">
+            <h3 className="text-[17px] font-bold uppercase tracking-[.035em] text-[#800020]">{isHindi ? "ज़रूरी नीतियाँ" : "Important Policies"}</h3>
+            <ul className="mt-5 space-y-3">
+              {[
+                { href: "/privacy-policy", en: "Privacy Policy", hi: "गोपनीयता नीति" },
+                { href: "/terms-and-conditions", en: "Terms & Conditions", hi: "नियम और शर्तें" },
+                { href: "/shipping-policy", en: "Shipping & Delivery", hi: "शिपिंग और डिलीवरी" },
+                { href: "/cancellation-refund", en: "Cancellation & Refund", hi: "रद्द और रिफंड" },
+                { href: "/return-replacement", en: "Returns & Replacement", hi: "रिटर्न और रिप्लेसमेंट" },
+                { href: "/payment-policy", en: "Payment Policy", hi: "भुगतान नीति" },
+                { href: "/grievance-redressal", en: "Grievance Redressal", hi: "शिकायत निवारण" },
+                { href: "/food-safety", en: "Food Safety & FSSAI", hi: "खाद्य सुरक्षा और FSSAI" },
+              ].map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className="group inline-flex items-center gap-3 text-sm text-[#55483C] transition hover:text-[#800020]">
                     <ChevronRight size={17} className="shrink-0 text-[#EAB308] transition-transform group-hover:translate-x-1"/>
                     {isHindi ? item.hi : item.en}
                   </Link>

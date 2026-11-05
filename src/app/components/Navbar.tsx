@@ -194,20 +194,22 @@ export default function Navbar() {
         </div>
 
         {/* COMPACT MOBILE HEADER */}
-        <div className="flex flex-col gap-1.5 px-3 pb-2 pt-2 xl:hidden">
-          <div className="flex h-9 items-center justify-between gap-2">
-            <a href="/" aria-label="Rashid Mega Mart home" className="flex min-w-0 items-center gap-2">
-              <Image src="/Logo.png" alt="Rashid Mega Mart" width={32} height={32} className="h-8 w-8 shrink-0 object-contain" />
-              <span className="truncate text-[14px] font-extrabold tracking-[-0.035em] text-[#5a1023]">Rashid Mega Mart</span>
+        <div className="flex flex-col gap-1.5 px-3 pb-1.5 pt-1.5 xl:hidden">
+          <div className="relative flex h-9 items-center justify-center">
+            <a href="/" aria-label="Rashid Mega Mart home" className="flex min-w-0 items-center justify-center gap-2">
+              <Image src="/Logo.png" alt="Rashid Mega Mart" width={34} height={34} className="h-[34px] w-[34px] shrink-0 object-contain" />
+              <span className="truncate text-[15px] font-extrabold tracking-[-0.035em] text-[#5a1023]">Rashid Mega Mart</span>
             </a>
-            <LanguageToggle language={language} onSelect={() => toggleLanguage()} />
+            <div className="absolute right-0 top-1/2 -translate-y-1/2">
+              <LanguageToggle language={language} onSelect={() => toggleLanguage()} />
+            </div>
           </div>
 
           <div className="flex h-10 items-center gap-2">
             <button
               type="button"
               onClick={() => setSearchOpen(true)}
-              className="flex h-10 min-w-0 flex-1 items-center gap-2 rounded-xl border border-[#eadfce] bg-white/80 px-3 text-left text-[#817780] shadow-[0_2px_9px_rgba(72,35,24,0.04)] transition active:scale-[0.99]"
+              className="flex h-9 min-w-0 flex-1 items-center gap-2 rounded-xl border border-white/80 bg-white/55 px-3 text-left text-[#817780] shadow-[0_5px_16px_rgba(72,35,24,0.07)] backdrop-blur-xl transition active:scale-[0.99]"
             >
               <Search size={16} className="shrink-0 text-[#800020]" />
               <span className="truncate text-xs font-medium">{isHindi ? "आटा, तेल खोजें..." : "Search atta, oil..."}</span>
@@ -215,7 +217,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setLocationModalOpen(true)}
-              className="flex h-10 max-w-[42%] shrink-0 items-center gap-1.5 rounded-xl border border-[#eadfce] bg-white/80 px-2.5 text-left shadow-[0_2px_9px_rgba(72,35,24,0.04)]"
+              className="flex h-9 max-w-[42%] shrink-0 items-center gap-1.5 rounded-xl border border-white/80 bg-white/55 px-2.5 text-left shadow-[0_5px_16px_rgba(72,35,24,0.07)] backdrop-blur-xl"
               aria-label={isHindi ? "डिलीवरी लोकेशन बदलें" : "Change delivery location"}
             >
               <MapPin size={15} className="shrink-0 text-[#138047]" />
@@ -237,7 +239,7 @@ export default function Navbar() {
                 <a
                   key={cat.id}
                   href={`/products${cat.id !== "all" ? `?category=${cat.id}` : ""}`}
-                  className="flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-[#eadfce] bg-white/75 px-3 text-[10px] font-semibold text-[#514b50] transition-colors hover:border-[#d9c5a8] hover:text-[#68162a] active:scale-[0.98]"
+                  className="flex h-7 shrink-0 items-center gap-1.5 rounded-full border border-white/80 bg-white/55 px-3 text-[10px] font-semibold text-[#514b50] shadow-[0_4px_12px_rgba(72,35,24,0.05)] backdrop-blur-lg transition-colors hover:border-[#d9c5a8] hover:text-[#68162a] active:scale-[0.98]"
                 >
                   <Icon size={14} className="text-[#800020]" />
                   {isHindi ? cat.hi : cat.en}
@@ -251,7 +253,7 @@ export default function Navbar() {
 
       {/* Spacer */}
 
-      <div className="h-[122px] xl:h-[76px]" />
+      <div className="h-[112px] xl:h-[76px]" />
 
       {/* Flipkart-style mobile bottom navigation */}
       <nav aria-label={isHindi ? "मुख्य नेविगेशन" : "Main navigation"} className="fixed inset-x-0 bottom-0 z-[70] border-t border-[#e9ddcc] bg-[#fffdf8]/96 shadow-[0_-10px_35px_rgba(72,35,24,0.12)] backdrop-blur-2xl xl:hidden" style={{ paddingBottom: "max(env(safe-area-inset-bottom), 7px)" }}>

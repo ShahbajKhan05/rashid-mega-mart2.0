@@ -62,7 +62,7 @@ export default function KitsPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#FFFCF0] px-3 pb-16 pt-5 text-[#30251f] sm:px-6 sm:pt-8">
+    <section id="ration-kits" className="bg-[#FFFCF0] px-3 py-8 text-[#30251f] sm:px-6 sm:py-12">
       <div className="mx-auto max-w-[1540px]">
         <section className="overflow-hidden rounded-[28px] bg-[#fffefd] px-5 py-8 shadow-[0_22px_70px_rgba(71,49,27,.055)] sm:rounded-[38px] sm:px-10 sm:py-10 lg:px-[3.25rem] lg:py-[3.75rem]">
           <div className="grid items-center gap-8 lg:grid-cols-[1.02fr_.98fr] lg:gap-10">
@@ -118,6 +118,6 @@ export default function KitsPage() {
           </div>
         </section>
       </div>
-    </main>
+    </section>
   );
 }

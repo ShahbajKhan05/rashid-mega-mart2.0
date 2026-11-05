@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight, ArrowUpRight, ChevronRight, Search, ShieldCheck, ShoppingCart, Sparkles, Truck } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 import { categoryOptions, products } from "./data";
@@ -41,6 +42,9 @@ export default function OriginalCustomerHome() {
   const promoLettersRef = useRef<HTMLSpanElement>(null);
   const brandTrackRef = useRef<HTMLDivElement>(null);
   const brandTweenRef = useRef<gsap.core.Tween | null>(null);
+  const categorySectionRef = useRef<HTMLElement>(null);
+  const categoryViewportRef = useRef<HTMLDivElement>(null);
+  const categoryTrackRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const offerEndsAt = new Date("2026-11-09T23:59:59+05:30").getTime();
@@ -94,10 +98,56 @@ export default function OriginalCustomerHome() {
     };
   }, []);
 
+  useEffect(() => {
+    const section = categorySectionRef.current;
+    const viewport = categoryViewportRef.current;
+    const track = categoryTrackRef.current;
+    if (!section || !viewport || !track) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (motionQuery.matches) return;
+
+    const media = gsap.matchMedia();
+    media.add("(min-width: 768px)", () => {
+      const getTravel = () => Math.max(0, track.scrollWidth - viewport.clientWidth);
+      gsap.to(track, {
+        x: () => -getTravel(),
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: () => "+=" + Math.max(getTravel(), window.innerHeight * 0.75),
+          pin: true,
+          scrub: 0.8,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+    });
+
+    media.add("(max-width: 767px)", () => {
+      const cards = track.querySelectorAll<HTMLElement>("[data-category-card]");
+      gsap.fromTo(cards, { y: 22, autoAlpha: 0 }, {
+        y: 0, autoAlpha: 1, duration: 0.65, stagger: 0.08, ease: "power3.out",
+        scrollTrigger: { trigger: section, start: "top 78%", once: true },
+      });
+    });
+
+    const refresh = () => ScrollTrigger.refresh();
+    const resizeObserver = new ResizeObserver(refresh);
+    resizeObserver.observe(track);
+    resizeObserver.observe(viewport);
+    return () => {
+      resizeObserver.disconnect();
+      media.revert();
+    };
+  }, [categorySearch]);
+
   const categories = categoryOptions.filter((item) => item.id !== "all" && (!categorySearch.trim() || item.en.toLowerCase().includes(categorySearch.toLowerCase()) || item.hi.includes(categorySearch.trim())));
 
   return (
-    <main className="overflow-hidden bg-[#FFFCF0] pb-24 font-[var(--font-plus-jakarta)] text-[#30251F]">
+    <main className="overflow-clip bg-[#FFFCF0] pb-24 font-[var(--font-plus-jakarta)] text-[#30251F]">
       <div
         ref={promoBarRef}
         role="region"
@@ -230,19 +280,44 @@ export default function OriginalCustomerHome() {
         <p className="mt-4 text-center text-[9px] font-medium tracking-[.08em] text-[#a29487]">{isHindi ? "और भी कई रोज़मर्रा के पसंदीदा ब्रांड" : "A few of the everyday favourites on our shelves"}</p>
       </section>
 
-      <section id="categories" className="mx-auto max-w-[1440px] px-4 py-12 sm:px-7 sm:py-16 lg:px-10">
-        <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div><p className="text-[11px] font-extrabold tracking-[.2em] text-[#A47A2C]">{isHindi ? "अपनी पसंद चुनें" : "SHOP YOUR FAVOURITES"}</p><h2 className="mt-2 text-3xl font-black tracking-[-.06em] text-[#800020] sm:text-4xl">{isHindi ? "कैटेगरी से खरीदें" : "Shop by Category"}</h2><p className="mt-2 text-sm text-[#76665C]">{isHindi ? "आपकी रोज़ की ज़रूरतें, एक ही जगह।" : "Everyday essentials, all in one place."}</p></div>
-          <label className="flex h-11 w-full items-center gap-2 rounded-xl border border-[#e6d9c8] bg-white/75 px-3 sm:max-w-[260px]"><Search size={16} className="text-[#800020]" /><input value={categorySearch} onChange={(event) => setCategorySearch(event.target.value)} placeholder={isHindi ? "कैटेगरी खोजें..." : "Search categories..."} className="min-w-0 flex-1 bg-transparent text-xs outline-none placeholder:text-[#a69b90]" /></label>
+      <section
+        id="categories"
+        ref={categorySectionRef}
+        className="relative flex min-h-[88svh] flex-col justify-center overflow-hidden border-y border-[#eadfce] bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,168,79,.14),transparent_62%)] py-12 sm:min-h-[92svh] sm:py-14"
+      >
+        <div className="mx-auto mb-7 w-full max-w-[1440px] px-4 text-center sm:mb-9 sm:px-7 lg:px-10">
+          <p className="text-[10px] font-black uppercase tracking-[.24em] text-[#A47A2C]">{isHindi ? "अपनी पसंद चुनें" : "FIND YOUR EVERYDAY ESSENTIALS"}</p>
+          <h2 className="mt-2 text-3xl font-black tracking-[-.065em] text-[#800020] sm:text-5xl">{isHindi ? "कैटेगरी से खरीदें" : "Shop by Category"}</h2>
+          <p className="mx-auto mt-2 max-w-md text-xs leading-5 text-[#76665C] sm:text-sm">{isHindi ? "स्क्रॉल करें और अपनी पसंद की कैटेगरी चुनें।" : "Keep scrolling to explore every aisle, one category at a time."}</p>
+          <label className="mx-auto mt-4 flex h-10 w-full max-w-[280px] items-center gap-2 rounded-full border border-[#e6d9c8] bg-white/80 px-4 shadow-sm backdrop-blur">
+            <Search size={15} className="shrink-0 text-[#800020]" />
+            <input value={categorySearch} onChange={(event) => setCategorySearch(event.target.value)} placeholder={isHindi ? "कैटेगरी खोजें..." : "Find a category..."} className="min-w-0 flex-1 bg-transparent text-xs outline-none placeholder:text-[#a69b90]" />
+          </label>
         </div>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-5">
-          {categories.map((category) => <Link key={category.id} href={"/products?category=" + encodeURIComponent(category.id)} className="group relative isolate flex min-h-[170px] overflow-hidden rounded-[22px] border border-white bg-gradient-to-br from-[#fff0d0] to-[#ead6b7] shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl sm:min-h-[205px]">
-            <img src={visuals[category.id] || visuals.staples} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-45 mix-blend-multiply transition duration-700 group-hover:scale-110 group-hover:opacity-60" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#fff8e9]/95 via-[#fff8e9]/35 to-transparent" />
-            <span className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full border border-white/80 bg-white/80 text-lg shadow-sm">{category.id === "staples" ? "🌾" : category.id === "oil" ? "🫒" : category.id === "dairy" ? "🥛" : category.id === "basics" ? "🧂" : "🛒"}</span>
-            <div className="relative z-10 mt-auto w-full p-4 sm:p-5"><h3 className="text-base font-extrabold leading-tight tracking-[-.025em] text-[#68152b] sm:text-lg">{isHindi ? category.hi : category.en}</h3><span className="mt-2 inline-flex items-center gap-1 text-xs font-extrabold uppercase tracking-[.08em] text-[#800020]">{isHindi ? "अभी देखें" : "Explore"} <ArrowUpRight size={13} /></span></div>
-          </Link>)}
+
+        <div ref={categoryViewportRef} className="w-full overflow-x-auto overflow-y-hidden px-4 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:overflow-hidden md:px-0">
+          <div ref={categoryTrackRef} className="flex w-max gap-3 pr-4 sm:gap-5 md:gap-6 md:pl-[max(5vw,calc((100vw-1320px)/2))] md:pr-[max(5vw,calc((100vw-1320px)/2))]">
+            {categories.map((category, index) => (
+              <Link
+                key={category.id}
+                data-category-card
+                href={"/products?category=" + encodeURIComponent(category.id)}
+                className="group relative isolate flex h-[270px] w-[76vw] max-w-[300px] shrink-0 overflow-hidden rounded-[24px] border border-white/90 bg-gradient-to-br from-[#fff0d0] to-[#ead6b7] shadow-[0_12px_35px_rgba(67,45,27,.09)] transition duration-500 hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(67,45,27,.15)] sm:h-[330px] sm:w-[300px] md:h-[390px] md:w-[330px] md:rounded-[30px]"
+              >
+                <img src={visuals[category.id] || visuals.staples} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-55 mix-blend-multiply transition duration-700 group-hover:scale-110 group-hover:opacity-70" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#fff8e9] via-[#fff8e9]/30 to-transparent" />
+                <span className="absolute left-5 top-5 text-[10px] font-black tracking-[.2em] text-[#805d2d]">0{index + 1}</span>
+                <span className="absolute right-5 top-5 grid h-10 w-10 place-items-center rounded-full border border-white/80 bg-white/75 text-xl shadow-sm backdrop-blur">{category.id === "staples" ? "🌾" : category.id === "oil" ? "🫒" : category.id === "dairy" ? "🥛" : category.id === "basics" ? "🧂" : category.id === "bakery" ? "🥐" : category.id === "masala" ? "🌶️" : category.id === "tea" ? "🍵" : category.id === "snacks" ? "🍪" : "🛒"}</span>
+                <div className="relative z-10 mt-auto w-full p-5 sm:p-6">
+                  <h3 className="text-2xl font-black leading-tight tracking-[-.055em] text-[#68152b] sm:text-[28px]">{isHindi ? category.hi : category.en}</h3>
+                  <span className="mt-3 inline-flex items-center gap-2 rounded-full border border-[#800020]/15 bg-white/75 px-4 py-2 text-[10px] font-extrabold uppercase tracking-[.12em] text-[#800020] backdrop-blur transition group-hover:border-[#800020] group-hover:bg-[#800020] group-hover:text-white">{isHindi ? "अभी देखें" : "Explore aisle"} <ArrowUpRight size={13} /></span>
+                </div>
+              </Link>
+            ))}
+            {categories.length === 0 && <p className="w-[min(82vw,360px)] rounded-2xl border border-[#eadfce] bg-white/80 p-6 text-center text-sm text-[#76665C]">{isHindi ? "कोई कैटेगरी नहीं मिली।" : "No categories found. Try another search."}</p>}
+          </div>
         </div>
+        <p className="mt-3 text-center text-[9px] font-bold uppercase tracking-[.16em] text-[#a29487] md:mt-5">{isHindi ? "नीचे स्क्रॉल करें • कैटेगरी अपने आप आगे बढ़ेंगी" : "SCROLL TO MOVE THROUGH THE AISLES"} <span className="ml-1 text-[#A47A2C]">→</span></p>
       </section>
 
       <section className="bg-[#FFF9D8] px-4 py-12 sm:px-7 sm:py-16 lg:px-10">

@@ -357,7 +357,7 @@ export function CartPage() {
 export function CheckoutPage() {
   const checkoutRef = useRef<HTMLDivElement>(null);
   const { language } = useLanguage();
-  const { cartItems, customRequests, cartTotal } = useCart();
+  const { cartItems, customRequests, cartTotal, addToCart } = useCart();
   const isHindi = language === "hi";
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -374,6 +374,7 @@ export function CheckoutPage() {
   const formatPrice = (amount: number) => `₹${amount.toLocaleString("en-IN")}`;
   const discountAmount = appliedCoupon ? Math.min(cartTotal, appliedCoupon.discount) : 0;
   const payableTotal = Math.max(0, cartTotal - discountAmount);
+  const suggestedProducts = useMemo(() => { const ids = new Set(cartItems.map((item) => item.id)); const cats = new Set(cartItems.map((item) => item.category)); const related = products.filter((p) => !ids.has(p.id) && cats.has(p.category)); const other = products.filter((p) => !ids.has(p.id) && !cats.has(p.category)); return [...related, ...other].slice(0, 3); }, [cartItems]);
 
   useEffect(() => {
     const root = checkoutRef.current;
@@ -467,9 +468,9 @@ export function CheckoutPage() {
   }
 
   return (
-    <main className="min-h-[calc(100svh-76px)] bg-[#faf8f3] px-4 pb-24 pt-6 text-[#302721] sm:px-6 sm:pb-12 sm:pt-9">
+    <main className="min-h-[calc(100svh-76px)] bg-[#faf8f3] px-4 pb-28 pt-5 text-[#302721] sm:px-6 sm:pb-12 sm:pt-9">
       <div ref={checkoutRef} className="mx-auto max-w-6xl">
-        <header data-checkout-reveal className="mb-7 flex items-center justify-between gap-3 border-b border-[#e9e2d8] pb-5">
+        <header data-checkout-reveal className="mb-5 flex items-center justify-between gap-3 border-b border-[#e9e2d8] pb-4 sm:mb-7 sm:pb-5">
           <div>
             <p className="text-[10px] font-bold uppercase tracking-[.16em] text-[#9a713d]">RASHID MEGA MART</p>
             <h1 className="mt-1 text-3xl font-black tracking-[-.055em] text-[#800020]">{isHindi ? "चेकआउट" : "Checkout"}</h1>
@@ -479,35 +480,35 @@ export function CheckoutPage() {
         </header>
 
         <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-14">
-          <form id="rmm-checkout-form" onSubmit={handleCheckout} className="min-w-0">
-            <section data-checkout-reveal className="border-b border-[#e9e2d8] pb-6">
+          <form id="rmm-checkout-form" onSubmit={handleCheckout} className="order-2 min-w-0 lg:order-1">
+            <section data-checkout-reveal className="border-b border-[#e9e2d8] pb-7 sm:pb-6">
               <h2 className="text-base font-extrabold">{isHindi ? "कॉन्टैक्ट डिटेल्स" : "Contact details"}</h2>
               <p className="mt-1 text-xs text-[#82776e]">{isHindi ? "ऑर्डर अपडेट के लिए" : "For order updates and confirmation"}</p>
-              <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                <label className="block"><span className="mb-1.5 block text-xs font-semibold text-[#62534c]">{isHindi ? "पूरा नाम" : "Full name"} *</span><input required maxLength={80} autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} placeholder={isHindi ? "अपना नाम लिखें" : "Enter your name"} className="h-11 w-full rounded-lg border border-[#ded8ce] bg-white px-3.5 text-sm outline-none transition placeholder:text-[#a69b90] focus:border-[#800020] focus:ring-2 focus:ring-[#800020]/10" /></label>
-                <label className="block"><span className="mb-1.5 block text-xs font-semibold text-[#62534c]">{isHindi ? "मोबाइल नंबर" : "Mobile number"} *</span><div className="flex h-11 items-center rounded-lg border border-[#ded8ce] bg-white px-3 focus-within:border-[#800020] focus-within:ring-2 focus-within:ring-[#800020]/10"><span className="border-r border-[#e9e1d7] pr-3 text-sm font-semibold text-[#76665c]">+91</span><input required inputMode="numeric" autoComplete="tel-national" maxLength={10} value={phone} onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))} placeholder="10-digit mobile number" className="h-full min-w-0 flex-1 bg-transparent px-3 text-sm outline-none placeholder:text-[#a69b90]" /></div></label>
+              <div className="mt-5 grid gap-5 sm:grid-cols-2 sm:gap-4">
+                <label className="block"><span className="mb-1.5 block text-xs font-semibold text-[#62534c]">{isHindi ? "पूरा नाम" : "Full name"} *</span><input required maxLength={80} autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} placeholder={isHindi ? "अपना नाम लिखें" : "Enter your name"} className="h-12 w-full rounded-xl border border-[#ded8ce] bg-white px-3.5 text-sm outline-none transition placeholder:text-[#a69b90] focus:border-[#800020] focus:ring-2 focus:ring-[#800020]/10" /></label>
+                <label className="block"><span className="mb-1.5 block text-xs font-semibold text-[#62534c]">{isHindi ? "मोबाइल नंबर" : "Mobile number"} *</span><div className="flex h-12 items-center rounded-xl border border-[#ded8ce] bg-white px-3 focus-within:border-[#800020] focus-within:ring-2 focus-within:ring-[#800020]/10"><span className="border-r border-[#e9e1d7] pr-3 text-sm font-semibold text-[#76665c]">+91</span><input required inputMode="numeric" autoComplete="tel-national" maxLength={10} value={phone} onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))} placeholder="10-digit mobile number" className="h-full min-w-0 flex-1 bg-transparent px-3 text-sm outline-none placeholder:text-[#a69b90]" /></div></label>
               </div>
             </section>
 
-            <section data-checkout-reveal className="border-b border-[#e9e2d8] py-6">
+            <section data-checkout-reveal className="border-b border-[#e9e2d8] py-7 sm:py-6">
               <h2 className="text-base font-extrabold">{isHindi ? "डिलीवरी का पता" : "Delivery address"}</h2>
               <p className="mt-1 text-xs text-[#82776e]">{isHindi ? "जहाँ सामान पहुँचाना है" : "Where should we deliver?"}</p>
-              <div className="mt-4 space-y-4">
-                <label className="block"><span className="mb-1.5 block text-xs font-semibold text-[#62534c]">{isHindi ? "मकान / गली / मोहल्ला" : "House / street / area"} *</span><textarea required maxLength={300} rows={3} autoComplete="street-address" value={address} onChange={(e) => setAddress(e.target.value)} placeholder={isHindi ? "मकान नंबर, गली, मोहल्ला..." : "House number, street, area..."} className="w-full resize-y rounded-lg border border-[#ded8ce] bg-white px-3.5 py-3 text-sm outline-none transition placeholder:text-[#a69b90] focus:border-[#800020] focus:ring-2 focus:ring-[#800020]/10" /></label>
+              <div className="mt-5 space-y-5">
+                <label className="block"><span className="mb-1.5 block text-xs font-semibold text-[#62534c]">{isHindi ? "मकान / गली / मोहल्ला" : "House / street / area"} *</span><textarea required maxLength={300} rows={3} autoComplete="street-address" value={address} onChange={(e) => setAddress(e.target.value)} placeholder={isHindi ? "मकान नंबर, गली, मोहल्ला..." : "House number, street, area..."} className="min-h-28 w-full resize-y rounded-xl border border-[#ded8ce] bg-white px-3.5 py-3.5 text-sm outline-none transition placeholder:text-[#a69b90] focus:border-[#800020] focus:ring-2 focus:ring-[#800020]/10" /></label>
                 <label className="block"><span className="mb-1.5 block text-xs font-semibold text-[#62534c]">{isHindi ? "लैंडमार्क" : "Landmark"} <span className="font-normal text-[#9a8d82]">({isHindi ? "वैकल्पिक" : "optional"})</span></span><input maxLength={100} value={landmark} onChange={(e) => setLandmark(e.target.value)} placeholder={isHindi ? "पास की दुकान, स्कूल..." : "Nearby shop, school or landmark"} className="h-11 w-full rounded-lg border border-[#ded8ce] bg-white px-3.5 text-sm outline-none transition placeholder:text-[#a69b90] focus:border-[#800020] focus:ring-2 focus:ring-[#800020]/10" /></label>
               </div>
             </section>
 
-            <section data-checkout-reveal className="py-6">
-              <label className="block"><span className="text-base font-extrabold">{isHindi ? "डिलीवरी नोट" : "Delivery note"} <span className="text-xs font-normal text-[#9a8d82]">({isHindi ? "वैकल्पिक" : "optional"})</span></span><textarea rows={2} maxLength={240} value={note} onChange={(e) => setNote(e.target.value)} placeholder={isHindi ? "कोई खास निर्देश..." : "Any special delivery instructions..."} className="mt-3 w-full resize-y rounded-lg border border-[#ded8ce] bg-white px-3.5 py-3 text-sm outline-none transition placeholder:text-[#a69b90] focus:border-[#800020] focus:ring-2 focus:ring-[#800020]/10" /></label>
+            <section data-checkout-reveal className="py-7 sm:py-6">
+              <label className="block"><span className="text-base font-extrabold">{isHindi ? "डिलीवरी नोट" : "Delivery note"} <span className="text-xs font-normal text-[#9a8d82]">({isHindi ? "वैकल्पिक" : "optional"})</span></span><textarea rows={2} maxLength={240} value={note} onChange={(e) => setNote(e.target.value)} placeholder={isHindi ? "कोई खास निर्देश..." : "Any special delivery instructions..."} className="mt-3 min-h-24 w-full resize-y rounded-xl border border-[#ded8ce] bg-white px-3.5 py-3.5 text-sm outline-none transition placeholder:text-[#a69b90] focus:border-[#800020] focus:ring-2 focus:ring-[#800020]/10" /></label>
             </section>
             {error && <p role="alert" className="mb-4 rounded-lg bg-red-50 px-3 py-2.5 text-sm font-medium text-red-700">{error}</p>}
             <p className="mb-4 flex items-start gap-2 text-xs leading-5 text-[#82776e]"><ShieldCheck size={15} className="mt-0.5 shrink-0 text-[#a77b3e]" />{isHindi ? "WhatsApp पर ऑर्डर भेजने के बाद स्टोर उपलब्धता, कीमत और डिलीवरी की पुष्टि करेगा।" : "After sending your order on WhatsApp, the store will confirm availability, final price and delivery."}</p>
             <button type="submit" className="hidden h-12 w-full items-center justify-center gap-2 rounded-lg bg-[#800020] px-6 text-sm font-bold text-white transition hover:bg-[#650019] sm:flex"><MessageCircle size={17} />{isHindi ? "WhatsApp पर ऑर्डर भेजें" : "Send order on WhatsApp"}</button>
           </form>
 
-          <aside data-checkout-reveal className="min-w-0 lg:sticky lg:top-24">
-            <div className="rounded-xl border border-[#e9e2d8] bg-white p-4 sm:p-5">
+          <aside data-checkout-reveal className="order-1 min-w-0 lg:sticky lg:top-24 lg:order-2">
+            <div className="rounded-2xl border border-[#e9e2d8] bg-white p-4 shadow-[0_5px_18px_rgba(50,35,20,.045)] sm:p-5">
               <div className="flex items-center justify-between"><h2 className="text-base font-extrabold">{isHindi ? "आपका ऑर्डर" : "Your order"}</h2><span className="text-xs text-[#82776e]">{itemCount} {isHindi ? "आइटम" : "items"}</span></div>
               <div className="mt-4 max-h-64 space-y-3 overflow-y-auto">
                 {cartItems.map((item) => <div key={item.id} className="flex items-center gap-3"><div className="grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-lg bg-[#f7f5f0] p-1"><Image src={item.image} alt={item.name} width={48} height={48} unoptimized className="h-full w-full object-contain" /></div><div className="min-w-0 flex-1"><p className="line-clamp-2 text-xs font-semibold">{isHindi ? item.nameHi : item.name}</p><p className="mt-0.5 text-[11px] text-[#82776e]">Qty {item.quantity}</p></div><span className="shrink-0 text-xs font-bold">{formatPrice(item.price * item.quantity)}</span></div>)}
@@ -526,11 +527,21 @@ export function CheckoutPage() {
               <div className="mt-4 flex items-end justify-between border-t border-[#e5dbcf] pt-4"><span className="text-sm font-extrabold">{isHindi ? "अनुमानित कुल" : "Estimated total"}</span><strong className="text-2xl font-black tracking-tight text-[#800020]">{formatPrice(payableTotal)}</strong></div>
               <p className="mt-2 text-[10px] leading-4 text-[#93877d]">{isHindi ? "डिलीवरी शुल्क और कस्टम अनुरोध की कीमत स्टोर कन्फर्म करेगा।" : "Delivery charges and custom request prices will be confirmed by the store."}</p>
             </div>
+            {suggestedProducts.length > 0 && <section className="mt-4 border-t border-[#e9e2d8] pt-4">
+              <div className="mb-3 flex items-end justify-between gap-2"><div><h3 className="text-sm font-extrabold">{isHindi ? "इसके साथ ये भी लें" : "You may also need"}</h3><p className="mt-0.5 text-[10px] text-[#82776e]">{isHindi ? "आपकी खरीदारी से मिलते-जुलते सुझाव" : "A few picks related to your basket"}</p></div><Link href="/products" className="shrink-0 text-[10px] font-bold text-[#800020]">View all</Link></div>
+              <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                {suggestedProducts.map((product) => <article key={product.id} className="flex w-[150px] shrink-0 flex-col rounded-xl border border-[#e9e2d8] bg-white p-2.5">
+                  <div className="grid h-20 place-items-center rounded-lg bg-[#f8f6f1] p-2"><img src={product.image} alt={isHindi ? product.nameHi : product.name} loading="lazy" className="h-full w-full object-contain mix-blend-multiply" /></div>
+                  <p className="mt-2 line-clamp-2 min-h-8 text-[10px] font-bold leading-4">{isHindi ? product.nameHi : product.name}</p>
+                  <div className="mt-auto flex items-center justify-between gap-1 pt-2"><span className="text-xs font-black text-[#800020]">₹{product.price.toLocaleString("en-IN")}</span><button type="button" onClick={() => addToCart(product, 1)} className="grid h-7 w-7 place-items-center rounded-lg bg-[#800020] text-base font-bold text-white" aria-label={isHindi ? "कार्ट में जोड़ें" : "Add to cart"}>+</button></div>
+                </article>)}
+              </div>
+            </section>}
           </aside>
         </div>
 
-        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#e9e2d8] bg-[#faf8f3]/95 p-2.5 pb-[max(env(safe-area-inset-bottom),10px)] backdrop-blur sm:hidden">
-          <button type="submit" form="rmm-checkout-form" className="flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#800020] text-sm font-bold text-white active:scale-[.99]"><MessageCircle size={17} />{isHindi ? "WhatsApp पर ऑर्डर भेजें" : "Send order on WhatsApp"}<span className="ml-auto pr-3">{formatPrice(payableTotal)}</span></button>
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#e9e2d8] bg-[#faf8f3]/95 px-4 py-3 pb-[max(env(safe-area-inset-bottom),12px)] backdrop-blur sm:hidden">
+          <button type="submit" form="rmm-checkout-form" className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#800020] shadow-[0_5px_14px_rgba(128,0,32,.18)] text-sm font-bold text-white active:scale-[.99]"><MessageCircle size={17} />{isHindi ? "WhatsApp पर ऑर्डर भेजें" : "Send order on WhatsApp"}<span className="ml-auto pr-3">{formatPrice(payableTotal)}</span></button>
         </div>
       </div>
     </main>

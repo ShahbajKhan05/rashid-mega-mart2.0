@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import { useLanguage } from "./LanguageProvider";
 import Image from "next/image";
-import { AlertCircle, ArrowDownWideNarrow, FileDown, Headset, LoaderCircle, MapPin, Package, RotateCcw, Search, ShoppingBag, Star, Truck, UserRound, X, XCircle } from "lucide-react";
+import { AlertCircle, ArrowDownWideNarrow, ArrowLeft, Check, FileDown, Headset, Home, LoaderCircle, MapPin, MessageCircle, Package, Phone, RotateCcw, Search, ShieldCheck, ShoppingBag, Star, Truck, UserRound, X, XCircle } from "lucide-react";
 import { categoryOptions, products } from "./data";
 import { useCart } from "./CartProvider";
 
@@ -214,7 +214,138 @@ export function CartPage() {
 }
 
 export function CheckoutPage() {
-  return <CenterPage title="CHECKOUT PAGE" />;
+  const { language } = useLanguage();
+  const { cartItems, customRequests, cartTotal } = useCart();
+  const isHindi = language === "hi";
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [landmark, setLandmark] = useState("");
+  const [note, setNote] = useState("");
+  const [error, setError] = useState("");
+
+  const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0)
+    + customRequests.reduce((sum, item) => sum + item.quantity, 0);
+  const formatPrice = (amount: number) => `₹${amount.toLocaleString("en-IN")}`;
+
+  function handleCheckout(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setError("");
+
+    const cleanPhone = phone.replace(/\\D/g, "");
+    if (cleanPhone.length !== 10) {
+      setError(isHindi ? "10 अंकों का सही मोबाइल नंबर दर्ज करें।" : "Enter a valid 10-digit mobile number.");
+      return;
+    }
+    if (cartItems.length === 0 && customRequests.length === 0) {
+      setError(isHindi ? "आपका कार्ट खाली है।" : "Your cart is empty.");
+      return;
+    }
+
+    const lines = [
+      "🛒 *Rashid Mega Mart - New Order Request*",
+      "",
+      "*Customer Details*",
+      `Name: ${name.trim()}`,
+      `Phone: +91 ${cleanPhone}`,
+      `Address: ${address.trim()}`,
+      landmark.trim() ? `Landmark: ${landmark.trim()}` : "",
+      "",
+      "*Order Items*",
+      ...cartItems.map((item) => `• ${item.name} × ${item.quantity} — ${formatPrice(item.price * item.quantity)}`),
+      ...customRequests.map((item) => `• ${item.name} × ${item.quantity} — Price to be confirmed${item.note ? ` (Note: ${item.note})` : ""}`),
+      "",
+      `*Subtotal: ${formatPrice(cartTotal)}*`,
+      customRequests.length ? "Custom request prices and delivery charges to be confirmed by the store." : "Delivery charges to be confirmed by the store.",
+      note.trim() ? `\n*Delivery note:* ${note.trim()}` : "",
+      "",
+      "Please confirm availability, final total and delivery details."
+    ].filter(Boolean);
+
+    const whatsappUrl = `https://wa.me/918962531603?text=${encodeURIComponent(lines.join("\\n"))}`;
+    const popup = window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    if (!popup) window.location.assign(whatsappUrl);
+  }
+
+  if (itemCount === 0) {
+    return (
+      <main className="min-h-[calc(100svh-76px)] bg-[#FFFCF0] px-4 py-10 text-[#332923] sm:px-6">
+        <div className="mx-auto flex min-h-[58svh] max-w-xl flex-col items-center justify-center text-center">
+          <div className="grid h-20 w-20 place-items-center rounded-full bg-white text-[#800020] shadow-[0_10px_35px_rgba(80,0,25,.08)]"><ShoppingBag size={34} strokeWidth={1.5} /></div>
+          <p className="mt-6 text-[11px] font-extrabold uppercase tracking-[.22em] text-[#a77b3e]">{isHindi ? "राशिद मेगा मार्ट" : "RASHID MEGA MART"}</p>
+          <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-[#800020]">{isHindi ? "कार्ट खाली है" : "Your cart is empty"}</h1>
+          <p className="mt-2 max-w-sm text-sm leading-6 text-[#76665c]">{isHindi ? "चेकआउट करने से पहले अपने पसंदीदा सामान कार्ट में जोड़ें।" : "Add a few items to your cart before heading to checkout."}</p>
+          <Link href="/products" className="mt-7 inline-flex h-12 items-center justify-center gap-2 rounded-full bg-[#800020] px-7 text-sm font-bold text-white transition hover:bg-[#650019]"><ArrowLeft size={16} /> {isHindi ? "खरीदारी जारी रखें" : "Continue shopping"}</Link>
+        </div>
+      </main>
+    );
+  }
+
+  return (
+    <main className="min-h-[calc(100svh-76px)] bg-[#FFFCF0] px-3 pb-28 pt-5 text-[#332923] sm:px-6 sm:pb-12 sm:pt-9">
+      <div className="mx-auto max-w-6xl">
+        <header className="mb-6 flex items-center justify-between gap-3 sm:mb-9">
+          <div>
+            <p className="text-[10px] font-extrabold uppercase tracking-[.22em] text-[#a77b3e]">RASHID MEGA MART</p>
+            <h1 className="mt-1 text-2xl font-extrabold tracking-tight text-[#800020] sm:text-3xl">{isHindi ? "चेकआउट" : "Checkout"}</h1>
+            <p className="mt-1 text-xs text-[#82776e] sm:text-sm">{isHindi ? "बस कुछ जानकारी और आपका ऑर्डर तैयार है।" : "A few details and your order request is ready."}</p>
+          </div>
+          <Link href="/cart" className="inline-flex h-10 shrink-0 items-center gap-2 rounded-full border border-[#eadfce] bg-white px-3 text-xs font-bold text-[#800020] transition hover:border-[#800020]/30 sm:px-4"><ArrowLeft size={15} /> {isHindi ? "कार्ट" : "Back to cart"}</Link>
+        </header>
+
+        <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_370px] lg:gap-8">
+          <form id="rmm-checkout-form" onSubmit={handleCheckout} className="space-y-4">
+            <section className="rounded-[22px] border border-[#eee5d8] bg-white p-4 shadow-[0_10px_34px_rgba(76,37,43,.045)] sm:rounded-[26px] sm:p-6">
+              <div className="mb-5 flex items-center gap-3">
+                <span className="grid h-10 w-10 place-items-center rounded-2xl bg-[#f8eff0] text-[#800020]"><UserRound size={19} /></span>
+                <div><h2 className="text-base font-extrabold">{isHindi ? "आपकी जानकारी" : "Contact details"}</h2><p className="text-xs text-[#897c72]">{isHindi ? "ऑर्डर कन्फर्म करने के लिए" : "So we can confirm your order"}</p></div>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <label className="block sm:col-span-2"><span className="mb-1.5 block text-xs font-bold text-[#62534c]">{isHindi ? "पूरा नाम" : "Full name"} *</span><input required maxLength={80} autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} placeholder={isHindi ? "अपना नाम लिखें" : "Enter your name"} className="h-12 w-full rounded-xl border border-[#e9e1d7] bg-[#fffdf9] px-4 text-sm text-[#332923] outline-none transition placeholder:text-[#a69b90] focus:border-[#800020] focus:ring-4 focus:ring-[#800020]/[.07]" /></label>
+                <label className="block sm:col-span-2"><span className="mb-1.5 block text-xs font-bold text-[#62534c]">{isHindi ? "मोबाइल नंबर" : "Mobile number"} *</span><div className="flex h-12 items-center rounded-xl border border-[#e9e1d7] bg-[#fffdf9] px-3 focus-within:border-[#800020] focus-within:ring-4 focus-within:ring-[#800020]/[.07]"><span className="border-r border-[#e9e1d7] pr-3 text-sm font-bold text-[#76665c]">+91</span><input required inputMode="numeric" autoComplete="tel-national" maxLength={10} value={phone} onChange={(e) => setPhone(e.target.value.replace(/\\D/g, "").slice(0, 10))} placeholder="10-digit mobile number" className="h-full min-w-0 flex-1 bg-transparent px-3 text-sm text-[#332923] outline-none placeholder:text-[#a69b90]" /><Phone size={17} className="text-[#a77b3e]" /></div></label>
+              </div>
+            </section>
+
+            <section className="rounded-[22px] border border-[#eee5d8] bg-white p-4 shadow-[0_10px_34px_rgba(76,37,43,.045)] sm:rounded-[26px] sm:p-6">
+              <div className="mb-5 flex items-center gap-3">
+                <span className="grid h-10 w-10 place-items-center rounded-2xl bg-[#f8eff0] text-[#800020]"><Home size={19} /></span>
+                <div><h2 className="text-base font-extrabold">{isHindi ? "डिलीवरी का पता" : "Delivery address"}</h2><p className="text-xs text-[#897c72]">{isHindi ? "जहाँ सामान पहुँचाना है" : "Where should we deliver?"}</p></div>
+              </div>
+              <div className="space-y-4">
+                <label className="block"><span className="mb-1.5 block text-xs font-bold text-[#62534c]">{isHindi ? "पूरा पता" : "House / street / area"} *</span><textarea required maxLength={300} rows={3} autoComplete="street-address" value={address} onChange={(e) => setAddress(e.target.value)} placeholder={isHindi ? "मकान नंबर, गली, मोहल्ला..." : "House number, street, area..."} className="w-full resize-y rounded-xl border border-[#e9e1d7] bg-[#fffdf9] px-4 py-3 text-sm text-[#332923] outline-none transition placeholder:text-[#a69b90] focus:border-[#800020] focus:ring-4 focus:ring-[#800020]/[.07]" /></label>
+                <label className="block"><span className="mb-1.5 block text-xs font-bold text-[#62534c]">{isHindi ? "नज़दीकी पहचान (वैकल्पिक)" : "Landmark (optional)"}</span><input maxLength={100} value={landmark} onChange={(e) => setLandmark(e.target.value)} placeholder={isHindi ? "जैसे स्कूल, मंदिर या दुकान" : "Nearby school, shop or landmark"} className="h-12 w-full rounded-xl border border-[#e9e1d7] bg-[#fffdf9] px-4 text-sm text-[#332923] outline-none transition placeholder:text-[#a69b90] focus:border-[#800020] focus:ring-4 focus:ring-[#800020]/[.07]" /></label>
+              </div>
+            </section>
+
+            <section className="rounded-[22px] border border-[#eee5d8] bg-white p-4 shadow-[0_10px_34px_rgba(76,37,43,.045)] sm:rounded-[26px] sm:p-6">
+              <label className="block"><span className="mb-1.5 block text-sm font-extrabold">{isHindi ? "डिलीवरी नोट" : "Delivery note"} <span className="font-medium text-[#9a8d82]">({isHindi ? "वैकल्पिक" : "optional"})</span></span><textarea rows={2} maxLength={240} value={note} onChange={(e) => setNote(e.target.value)} placeholder={isHindi ? "कोई खास निर्देश हो तो लिखें..." : "Any special instructions for delivery..."} className="w-full resize-y rounded-xl border border-[#e9e1d7] bg-[#fffdf9] px-4 py-3 text-sm outline-none transition placeholder:text-[#a69b90] focus:border-[#800020] focus:ring-4 focus:ring-[#800020]/[.07]" /></label>
+            </section>
+            {error && <p role="alert" className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">{error}</p>}
+            <p className="flex items-start gap-2 px-1 text-xs leading-5 text-[#82776e]"><ShieldCheck size={16} className="mt-0.5 shrink-0 text-[#a77b3e]" />{isHindi ? "अगले चरण में WhatsApp खुलेगा। स्टोर उपलब्धता, अंतिम कीमत और डिलीवरी की पुष्टि करेगा।" : "WhatsApp opens next. The store will confirm availability, final pricing and delivery details."}</p>
+            <button type="submit" className="hidden sm:flex h-13 w-full items-center justify-center gap-2 rounded-full bg-[#800020] px-6 text-sm font-extrabold text-white shadow-[0_12px_24px_rgba(128,0,32,.16)] transition hover:-translate-y-0.5 hover:bg-[#650019] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#800020]"><MessageCircle size={18} />{isHindi ? "WhatsApp पर ऑर्डर भेजें" : "Send order on WhatsApp"}</button>
+          </form>
+
+          <aside className="rounded-[22px] border border-[#eadfce] bg-white p-4 shadow-[0_14px_40px_rgba(76,37,43,.06)] sm:rounded-[26px] sm:p-5 lg:sticky lg:top-28">
+            <div className="mb-4 flex items-center justify-between"><h2 className="text-base font-extrabold">{isHindi ? "ऑर्डर सारांश" : "Order summary"}</h2><span className="rounded-full bg-[#f8eff0] px-2.5 py-1 text-[10px] font-extrabold text-[#800020]">{itemCount} {isHindi ? "आइटम" : "items"}</span></div>
+            <div className="max-h-64 space-y-3 overflow-y-auto pr-1">
+              {cartItems.map((item) => <div key={item.id} className="flex items-center gap-3"><div className="grid h-14 w-14 shrink-0 place-items-center overflow-hidden rounded-xl bg-[#faf7f1] p-1"><Image src={item.image} alt={item.name} width={56} height={56} unoptimized className="h-full w-full object-contain" /></div><div className="min-w-0 flex-1"><p className="line-clamp-2 text-xs font-bold leading-5 text-[#493b36]">{isHindi ? item.nameHi : item.name}</p><p className="text-[11px] text-[#897c72]">Qty {item.quantity}</p></div><p className="shrink-0 text-xs font-extrabold">{formatPrice(item.price * item.quantity)}</p></div>)}
+              {customRequests.map((item) => <div key={item.id} className="flex items-start justify-between gap-3 border-t border-dashed border-[#eadfce] pt-3"><div className="min-w-0"><p className="text-xs font-bold text-[#493b36]">{item.name}</p><p className="mt-1 text-[11px] text-[#897c72]">Qty {item.quantity} · Price to be confirmed</p></div><span className="text-[10px] font-bold text-[#a77b3e]">TBD</span></div>)}
+            </div>
+            <div className="my-4 border-t border-[#eee5d8]" />
+            <div className="flex items-center justify-between text-sm"><span className="text-[#76665c]">{isHindi ? "सबटोटल" : "Subtotal"}</span><strong>{formatPrice(cartTotal)}</strong></div>
+            <div className="mt-2 flex items-center justify-between text-sm"><span className="text-[#76665c]">{isHindi ? "डिलीवरी" : "Delivery"}</span><span className="text-xs font-semibold text-[#a77b3e]">{isHindi ? "पुष्टि होगी" : "To be confirmed"}</span></div>
+            <div className="mt-4 flex items-center justify-between border-t border-[#eee5d8] pt-4"><span className="font-extrabold">{isHindi ? "कुल" : "Total"}</span><strong className="text-xl font-black text-[#800020]">{formatPrice(cartTotal)}</strong></div>
+            <p className="mt-2 text-[10px] leading-4 text-[#9a8d82]">{isHindi ? "कस्टम अनुरोध और डिलीवरी शुल्क अंतिम पुष्टि के बाद जुड़ेंगे।" : "Custom request prices and delivery charges are confirmed by the store."}</p>
+            <div className="mt-4 flex items-center gap-2 rounded-xl bg-[#f8f5ed] px-3 py-2.5 text-[11px] font-semibold text-[#77685e]"><ShieldCheck size={15} className="shrink-0 text-[#a77b3e]" />{isHindi ? "सुरक्षित WhatsApp ऑर्डर अनुरोध" : "Secure WhatsApp order request"}</div>
+          </aside>
+        </div>
+
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#e9dfd1] bg-[#FFFCF0]/95 p-3 backdrop-blur-xl sm:hidden">
+          <button type="submit" form="rmm-checkout-form" className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#800020] text-sm font-extrabold text-white shadow-[0_8px_22px_rgba(128,0,32,.2)]"><MessageCircle size={17} />{isHindi ? "WhatsApp पर ऑर्डर भेजें" : "Send order on WhatsApp"} <span className="ml-auto pr-4">{formatPrice(cartTotal)}</span></button>
+        </div>
+      </div>
+    </main>
+  );
 }
 
 export function OrderConfirmationPage() {

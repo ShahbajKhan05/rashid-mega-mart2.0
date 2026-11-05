@@ -33,8 +33,26 @@ export default function OriginalCustomerHome() {
   const [categorySearch, setCategorySearch] = useState("");
   const [openFaq, setOpenFaq] = useState(0);
   const [promoCopied, setPromoCopied] = useState(false);
+  const [promoTimeLeft, setPromoTimeLeft] = useState({days:0,hours:0,minutes:0,seconds:0,expired:false});
   const promoBarRef = useRef<HTMLDivElement>(null);
   const promoShineRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const offerEndsAt = new Date("2026-11-09T23:59:59+05:30").getTime();
+    const updateCountdown = () => {
+      const remaining = Math.max(0, offerEndsAt - Date.now());
+      setPromoTimeLeft({
+        days: Math.floor(remaining / 86400000),
+        hours: Math.floor((remaining % 86400000) / 3600000),
+        minutes: Math.floor((remaining % 3600000) / 60000),
+        seconds: Math.floor((remaining % 60000) / 1000),
+        expired: remaining <= 0,
+      });
+    };
+    updateCountdown();
+    const timer = window.setInterval(updateCountdown, 1000);
+    return () => window.clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     const bar = promoBarRef.current;
@@ -52,14 +70,16 @@ export default function OriginalCustomerHome() {
 
   return (
     <main className="overflow-hidden bg-[#FFFCF0] pb-24 font-[var(--font-plus-jakarta)] text-[#30251F]">
-      <div ref={promoBarRef} className="relative isolate z-10 flex min-h-[48px] items-center justify-center gap-2 overflow-hidden border-y border-[#d9b86e]/35 bg-[linear-gradient(105deg,#4b0d20_0%,#791b37_48%,#4b0d20_100%)] px-2.5 py-2 text-center text-white shadow-[0_5px_18px_rgba(75,13,32,.16)] sm:min-h-[54px] sm:gap-3 sm:px-4">
+      <div ref={promoBarRef} className="relative isolate z-10 flex min-h-[62px] flex-wrap items-center justify-center gap-x-2 gap-y-1 overflow-hidden border-y border-[#d9b86e]/35 bg-[linear-gradient(105deg,#4b0d20_0%,#791b37_48%,#4b0d20_100%)] px-2.5 py-2 text-center text-white shadow-[0_5px_18px_rgba(75,13,32,.16)] sm:min-h-[54px] sm:flex-nowrap sm:gap-3 sm:px-4">
         <div ref={promoShineRef} aria-hidden="true" className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-[#f6dfaa]/20 to-transparent" />
         <span className="relative inline-flex shrink-0 items-center gap-1 rounded-full border border-[#f0d69a]/45 bg-[#f0d69a]/10 px-2 py-1 text-[8px] font-black uppercase tracking-[.12em] text-[#f7dfa7] sm:px-2.5 sm:text-[9px]"><Sparkles size={11} /> {isHindi ? "पहला ऑर्डर" : "FIRST ORDER"}</span>
         <span className="relative whitespace-nowrap text-[11px] font-black tracking-[-.02em] sm:text-sm">{isHindi ? "₹499+ पर ₹100 की छूट" : "₹100 OFF ON ₹499+"}</span>
-        <span className="relative hidden h-4 w-px bg-white/25 sm:block" />
-        <span className="relative hidden whitespace-nowrap text-[10px] font-semibold text-white/75 sm:inline">{isHindi ? "कोड" : "USE CODE"}</span>
         <span className="relative rounded-md border border-[#f2d79f]/50 bg-[#f2d79f]/10 px-2 py-1 text-[10px] font-black tracking-[.12em] text-[#f7dfa7] sm:px-2.5 sm:text-xs">FIRST100</span>
-        <button type="button" aria-label="Copy FIRST100 coupon code" onClick={async()=>{try{await navigator.clipboard.writeText("FIRST100");setPromoCopied(true);}catch{setPromoCopied(false);}}} className="relative shrink-0 rounded-full bg-[#fff8e9] px-2.5 py-1.5 text-[8px] font-black tracking-[.06em] text-[#68152b] shadow-[0_2px_8px_rgba(0,0,0,.12)] transition hover:bg-[#f2d79f] active:scale-95 sm:px-3 sm:text-[9px]">{promoCopied ? (isHindi ? "कॉपी ✓" : "COPIED ✓") : (isHindi ? "कॉपी" : "COPY")}</button>
+        <button type="button" disabled={promoTimeLeft.expired} aria-label="Copy FIRST100 coupon code" onClick={async()=>{try{await navigator.clipboard.writeText("FIRST100");setPromoCopied(true);}catch{setPromoCopied(false);}}} className="relative shrink-0 rounded-full bg-[#fff8e9] px-2.5 py-1.5 text-[8px] font-black tracking-[.06em] text-[#68152b] shadow-[0_2px_8px_rgba(0,0,0,.12)] transition hover:bg-[#f2d79f] active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 sm:px-3 sm:text-[9px]">{promoTimeLeft.expired ? (isHindi ? "समाप्त" : "ENDED") : promoCopied ? (isHindi ? "कॉपी ✓" : "COPIED ✓") : (isHindi ? "कॉपी" : "COPY")}</button>
+        <span className="relative inline-flex items-center gap-1 rounded-full border border-[#f2d79f]/35 bg-black/10 px-2 py-1 text-[8px] font-extrabold tracking-[.08em] text-[#ffe8b5] sm:ml-1 sm:px-2.5 sm:text-[9px]">
+          <span className="uppercase text-white/70">{promoTimeLeft.expired ? (isHindi ? "ऑफर खत्म" : "OFFER ENDED") : (isHindi ? "बाकी" : "ENDS IN")}</span>
+          {!promoTimeLeft.expired && <span className="tabular-nums">{String(promoTimeLeft.days).padStart(2,"0")}d : {String(promoTimeLeft.hours).padStart(2,"0")}h : {String(promoTimeLeft.minutes).padStart(2,"0")}m : {String(promoTimeLeft.seconds).padStart(2,"0")}s</span>}
+        </span>
       </div>
       <section id="top" className="relative isolate overflow-hidden bg-[#FFFCF0] px-4 pb-12 pt-24 sm:px-7 sm:pb-16 sm:pt-28 lg:px-10">
         <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_5%,rgba(212,168,79,.18),transparent_55%)]" />

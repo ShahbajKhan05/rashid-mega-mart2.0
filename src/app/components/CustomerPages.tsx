@@ -142,8 +142,11 @@ export function ProductDetailPage() {
     );
   }
 
-  const category = categoryOptions.find((item) => item.id === product.category);
-  const discount = product.originalPrice > product.price
+  // Capture the narrowed product for callbacks; TypeScript does not preserve
+  // the outer guard's narrowing inside nested function declarations.
+  const currentProduct = product;
+  const category = categoryOptions.find((item) => item.id === currentProduct.category);
+  const discount = currentProduct.originalPrice > currentProduct.price
     ? Math.round((1 - product.price / product.originalPrice) * 100)
     : 0;
   const money = (amount: number) => "₹" + amount.toLocaleString("en-IN");
@@ -151,12 +154,12 @@ export function ProductDetailPage() {
 
   function addProductToCart() {
     addToCart({
-      id: product.id,
-      name: product.name,
-      nameHi: product.nameHi,
-      price: product.price,
-      image: product.image,
-      category: product.category,
+      id: currentProduct.id,
+      name: currentProduct.name,
+      nameHi: currentProduct.nameHi,
+      price: currentProduct.price,
+      image: currentProduct.image,
+      category: currentProduct.category,
     }, quantity);
     setAdded(true);
   }

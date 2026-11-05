@@ -80,17 +80,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1440px] px-4 pt-3 sm:px-7 lg:px-10">
-        <div className="grid grid-cols-2 gap-3 rounded-2xl border border-[#eadfce] bg-white/70 p-4 shadow-[0_10px_35px_rgba(78,42,25,.045)] sm:grid-cols-4 sm:gap-5 sm:p-5">
-          {[
-            { icon: PackageCheck, title: isHindi ? "चुने हुए सामान" : "Everyday essentials", sub: isHindi ? "ज़रूरत की चीज़ें" : "For your daily list" },
-            { icon: ShoppingBag, title: isHindi ? "आसान खरीदारी" : "Easy shopping", sub: isHindi ? "सरल और सुविधाजनक" : "A smoother way to shop" },
-            { icon: Truck, title: isHindi ? "डिलीवरी जानकारी" : "Delivery details", sub: isHindi ? "ऑर्डर पर पुष्टि" : "Confirmed with your order" },
-            { icon: Headset, title: isHindi ? "सहायता" : "Here to help", sub: isHindi ? "हमसे संपर्क करें" : "Questions? Get in touch" },
-          ].map(({ icon: Icon, title, sub }) => <div key={title} className="flex min-w-0 items-center gap-3 px-1 py-2 sm:px-3"><span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#f7efe2] text-[#800020]"><Icon size={19} /></span><span className="min-w-0"><strong className="block text-[11px] font-bold text-[#493a32] sm:text-xs">{title}</strong><span className="mt-0.5 block text-[10px] text-[#8c7d71] sm:text-[11px]">{sub}</span></span></div>)}
-        </div>
-      </section>
-
       <section className="mx-auto max-w-[1440px] px-4 pb-4 pt-14 sm:px-7 sm:pt-20 lg:px-10">
         <div className="flex items-end justify-between gap-4">
           <div><p className="text-[10px] font-bold uppercase tracking-[.25em] text-[#a77b3e]">{isHindi ? "अपनी पसंद चुनें" : "Browse by category"}</p><h2 className="mt-2 text-2xl font-semibold tracking-[-.05em] text-[#68152b] sm:text-3xl">{isHindi ? "क्या चाहिए आज?" : "What are you shopping for?"}</h2></div>
@@ -132,13 +121,34 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1440px] px-4 pb-8 sm:px-7 lg:px-10">
-        <div className="relative overflow-hidden rounded-[26px] bg-[#74152b] px-6 py-9 text-white shadow-[0_22px_55px_rgba(91,15,37,.18)] sm:rounded-[34px] sm:px-10 sm:py-12 lg:px-16">
-          <div className="pointer-events-none absolute -right-12 -top-28 h-72 w-72 rounded-full border border-white/10 sm:h-96 sm:w-96" /><div className="pointer-events-none absolute -right-2 -top-16 h-56 w-56 rounded-full border border-white/10 sm:h-72 sm:w-72" />
-          <div className="relative z-10 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
-            <div><p className="text-[10px] font-bold uppercase tracking-[.25em] text-[#e7c58a]">{isHindi ? "खरीदारी को आसान बनाएँ" : "Make your next shop simpler"}</p><h2 className="mt-3 max-w-xl text-2xl font-semibold leading-tight tracking-[-.04em] sm:text-3xl">{isHindi ? "आपकी रोज़ की ज़रूरतें, बस कुछ क्लिक दूर।" : "Your everyday list is just a few clicks away."}</h2><p className="mt-2 text-xs leading-6 text-white/70 sm:text-sm">{isHindi ? "उत्पाद देखें, कार्ट में जोड़ें और अपना ऑर्डर भेजें।" : "Browse the essentials, build your basket and send your order request."}</p></div>
-            <Link href="/products" className="inline-flex h-12 shrink-0 items-center gap-3 rounded-full bg-[#fff9ed] px-6 text-sm font-bold text-[#74152b] transition hover:-translate-y-1 hover:bg-white">{isHindi ? "अभी खरीदारी करें" : "Start shopping"} <ArrowUpRight size={17} /></Link>
-          </div>
+      <section className="mx-auto max-w-[980px] px-4 pb-16 pt-8 sm:px-7 sm:pb-24 lg:px-10">
+        <div className="mb-6 text-center">
+          <p className="text-[10px] font-bold uppercase tracking-[.25em] text-[#a77b3e]">{isHindi ? "आपके सवाल" : "NEED A HAND?"}</p>
+          <h2 className="mt-2 text-2xl font-semibold tracking-[-.05em] text-[#68152b] sm:text-3xl">{isHindi ? "अक्सर पूछे जाने वाले सवाल" : "Frequently asked questions"}</h2>
+          <p className="mt-2 text-sm text-[#817267]">{isHindi ? "खरीदारी से जुड़ी ज़रूरी जानकारी एक जगह।" : "Quick answers to help you shop with confidence."}</p>
+        </div>
+        <div className="divide-y divide-[#eadfce] overflow-hidden rounded-2xl border border-[#eadfce] bg-white/75 px-4 sm:px-6">
+          {(isHindi ? [
+            ["ऑर्डर कैसे करें?", "उत्पाद चुनें, कार्ट में जोड़ें और चेकआउट में अपनी जानकारी भरकर ऑर्डर रिक्वेस्ट भेजें। हमारी टीम आगे की पुष्टि करेगी।"],
+            ["क्या ऑर्डर भेजते ही कन्फर्म हो जाता है?", "नहीं। आपकी रिक्वेस्ट मिलने के बाद सामान की उपलब्धता, कुल कीमत और डिलीवरी की जानकारी की पुष्टि की जाएगी।"],
+            ["पेमेंट कैसे करना होगा?", "पेमेंट का तरीका ऑर्डर कन्फर्म करते समय बताया जाएगा। अभी वेबसाइट पर ऑनलाइन पेमेंट गेटवे उपलब्ध नहीं है।"],
+            ["मैं अपना ऑर्डर कैसे ट्रैक करूँ?", "ऑर्डर की जानकारी मिलने के बाद वेबसाइट के 'Track Order' पेज पर जाकर उपलब्ध ट्रैकिंग विवरण देख सकते हैं।"],
+            ["डिलीवरी और रिटर्न की जानकारी कहाँ मिलेगी?", "डिलीवरी का समय, शुल्क और लागू रिटर्न/एक्सचेंज शर्तें ऑर्डर कन्फर्म करने से पहले हमारी टीम से पूछ लें।"]
+          ] : [
+            ["How do I place an order?", "Choose a product, add it to your cart and submit your details at checkout. Our team will contact you to confirm the request."],
+            ["Is my order confirmed as soon as I submit it?", "Not yet. Our team will confirm product availability, the final amount and delivery details after receiving your request."],
+            ["How can I pay?", "The available payment method will be shared while confirming your order. Online payment is not currently available on the website."],
+            ["How can I track my order?", "Once you receive your order details, visit the Track Order page to check the tracking information available for your order."],
+            ["Where can I check delivery and return details?", "Please confirm delivery time, charges and applicable return or exchange terms with our team before your order is finalised."]
+          ]).map(([question,answer]) => (
+            <details key={question} className="group py-4 sm:py-5">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-left text-sm font-semibold text-[#493a32] marker:hidden [&::-webkit-details-marker]:hidden">
+                {question}
+                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[#f7efe2] text-[#800020] transition-transform duration-200 group-open:rotate-45"><span className="text-lg leading-none">+</span></span>
+              </summary>
+              <p className="max-w-[760px] pt-3 pr-8 text-[13px] leading-6 text-[#817267]">{answer}</p>
+            </details>
+          ))}
         </div>
       </section>
     </main>

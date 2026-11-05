@@ -402,3 +402,95 @@ html {
 @media(max-width:800px){.rm-admin-card-inner{padding:26px 23px;border-radius:20px}}
 @media(max-width:420px){.rm-admin-card-inner{padding:22px 18px;border-radius:20px}}
 @media(prefers-reduced-motion:reduce){.rm-admin-gold-line-shimmer,.rm-admin-border-sweep{animation:none!important}.rm-admin-submit:after{display:none}.rm-admin-card:hover .rm-admin-icon{transform:none}}
+
+
+/* Rashid Mega Mart — restrained translucent glass system */
+:root {
+  --rmm-glass: rgba(255,255,255,.58);
+  --rmm-glass-strong: rgba(255,255,255,.76);
+  --rmm-glass-border: rgba(151,125,102,.16);
+  --rmm-glass-shadow: 0 8px 28px rgba(65,43,35,.055);
+}
+body { background: #f7f5ef; }
+.navbar-glass-shell {
+  background: rgba(250,249,245,.70) !important;
+  border-color: rgba(151,125,102,.16) !important;
+  box-shadow: 0 5px 22px rgba(65,43,35,.045) !important;
+  backdrop-filter: blur(26px) saturate(125%) !important;
+  -webkit-backdrop-filter: blur(26px) saturate(125%) !important;
+}
+.navbar-glass-shell::before { background: linear-gradient(110deg,rgba(255,255,255,.34),transparent 55%) !important; }
+@media (max-width: 1279px) {
+  nav[aria-label="मुख्य नेविगेशन"], nav[aria-label="Main navigation"] {
+    background: rgba(250,249,245,.76) !important;
+    border-color: rgba(151,125,102,.15) !important;
+    box-shadow: 0 -5px 22px rgba(65,43,35,.05) !important;
+    backdrop-filter: blur(24px) saturate(125%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(125%) !important;
+  }
+}
+main [class~="bg-white"][class*="rounded-"][class*="border"] {
+  background: rgba(255,255,255,.62) !important;
+  border-color: var(--rmm-glass-border) !important;
+  box-shadow: var(--rmm-glass-shadow);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+main [class*="shadow-[0_"][class*="rounded-"][class*="border"] {
+  box-shadow: var(--rmm-glass-shadow) !important;
+}
+main [class*="bg-[#FFF9D8]"], main [class*="bg-[#FFFCF0]"] {
+  background-color: #f7f5ef !important;
+}
+main [class*="border-[#eadf"], main [class*="border-[#eee5"] {
+  border-color: rgba(151,125,102,.16) !important;
+}
+.rmm-promo-glass {
+  color: #5c2635 !important;
+  background: rgba(255,255,255,.66) !important;
+  border-color: rgba(151,125,102,.18) !important;
+  box-shadow: 0 5px 18px rgba(65,43,35,.045) !important;
+  backdrop-filter: blur(18px) saturate(125%);
+  -webkit-backdrop-filter: blur(18px) saturate(125%);
+}
+.rmm-promo-glass .rmm-promo-chip {
+  color: #7b2940 !important;
+  border-color: rgba(128,0,32,.14) !important;
+  background: rgba(128,0,32,.045) !important;
+}
+.rmm-promo-glass .rmm-promo-copy {
+  color: #5e2636 !important;
+  background: rgba(128,0,32,.07) !important;
+  box-shadow: none !important;
+}
+.rmm-promo-glass .rmm-promo-timer {
+  color: #705b4e !important;
+  border-color: rgba(151,125,102,.2) !important;
+  background: rgba(255,255,255,.48) !important;
+}
+.rmm-admin-glass-hero {
+  color: #442c34 !important;
+  background: rgba(255,255,255,.58) !important;
+  border: 1px solid rgba(151,125,102,.16);
+  box-shadow: var(--rmm-glass-shadow) !important;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+.rmm-admin-glass-hero .rmm-admin-hero-muted { color: #786b6b !important; }
+.rmm-admin-glass-hero .rmm-admin-hero-accent { color: #936c35 !important; }
+.rmm-admin-glass-hero .rmm-admin-hero-pill {
+  color: #725b4c !important;
+  background: rgba(255,255,255,.55) !important;
+  border-color: rgba(151,125,102,.16) !important;
+}
+.rmm-admin-glass-feature {
+  color: #432b34 !important;
+  background: rgba(255,255,255,.66) !important;
+  border: 1px solid rgba(151,125,102,.16);
+  box-shadow: var(--rmm-glass-shadow) !important;
+}
+.rmm-admin-glass-feature .rmm-feature-muted { color: #786b6b !important; }
+@media (max-width: 640px) {
+  main [class*="rounded-2xl"][class*="p-5"],
+  main [class*="rounded-[26px]"][class*="px-5"] { border-radius: 16px; }
+}

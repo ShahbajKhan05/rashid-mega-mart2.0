@@ -468,7 +468,7 @@ export function CheckoutPage() {
 
   return (
     <main className="relative isolate min-h-[calc(100svh-76px)] overflow-hidden bg-[radial-gradient(ellipse_at_8%_0%,rgba(192,155,103,.16),transparent_34%),radial-gradient(ellipse_at_92%_24%,rgba(128,0,32,.08),transparent_32%),linear-gradient(145deg,#fffdf8_0%,#f8f2e9_52%,#fffaf4_100%)] px-3 pb-28 pt-5 text-[#332923] sm:px-6 sm:pb-12 sm:pt-9">
-      <div className="relative mx-auto max-w-6xl">
+      <div ref={checkoutRef} className="relative mx-auto max-w-5xl">
         <header data-checkout-reveal className="mb-3 flex items-center justify-between gap-3 sm:mb-4">
           <div>
             <p className="inline-flex items-center gap-1.5 rounded-full border border-[#d9c49f]/60 bg-white/65 px-2.5 py-1 text-[8px] font-black uppercase tracking-[.17em] text-[#9a713d] shadow-sm backdrop-blur-xl"><span className="h-1.5 w-1.5 rounded-full bg-[#16845b] shadow-[0_0_0_3px_rgba(22,132,91,.12)]"/> RASHID MEGA MART · SECURE ORDER</p>

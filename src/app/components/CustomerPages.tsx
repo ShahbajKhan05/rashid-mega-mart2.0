@@ -350,10 +350,11 @@ export function CheckoutPage() {
       setCouponMessage("₹100 discount applied. First-purchase eligibility store verify karega.");
       return;
     }
-    let coupons: Array<{code:string;title:string;type:"flat"|"percent";value:number;minOrder:number;expiresAt:string;status:"active"|"used"}>=[];
+    let coupons: Array<{code:string;title:string;type:"flat"|"percent";value:number;minOrder:number;expiresAt:string;status:"active"|"used";ownerPhone?:string}>=[];
     try { coupons=JSON.parse(localStorage.getItem("rmm-coupons-v1")||"[]"); } catch { coupons=[]; }
     const coupon=coupons.find(item=>item.code.toUpperCase()===code);
     if (!coupon || coupon.status!=="active" || new Date(coupon.expiresAt).getTime()<Date.now()) { setAppliedCoupon(null); setCouponMessage("Coupon invalid, used ya expired hai."); return; }
+    if (coupon.ownerPhone && phone.replace(/\\D/g,"").slice(-10)!==coupon.ownerPhone) { setAppliedCoupon(null); setCouponMessage("Yeh rewards coupon usi registered mobile number se use hoga."); return; }
     if (cartTotal < coupon.minOrder) { setAppliedCoupon(null); setCouponMessage(`Is coupon ke liye minimum order ${formatPrice(coupon.minOrder)} hai.`); return; }
     const discount=coupon.type==="percent"?Math.floor(cartTotal*coupon.value/100):coupon.value;
     setAppliedCoupon({code,discount:Math.min(cartTotal,discount),title:coupon.title});
@@ -470,7 +471,7 @@ export function CheckoutPage() {
             <div className="my-4 border-t border-[#eee5d8]" />
             <section className="rounded-xl border border-[#eadfce] bg-[#fffaf1] p-3">
               <div className="flex items-center gap-2 text-xs font-extrabold text-[#493b36]"><Ticket size={15} className="text-[#800020]"/>Apply a coupon</div>
-              <div className="mt-2 flex gap-2"><input value={couponCode} onChange={e=>{setCouponCode(e.target.value.toUpperCase());setCouponMessage("");}} placeholder="Enter coupon code" className="h-10 min-w-0 flex-1 rounded-lg border border-[#e9e1d7] bg-white px-3 text-xs uppercase outline-none focus:border-[#800020]"/><button type="button" onClick={applyCoupon} className="rounded-lg bg-[#800020] px-4 text-xs font-extrabold text-white">Apply</button></div>
+              <div className="mt-2 flex gap-2"><input value={couponCode} onChange={e=>{setCouponCode(e.target.value.toUpperCase());setAppliedCoupon(null);setCouponMessage("");}} placeholder="Enter coupon code" className="h-10 min-w-0 flex-1 rounded-lg border border-[#e9e1d7] bg-white px-3 text-xs uppercase outline-none focus:border-[#800020]"/><button type="button" onClick={applyCoupon} className="rounded-lg bg-[#800020] px-4 text-xs font-extrabold text-white">Apply</button></div>
               {couponMessage&&<p role="status" className="mt-2 text-[10px] font-semibold text-[#800020]">{couponMessage}</p>}
               {appliedCoupon&&<button type="button" onClick={()=>{setAppliedCoupon(null);setCouponMessage("Coupon removed.");}} className="mt-2 text-[10px] font-bold text-[#8c7e7a] underline">Remove coupon</button>}
             </section>

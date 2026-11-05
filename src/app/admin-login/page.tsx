@@ -6,7 +6,6 @@ import type { FormEvent } from "react";
 
 export default function AdminLoginPage() {
   const [showPassword, setShowPassword] = useState(false);
-  const [remember, setRemember] = useState(true);
   const [notice, setNotice] = useState("");
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -15,54 +14,50 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <main className="admin-login-page">
-      <div className="admin-login-frame">
-        <section className="admin-brand-panel" aria-label="Rashid Mega Mart">
-          <div className="admin-brand-lockup">
-            <Image
-              src="/Logo.png"
-              alt="Rashid Mega Mart"
-              width={720}
-              height={360}
-              priority
-              className="admin-brand-logo"
-            />
-            <div className="admin-panel-label"><span />ADMIN PANEL<span /></div>
-          </div>
-          <p className="admin-brand-tagline">SMARTER MANAGEMENT<br />A STRONGER BUSINESS</p>
+    <main className="rm-admin-login">
+      <div className="rm-admin-glow rm-admin-glow-one" aria-hidden="true" />
+      <div className="rm-admin-glow rm-admin-glow-two" aria-hidden="true" />
+      <div className="rm-admin-layout">
+        <section className="rm-admin-brand" aria-label="Rashid Mega Mart">
+          <Image src="/Logo.png" alt="Rashid Mega Mart" width={620} height={310} priority className="rm-admin-logo" />
+          <span className="rm-admin-overline"><i /> SECURE ADMIN PORTAL <i /></span>
+          <h2>Manage smarter.<br /><em>Grow stronger.</em></h2>
+          <p>Your store, orders and operations — all in one place.</p>
+          <div className="rm-admin-trust"><span>✦</span> PRIVATE ACCESS <b /> AUTHORIZED TEAM ONLY</div>
         </section>
 
-        <section className="admin-form-panel" aria-labelledby="admin-login-title">
-          <div className="admin-user-emblem" aria-hidden="true">
-            <svg viewBox="0 0 64 64"><circle cx="32" cy="21" r="12" fill="currentColor"/><path d="M10 55c0-12 9-20 22-20s22 8 22 20v3H10z" fill="currentColor"/></svg>
-          </div>
-          <h1 id="admin-login-title">Admin <span>Login</span></h1>
-          <p className="admin-form-subtitle">Welcome Back! Please sign in to continue</p>
-
-          <form className="admin-login-form" onSubmit={handleSubmit}>
-            <label className="admin-input-wrap">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0 2c-4.2 0-7.5 2.2-7.5 5v2h15v-2c0-2.8-3.3-5-7.5-5Z" fill="currentColor"/></svg>
-              <input name="username" autoComplete="username" placeholder="Username" aria-label="Username" required />
-            </label>
-            <label className="admin-input-wrap">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 9h-1V7a4 4 0 0 0-8 0v2H7a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2ZM10 7a2 2 0 1 1 4 0v2h-4Zm2 11a2 2 0 1 1 1-3.73V17h-2v-2.73A2 2 0 0 1 12 18Z" fill="currentColor"/></svg>
-              <input name="password" type={showPassword ? "text" : "password"} autoComplete="current-password" placeholder="Password" aria-label="Password" required />
-              <button className="admin-eye-button" type="button" onClick={() => setShowPassword(value => !value)} aria-label={showPassword ? "Hide password" : "Show password"}>
-                {showPassword ? "HIDE" : "SHOW"}
-              </button>
-            </label>
-            <div className="admin-form-options">
-              <label className="admin-remember"><input type="checkbox" checked={remember} onChange={event => setRemember(event.target.checked)} /><span />Remember Me</label>
-              <button type="button" className="admin-forgot" onClick={() => setNotice("Password recovery ke liye store administrator se contact karein.")}>Forgot Password?</button>
+        <section className="rm-admin-card" aria-labelledby="rm-admin-title">
+          <div className="rm-admin-card-top">
+            <div className="rm-admin-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 3 19 6v5c0 4.6-2.9 8-7 10-4.1-2-7-5.4-7-10V6l7-3Z" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round"/><path d="m9 12 2 2 4-4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </div>
-            <button type="submit" className="admin-submit-button"><span aria-hidden="true">↪</span> Login</button>
-            {notice && <p className="admin-login-notice" role="status">{notice}</p>}
+            <span className="rm-admin-secure"> <i /> SECURE SIGN IN</span>
+          </div>
+          <h1 id="rm-admin-title">Welcome <span>back.</span></h1>
+          <p className="rm-admin-subtitle">Sign in to access your admin dashboard.</p>
+
+          <form className="rm-admin-form" onSubmit={handleSubmit}>
+            <label htmlFor="admin-username">USERNAME</label>
+            <div className="rm-admin-field">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5" /><path d="M5 20c.5-3.3 3.1-5.2 7-5.2s6.5 1.9 7 5.2" /></svg>
+              <input id="admin-username" name="username" autoComplete="username" placeholder="Enter your username" required />
+            </div>
+
+            <label htmlFor="admin-password">PASSWORD</label>
+            <div className="rm-admin-field">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2" /><path d="M8 10V7a4 4 0 1 1 8 0v3" /></svg>
+              <input id="admin-password" name="password" type={showPassword ? "text" : "password"} autoComplete="current-password" placeholder="Enter your password" required />
+              <button type="button" className="rm-admin-toggle" onClick={() => setShowPassword(value => !value)} aria-label={showPassword ? "Hide password" : "Show password"}>{showPassword ? "HIDE" : "SHOW"}</button>
+            </div>
+
+            <button type="submit" className="rm-admin-submit">Sign in to dashboard <span aria-hidden="true">↗</span></button>
+            {notice && <p className="rm-admin-notice" role="status">{notice}</p>}
           </form>
 
-          <div className="admin-authorized"><span />Only for Authorized Personnel<span /></div>
-          <p className="admin-portal-foot"><b>✓</b> Rashid Mega Mart Admin Portal</p>
+          <div className="rm-admin-card-foot"><span>🔒</span> Your access is protected and private</div>
         </section>
       </div>
+      <footer className="rm-admin-footer">© {new Date().getFullYear()} RASHID MEGA MART <span>•</span> ADMIN ACCESS</footer>
     </main>
   );
 }

@@ -46,8 +46,8 @@ export default function IntroLoader() {
     const context = gsap.context(() => {
       const timeline = gsap.timeline({ onComplete: finish });
       timeline
-        .fromTo(root, { y: 18, x: 18, autoAlpha: 0, scale: .94 }, {
-          y: 0, x: 0, autoAlpha: 1, scale: 1, duration: .42, ease: "power3.out",
+        .fromTo(root, { y: 8, x: 70, autoAlpha: 0, scale: .94 }, {
+          y: 0, x: 0, autoAlpha: 1, scale: 1, duration: .58, ease: "power3.out",
         })
         .fromTo(logo, { scale: .45, rotation: -18, filter: "blur(8px)", clipPath: "inset(50% 50% 50% 50% round 50%)" }, {
           scale: 1, rotation: 0, filter: "blur(0px)", clipPath: "inset(0% 0% 0% 0% round 50%)",
@@ -59,7 +59,7 @@ export default function IntroLoader() {
         .fromTo(progress, { scaleX: 0, transformOrigin: "left center" }, {
           scaleX: 1, duration: .92, ease: "power2.inOut",
         }, "-=.12")
-        .to(root, { y: 12, x: 12, scale: .96, autoAlpha: 0, duration: .34, ease: "power2.in" }, "+=.12");
+        .to(root, { y: 8, x: 70, scale: .96, autoAlpha: 0, duration: .42, ease: "power2.in" }, "+=.12");
     }, root);
 
     const fallback = window.setTimeout(finish, 2600);
@@ -74,7 +74,7 @@ export default function IntroLoader() {
   return (
     <div
       ref={rootRef}
-      className="pointer-events-none fixed bottom-[calc(86px+env(safe-area-inset-bottom))] right-3 z-[120] flex items-center gap-3 rounded-2xl border border-white/80 bg-[#fffdf7]/90 px-3 py-2.5 shadow-[0_12px_38px_rgba(61,36,25,.16)] backdrop-blur-2xl sm:bottom-5 sm:right-5 sm:gap-3.5 sm:px-4 sm:py-3"
+      className="pointer-events-none fixed bottom-[calc(86px+env(safe-area-inset-bottom))] right-3 z-[120] flex flex-row-reverse items-center gap-3 rounded-2xl border border-white/80 bg-[#fffdf7]/90 px-3 py-2.5 shadow-[0_12px_38px_rgba(61,36,25,.16)] backdrop-blur-2xl sm:bottom-5 sm:right-5 sm:gap-3.5 sm:px-4 sm:py-3"
       role="status"
       aria-label="Rashid Mega Mart loading"
     >

@@ -13,6 +13,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useLanguage } from "./LanguageProvider";
 import { products, categoryOptions } from "./data";
 import { useCart } from "./CartProvider";
+import { useWishlist } from "./WishlistProvider";
 
 type Language = "en" | "hi";
 const DEFAULT_LOCATION = "Ghoghar, Rewa";
@@ -41,6 +42,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const { language, toggleLanguage } = useLanguage();
   const { cartCount, openCart } = useCart();
+  const { wishlistCount } = useWishlist();
 
   const [searchOpen, setSearchOpen] = useState(false);
   const bodyOverflowBeforeOverlay = useRef<string | null>(null);
@@ -281,7 +283,7 @@ export default function Navbar() {
 
       {/* Flipkart-style mobile bottom navigation */}
       <nav aria-label={isHindi ? "मुख्य नेविगेशन" : "Main navigation"} className="fixed inset-x-0 bottom-0 z-[70] border-t border-[#d8cfc2]/50 bg-white/60 shadow-[0_-5px_22px_rgba(65,43,35,0.05)] backdrop-blur-2xl xl:hidden" style={{ paddingBottom: "max(env(safe-area-inset-bottom), 7px)" }}>
-        <div className="mx-auto grid h-[68px] max-w-xl grid-cols-5 items-center px-1.5">
+        <div className="mx-auto grid h-[68px] max-w-xl grid-cols-6 items-center px-1.5">
           <a href="/" aria-current={pathname === "/" ? "page" : undefined} className={`group flex h-full flex-col items-center justify-center gap-1.5 transition-all ${pathname === "/" ? "text-[#800020]" : "text-[#887b73] hover:text-[#800020]"}`}>
             <span className={`flex h-8 w-12 items-center justify-center rounded-2xl transition-all ${pathname === "/" ? "bg-[#800020]/[0.09] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]" : ""}`}><House size={20} strokeWidth={pathname === "/" ? 2.5 : 1.8} /></span>
             <span className="text-[10px] font-extrabold tracking-tight">{isHindi ? "होम" : "Home"}</span>
@@ -293,6 +295,10 @@ export default function Navbar() {
           <a href="/order-tracking" aria-current={pathname.startsWith("/order-tracking") ? "page" : undefined} className={`group flex h-full flex-col items-center justify-center gap-1.5 transition-all ${pathname.startsWith("/order-tracking") ? "text-[#800020]" : "text-[#887b73] hover:text-[#800020]"}`}>
             <span className={`flex h-8 w-12 items-center justify-center rounded-2xl transition-all ${pathname.startsWith("/order-tracking") ? "bg-[#800020]/[0.09] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]" : ""}`}><Truck size={20} strokeWidth={pathname.startsWith("/order-tracking") ? 2.5 : 1.8} /></span>
             <span className="text-[10px] font-extrabold tracking-tight">{isHindi ? "ट्रैक" : "Track"}</span>
+          </a>
+          <a href="/wishlist" aria-current={pathname === "/wishlist" ? "page" : undefined} className={`group relative flex h-full flex-col items-center justify-center gap-1.5 transition-all ${pathname === "/wishlist" ? "text-[#800020]" : "text-[#887b73] hover:text-[#800020]"}`}>
+            <span className={`relative flex h-8 w-10 items-center justify-center rounded-2xl transition-all ${pathname === "/wishlist" ? "bg-[#800020]/[0.09]" : ""}`}><Heart size={19} strokeWidth={pathname === "/wishlist" ? 2.5 : 1.8} />{wishlistCount > 0 && <span className="absolute right-0 top-0 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#800020] px-1 text-[8px] font-black text-white ring-2 ring-[#fffdf8]">{wishlistCount > 99 ? "99+" : wishlistCount}</span>}</span>
+            <span className="text-[9px] font-extrabold tracking-tight">{isHindi ? "विशलिस्ट" : "Saved"}</span>
           </a>
           <a href="/my-orders" aria-current={pathname.startsWith("/my-orders") ? "page" : undefined} className={`group flex h-full flex-col items-center justify-center gap-1.5 transition-all ${pathname.startsWith("/my-orders") ? "text-[#800020]" : "text-[#887b73] hover:text-[#800020]"}`}>
             <span className={`flex h-8 w-12 items-center justify-center rounded-2xl transition-all ${pathname.startsWith("/my-orders") ? "bg-[#800020]/[0.09] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]" : ""}`}><Package size={20} strokeWidth={pathname.startsWith("/my-orders") ? 2.5 : 1.8} /></span>

@@ -53,7 +53,7 @@ export default function HelpCenterFAQ({ language }: { language: Language }) {
     const root = sectionRef.current;
     if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const ctx = gsap.context(() => {
-      gsap.fromTo("[data-faq-intro]", { y: 22, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .7, stagger: .1, ease: "power3.out", scrollTrigger: undefined });
+      gsap.fromTo("[data-faq-intro]", { y: 22, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .7, stagger: .1, ease: "power3.out" });
       gsap.fromTo("[data-faq-card]", { y: 14, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .55, stagger: .045, ease: "power2.out" });
     }, root);
     return () => ctx.revert();
@@ -64,7 +64,6 @@ export default function HelpCenterFAQ({ language }: { language: Language }) {
     gsap.fromTo(listRef.current.children, { y: 10, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .35, stagger: .035, ease: "power2.out", overwrite: true });
   }, [activeCategory, query]);
 
-  const activeQuestion = filtered[openIndex];
   const questionLabel = (item: FAQ) => isHindi ? item.questionHi : item.question;
   const answerLabel = (item: FAQ) => isHindi ? item.answerHi : item.answer;
 

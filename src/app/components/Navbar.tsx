@@ -195,12 +195,20 @@ export default function Navbar() {
 
         {/* COMPACT MOBILE HEADER */}
         <div className="flex flex-col gap-1.5 px-3 pb-1.5 pt-1.5 xl:hidden">
-          <div className="relative flex h-9 items-center justify-center">
-            <a href="/" aria-label="Rashid Mega Mart home" className="flex min-w-0 items-center justify-center gap-2">
-              <Image src="/Logo.png" alt="Rashid Mega Mart" width={34} height={34} className="h-[34px] w-[34px] shrink-0 object-contain" />
-              <span className="truncate text-[15px] font-extrabold tracking-[-0.035em] text-[#5a1023]">Rashid Mega Mart</span>
+          <div className="relative flex h-9 items-center justify-between">
+            <a href="/" aria-label="Rashid Mega Mart home" className="relative z-10 flex h-9 w-10 shrink-0 items-center justify-start">
+              <Image src="/Logo.png" alt="Rashid Mega Mart" width={34} height={34} className="h-[34px] w-[34px] object-contain" />
             </a>
-            <div className="absolute right-0 top-1/2 -translate-y-1/2">
+            <motion.span
+              aria-label="Rashid Mega Mart"
+              className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-[15px] font-extrabold tracking-[-0.035em] text-[#5a1023]"
+              initial={{ clipPath: "inset(0 100% 0 0)", opacity: 0.35 }}
+              animate={{ clipPath: ["inset(0 100% 0 0)", "inset(0 0% 0 0)", "inset(0 0% 0 0)"], opacity: [0.35, 1, 1] }}
+              transition={{ duration: 1.15, times: [0, 0.62, 1], repeat: Infinity, repeatDelay: 3.2, ease: "easeInOut" }}
+            >
+              Rashid Mega Mart
+            </motion.span>
+            <div className="relative z-10 shrink-0">
               <LanguageToggle language={language} onSelect={() => toggleLanguage()} />
             </div>
           </div>

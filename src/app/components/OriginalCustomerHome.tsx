@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { ArrowRight, ArrowUpRight, ChevronRight, Search, ShieldCheck, ShoppingCart, Truck } from "lucide-react";
+import { ArrowRight, ArrowUpRight, BadgePercent, ChevronRight, Search, ShieldCheck, ShoppingCart, Truck } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 import { categoryOptions, products } from "./data";
 import { useCart } from "./CartProvider";
@@ -31,6 +31,7 @@ export default function OriginalCustomerHome() {
   const isHindi = language === "hi";
   const [categorySearch, setCategorySearch] = useState("");
   const [openFaq, setOpenFaq] = useState(0);
+  const [promoCopied, setPromoCopied] = useState(false);
   const categories = categoryOptions.filter((item) => item.id !== "all" && (!categorySearch.trim() || item.en.toLowerCase().includes(categorySearch.toLowerCase()) || item.hi.includes(categorySearch.trim())));
 
   return (
@@ -77,6 +78,22 @@ export default function OriginalCustomerHome() {
               {isHindi ? "अभी खरीदारी करें" : "Explore products"}
               <span className="grid h-7 w-7 place-items-center rounded-full bg-[#800020] text-white transition-transform duration-300 group-hover:translate-x-1 group-hover:bg-white group-hover:text-[#800020]"><ArrowRight size={15} /></span>
             </Link>
+          </div>
+          <div className="relative mx-auto mt-8 max-w-[820px] overflow-hidden rounded-[24px] border border-[#e8d29d]/50 bg-[linear-gradient(112deg,#3c0d1d_0%,#791b37_58%,#9b6530_100%)] p-4 text-left text-white shadow-[0_18px_50px_rgba(75,16,37,.2)] sm:mt-10 sm:rounded-[28px] sm:p-6">
+            <div className="pointer-events-none absolute -right-10 -top-16 h-48 w-48 rounded-full border-[22px] border-white/[.07] sm:h-64 sm:w-64"/>
+            <div className="relative flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="min-w-0">
+                <div className="inline-flex items-center gap-1.5 rounded-full border border-[#f2d99f]/35 bg-[#f2d99f]/10 px-3 py-1 text-[9px] font-extrabold uppercase tracking-[.18em] text-[#f5dca5]"><BadgePercent size={12}/> {isHindi ? "नए ग्राहकों के लिए खास" : "A welcome treat for first-time shoppers"}</div>
+                <h2 className="mt-3 text-[clamp(1.65rem,5vw,2.7rem)] font-black leading-[.98] tracking-[-.06em]">{isHindi ? "पहली खरीदारी पर" : "YOUR FIRST SHOPPING"} <span className="text-[#f5dca5]">{isHindi ? "₹100 की बचत" : "JUST GOT BETTER."}</span></h2>
+                <p className="mt-2 text-xs leading-5 text-white/75 sm:text-sm">{isHindi ? "₹499 या उससे अधिक की खरीदारी पर ₹100 की छूट पाएं।" : "Get ₹100 OFF when your first order is ₹499 or more."}</p>
+              </div>
+              <div className="relative flex shrink-0 items-center gap-3 rounded-2xl border border-white/15 bg-white/[.09] p-3 backdrop-blur sm:min-w-[220px] sm:flex-col sm:items-stretch sm:p-4">
+                <div className="min-w-0 flex-1"><p className="text-[9px] font-bold uppercase tracking-[.16em] text-white/60">Use code</p><p className="mt-0.5 text-xl font-black tracking-[.12em] text-[#f5dca5]">FIRST100</p><p className="mt-1 text-[9px] text-white/60">Min. order ₹499</p></div>
+                <button type="button" onClick={async()=>{try{await navigator.clipboard.writeText("FIRST100");setPromoCopied(true);}catch{setPromoCopied(false);}}} className="rounded-xl bg-[#fff5df] px-4 py-2.5 text-[10px] font-extrabold text-[#68152b] transition hover:bg-white">{promoCopied ? (isHindi ? "कॉपी हो गया" : "Copied") : (isHindi ? "कोड कॉपी करें" : "Copy code")}</button>
+              </div>
+            </div>
+            <p className="relative mt-3 text-[9px] leading-4 text-white/50">{isHindi ? "पहली खरीदारी की पात्रता ऑर्डर कन्फर्म करते समय सत्यापित होगी।" : "First-purchase eligibility is verified by the store when confirming your order."}</p>
+            <Link href="/products" className="absolute inset-0 rounded-[24px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f5dca5]" aria-label="Shop now for first order offer"/>
           </div>
         </div>
       </section>

@@ -2,147 +2,116 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Home } from "lucide-react";
+import { Home } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <main className="relative isolate flex min-h-[calc(100svh-76px)] items-center justify-center overflow-hidden bg-[#f5f0e6] px-4 py-8 sm:py-12">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 opacity-60 [background-image:linear-gradient(rgba(128,0,32,.045)_1px,transparent_1px),linear-gradient(90deg,rgba(128,0,32,.045)_1px,transparent_1px)] [background-size:34px_34px]" />
-      <section className="w-full max-w-4xl overflow-hidden rounded-[28px] border border-[#dfd1bb] bg-[#fffdf8] shadow-[0_28px_90px_rgba(69,45,24,.14)]">
-        <header className="flex items-center justify-between border-b border-[#eadfce] px-4 py-3 sm:px-7">
-          <Link href="/" aria-label="Rashid Mega Mart home" className="inline-flex items-center">
-            <Image src="/Logo.png" alt="Rashid Mega Mart" width={150} height={64} priority className="h-10 w-auto object-contain sm:h-12" />
-          </Link>
-          <span className="rounded-full border border-[#e4cda8] bg-[#fff6e4] px-3 py-1 text-[10px] font-black tracking-[.18em] text-[#8b5b22] sm:text-xs">SITE WORK IN PROGRESS</span>
-        </header>
+    <main className="relative flex min-h-[100svh] flex-col items-center overflow-hidden bg-[#fffaf1] px-4 pb-6 pt-7 text-[#241c1b] sm:pt-9">
+      <div aria-hidden="true" className="pointer-events-none absolute -left-28 -top-36 h-72 w-[48rem] -rotate-[12deg] rounded-[50%] border-[18px] border-[#7f172d] sm:-left-20 sm:-top-40 sm:border-[25px]" />
+      <div aria-hidden="true" className="pointer-events-none absolute -left-20 -top-28 h-72 w-[48rem] -rotate-[12deg] rounded-[50%] border-[10px] border-[#e9b64f] sm:-top-32 sm:border-[14px]" />
+      <div aria-hidden="true" className="pointer-events-none absolute -bottom-44 -right-28 h-72 w-[48rem] -rotate-[12deg] rounded-[50%] border-[18px] border-[#7f172d] sm:-bottom-48 sm:border-[25px]" />
+      <div aria-hidden="true" className="pointer-events-none absolute -bottom-36 -right-20 h-72 w-[48rem] -rotate-[12deg] rounded-[50%] border-[10px] border-[#e9b64f] sm:-bottom-40 sm:border-[14px]" />
 
-        <div className="grid items-center gap-2 p-4 sm:gap-8 sm:p-8 md:grid-cols-[1.05fr_.95fr]">
-          <div className="order-2 text-center md:order-1 md:text-left">
-            <p className="text-[10px] font-black tracking-[.28em] text-[#a77b3e] sm:text-xs">RASHID MEGA MART · SITE NOTICE</p>
-            <h1 className="mt-3 text-3xl font-black leading-[.98] tracking-[-.06em] text-[#800020] sm:text-5xl">Oops! This page is still being built.</h1>
-            <p className="mt-3 text-sm leading-6 text-[#71665a] sm:text-base">Our construction crew is working on this area. The page you’re looking for isn’t ready or may have moved.</p>
-            <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#f8edda] px-3 py-2 text-[11px] font-extrabold tracking-[.1em] text-[#82531e]">
-              <span className="relative flex h-2.5 w-2.5"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#d49a3d] opacity-70" /><span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#b87926]" /></span>
-              CREW AT WORK · 404
-            </div>
-            <div className="mt-6 flex flex-col justify-center gap-2.5 sm:flex-row md:justify-start">
-              <Link href="/" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[#800020] px-5 text-sm font-bold text-white shadow-[0_8px_18px_rgba(128,0,32,.18)] transition hover:-translate-y-0.5 hover:bg-[#650019] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#800020]"><Home size={16} /> Back to Home</Link>
-              <Link href="/products" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-[#e5d6bd] bg-white px-5 text-sm font-bold text-[#5a1023] transition hover:-translate-y-0.5 hover:bg-[#fffaf0] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#800020]"><ArrowLeft size={16} /> Explore Store</Link>
-            </div>
-          </div>
+      <Link href="/" aria-label="Rashid Mega Mart home" className="relative z-10 mb-5 inline-flex items-center justify-center sm:mb-7">
+        <Image src="/Logo.png" alt="Rashid Mega Mart" width={560} height={180} priority className="h-auto max-h-[86px] w-auto max-w-[min(78vw,360px)] object-contain sm:max-h-[112px] sm:max-w-[440px]" />
+      </Link>
 
-          <div className="order-1 rounded-2xl border border-[#e7d9c4] bg-[linear-gradient(180deg,#fffaf0,#f2e7d4)] p-2 sm:p-4 md:order-2">
-            <svg viewBox="0 0 620 440" role="img" aria-label="Detailed animated construction site: a yellow JCB excavator actively digging soil beside a building under construction, with bricklayers, scaffolding, a tower crane and construction materials" className="h-auto w-full">
-              <defs>
-                <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stopColor="#fffaf0"/><stop offset="1" stopColor="#e8d8bd"/></linearGradient>
-                <linearGradient id="jcbPaint" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#ffe18a"/><stop offset=".5" stopColor="#e5a72f"/><stop offset="1" stopColor="#a96a19"/></linearGradient>
-                <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop stopColor="#c5dddd"/><stop offset="1" stopColor="#789b9b"/></linearGradient>
-                <linearGradient id="soil" x1="0" y1="0" x2="0" y2="1"><stop stopColor="#c99a60"/><stop offset="1" stopColor="#8b5d38"/></linearGradient>
-                <pattern id="bricks" width="42" height="24" patternUnits="userSpaceOnUse"><path d="M0 0H42M0 12H42M21 0V12M0 12V24" stroke="#a66e4b" strokeWidth="1.5" opacity=".75"/></pattern>
-                <pattern id="warningStripe" width="18" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><rect width="9" height="18" fill="#f4ca70"/><rect x="9" width="9" height="18" fill="#7e172d"/></pattern>
-                <filter id="shadow"><feGaussianBlur stdDeviation="5"/></filter>
-              </defs>
-              <rect x="7" y="7" width="606" height="426" rx="20" fill="url(#sky)"/>
-              <circle cx="535" cy="70" r="31" fill="#e8c77f" opacity=".65"/>
-              <path d="M25 344Q115 329 190 344T350 342T600 341V420H25Z" fill="#d5b58a" opacity=".55"/>
-              <path d="M25 365H595" stroke="#947657" strokeWidth="3" strokeDasharray="10 8"/>
-              {/* Tower crane */}
-              <g stroke="#8a1b32" strokeWidth="5" fill="none" strokeLinejoin="round">
-                <path d="M510 340V48M493 340L510 48L527 340M510 48H595L579 61H510"/>
-                <path d="M510 48L595 48M527 48L595 95M510 82L572 48M510 116L548 48"/>
-                <path d="M535 340H485L475 353H545Z" fill="#d6a13e" stroke="#9c6b2c"/>
-              </g>
-              <path d="M586 61V127" stroke="#6f172b" strokeWidth="3"/>
-              <g className="crane-load"><path d="M586 127V145Q586 158 599 152" fill="none" stroke="#6f172b" strokeWidth="4" strokeLinecap="round"/><rect x="572" y="151" width="28" height="24" rx="3" fill="#d9a346" stroke="#80562a" strokeWidth="2"/><path d="M576 157H596M576 164H596" stroke="#fff1cb" strokeWidth="2"/></g>
-              {/* Building skeleton and unfinished floors */}
-              <g>
-                <path d="M230 345V139L333 88L436 139V345Z" fill="#e8d9bf" stroke="#967b59" strokeWidth="3"/>
-                <path d="M230 139L333 88L436 139V345H230Z" fill="url(#bricks)" opacity=".8"/>
-                <path d="M215 143L333 82L451 143" fill="none" stroke="#7f1930" strokeWidth="8" strokeLinejoin="round"/>
-                <path d="M230 205H436M230 274H436" stroke="#8f7656" strokeWidth="5"/>
-                <path d="M253 157H294V196H253ZM312 157H353V196H312ZM371 157H412V196H371Z" fill="url(#glass)" stroke="#927958" strokeWidth="3"/>
-                <path d="M253 222H294V263H253ZM312 222H353V263H312ZM371 222H412V263H371Z" fill="#f7efdf" stroke="#927958" strokeWidth="3"/>
-                <path d="M310 345V293Q333 267 356 293V345" fill="#7f1930" opacity=".88"/>
-                <path d="M230 139H436V151H230Z" fill="#d7c3a2"/>
-                <path d="M242 122L242 345M424 122V345" stroke="#927958" strokeWidth="4"/>
-                <path d="M242 210H424M242 278H424" stroke="#927958" strokeWidth="3" strokeDasharray="7 5"/>
-              </g>
-              {/* Scaffolding in front of building */}
-              <g fill="none" stroke="#9b7448" strokeWidth="4">
-                <path d="M195 125V345M165 125V345M135 125V345M120 160H210M120 220H210M120 280H210M120 160L195 220M195 160L120 220M120 220L195 280M195 220L120 280"/>
-                <path d="M165 125L180 110H210V125"/>
-              </g>
-              <g fill="#d6a13e" stroke="#8d632d" strokeWidth="2"><rect x="155" y="151" width="22" height="8" rx="2"/><rect x="185" y="211" width="22" height="8" rx="2"/></g>
-              {/* Brick stacks and cement bags */}
-              <g stroke="#9c6849" strokeWidth="1.5"><path d="M445 326H492V344H445Z" fill="#b96f4c"/><path d="M445 317H492V326H445Z" fill="#d08b61"/><path d="M450 308H487V317H450Z" fill="#b96f4c"/><path d="M449 335H488M457 317V326M477 317V326" stroke="#f1c39b"/></g>
-              <g><path d="M452 285Q468 276 484 285L488 307H449Z" fill="#e6ddc8" stroke="#a99a7c" strokeWidth="2"/><path d="M457 292H480" stroke="#a99a7c" strokeWidth="2"/></g>
-              {/* Fresh excavation trench and soil */}
-              <path d="M20 355Q83 337 142 357Q183 373 232 352L232 397H20Z" fill="url(#soil)"/>
-              <path d="M26 354Q77 338 125 355T224 352" fill="none" stroke="#7e5234" strokeWidth="5"/>
-              <path d="M35 369Q78 355 111 370T190 368" fill="none" stroke="#e0b37b" strokeWidth="3" opacity=".8"/>
-              <g className="dirt-fall" fill="#9a673d"><circle cx="188" cy="330" r="4"/><circle cx="199" cy="340" r="3"/><circle cx="211" cy="331" r="5"/><circle cx="222" cy="344" r="3"/></g>
-              {/* JCB excavator: tracks, body, cab */}
-              <ellipse cx="105" cy="361" rx="93" ry="12" fill="#5b4633" opacity=".2" filter="url(#shadow)"/>
-              <g>
-                <path d="M32 332Q32 313 52 313H162Q181 313 184 332L176 359H40Z" fill="#34312d" stroke="#242321" strokeWidth="3"/>
-                <path d="M45 337H171" stroke="#a69a84" strokeWidth="4" strokeDasharray="10 6"/>
-                <circle cx="59" cy="347" r="12" fill="#5e574d" stroke="#b6a58a" strokeWidth="4"/><circle cx="91" cy="347" r="12" fill="#5e574d" stroke="#b6a58a" strokeWidth="4"/><circle cx="123" cy="347" r="12" fill="#5e574d" stroke="#b6a58a" strokeWidth="4"/><circle cx="155" cy="347" r="12" fill="#5e574d" stroke="#b6a58a" strokeWidth="4"/>
-                <path d="M49 315Q52 278 91 272H145Q164 278 169 315Z" fill="url(#jcbPaint)" stroke="#8a5d20" strokeWidth="3"/>
-                <path d="M66 279Q70 257 96 253H126L144 279Z" fill="#e8ad35" stroke="#8a5d20" strokeWidth="3"/>
-                <path d="M91 259H123L137 281H88Z" fill="url(#glass)" stroke="#6c604b" strokeWidth="3"/>
-                <path d="M103 260V279" stroke="#f8e9c9" strokeWidth="2"/>
-                <path d="M55 300H77V309H55Z" fill="#f7d77d"/><path d="M148 291H164V303H148Z" fill="#fff0b6"/>
-                <text x="99" y="302" fill="#713c12" fontSize="11" fontWeight="900" letterSpacing="1">JCB</text>
-              </g>
-              {/* Articulated digging arm; bucket moves down into the trench */}
-              <g className="dig-arm">
-                <path d="M151 284L181 251L211 264L190 300Z" fill="url(#jcbPaint)" stroke="#8a5d20" strokeWidth="4" strokeLinejoin="round"/>
-                <circle cx="177" cy="270" r="8" fill="#514337" stroke="#f1c66d" strokeWidth="3"/>
-                <path d="M202 269L231 311L218 321L185 284Z" fill="#d89a2c" stroke="#80531d" strokeWidth="4" strokeLinejoin="round"/>
-                <circle cx="210" cy="294" r="7" fill="#514337" stroke="#f1c66d" strokeWidth="3"/>
-                <path d="M229 309L247 329L237 352Q229 359 218 350L207 337L218 328L228 340L235 326Z" fill="#8a5b2d" stroke="#604124" strokeWidth="3" strokeLinejoin="round"/>
-                <path d="M215 342L225 350M228 344L236 351" stroke="#e2b16c" strokeWidth="3"/>
-              </g>
-              {/* Site worker on scaffold */}
-              <g className="worker-motion">
-                <circle cx="181" cy="190" r="8" fill="#b77b52"/>
-                <path d="M172 187Q181 175 190 187L191 191H171Z" fill="#e6ad39" stroke="#8b642d" strokeWidth="2"/>
-                <path d="M174 201H188L193 229H170Z" fill="#7f1930"/>
-                <path d="M176 208L163 221M187 208L200 219" stroke="#b77b52" strokeWidth="5" strokeLinecap="round"/>
-                <path d="M175 229L171 240M187 229L191 240" stroke="#51483e" strokeWidth="5" strokeLinecap="round"/>
-              </g>
-              {/* Bricklayer working on upper floor */}
-              <g>
-                <circle cx="387" cy="211" r="7" fill="#b77b52"/><path d="M379 208Q387 197 395 208L395 212H379Z" fill="#e6ad39"/>
-                <path d="M379 220H394L398 245H376Z" fill="#315f58"/>
-                <path d="M380 225L366 235M393 225L405 233" stroke="#b77b52" strokeWidth="5" strokeLinecap="round"/>
-                <path d="M380 245L378 255M392 245L395 255" stroke="#51483e" strokeWidth="5"/>
-                <path d="M401 230L410 219" stroke="#8b6a45" strokeWidth="3"/>
-              </g>
-              {/* Safety barriers, warning boards and cones */}
-              <g><path d="M22 385H202M22 385V411M202 385V411M22 400H202" stroke="#7f1930" strokeWidth="6" strokeLinecap="round"/><path d="M24 385L47 400M67 385L90 400M110 385L133 400M153 385L176 400" stroke="#f4cf7e" strokeWidth="6"/></g>
-              <g className="cone"><path d="M470 382L483 345L496 382Z" fill="#df9f36" stroke="#8a602a" strokeWidth="2"/><path d="M476 365H490" stroke="#fff5df" strokeWidth="5"/><path d="M464 384H502" stroke="#7f1930" strokeWidth="5" strokeLinecap="round"/></g>
-              <g><rect x="270" y="366" width="102" height="25" rx="4" fill="url(#warningStripe)" stroke="#7e172d" strokeWidth="2"/><text x="321" y="383" textAnchor="middle" fontSize="10" fontWeight="900" fill="#401b20">CAUTION</text></g>
-              <style>{`
-                .dig-arm { transform-origin: 151px 284px; animation: digging 2.8s ease-in-out infinite; }
-                .dirt-fall { animation: soilDrop 2.8s ease-in-out infinite; }
-                .crane-load { transform-box: fill-box; transform-origin: top center; animation: loadSwing 3.5s ease-in-out infinite; }
-                .worker-motion { transform-box: fill-box; transform-origin: center bottom; animation: workerMove 2.2s ease-in-out infinite; }
-                .cone { animation: coneBounce 2.6s ease-in-out infinite; transform-origin: center bottom; }
-                @keyframes digging { 0%,100% { transform: rotate(0deg); } 42% { transform: rotate(13deg); } 72% { transform: rotate(-5deg); } }
-                @keyframes soilDrop { 0%,35%,100% { opacity:.25; transform:translateY(-3px); } 55% { opacity:1; transform:translateY(8px); } }
-                @keyframes loadSwing { 0%,100% { transform:rotate(-4deg); } 50% { transform:rotate(5deg); } }
-                @keyframes workerMove { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-3px); } }
-                @keyframes coneBounce { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-3px); } }
-                @media (prefers-reduced-motion: reduce) { .dig-arm,.dirt-fall,.crane-load,.worker-motion,.cone { animation:none !important; } }
-              `}</style>
-            </svg>
-          </div>
+      <section className="relative z-10 flex w-full max-w-[1180px] flex-1 flex-col items-center justify-center text-center">
+        <div className="relative w-full">
+          <svg viewBox="0 0 1200 430" role="img" aria-label="Three dimensional maroon 404 numbers with a yellow construction helmet, a safety barrier and a subtle tower crane" className="mx-auto block h-auto w-full max-w-[1120px] overflow-visible">
+            <defs>
+              <linearGradient id="errorFace" x1="0" y1="0" x2="0.15" y2="1">
+                <stop offset="0" stopColor="#a62943" />
+                <stop offset=".48" stopColor="#85172f" />
+                <stop offset="1" stopColor="#5f1025" />
+              </linearGradient>
+              <linearGradient id="helmetGold" x1="0" y1="0" x2="0.8" y2="1">
+                <stop offset="0" stopColor="#ffe58a" />
+                <stop offset=".55" stopColor="#ffbd35" />
+                <stop offset="1" stopColor="#df8615" />
+              </linearGradient>
+              <linearGradient id="groundFade" x1="0" y1="0" x2="0" y2="1">
+                <stop stopColor="#e9d9c4" stopOpacity=".05" />
+                <stop offset="1" stopColor="#d7c2a8" stopOpacity=".7" />
+              </linearGradient>
+              <filter id="numberShadow" x="-20%" y="-20%" width="140%" height="160%">
+                <feGaussianBlur in="SourceAlpha" stdDeviation="9" />
+                <feOffset dy="13" />
+                <feComponentTransfer><feFuncA type="linear" slope=".24" /></feComponentTransfer>
+                <feMerge><feMergeNode /><feMergeNode in="SourceGraphic" /></feMerge>
+              </filter>
+            </defs>
+
+            <g opacity=".32" fill="#ead9c6">
+              <path d="M105 116c-8-18 12-33 30-25 8-27 52-33 67-7 23-10 47 6 45 27 20 0 28 11 28 19H95c-1-7 3-12 10-14Z" />
+              <path d="M1010 174c-7-15 9-27 24-21 8-22 43-27 55-6 19-8 39 5 38 22 16 0 24 8 24 15h-150c0-5 3-8 9-10Z" />
+            </g>
+
+            <g className="crane-art" fill="none" stroke="#c9aa8e" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" opacity=".45">
+              <path d="M1010 330V42M987 330l23-288 24 288M1010 42h165l-23 17h-142" />
+              <path d="M1010 42l165 0M1034 42l141 47M1010 88l108-46M1010 135l68-93M1010 182l30-140" />
+              <path d="M1152 59v95" strokeWidth="4" />
+              <path d="M1140 154h24l-5 26h-14Z" fill="#c9aa8e" stroke="none" />
+              <path d="M930 330h250M930 290h250M950 250h210" strokeWidth="8" />
+              <path d="M945 250v80m38-80v80m38-80v80m38-80v80m38-80v80m38-80v80" strokeWidth="6" />
+            </g>
+
+            <g className="barrier-art" transform="translate(78 278)">
+              <path d="M16 98l15-75h20l15 75M174 98l15-75h20l15 75" fill="none" stroke="#9a8b7b" strokeWidth="10" strokeLinejoin="round" />
+              <rect x="0" y="24" width="230" height="54" rx="7" fill="#eeb447" stroke="#d18a2b" strokeWidth="4" />
+              <path d="M10 72l34-48h30L40 78Zm83 0 34-48h30l-34 54Zm83 0 34-48h16v31l-12 17Z" fill="#5d5650" opacity=".88" />
+              <circle cx="32" cy="8" r="13" fill="#ffbd67" stroke="#d87c49" strokeWidth="5" />
+              <circle cx="197" cy="8" r="13" fill="#ffbd67" stroke="#d87c49" strokeWidth="5" />
+              <path d="M32 20v8m165-8v8" stroke="#81776a" strokeWidth="7" />
+            </g>
+
+            <path d="M55 365Q230 342 390 359T780 357T1145 360V410H55Z" fill="url(#groundFade)" />
+            <path d="M65 365Q240 349 400 364T800 361T1130 365" fill="none" stroke="#e6d5c1" strokeWidth="5" />
+
+            <g filter="url(#numberShadow)" textAnchor="middle" fontFamily="var(--font-plus-jakarta), Arial, sans-serif" fontWeight="900" fontSize="330" letterSpacing="-20">
+              <text x="600" y="350" fill="#4c1020" stroke="#4c1020" strokeWidth="20" strokeLinejoin="round">404</text>
+              <text x="600" y="330" fill="url(#errorFace)" stroke="#b94a5b" strokeWidth="3" strokeLinejoin="round">404</text>
+              <text x="600" y="318" fill="none" stroke="#f5a1a7" strokeWidth="2" opacity=".55">404</text>
+            </g>
+
+            <g className="helmet-art" transform="translate(493 36)">
+              <path d="M34 125Q39 24 112 14Q185 23 190 125Z" fill="url(#helmetGold)" stroke="#d98a18" strokeWidth="6" />
+              <path d="M112 18Q106 61 112 117M58 48Q81 17 111 17" fill="none" stroke="#fff0b5" strokeWidth="9" strokeLinecap="round" opacity=".8" />
+              <path d="M20 119Q112 91 204 119L212 135Q112 159 12 135Z" fill="url(#helmetGold)" stroke="#d98a18" strokeWidth="6" />
+              <path d="M27 124Q112 105 198 124" fill="none" stroke="#fff1b8" strokeWidth="5" strokeLinecap="round" />
+              <path d="M80 30l-5 23m75-23 6 23" stroke="#f5b83f" strokeWidth="7" strokeLinecap="round" />
+            </g>
+          </svg>
         </div>
-        <footer className="flex flex-wrap items-center justify-between gap-2 border-t border-[#eadfce] bg-[#fffaf1] px-4 py-3 text-[10px] font-bold tracking-[.12em] text-[#9b8261] sm:px-7">
-          <span>SAFETY FIRST · QUALITY ALWAYS</span><span>RASHID MEGA MART CONSTRUCTION ZONE</span>
-        </footer>
+
+        <h1 className="mt-0 text-[clamp(2rem,6vw,4.5rem)] font-extrabold leading-[1.08] tracking-[-.055em] text-[#241c1b]">
+          Page <span className="text-[#84172f]">Not Found</span>
+        </h1>
+        <p className="mt-3 max-w-[760px] text-[clamp(1rem,2.4vw,1.55rem)] font-light leading-relaxed text-[#655b58]">
+          The page you are looking for might be under construction<br className="hidden sm:block" /> or doesn’t exist.
+        </p>
+        <Link href="/" className="mt-5 inline-flex min-h-[58px] items-center justify-center gap-3 rounded-full bg-gradient-to-b from-[#9b1e3b] to-[#74132b] px-9 text-base font-bold text-white shadow-[0_12px_26px_rgba(116,19,43,.2)] transition duration-200 hover:-translate-y-1 hover:shadow-[0_16px_30px_rgba(116,19,43,.27)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#84172f] sm:min-h-[66px] sm:px-12 sm:text-lg">
+          <Home size={21} fill="currentColor" /> Back to Home
+        </Link>
       </section>
+
+      <footer className="relative z-10 mt-7 flex w-full max-w-[700px] items-center justify-center gap-4 text-center text-[10px] font-semibold tracking-[.22em] text-[#84172f] sm:mt-9 sm:text-sm sm:tracking-[.3em]">
+        <span className="h-px flex-1 bg-[#c87983]" />
+        <span className="whitespace-nowrap">RASHID MEGA MART <span className="px-2">•</span> ALWAYS WITH YOU</span>
+        <span className="h-px flex-1 bg-[#c87983]" />
+      </footer>
+
+      <style jsx>{`
+        .helmet-art { transform-origin: 600px 150px; animation: helmetFloat 4s ease-in-out infinite; }
+        .crane-art { transform-origin: 1100px 40px; animation: craneSway 5s ease-in-out infinite; }
+        .barrier-art { transform-origin: center bottom; animation: barrierBob 4s ease-in-out infinite; }
+        @keyframes helmetFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        @keyframes craneSway { 0%,100% { transform: rotate(0); } 50% { transform: rotate(.6deg); } }
+        @keyframes barrierBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+        @media (prefers-reduced-motion: reduce) {
+          .helmet-art,.crane-art,.barrier-art { animation: none !important; }
+        }
+      `}</style>
     </main>
   );
 }

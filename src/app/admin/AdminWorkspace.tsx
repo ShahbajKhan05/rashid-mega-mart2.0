@@ -3,11 +3,9 @@
 import Link from "next/link";
 import { useState } from "react";
 import {
-  Activity, ArrowDownRight, ArrowUpRight, Bell, Boxes, ChartNoAxesCombined,
-  ChevronDown, ChevronLeft, ChevronRight, CircleHelp, ClipboardList, Command,
-  CreditCard, Download, Ellipsis, LayoutDashboard, LogOut, Menu, Package,
-  Plus, Search, Settings2, ShieldCheck, ShoppingBag, ShoppingCart, Sparkles,
-  Tag, Users, Wallet, X,
+  Bell, Boxes, ChevronDown, ChevronRight, CircleHelp, ClipboardList,
+  CreditCard, Download, LayoutDashboard, Package, Plus, Search, Settings2,
+  ShoppingBag, Sparkles, Tag, Users, Wallet, X,
 } from "lucide-react";
 
 type Section = "overview" | "orders" | "products" | "customers" | "coupons" | "loyalty" | "monthly-kit" | "settings";

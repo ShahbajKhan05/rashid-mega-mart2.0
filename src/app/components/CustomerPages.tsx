@@ -144,6 +144,7 @@ export function ProductDetailPage() {
   const discount = Math.max(0, Math.round((1 - product.price / product.originalPrice) * 100));
 
   function handleAddToCart() {
+    if (!product) return;
     addToCart({ id: product.id, name: product.name, nameHi: product.nameHi, price: product.price, image: product.image, category: product.category }, quantity);
     setAdded(true);
   }

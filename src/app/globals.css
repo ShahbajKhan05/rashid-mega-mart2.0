@@ -547,3 +547,39 @@ main [class*="border-[#eadf"], main [class*="border-[#eee5"] {
 @media(prefers-reduced-motion:reduce){
  .rmm-promo-shine{display:none}
 }
+
+
+/* Award-style light champagne announcement: original logo + kinetic lettering */
+.rmm-promo-glass{
+  color:#49343a!important;
+  border-color:rgba(168,132,82,.2)!important;
+  background:
+    radial-gradient(ellipse at 16% 50%,rgba(231,205,155,.32),transparent 32%),
+    radial-gradient(ellipse at 88% 20%,rgba(255,255,255,.92),transparent 36%),
+    linear-gradient(105deg,rgba(255,252,244,.97),rgba(248,241,228,.94) 54%,rgba(255,253,247,.98))!important;
+  box-shadow:0 8px 25px rgba(82,57,43,.055),inset 0 1px 0 #fff!important;
+  backdrop-filter:blur(22px) saturate(135%);
+  -webkit-backdrop-filter:blur(22px) saturate(135%);
+}
+.rmm-promo-orb{position:absolute;pointer-events:none;width:170px;height:170px;border-radius:50%;filter:blur(45px);opacity:.22}
+.rmm-promo-orb-one{left:18%;top:-135px;background:#e6c98f}
+.rmm-promo-orb-two{right:12%;bottom:-145px;background:#e8c9d0;opacity:.2}
+.rmm-promo-shine{position:absolute;z-index:0;inset:-45% auto -45% -35%;width:22%;transform:skewX(-20deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.92),transparent);pointer-events:none}
+.rmm-promo-logo{opacity:0;filter:drop-shadow(0 4px 8px rgba(80,38,44,.09))}
+.rmm-promo-headline{color:#70243a;perspective:500px}
+.rmm-promo-headline [data-promo-letter]{transform-origin:50% 100%;will-change:transform,opacity}
+.rmm-promo-code{color:#7a2940!important;border-color:rgba(128,0,32,.19)!important;background:rgba(255,255,255,.72)!important;box-shadow:0 3px 10px rgba(80,38,44,.045),inset 0 1px 0 #fff}
+.rmm-promo-code:hover{border-color:rgba(128,0,32,.38)!important;background:#fff!important}
+.rmm-promo-code span{color:#8c6b53;opacity:1}
+.rmm-promo-countdown{border:1px solid rgba(151,125,102,.17);background:rgba(255,255,255,.58);box-shadow:inset 0 1px 0 #fff}
+@media(max-width:639px){
+ .rmm-promo-glass .rmm-promo-orb{width:130px;height:130px}
+ .rmm-promo-glass .rmm-promo-countdown{padding:5px 12px}
+ .rmm-promo-logo{width:90px;height:31px}
+ .rmm-promo-headline{font-size:11px;letter-spacing:-.035em}
+}
+@media(prefers-reduced-motion:reduce){
+ .rmm-promo-shine{display:none}
+ .rmm-promo-logo{opacity:1}
+ .rmm-promo-headline [data-promo-letter]{opacity:1;transform:none}
+}

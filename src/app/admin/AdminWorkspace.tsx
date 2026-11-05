@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import LoyaltyAdmin from "./LoyaltyAdmin";
 import {
-  Bell, Boxes, ChevronDown, ChevronRight, CircleHelp, ClipboardList,
+  Activity, Bell, Boxes, ChevronDown, ChevronRight, CircleHelp, ClipboardList,
   CreditCard, Download, LayoutDashboard, Package, Plus, Search, Settings2,
   ShoppingBag, Sparkles, Tag, Users, Wallet, X,
 } from "lucide-react";

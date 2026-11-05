@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Sparkles } from "lucide-react";
 
 const title = "PAGE IS UNDER CONSTRUCTION";
 
@@ -85,7 +85,7 @@ export default function NotFound() {
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(167,123,62,0.13)_0%,rgba(255,252,240,0)_62%)]" />
       <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#a77b3e]/70 to-transparent" />
 
-      <section className="relative z-10 flex w-full max-w-3xl flex-col items-center">
+      <section className="relative z-10 flex w-full max-w-xl flex-col items-center">
         <div ref={logoRef} className="flex items-center justify-center">
           <Image
             src="/Logo.png"
@@ -93,19 +93,19 @@ export default function NotFound() {
             width={560}
             height={180}
             priority
-            className="h-auto max-h-[118px] w-auto max-w-[min(78vw,390px)] object-contain sm:max-h-[150px] sm:max-w-[470px]"
+            className="h-auto max-h-[94px] w-auto max-w-[min(76vw,330px)] object-contain sm:max-h-[122px] sm:max-w-[390px]"
           />
         </div>
 
         <span
           ref={lineRef}
           aria-hidden="true"
-          className="mt-8 h-px w-40 bg-gradient-to-r from-transparent via-[#a77b3e] to-transparent shadow-[0_0_18px_rgba(167,123,62,0.35)] sm:mt-10 sm:w-56"
+          className="mt-4 h-px w-28 bg-gradient-to-r from-transparent via-[#a77b3e] to-transparent shadow-[0_0_14px_rgba(167,123,62,0.35)] sm:mt-5 sm:w-40"
         />
 
         <h1
           ref={titleRef}
-          className="mt-7 flex flex-wrap justify-center text-[clamp(1.45rem,5.2vw,3.25rem)] font-semibold leading-tight tracking-[0.12em] text-[#800020]"
+          className="mt-4 flex max-w-full flex-wrap justify-center text-[clamp(1.35rem,4.8vw,2.65rem)] font-extrabold leading-[1.12] tracking-[0.045em] text-[#800020]"
           style={{ perspective: "800px" }}
         >
           <span className="sr-only">{title}</span>
@@ -118,8 +118,8 @@ export default function NotFound() {
           </span>
         </h1>
 
-        <p className="mt-4 text-sm font-medium tracking-[0.18em] text-[#765b50] sm:text-base">
-          WE&apos;LL BE BACK BY <span className="font-bold text-[#800020]">15 NOVEMBER 2026</span>
+        <p className="mt-3 rounded-full border border-[#a77b3e]/25 bg-white/65 px-4 py-2 text-xs font-semibold tracking-[0.08em] text-[#765b50] sm:text-sm">
+          ✨ TARGET REOPENING <span className="font-extrabold text-[#800020]">15 NOVEMBER 2026</span> ✨
         </p>
 
         <button
@@ -127,7 +127,7 @@ export default function NotFound() {
           type="button"
           onClick={goHome}
           disabled={leaving}
-          className="mt-9 inline-flex min-h-11 items-center gap-2 rounded-full border border-white/20 bg-white/[0.04] px-6 text-sm font-medium text-white/85 transition-colors hover:border-[#c9a66b]/70 hover:bg-white/[0.09] hover:text-[#e6c58d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#a77b3e] disabled:cursor-wait"
+          className="mt-5 inline-flex min-h-10 items-center gap-2 rounded-full bg-[#800020] px-5 text-sm font-semibold text-white shadow-[0_6px_18px_rgba(128,0,32,0.18)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#650019] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#a77b3e] disabled:cursor-wait"
         >
           <ArrowLeft size={16} />
           Back to Home

@@ -35,41 +35,53 @@ export default function OriginalCustomerHome() {
 
   return (
     <main className="overflow-hidden bg-[#FFFCF0] pb-24 text-[#30251F]">
-      <section id="top" className="relative isolate overflow-hidden px-4 pb-12 pt-28 sm:px-7 sm:pb-16 sm:pt-32 lg:px-10">
-        <div className="pointer-events-none absolute -right-24 top-16 -z-10 h-[420px] w-[420px] rounded-full bg-[#D4A84F]/20 blur-[100px]" />
-        <div className="mx-auto grid max-w-[1440px] items-center gap-8 lg:grid-cols-[1.05fr_.95fr]">
-          <div className="relative z-10 text-center lg:text-left">
-            <p className="mx-auto inline-flex items-center gap-2 rounded-full border border-[#D4A84F]/45 bg-white/65 px-4 py-2 text-[9px] font-black uppercase tracking-[.2em] text-[#956d32] shadow-sm backdrop-blur lg:mx-0 sm:text-[10px]">
+      <section id="top" className="relative isolate overflow-hidden bg-[#FFFCF0] px-4 pb-10 pt-24 sm:px-7 sm:pb-14 sm:pt-28 lg:px-10">
+        <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_80%_20%,rgba(212,168,79,.19),transparent_42%),radial-gradient(ellipse_at_10%_90%,rgba(128,0,32,.07),transparent_38%)]" />
+        <div className="mx-auto grid max-w-[1440px] items-center gap-8 lg:grid-cols-[.92fr_1.08fr] lg:gap-12">
+          <div className="relative z-10 py-5 text-center lg:py-10 lg:text-left">
+            <p className="mx-auto inline-flex items-center gap-2 rounded-full border border-[#d9c69f] bg-white/80 px-4 py-2 text-[9px] font-black uppercase tracking-[.19em] text-[#805d2d] shadow-sm backdrop-blur lg:mx-0 sm:text-[10px]">
               <span className="h-1.5 w-1.5 rounded-full bg-[#138047]" />
-              {isHindi ? "आपकी रोज़मर्रा की भरोसेमंद दुकान" : "YOUR EVERYDAY NEIGHBOURHOOD STORE"}
+              {isHindi ? "घोघर, रीवा की भरोसेमंद दुकान" : "YOUR NEIGHBOURHOOD GROCERY STORE"}
             </p>
-            <h1 className="mt-7 text-[clamp(3.5rem,10vw,8.7rem)] font-black uppercase leading-[.78] tracking-[-.09em] text-[#800020]">
-              <span className="block">RASHID</span>
-              <span className="mt-3 block bg-gradient-to-r from-[#800020] via-[#a77b3e] to-[#800020] bg-clip-text text-[.67em] text-transparent">MEGA MART</span>
+            <h1 className="mx-auto mt-6 max-w-[720px] text-[clamp(3.3rem,7.8vw,7.2rem)] font-black leading-[.88] tracking-[-.085em] text-[#800020] lg:mx-0">
+              {isHindi ? <>हर दिन की<br /><span className="text-[#A47A2C]">स्मार्ट खरीदारी।</span></> : <>EVERYDAY<br /><span className="text-[#A47A2C]">SHOPPING.</span></>}
             </h1>
-            <h2 className="mt-7 text-xl font-extrabold tracking-tight text-[#30251F] sm:text-2xl lg:text-3xl">{isHindi ? "घर की हर ज़रूरत, एक ही जगह।" : "Everything your home needs."}</h2>
-            <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-[#76665C] sm:text-base lg:mx-0">{isHindi ? "रोज़मर्रा का किराना, आपके पसंदीदा ब्रांड और आसान ऑनलाइन ऑर्डर — सब कुछ अब बस कुछ क्लिक दूर।" : "Everyday groceries, familiar brands and a simpler way to shop — just a few clicks away."}</p>
+            <p className="mx-auto mt-6 max-w-[510px] text-sm leading-7 text-[#76665C] sm:text-base lg:mx-0">
+              {isHindi ? "आपके घर की हर ज़रूरत — रोज़मर्रा का किराना, पसंदीदा ब्रांड और आसान ऑनलाइन ऑर्डर।" : "All your everyday essentials, trusted grocery brands and a simpler way to shop — thoughtfully brought together."}
+            </p>
             <div className="mt-7 flex flex-wrap justify-center gap-3 lg:justify-start">
-              <Link href="/products" className="group inline-flex h-12 items-center gap-3 rounded-xl bg-[#800020] px-6 text-sm font-extrabold text-white shadow-[0_12px_28px_rgba(128,0,32,.2)] transition hover:-translate-y-1 hover:bg-[#620018]">{isHindi ? "खरीदारी शुरू करें" : "Start Shopping"} <ArrowUpRight size={17} /></Link>
-              <Link href="/order-tracking" className="inline-flex h-12 items-center gap-2 rounded-xl border border-[#d9c8ae] bg-white/70 px-5 text-sm font-bold text-[#5b4c42] transition hover:border-[#a77b3e] hover:bg-white">{isHindi ? "ऑर्डर ट्रैक करें" : "Track Order"} <ArrowRight size={15} /></Link>
+              <Link href="/products" className="group inline-flex h-12 items-center gap-3 rounded-full bg-[#800020] px-7 text-sm font-extrabold text-white shadow-[0_12px_28px_rgba(128,0,32,.2)] transition hover:-translate-y-1 hover:bg-[#620018]">
+                {isHindi ? "अभी खरीदारी करें" : "Shop now"} <ArrowUpRight size={17} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Link>
+              <Link href="/order-tracking" className="inline-flex h-12 items-center gap-2 rounded-full border border-[#d9c8ae] bg-white/80 px-6 text-sm font-bold text-[#5b4c42] transition hover:border-[#a77b3e] hover:bg-white">
+                {isHindi ? "ऑर्डर ट्रैक करें" : "Track order"} <ArrowRight size={15} />
+              </Link>
             </div>
-            <div className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-3 text-[10px] font-bold text-[#76665C] lg:justify-start sm:text-xs">
-              <span className="inline-flex items-center gap-2"><ShieldCheck size={16} className="text-[#138047]" />{isHindi ? "आसान ऑर्डर प्रक्रिया" : "Easy order requests"}</span>
-              <span className="inline-flex items-center gap-2"><Truck size={16} className="text-[#138047]" />{isHindi ? "डिलीवरी की पुष्टि" : "Delivery confirmed with you"}</span>
+            <div className="mt-8 flex flex-wrap justify-center gap-x-5 gap-y-2 text-[10px] font-bold text-[#76665C] lg:justify-start sm:text-xs">
+              <span className="inline-flex items-center gap-2"><ShieldCheck size={15} className="text-[#138047]" />{isHindi ? "भरोसेमंद खरीदारी" : "Trusted shopping"}</span>
+              <span className="inline-flex items-center gap-2"><Truck size={15} className="text-[#138047]" />{isHindi ? "लोकल डिलीवरी" : "Local delivery"}</span>
             </div>
           </div>
-          <div className="relative mx-auto flex min-h-[350px] w-full max-w-[620px] items-center justify-center sm:min-h-[470px]">
-            <div className="absolute h-[270px] w-[270px] rounded-full border border-[#D4A84F]/35 bg-gradient-to-br from-[#fff7e5] to-[#e9d6b7] shadow-[0_25px_90px_rgba(128,0,32,.10)] sm:h-[390px] sm:w-[390px]" />
-            <div className="absolute h-[320px] w-[320px] rounded-full border border-dashed border-[#a77b3e]/35 sm:h-[460px] sm:w-[460px]" />
-            <div className="relative z-10 w-[76%] max-w-[430px] overflow-hidden rounded-[32px] border-[7px] border-white/90 bg-white p-2 shadow-[0_35px_90px_rgba(65,35,20,.2)] sm:rounded-[42px] sm:p-3">
-              <div className="relative aspect-[1.08/1] overflow-hidden rounded-[25px] bg-[#eee2ce]">
-                <img src="https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=1000&q=90" alt="Fresh grocery shopping basket" className="h-full w-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#35120D]/25 via-transparent to-white/10" />
-                <span className="absolute bottom-4 left-4 rounded-full border border-white/60 bg-white/85 px-4 py-2 text-[9px] font-black tracking-[.16em] text-[#800020] shadow-lg backdrop-blur">RASHID MEGA MART</span>
+          <div className="relative mx-auto w-full max-w-[760px]">
+            <div className="relative overflow-hidden rounded-[26px] border border-white/80 bg-[#eadfc9] p-2 shadow-[0_28px_80px_rgba(53,18,13,.16)] sm:rounded-[34px] sm:p-3">
+              <div className="relative aspect-[1.2/1] overflow-hidden rounded-[20px] sm:rounded-[26px]">
+                <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=1500&q=90" alt="Fresh vegetables and grocery shopping at Rashid Mega Mart" className="absolute inset-0 h-full w-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#24150e]/65 via-[#24150e]/15 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#24150e]/45 to-transparent" />
+                <div className="absolute bottom-5 left-5 right-5 text-white sm:bottom-8 sm:left-8 sm:right-8">
+                  <p className="text-[9px] font-black tracking-[.24em] text-[#f4d89f] sm:text-[10px]">{isHindi ? "रोज़ की ज़रूरतें, एक ही जगह" : "YOUR DAILY GROCERY DESTINATION"}</p>
+                  <p className="mt-2 max-w-md text-2xl font-black leading-tight tracking-[-.04em] sm:text-4xl">{isHindi ? "ताज़गी और सुविधा — हर खरीदारी में।" : "Fresh choices. Familiar favourites."}</p>
+                </div>
+                <div className="absolute right-4 top-4 rounded-full border border-white/50 bg-white/85 px-3 py-2 text-[9px] font-black tracking-[.12em] text-[#800020] shadow-lg backdrop-blur sm:right-6 sm:top-6 sm:px-4">RASHID MEGA MART</div>
               </div>
             </div>
-            <div className="absolute left-0 top-[13%] z-20 rounded-2xl border border-white/70 bg-white/85 p-3 shadow-xl backdrop-blur-xl"><span className="text-xl">🥬</span><p className="mt-1 text-[10px] font-extrabold text-[#5b4c42]">{isHindi ? "ताज़ा ज़रूरतें" : "Daily essentials"}</p></div>
-            <div className="absolute bottom-[10%] right-0 z-20 rounded-2xl border border-white/70 bg-white/85 p-3 shadow-xl backdrop-blur-xl"><span className="text-xl">🛒</span><p className="mt-1 text-[10px] font-extrabold text-[#5b4c42]">{isHindi ? "आसान खरीदारी" : "Easy shopping"}</p></div>
+            <div className="absolute -bottom-4 left-3 rounded-2xl border border-white/80 bg-white/90 px-4 py-3 shadow-[0_12px_32px_rgba(53,18,13,.12)] backdrop-blur sm:bottom-5 sm:-left-5 sm:px-5">
+              <span className="block text-[8px] font-black uppercase tracking-[.16em] text-[#A47A2C]">{isHindi ? "आपके लिए" : "MADE FOR YOUR HOME"}</span>
+              <span className="mt-1 block text-xs font-black text-[#68152b] sm:text-sm">{isHindi ? "हर दिन, हर ज़रूरत" : "Everyday essentials"}</span>
+            </div>
+            <div className="absolute -right-1 -top-4 grid h-[76px] w-[76px] rotate-6 place-items-center rounded-full border-4 border-[#FFFCF0] bg-[#138047] text-center text-white shadow-lg sm:-right-4 sm:-top-5 sm:h-[92px] sm:w-[92px]">
+              <span className="text-[8px] font-black leading-tight tracking-[.1em] sm:text-[9px]">{isHindi ? <>आसान<br />ऑर्डर</> : <>EASY<br />ORDERING</>}</span>
+            </div>
           </div>
         </div>
       </section>

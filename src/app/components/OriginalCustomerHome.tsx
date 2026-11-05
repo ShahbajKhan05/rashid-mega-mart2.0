@@ -34,11 +34,11 @@ export default function OriginalCustomerHome() {
   const categories = categoryOptions.filter((item) => item.id !== "all" && (!categorySearch.trim() || item.en.toLowerCase().includes(categorySearch.toLowerCase()) || item.hi.includes(categorySearch.trim())));
 
   return (
-    <main className="overflow-hidden bg-[#FFFCF0] pb-24 text-[#30251F]">
+    <main className="overflow-hidden bg-[#FFFCF0] pb-24 font-[var(--font-plus-jakarta)] text-[#30251F]">
       <section id="top" className="relative isolate overflow-hidden bg-[#FFFCF0] px-4 pb-12 pt-24 sm:px-7 sm:pb-16 sm:pt-28 lg:px-10">
         <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_5%,rgba(212,168,79,.18),transparent_55%)]" />
         <div className="mx-auto max-w-[1440px] text-center">
-          <p className="mx-auto inline-flex items-center gap-2 rounded-full border border-[#d9c69f] bg-white/80 px-4 py-2 text-[9px] font-black uppercase tracking-[.2em] text-[#805d2d] shadow-sm backdrop-blur sm:text-[10px]">
+          <p className="mx-auto inline-flex items-center gap-2 rounded-full border border-[#d9c69f] bg-white/80 px-4 py-2 text-[11px] font-extrabold uppercase tracking-[.16em] text-[#805d2d] shadow-sm backdrop-blur sm:text-[10px]">
             <span className="h-1.5 w-1.5 rounded-full bg-[#138047]" />
             {isHindi ? "घोघर, रीवा की भरोसेमंद दुकान" : "YOUR NEIGHBOURHOOD GROCERY STORE"}
           </p>
@@ -50,7 +50,7 @@ export default function OriginalCustomerHome() {
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(164,122,44,.24),transparent_65%)]" />
               <span
                 aria-label="Fresh Everyday"
-                className="relative z-10 select-none text-center text-[clamp(3.1rem,13.8vw,12.5rem)] font-black uppercase leading-[.78] tracking-[-.105em] text-transparent"
+                className="relative z-10 block select-none text-center text-[clamp(3.25rem,12.2vw,11.5rem)] font-black uppercase leading-[.76] tracking-[-.105em] text-transparent"
                 style={{
                   backgroundImage: "url(https://images.unsplash.com/photo-1542838132-92c53300491e?w=1800&q=90)",
                   backgroundSize: "cover",
@@ -59,13 +59,13 @@ export default function OriginalCustomerHome() {
                   WebkitBackgroundClip: "text",
                   backgroundClip: "text",
                   WebkitTextFillColor: "transparent",
-                  filter: "drop-shadow(0 8px 18px rgba(0,0,0,.18))",
+                  filter: "drop-shadow(0 5px 14px rgba(0,0,0,.16))",
                 }}
               >
-                FRESH<br className="sm:hidden" /> EVERYDAY
+                FRESH<br />EVERYDAY
               </span>
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#24150e]/80 to-transparent px-4 pb-4 pt-16 sm:px-8 sm:pb-7">
-                <p className="text-[9px] font-black tracking-[.24em] text-[#f4d89f] sm:text-[10px]">{isHindi ? "हर दिन की ज़रूरतें, एक ही जगह" : "YOUR DAILY GROCERY DESTINATION"}</p>
+                <p className="text-[11px] font-extrabold tracking-[.2em] text-[#f4d89f] sm:text-[10px]">{isHindi ? "हर दिन की ज़रूरतें, एक ही जगह" : "YOUR DAILY GROCERY DESTINATION"}</p>
               </div>
             </div>
           </div>
@@ -82,13 +82,13 @@ export default function OriginalCustomerHome() {
       </section>
 
       <section aria-label="Popular brands" className="overflow-hidden border-y border-[#800020]/10 bg-[#FFF9D8] py-5 sm:py-7">
-        <div className="mb-4 text-center"><p className="text-[9px] font-black tracking-[.24em] text-[#A47A2C]">{isHindi ? "आपके पसंदीदा ब्रांड" : "BRANDS YOU LOVE"}</p><h2 className="mt-1 text-lg font-black text-[#800020] sm:text-2xl">{isHindi ? "लोकप्रिय किराना ब्रांड" : "Popular Grocery Brands"}</h2></div>
-        <div className="flex flex-wrap justify-center gap-2 px-3 sm:gap-3">{brands.map((brand) => <span key={brand} className="grid h-11 min-w-[100px] place-items-center rounded-xl border border-[#e9d9bd] bg-white/75 px-4 text-[11px] font-black text-[#5b332e] shadow-sm sm:h-12 sm:min-w-[125px] sm:text-xs">{brand}</span>)}</div>
+        <div className="mb-4 text-center"><p className="text-[11px] font-extrabold tracking-[.2em] text-[#A47A2C]">{isHindi ? "आपके पसंदीदा ब्रांड" : "BRANDS YOU LOVE"}</p><h2 className="mt-1 text-xl font-extrabold tracking-[-.035em] text-[#800020] sm:text-2xl">{isHindi ? "लोकप्रिय किराना ब्रांड" : "Popular Grocery Brands"}</h2></div>
+        <div className="flex flex-wrap justify-center gap-2 px-3 sm:gap-3">{brands.map((brand) => <span key={brand} className="grid h-11 min-w-[100px] place-items-center rounded-xl border border-[#e9d9bd] bg-white/75 px-4 text-[13px] font-extrabold tracking-[-.02em] text-[#5b332e] shadow-sm sm:h-12 sm:min-w-[125px] sm:text-sm">{brand}</span>)}</div>
       </section>
 
       <section id="categories" className="mx-auto max-w-[1440px] px-4 py-12 sm:px-7 sm:py-16 lg:px-10">
         <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div><p className="text-[9px] font-black tracking-[.24em] text-[#A47A2C]">{isHindi ? "अपनी पसंद चुनें" : "SHOP YOUR FAVOURITES"}</p><h2 className="mt-2 text-3xl font-black tracking-[-.06em] text-[#800020] sm:text-4xl">{isHindi ? "कैटेगरी से खरीदें" : "Shop by Category"}</h2><p className="mt-2 text-sm text-[#76665C]">{isHindi ? "आपकी रोज़ की ज़रूरतें, एक ही जगह।" : "Everyday essentials, all in one place."}</p></div>
+          <div><p className="text-[11px] font-extrabold tracking-[.2em] text-[#A47A2C]">{isHindi ? "अपनी पसंद चुनें" : "SHOP YOUR FAVOURITES"}</p><h2 className="mt-2 text-3xl font-black tracking-[-.06em] text-[#800020] sm:text-4xl">{isHindi ? "कैटेगरी से खरीदें" : "Shop by Category"}</h2><p className="mt-2 text-sm text-[#76665C]">{isHindi ? "आपकी रोज़ की ज़रूरतें, एक ही जगह।" : "Everyday essentials, all in one place."}</p></div>
           <label className="flex h-11 w-full items-center gap-2 rounded-xl border border-[#e6d9c8] bg-white/75 px-3 sm:max-w-[260px]"><Search size={16} className="text-[#800020]" /><input value={categorySearch} onChange={(event) => setCategorySearch(event.target.value)} placeholder={isHindi ? "कैटेगरी खोजें..." : "Search categories..."} className="min-w-0 flex-1 bg-transparent text-xs outline-none placeholder:text-[#a69b90]" /></label>
         </div>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-5">
@@ -96,25 +96,25 @@ export default function OriginalCustomerHome() {
             <img src={visuals[category.id] || visuals.staples} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-45 mix-blend-multiply transition duration-700 group-hover:scale-110 group-hover:opacity-60" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#fff8e9]/95 via-[#fff8e9]/35 to-transparent" />
             <span className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full border border-white/80 bg-white/80 text-lg shadow-sm">{category.id === "staples" ? "🌾" : category.id === "oil" ? "🫒" : category.id === "dairy" ? "🥛" : category.id === "basics" ? "🧂" : "🛒"}</span>
-            <div className="relative z-10 mt-auto w-full p-4 sm:p-5"><h3 className="text-sm font-black leading-tight text-[#68152b] sm:text-base">{isHindi ? category.hi : category.en}</h3><span className="mt-2 inline-flex items-center gap-1 text-[10px] font-black uppercase tracking-wide text-[#800020]">{isHindi ? "अभी देखें" : "Explore"} <ArrowUpRight size={13} /></span></div>
+            <div className="relative z-10 mt-auto w-full p-4 sm:p-5"><h3 className="text-base font-extrabold leading-tight tracking-[-.025em] text-[#68152b] sm:text-lg">{isHindi ? category.hi : category.en}</h3><span className="mt-2 inline-flex items-center gap-1 text-xs font-extrabold uppercase tracking-[.08em] text-[#800020]">{isHindi ? "अभी देखें" : "Explore"} <ArrowUpRight size={13} /></span></div>
           </Link>)}
         </div>
       </section>
 
       <section className="bg-[#FFF9D8] px-4 py-12 sm:px-7 sm:py-16 lg:px-10">
         <div className="mx-auto max-w-[1440px]">
-          <div className="mb-7 flex items-end justify-between gap-4"><div><p className="text-[9px] font-black tracking-[.24em] text-[#A47A2C]">{isHindi ? "आपके लिए चुने गए" : "HANDPICKED FOR YOU"}</p><h2 className="mt-2 text-3xl font-black tracking-[-.06em] text-[#800020] sm:text-4xl">{isHindi ? "बेस्ट सेलर्स" : "Best Sellers"}</h2></div><Link href="/products" className="inline-flex shrink-0 items-center gap-1 text-xs font-black text-[#800020] hover:underline">{isHindi ? "सभी देखें" : "View all"} <ChevronRight size={15} /></Link></div>
+          <div className="mb-7 flex items-end justify-between gap-4"><div><p className="text-[11px] font-extrabold tracking-[.2em] text-[#A47A2C]">{isHindi ? "आपके लिए चुने गए" : "HANDPICKED FOR YOU"}</p><h2 className="mt-2 text-3xl font-black tracking-[-.06em] text-[#800020] sm:text-4xl">{isHindi ? "बेस्ट सेलर्स" : "Best Sellers"}</h2></div><Link href="/products" className="inline-flex shrink-0 items-center gap-1 text-xs font-black text-[#800020] hover:underline">{isHindi ? "सभी देखें" : "View all"} <ChevronRight size={15} /></Link></div>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4">
             {products.slice(0, 8).map((product) => {
               const discount = product.originalPrice > product.price ? Math.round((1 - product.price / product.originalPrice) * 100) : 0;
               return <article key={product.id} className="group relative flex min-w-0 flex-col rounded-[18px] border border-[#eadfce] bg-white p-2.5 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg sm:rounded-[22px] sm:p-3">
                 <Link href={"/products/" + (product.slug || product.id)} className="relative block aspect-square overflow-hidden rounded-[14px] bg-[#faf8f3] p-3">
-                  {discount > 0 && <span className="absolute left-2 top-2 z-10 rounded-md bg-[#800020] px-2 py-1 text-[8px] font-black text-white">{discount}% OFF</span>}
+                  {discount > 0 && <span className="absolute left-2 top-2 z-10 rounded-md bg-[#800020] px-2 py-1 text-[10px] font-extrabold text-white">{discount}% OFF</span>}
                   <img src={product.image} alt={isHindi ? product.nameHi : product.name} loading="lazy" className="h-full w-full object-contain mix-blend-multiply transition duration-500 group-hover:scale-105" />
                 </Link>
-                <div className="flex flex-1 flex-col px-1 pt-3"><p className="text-[8px] font-black uppercase tracking-[.14em] text-[#A47A2C]">{product.brand || "Rashid Mega Mart"}{product.unit ? " · " + product.unit : ""}</p><Link href={"/products/" + (product.slug || product.id)} className="mt-1 line-clamp-2 min-h-9 text-[11px] font-bold leading-[1.5] text-[#40342e] hover:text-[#800020] sm:text-[13px]">{isHindi ? product.nameHi : product.name}</Link>
-                  <div className="mt-2 flex items-baseline gap-2"><span className="text-sm font-black text-[#800020]">₹{product.price.toLocaleString("en-IN")}</span>{discount > 0 && <span className="text-[10px] text-[#9b8d81] line-through">₹{product.originalPrice.toLocaleString("en-IN")}</span>}</div>
-                  <button type="button" onClick={() => addToCart(product, 1)} className="mt-3 inline-flex h-9 w-full items-center justify-center gap-2 rounded-lg border border-[#800020]/20 bg-white text-[11px] font-black text-[#800020] transition hover:bg-[#800020] hover:text-white active:scale-[.98]"><ShoppingCart size={13} />{isHindi ? "कार्ट में जोड़ें" : "Add to cart"}</button>
+                <div className="flex flex-1 flex-col px-1 pt-3"><p className="text-[10px] font-extrabold uppercase tracking-[.12em] text-[#A47A2C]">{product.brand || "Rashid Mega Mart"}{product.unit ? " · " + product.unit : ""}</p><Link href={"/products/" + (product.slug || product.id)} className="mt-1 line-clamp-2 min-h-9 text-[13px] font-bold leading-[1.45] tracking-[-.015em] text-[#40342e] hover:text-[#800020] sm:text-[15px]">{isHindi ? product.nameHi : product.name}</Link>
+                  <div className="mt-2 flex items-baseline gap-2"><span className="text-base font-extrabold tracking-[-.02em] text-[#800020]">₹{product.price.toLocaleString("en-IN")}</span>{discount > 0 && <span className="text-xs font-medium text-[#9b8d81] line-through">₹{product.originalPrice.toLocaleString("en-IN")}</span>}</div>
+                  <button type="button" onClick={() => addToCart(product, 1)} className="mt-3 inline-flex h-9 w-full items-center justify-center gap-2 rounded-lg border border-[#800020]/20 bg-white text-xs font-extrabold tracking-[-.01em] text-[#800020] transition hover:bg-[#800020] hover:text-white active:scale-[.98]"><ShoppingCart size={13} />{isHindi ? "कार्ट में जोड़ें" : "Add to cart"}</button>
                 </div>
               </article>;
             })}
@@ -124,13 +124,13 @@ export default function OriginalCustomerHome() {
 
       <section className="mx-auto max-w-[1440px] px-4 py-12 sm:px-7 sm:py-16 lg:px-10">
         <div className="grid overflow-hidden rounded-[26px] bg-[#68152b] text-[#fff9e9] sm:grid-cols-[1.15fr_.85fr]">
-          <div className="px-6 py-9 sm:px-10 sm:py-12 lg:px-14"><p className="text-[9px] font-black tracking-[.24em] text-[#e6c88f]">{isHindi ? "आसान खरीदारी, भरोसे के साथ" : "A LITTLE MORE CONVENIENCE"}</p><h2 className="mt-4 max-w-xl text-[clamp(2rem,4.5vw,4rem)] font-black leading-[.98] tracking-[-.07em]">{isHindi ? "घर की ज़रूरतें, अब बस कुछ क्लिक दूर।" : "Your everyday essentials, just a few clicks away."}</h2><p className="mt-4 max-w-lg text-sm leading-7 text-white/75">{isHindi ? "अपनी पसंद का सामान चुनें और ऑर्डर रिक्वेस्ट भेजें। हमारी टीम आपसे संपर्क करके आगे की जानकारी कन्फर्म करेगी।" : "Choose what you need and send an order request. Our team will get in touch to confirm availability and delivery details."}</p><Link href="/products" className="mt-7 inline-flex h-11 items-center gap-2 rounded-full bg-[#fff9e9] px-5 text-xs font-black text-[#68152b] transition hover:-translate-y-0.5">{isHindi ? "सभी सामान देखें" : "Explore all products"} <ArrowUpRight size={15} /></Link></div>
+          <div className="px-6 py-9 sm:px-10 sm:py-12 lg:px-14"><p className="text-[11px] font-extrabold tracking-[.2em] text-[#e6c88f]">{isHindi ? "आसान खरीदारी, भरोसे के साथ" : "A LITTLE MORE CONVENIENCE"}</p><h2 className="mt-4 max-w-xl text-[clamp(2rem,4.5vw,4rem)] font-black leading-[.98] tracking-[-.07em]">{isHindi ? "घर की ज़रूरतें, अब बस कुछ क्लिक दूर।" : "Your everyday essentials, just a few clicks away."}</h2><p className="mt-4 max-w-lg text-sm leading-7 text-white/75">{isHindi ? "अपनी पसंद का सामान चुनें और ऑर्डर रिक्वेस्ट भेजें। हमारी टीम आपसे संपर्क करके आगे की जानकारी कन्फर्म करेगी।" : "Choose what you need and send an order request. Our team will get in touch to confirm availability and delivery details."}</p><Link href="/products" className="mt-7 inline-flex h-11 items-center gap-2 rounded-full bg-[#fff9e9] px-5 text-xs font-black text-[#68152b] transition hover:-translate-y-0.5">{isHindi ? "सभी सामान देखें" : "Explore all products"} <ArrowUpRight size={15} /></Link></div>
           <div className="relative grid min-h-[210px] place-items-center overflow-hidden bg-gradient-to-br from-[#7d2338] to-[#3c0c1c]"><div className="absolute h-[310px] w-[310px] rounded-full border border-[#e6c88f]/35 sm:h-[390px] sm:w-[390px]" /><div className="relative grid h-[170px] w-[170px] place-items-center rounded-full border border-[#e6c88f]/35 bg-white/[.06] text-center shadow-xl backdrop-blur sm:h-[220px] sm:w-[220px]"><div className="text-6xl">🛍️</div><p className="mt-2 text-[9px] font-black tracking-[.22em]">RASHID MEGA MART</p><p className="mt-1 text-[8px] tracking-[.16em] text-[#e6c88f]">EVERYDAY, MADE SIMPLE</p></div></div>
         </div>
       </section>
 
       <section className="mx-auto max-w-[980px] px-4 pb-16 pt-2 sm:px-7 sm:pb-20 lg:px-10">
-        <div className="mb-6 text-center"><p className="text-[9px] font-black tracking-[.24em] text-[#A47A2C]">{isHindi ? "आपके सवाल" : "NEED A HAND?"}</p><h2 className="mt-2 text-2xl font-black tracking-tight text-[#800020] sm:text-3xl">{isHindi ? "अक्सर पूछे जाने वाले सवाल" : "Frequently asked questions"}</h2></div>
+        <div className="mb-6 text-center"><p className="text-[11px] font-extrabold tracking-[.2em] text-[#A47A2C]">{isHindi ? "आपके सवाल" : "NEED A HAND?"}</p><h2 className="mt-2 text-3xl font-extrabold tracking-[-.045em] text-[#800020] sm:text-4xl">{isHindi ? "अक्सर पूछे जाने वाले सवाल" : "Frequently asked questions"}</h2></div>
         <div className="divide-y divide-[#eadfce] border-y border-[#eadfce] bg-white/45 px-4 sm:px-6">
           {faqs.map((faq, index) => <div key={faq[0]} className="py-4"><button type="button" aria-expanded={openFaq === index} onClick={() => setOpenFaq(openFaq === index ? -1 : index)} className="flex w-full items-center justify-between gap-4 text-left text-sm font-extrabold text-[#40342e]"><span>{isHindi ? faq[2] : faq[0]}</span><span className={"grid h-7 w-7 shrink-0 place-items-center rounded-full border border-[#d9c8ae] text-[#800020] transition " + (openFaq === index ? "rotate-45 bg-[#800020] text-white" : "")}>+</span></button>{openFaq === index && <p className="max-w-3xl pt-3 text-xs leading-6 text-[#76665C] sm:text-sm">{isHindi ? faq[3] : faq[1]}</p>}</div>)}
         </div>

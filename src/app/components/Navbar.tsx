@@ -2,7 +2,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import {
   House, Package, LayoutGrid, X, ArrowUpRight,
@@ -41,6 +41,7 @@ export default function Navbar() {
   const { language, toggleLanguage } = useLanguage();
 
   const [searchOpen, setSearchOpen] = useState(false);
+  const bodyOverflowBeforeOverlay = useRef<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
   const [locationModalOpen, setLocationModalOpen] = useState(false);
@@ -120,18 +121,30 @@ export default function Navbar() {
 
 
   useEffect(() => {
-    const previousOverflow = document.body.style.overflow;
+    const overlayOpen = searchOpen || locationModalOpen;
 
-    if (searchOpen || locationModalOpen) {
+    if (overlayOpen) {
+      if (bodyOverflowBeforeOverlay.current === null) {
+        bodyOverflowBeforeOverlay.current = document.body.style.overflow;
+      }
       document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = previousOverflow;
+      return;
     }
 
-    return () => {
-      document.body.style.overflow = previousOverflow;
-    };
+    if (bodyOverflowBeforeOverlay.current !== null) {
+      document.body.style.overflow = bodyOverflowBeforeOverlay.current;
+      bodyOverflowBeforeOverlay.current = null;
+    }
   }, [searchOpen, locationModalOpen]);
+
+  useEffect(() => {
+    return () => {
+      if (bodyOverflowBeforeOverlay.current !== null) {
+        document.body.style.overflow = bodyOverflowBeforeOverlay.current;
+        bodyOverflowBeforeOverlay.current = null;
+      }
+    };
+  }, []);
 
   return (
     <>

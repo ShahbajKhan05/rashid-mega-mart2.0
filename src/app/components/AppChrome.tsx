@@ -6,12 +6,12 @@ import Navbar from "./Navbar";
 
 export default function AppChrome() {
   const pathname = usePathname();
-  if (pathname.startsWith("/admin-login")) return null;
+  const isAdminLogin = pathname.startsWith("/admin-login");
 
   return (
     <>
-      <IntroLoader scope="public" />
-      <Navbar />
+      <IntroLoader />
+      {!isAdminLogin && <Navbar />}
     </>
   );
 }

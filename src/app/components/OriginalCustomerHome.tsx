@@ -20,6 +20,14 @@ const visuals: Record<string, string> = {
   masala: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=600&q=85",
   tea: "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=600&q=85",
   snacks: "https://images.unsplash.com/photo-1621939514649-280e2aa2f1c9?w=600&q=85",
+  beverages: "https://images.unsplash.com/photo-1544145945-f90425340c7e?w=600&q=85",
+  personal: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=600&q=85",
+  cleaning: "https://images.unsplash.com/photo-1585421514738-01798e348b17?w=600&q=85",
+  fruits: "https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=600&q=85",
+  vegetables: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600&q=85",
+  frozen: "https://images.unsplash.com/photo- frozen-food-aisle?w=600&q=85",
+  dryfruits: "https://images.unsplash.com/photo-1608797178974-15b35a64ede9?w=600&q=85",
+  baby: "https://images.unsplash.com/photo-1519689680058-324335c77eba?w=600&q=85",
 };
 const faqs = [
   ["How do I place an order?", "Choose products, add them to your cart and submit your details at checkout. Our team will confirm availability and delivery details.", "ऑर्डर कैसे करें?", "सामान चुनें, कार्ट में जोड़ें और चेकआउट पर जानकारी भेजें। हमारी टीम उपलब्धता और डिलीवरी की पुष्टि करेगी।"],
@@ -109,28 +117,25 @@ export default function OriginalCustomerHome() {
     if (motionQuery.matches) return;
 
     const media = gsap.matchMedia();
-    media.add("(min-width: 768px)", () => {
+    media.add("(min-width: 0px)", () => {
+      const cards = track.querySelectorAll<HTMLElement>("[data-category-card]");
       const getTravel = () => Math.max(0, track.scrollWidth - viewport.clientWidth);
+      gsap.fromTo(cards, { y: 24, autoAlpha: 0, scale: 0.97 }, {
+        y: 0, autoAlpha: 1, scale: 1, duration: 0.7, stagger: 0.07, ease: "power3.out",
+        scrollTrigger: { trigger: section, start: "top 78%", once: true },
+      });
       gsap.to(track, {
         x: () => -getTravel(),
         ease: "none",
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: () => "+=" + Math.max(getTravel(), window.innerHeight * 0.75),
+          end: () => "+=" + Math.max(getTravel(), window.innerHeight * (window.innerWidth < 768 ? 1.05 : 0.8)),
           pin: true,
-          scrub: 0.8,
+          scrub: window.innerWidth < 768 ? 0.55 : 0.8,
           anticipatePin: 1,
           invalidateOnRefresh: true,
         },
-      });
-    });
-
-    media.add("(max-width: 767px)", () => {
-      const cards = track.querySelectorAll<HTMLElement>("[data-category-card]");
-      gsap.fromTo(cards, { y: 22, autoAlpha: 0 }, {
-        y: 0, autoAlpha: 1, duration: 0.65, stagger: 0.08, ease: "power3.out",
-        scrollTrigger: { trigger: section, start: "top 78%", once: true },
       });
     });
 
@@ -295,19 +300,19 @@ export default function OriginalCustomerHome() {
           </label>
         </div>
 
-        <div ref={categoryViewportRef} className="w-full overflow-x-auto overflow-y-hidden px-4 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:overflow-hidden md:px-0">
+        <div ref={categoryViewportRef} className="w-full overflow-hidden px-4 pb-4 md:px-0">
           <div ref={categoryTrackRef} className="flex w-max gap-3 pr-4 sm:gap-5 md:gap-6 md:pl-[max(5vw,calc((100vw-1320px)/2))] md:pr-[max(5vw,calc((100vw-1320px)/2))]">
             {categories.map((category, index) => (
               <Link
                 key={category.id}
                 data-category-card
                 href={"/products?category=" + encodeURIComponent(category.id)}
-                className="group relative isolate flex h-[270px] w-[76vw] max-w-[300px] shrink-0 overflow-hidden rounded-[24px] border border-white/90 bg-gradient-to-br from-[#fff0d0] to-[#ead6b7] shadow-[0_12px_35px_rgba(67,45,27,.09)] transition duration-500 hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(67,45,27,.15)] sm:h-[330px] sm:w-[300px] md:h-[390px] md:w-[330px] md:rounded-[30px]"
+                className="group relative isolate flex h-[300px] w-[78vw] max-w-[310px] shrink-0 overflow-hidden rounded-[24px] border border-white/90 bg-gradient-to-br from-[#fff0d0] to-[#ead6b7] shadow-[0_12px_35px_rgba(67,45,27,.09)] transition duration-500 hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(67,45,27,.15)] sm:h-[330px] sm:w-[300px] md:h-[390px] md:w-[330px] md:rounded-[30px]"
               >
                 <img src={visuals[category.id] || visuals.staples} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-55 mix-blend-multiply transition duration-700 group-hover:scale-110 group-hover:opacity-70" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#fff8e9] via-[#fff8e9]/30 to-transparent" />
                 <span className="absolute left-5 top-5 text-[10px] font-black tracking-[.2em] text-[#805d2d]">0{index + 1}</span>
-                <span className="absolute right-5 top-5 grid h-10 w-10 place-items-center rounded-full border border-white/80 bg-white/75 text-xl shadow-sm backdrop-blur">{category.id === "staples" ? "🌾" : category.id === "oil" ? "🫒" : category.id === "dairy" ? "🥛" : category.id === "basics" ? "🧂" : category.id === "bakery" ? "🥐" : category.id === "masala" ? "🌶️" : category.id === "tea" ? "🍵" : category.id === "snacks" ? "🍪" : "🛒"}</span>
+                <span className="absolute right-5 top-5 grid h-10 w-10 place-items-center rounded-full border border-white/80 bg-white/75 text-xl shadow-sm backdrop-blur">{category.id === "staples" ? "🌾" : category.id === "oil" ? "🫒" : category.id === "dairy" ? "🥛" : category.id === "basics" ? "🧂" : category.id === "bakery" ? "🥐" : category.id === "masala" ? "🌶️" : category.id === "tea" ? "🍵" : category.id === "snacks" ? "🍪" : category.id === "beverages" ? "🥤" : category.id === "personal" ? "🧴" : category.id === "cleaning" ? "🧹" : category.id === "fruits" ? "🍎" : category.id === "vegetables" ? "🥬" : category.id === "frozen" ? "🧊" : category.id === "dryfruits" ? "🥜" : category.id === "baby" ? "🍼" : "🛒"}</span>
                 <div className="relative z-10 mt-auto w-full p-5 sm:p-6">
                   <h3 className="text-2xl font-black leading-tight tracking-[-.055em] text-[#68152b] sm:text-[28px]">{isHindi ? category.hi : category.en}</h3>
                   <span className="mt-3 inline-flex items-center gap-2 rounded-full border border-[#800020]/15 bg-white/75 px-4 py-2 text-[10px] font-extrabold uppercase tracking-[.12em] text-[#800020] backdrop-blur transition group-hover:border-[#800020] group-hover:bg-[#800020] group-hover:text-white">{isHindi ? "अभी देखें" : "Explore aisle"} <ArrowUpRight size={13} /></span>
@@ -317,7 +322,7 @@ export default function OriginalCustomerHome() {
             {categories.length === 0 && <p className="w-[min(82vw,360px)] rounded-2xl border border-[#eadfce] bg-white/80 p-6 text-center text-sm text-[#76665C]">{isHindi ? "कोई कैटेगरी नहीं मिली।" : "No categories found. Try another search."}</p>}
           </div>
         </div>
-        <p className="mt-3 text-center text-[9px] font-bold uppercase tracking-[.16em] text-[#a29487] md:mt-5">{isHindi ? "नीचे स्क्रॉल करें • कैटेगरी अपने आप आगे बढ़ेंगी" : "SCROLL TO MOVE THROUGH THE AISLES"} <span className="ml-1 text-[#A47A2C]">→</span></p>
+        <p className="mt-3 text-center text-[9px] font-bold uppercase tracking-[.16em] text-[#a29487] md:mt-5">{isHindi ? "स्क्रॉल करें • कैटेगरी दाईं ओर से आती जाएँगी" : "KEEP SCROLLING — THE AISLES SLIDE IN FROM THE RIGHT"} <span className="ml-1 text-[#A47A2C]">→</span></p>
       </section>
 
       <section className="bg-[#FFF9D8] px-4 py-12 sm:px-7 sm:py-16 lg:px-10">

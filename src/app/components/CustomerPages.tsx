@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { useLanguage } from "./LanguageProvider";
 import Image from "next/image";
 import { AlertCircle, ArrowDownWideNarrow, FileDown, Headset, LoaderCircle, MapPin, Package, RotateCcw, Search, ShoppingBag, Star, Truck, UserRound, X, XCircle } from "lucide-react";
 import { categoryOptions, products } from "./data";
+import { useCart } from "./CartProvider";
 
 function CenterPage({ title }: { title: string }) {
   const { language } = useLanguage();
@@ -172,8 +173,96 @@ export function ProductsPage() {
   );
 }
 
+
 export function ProductDetailPage() {
-  return <CenterPage title="PRODUCT DETAILS PAGE" />;
+  const { language } = useLanguage();
+  const params = useParams<{ slug: string }>();
+  const { addToCart } = useCart();
+  const isHindi = language === "hi";
+  const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
+  const product = products.find((item) => item.slug === slug || item.id === slug);
+  const [quantity, setQuantity] = useState(1);
+  const [added, setAdded] = useState(false);
+
+  if (!product) {
+    return (
+      <main className="flex min-h-[calc(100svh-76px)] items-center justify-center bg-[#FFFCF0] px-5 pb-24 text-center text-[#30251F]">
+        <div className="max-w-sm">
+          <p className="text-xs font-semibold uppercase tracking-[.2em] text-[#a77b3e]">Rashid Mega Mart</p>
+          <h1 className="mt-3 text-2xl font-semibold tracking-tight text-[#800020]">{isHindi ? "उत्पाद नहीं मिला" : "Product not found"}</h1>
+          <p className="mt-2 text-sm leading-6 text-[#76665c]">{isHindi ? "यह उत्पाद उपलब्ध नहीं है या लिंक बदल गया है।" : "This product may be unavailable or the link may have changed."}</p>
+          <Link href="/products" className="mt-6 inline-flex h-11 items-center justify-center rounded-full bg-[#800020] px-6 text-sm font-semibold text-white transition hover:bg-[#650019]">{isHindi ? "सभी उत्पाद देखें" : "Browse all products"}</Link>
+        </div>
+      </main>
+    );
+  }
+
+  const discount = Math.max(0, Math.round((1 - product.price / product.originalPrice) * 100));
+
+  function handleAddToCart() {
+    addToCart({ id: product.id, name: product.name, nameHi: product.nameHi, price: product.price, image: product.image, category: product.category }, quantity);
+    setAdded(true);
+  }
+
+  return (
+    <main className="min-h-[calc(100svh-76px)] overflow-x-clip bg-[#FFFCF0] pb-28 text-[#30251F]">
+      <div className="mx-auto w-full max-w-6xl px-4 pb-8 pt-4 sm:px-6 sm:pt-7 lg:px-8">
+        <Link href="/products" className="inline-flex min-h-9 items-center gap-2 text-sm font-medium text-[#76665c] transition hover:text-[#800020]">
+          <span aria-hidden="true">←</span> {isHindi ? "सभी उत्पाद" : "All products"}
+        </Link>
+        <div className="mt-4 grid items-start gap-7 sm:mt-6 sm:gap-10 lg:grid-cols-[1.05fr_.95fr] lg:gap-16">
+          <div className="relative flex aspect-square max-h-[620px] items-center justify-center overflow-hidden rounded-[26px] bg-white p-7 sm:rounded-[32px] sm:p-12">
+            {discount > 0 && <span className="absolute left-4 top-4 z-10 rounded-full bg-[#800020] px-3 py-1.5 text-[11px] font-semibold text-white">{discount}% {isHindi ? "की बचत" : "OFF"}</span>}
+            <img src={product.image} alt={isHindi ? product.nameHi : product.name} className="h-full w-full object-contain mix-blend-multiply" />
+          </div>
+          <section className="min-w-0 lg:pt-5">
+            <p className="text-xs font-semibold uppercase tracking-[.2em] text-[#a77b3e]">{product.brand || "Rashid Mega Mart"}</p>
+            <h1 className="mt-2 text-[clamp(1.8rem,5vw,3rem)] font-semibold leading-[1.12] tracking-[-.045em] text-[#800020]">{isHindi ? product.nameHi : product.name}</h1>
+            <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-[#76665c]">
+              <span className="inline-flex items-center gap-1.5 font-medium text-[#5e5149]"><Star size={15} fill="#b88a42" className="text-[#b88a42]" /> {product.rating.toFixed(1)}</span>
+              <span className="h-1 w-1 rounded-full bg-[#cbbba8]" /><span>{product.unit || (isHindi ? "पैक" : "Pack")}</span>
+            </div>
+            <div className="mt-6 flex flex-wrap items-baseline gap-3 border-b border-[#e9dfd0] pb-6">
+              <span className="text-3xl font-semibold tracking-tight text-[#30251F]">₹{product.price.toLocaleString("en-IN")}</span>
+              {product.originalPrice > product.price && <span className="text-base text-[#9b8d81] line-through">₹{product.originalPrice.toLocaleString("en-IN")}</span>}
+              {discount > 0 && <span className="text-xs font-semibold text-[#27734b]">{isHindi ? discount + "% की बचत" : "You save " + discount + "%"}</span>}
+            </div>
+            <p className="mt-6 text-sm leading-7 text-[#6f6258] sm:text-base">{product.description || (isHindi ? "राशिद मेगा मार्ट से रोज़मर्रा की ज़रूरतों के लिए चुना गया उत्पाद।" : "A carefully selected everyday essential from Rashid Mega Mart.")}</p>
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <div className="inline-flex h-12 items-center rounded-full border border-[#e4d9ca] bg-white">
+                <button type="button" onClick={() => setQuantity((value) => Math.max(1, value - 1))} aria-label={isHindi ? "मात्रा घटाएँ" : "Decrease quantity"} className="grid h-11 w-11 place-items-center rounded-full text-lg text-[#51443d] transition hover:bg-[#f6f0e6]">−</button>
+                <span className="min-w-8 text-center text-sm font-semibold tabular-nums">{quantity}</span>
+                <button type="button" onClick={() => setQuantity((value) => Math.min(99, value + 1))} aria-label={isHindi ? "मात्रा बढ़ाएँ" : "Increase quantity"} className="grid h-11 w-11 place-items-center rounded-full text-lg text-[#51443d] transition hover:bg-[#f6f0e6]">+</button>
+              </div>
+              <button type="button" onClick={handleAddToCart} className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-[#800020] px-6 text-sm font-semibold text-white transition hover:bg-[#650019] active:scale-[.99] sm:flex-none sm:min-w-52">
+                <ShoppingBag size={16} /> {added ? (isHindi ? "कार्ट में जोड़ दिया" : "Added to bag") : (isHindi ? "कार्ट में जोड़ें" : "Add to bag")}
+              </button>
+            </div>
+            {added && <p role="status" className="mt-3 text-xs font-medium text-[#27734b]">{isHindi ? quantity + " आइटम आपके कार्ट में जोड़ दिए गए।" : quantity + " item(s) added to your cart."}</p>}
+            <div className="mt-8 border-t border-[#e9dfd0] pt-5">
+              <p className="text-xs font-semibold uppercase tracking-[.16em] text-[#a77b3e]">{isHindi ? "राशिद मेगा मार्ट" : "Rashid Mega Mart"}</p>
+              <p className="mt-1 text-sm leading-6 text-[#76665c]">{isHindi ? "आपकी रोज़मर्रा की खरीदारी, आसान और सुविधाजनक।" : "Everyday shopping, made simple and convenient."}</p>
+            </div>
+          </section>
+        </div>
+        <section className="mt-14 border-t border-[#e9dfd0] pt-8">
+          <div className="flex items-end justify-between gap-4">
+            <div><p className="text-xs font-semibold uppercase tracking-[.18em] text-[#a77b3e]">{isHindi ? "और भी चुनें" : "Keep exploring"}</p><h2 className="mt-1 text-xl font-semibold tracking-tight text-[#800020]">{isHindi ? "आपके लिए और उत्पाद" : "You may also like"}</h2></div>
+            <Link href="/products" className="shrink-0 text-xs font-semibold text-[#800020] hover:underline">{isHindi ? "सभी देखें" : "View all"}</Link>
+          </div>
+          <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+            {products.filter((item) => item.id !== product.id && item.category === product.category).slice(0, 4).map((item) => (
+              <Link key={item.id} href={"/products/" + (item.slug || item.id)} className="group min-w-0 rounded-2xl border border-[#eee5d9] bg-white p-3 transition hover:-translate-y-0.5 hover:shadow-[0_10px_28px_rgba(65,35,25,.07)] sm:p-4">
+                <div className="flex aspect-square items-center justify-center rounded-xl bg-[#faf8f2] p-3"><img src={item.image} alt={isHindi ? item.nameHi : item.name} loading="lazy" className="h-full w-full object-contain mix-blend-multiply transition group-hover:scale-105" /></div>
+                <h3 className="mt-3 line-clamp-2 min-h-10 text-xs font-semibold leading-5 text-[#40342e]">{isHindi ? item.nameHi : item.name}</h3>
+                <p className="mt-1 text-sm font-semibold text-[#800020]">₹{item.price.toLocaleString("en-IN")}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+      </div>
+    </main>
+  );
 }
 
 export function CartPage() {

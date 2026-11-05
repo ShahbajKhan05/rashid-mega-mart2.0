@@ -157,27 +157,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
     <CartContext.Provider value={value}>
       {children}
 
-      {/* FLOATING MOBILE CART BUTTON */}
-      <AnimatePresence>
-        {!cartOpen && cartCount > 0 && (
-          <motion.button 
-            initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 100, opacity: 0 }}
-            onClick={() => setCartOpen(true)} 
-            className="fixed bottom-5 left-1/2 z-[900] flex w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 items-center justify-between rounded-2xl bg-[#800020] px-5 py-4 text-white shadow-[0_10px_40px_rgba(128,0,32,0.4)] sm:hidden border border-[#600018]"
-          >
-            <div className="flex flex-col items-start">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#FFF9D8]/80">{cartCount} Items</span>
-              <span className="text-lg font-black">{money(cartTotal)}</span>
-            </div>
-            <span className="flex items-center gap-2 rounded-xl bg-white/10 px-4 py-2 text-sm font-bold backdrop-blur-sm">
-              View Cart <ArrowRight size={16} />
-            </span>
-          </motion.button>
-        )}
-      </AnimatePresence>
-
       {/* AWARD-WINNING CART DRAWER */}
       <AnimatePresence>
         {cartOpen && (

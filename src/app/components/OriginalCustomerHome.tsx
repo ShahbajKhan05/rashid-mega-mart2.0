@@ -14,22 +14,22 @@ import KitsPage from "./KitsPage";
 
 const brands = ["Aashirvaad", "Fortune", "Tata Sampann", "India Gate", "MDH", "Everest", "Tata Tea", "MAGGI", "Parle-G"];
 const visuals: Record<string, string> = {
-  staples: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=600&q=85",
-  oil: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=600&q=85",
-  basics: "https://images.unsplash.com/photo-1626197031507-c17099753214?w=600&q=85",
-  dairy: "https://images.unsplash.com/photo-1550583724-b2692b85b150?w=600&q=85",
-  bakery: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=600&q=85",
-  masala: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=600&q=85",
-  tea: "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=600&q=85",
-  snacks: "https://images.unsplash.com/photo-1621939514649-280e2aa2f1c9?w=600&q=85",
-  beverages: "https://images.unsplash.com/photo-1544145945-f90425340c7e?w=600&q=85",
-  personal: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=600&q=85",
-  cleaning: "https://images.unsplash.com/photo-1585421514738-01798e348b17?w=600&q=85",
-  fruits: "https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=600&q=85",
-  vegetables: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600&q=85",
-  frozen: "https://images.unsplash.com/photo- frozen-food-aisle?w=600&q=85",
-  dryfruits: "https://images.unsplash.com/photo-1608797178974-15b35a64ede9?w=600&q=85",
-  baby: "https://images.unsplash.com/photo-1519689680058-324335c77eba?w=600&q=85",
+  staples: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=520&q=72&auto=format&fit=crop",
+  oil: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=520&q=72&auto=format&fit=crop",
+  basics: "https://images.unsplash.com/photo-1626197031507-c17099753214?w=520&q=72&auto=format&fit=crop",
+  dairy: "https://images.unsplash.com/photo-1550583724-b2692b85b150?w=520&q=72&auto=format&fit=crop",
+  bakery: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=520&q=72&auto=format&fit=crop",
+  masala: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=520&q=72&auto=format&fit=crop",
+  tea: "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=520&q=72&auto=format&fit=crop",
+  snacks: "https://images.unsplash.com/photo-1621939514649-280e2aa2f1c9?w=520&q=72&auto=format&fit=crop",
+  beverages: "https://images.unsplash.com/photo-1544145945-f90425340c7e?w=520&q=72&auto=format&fit=crop",
+  personal: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=520&q=72&auto=format&fit=crop",
+  cleaning: "https://images.unsplash.com/photo-1585421514738-01798e348b17?w=520&q=72&auto=format&fit=crop",
+  fruits: "https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=520&q=72&auto=format&fit=crop",
+  vegetables: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=520&q=72&auto=format&fit=crop",
+  frozen: "https://images.unsplash.com/photo-1579113800032-c38bd7635818?w=520&q=72&auto=format&fit=crop",
+  dryfruits: "https://images.unsplash.com/photo-1608797178974-15b35a64ede9?w=520&q=72&auto=format&fit=crop",
+  baby: "https://images.unsplash.com/photo-1519689680058-324335c77eba?w=520&q=72&auto=format&fit=crop",
 };
 const faqs = [
   ["How do I place an order?", "Choose products, add them to your cart and submit your details at checkout. Our team will confirm availability and delivery details.", "ऑर्डर कैसे करें?", "सामान चुनें, कार्ट में जोड़ें और चेकआउट पर जानकारी भेजें। हमारी टीम उपलब्धता और डिलीवरी की पुष्टि करेगी।"],
@@ -52,6 +52,7 @@ export default function OriginalCustomerHome() {
   const promoLogoRef = useRef<HTMLImageElement>(null);
   const promoLettersRef = useRef<HTMLSpanElement>(null);
   const brandTrackRef = useRef<HTMLDivElement>(null);
+  const brandSectionRef = useRef<HTMLElement>(null);
   const brandTweenRef = useRef<gsap.core.Tween | null>(null);
   const categorySectionRef = useRef<HTMLElement>(null);
   const categoryViewportRef = useRef<HTMLDivElement>(null);
@@ -136,12 +137,20 @@ export default function OriginalCustomerHome() {
     if (motionQuery.matches) return;
     const tween = gsap.to(track, {
       xPercent: -50,
-      duration: 34,
+      duration: 42,
       ease: "none",
       repeat: -1,
+      paused: true,
     });
     brandTweenRef.current = tween;
+    const section = brandSectionRef.current;
+    const observer = section ? new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) tween.play();
+      else tween.pause();
+    }, { threshold: 0.05 }) : null;
+    if (section && observer) observer.observe(section);
     return () => {
+      observer?.disconnect();
       tween.kill();
       brandTweenRef.current = null;
     };
@@ -155,40 +164,46 @@ export default function OriginalCustomerHome() {
 
     gsap.registerPlugin(ScrollTrigger);
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (motionQuery.matches) return;
-
     const media = gsap.matchMedia();
-    media.add("(min-width: 0px)", () => {
-      const cards = track.querySelectorAll<HTMLElement>("[data-category-card]");
-      const getTravel = () => Math.max(0, track.scrollWidth - viewport.clientWidth);
-      gsap.fromTo(cards, { y: 24, autoAlpha: 0, scale: 0.97 }, {
-        y: 0, autoAlpha: 1, scale: 1, duration: 0.7, stagger: 0.07, ease: "power3.out",
-        scrollTrigger: { trigger: section, start: "top 78%", once: true },
-      });
-      gsap.to(track, {
-        x: () => -getTravel(),
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: () => "+=" + Math.max(getTravel(), window.innerHeight * (window.innerWidth < 768 ? 1.05 : 0.8)),
-          pin: true,
-          scrub: window.innerWidth < 768 ? 0.55 : 0.8,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        },
-      });
-    });
 
-    const refresh = () => ScrollTrigger.refresh();
-    const resizeObserver = new ResizeObserver(refresh);
+    if (!motionQuery.matches) {
+      media.add("(min-width: 768px)", () => {
+        const cards = track.querySelectorAll<HTMLElement>("[data-category-card]");
+        const getTravel = () => Math.max(0, track.scrollWidth - viewport.clientWidth);
+        gsap.fromTo(cards, { y: 18, autoAlpha: 0 }, {
+          y: 0, autoAlpha: 1, duration: 0.55, stagger: 0.045, ease: "power2.out",
+          scrollTrigger: { trigger: section, start: "top 78%", once: true },
+        });
+        gsap.to(track, {
+          x: () => -getTravel(),
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: () => "+=" + Math.max(getTravel(), window.innerHeight * 0.8),
+            pin: true,
+            scrub: 0.65,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+        });
+      });
+    }
+
+    let refreshFrame = 0;
+    const resizeObserver = new ResizeObserver(() => {
+      if (window.innerWidth < 768 || motionQuery.matches) return;
+      window.cancelAnimationFrame(refreshFrame);
+      refreshFrame = window.requestAnimationFrame(() => ScrollTrigger.refresh());
+    });
     resizeObserver.observe(track);
     resizeObserver.observe(viewport);
     return () => {
+      window.cancelAnimationFrame(refreshFrame);
       resizeObserver.disconnect();
       media.revert();
     };
-  }, [categorySearch]);
+  }, []);
 
   const categories = categoryOptions.filter((item) => item.id !== "all" && (!categorySearch.trim() || item.en.toLowerCase().includes(categorySearch.toLowerCase()) || item.hi.includes(categorySearch.trim())));
 
@@ -233,13 +248,13 @@ export default function OriginalCustomerHome() {
         <div className="mx-auto flex w-full max-w-[1500px] flex-col items-center justify-center text-center">
           <h1 ref={entranceTitleRef} className="w-full select-none text-[clamp(3.05rem,13.2vw,12.5rem)] font-black uppercase leading-[.79] tracking-[-.105em] text-transparent [perspective:900px] sm:text-[clamp(6rem,11.2vw,11.5rem)]">
             <span data-hero-line className="block whitespace-nowrap" style={{
-              backgroundImage: "url(https://images.unsplash.com/photo-1542838132-92c53300491e?w=2200&q=90)",
+              backgroundImage: "url(https://images.unsplash.com/photo-1542838132-92c53300491e?w=1400&q=72&auto=format&fit=crop)",
               backgroundSize: "cover", backgroundPosition: "center 42%", backgroundRepeat: "no-repeat",
               WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent",
               filter: "drop-shadow(0 3px 2px rgba(47,34,20,.10))",
             }}>RASHID</span>
             <span data-hero-line className="mt-[.035em] block whitespace-nowrap" style={{
-              backgroundImage: "url(https://images.unsplash.com/photo-1542838132-92c53300491e?w=2200&q=90)",
+              backgroundImage: "url(https://images.unsplash.com/photo-1542838132-92c53300491e?w=1400&q=72&auto=format&fit=crop)",
               backgroundSize: "cover", backgroundPosition: "center 68%", backgroundRepeat: "no-repeat",
               WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent",
               filter: "drop-shadow(0 3px 2px rgba(47,34,20,.10))",
@@ -252,7 +267,7 @@ export default function OriginalCustomerHome() {
         </div>
       </section>
 
-      <section aria-label="Popular brands" className="rmm-brand-section relative isolate overflow-hidden border-y border-[#eadfce] py-7 sm:py-9">
+      <section ref={brandSectionRef} aria-label="Popular brands" className="rmm-brand-section relative isolate overflow-hidden border-y border-[#eadfce] py-7 sm:py-9">
         <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_0%,rgba(164,122,44,.10),transparent_65%)]" />
         <div className="mx-auto mb-5 flex max-w-[1440px] flex-col items-center justify-between gap-2 px-4 sm:mb-7 sm:flex-row sm:px-7 lg:px-10">
           <div className="text-center sm:text-left">
@@ -318,16 +333,16 @@ export default function OriginalCustomerHome() {
           </label>
         </div>
 
-        <div ref={categoryViewportRef} className="w-full overflow-hidden px-4 pb-4 md:px-0">
+        <div ref={categoryViewportRef} className="w-full snap-x snap-mandatory overflow-x-auto overscroll-x-contain px-4 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:overflow-hidden md:px-0">
           <div ref={categoryTrackRef} className="flex w-max gap-3 pr-4 sm:gap-5 md:gap-6 md:pl-[max(5vw,calc((100vw-1320px)/2))] md:pr-[max(5vw,calc((100vw-1320px)/2))]">
             {categories.map((category, index) => (
               <Link
                 key={category.id}
                 data-category-card
                 href={"/products?category=" + encodeURIComponent(category.id)}
-                className="group relative isolate flex h-[300px] w-[78vw] max-w-[310px] shrink-0 overflow-hidden rounded-[24px] border border-white/90 bg-gradient-to-br from-[#fff0d0] to-[#ead6b7] shadow-[0_12px_35px_rgba(67,45,27,.09)] transition duration-500 hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(67,45,27,.15)] sm:h-[330px] sm:w-[300px] md:h-[390px] md:w-[330px] md:rounded-[30px]"
+                className="group relative isolate flex h-[300px] w-[78vw] max-w-[310px] shrink-0 snap-start overflow-hidden rounded-[24px] border border-white/90 bg-gradient-to-br from-[#fff0d0] to-[#ead6b7] shadow-[0_12px_35px_rgba(67,45,27,.09)] transition duration-500 hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(67,45,27,.15)] sm:h-[330px] sm:w-[300px] md:h-[390px] md:w-[330px] md:rounded-[30px]"
               >
-                <img src={visuals[category.id] || visuals.staples} alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-55 mix-blend-multiply transition duration-700 group-hover:scale-110 group-hover:opacity-70" />
+                <img src={visuals[category.id] || visuals.staples} alt="" loading="lazy" decoding="async" sizes="(max-width: 767px) 78vw, 330px" className="absolute inset-0 h-full w-full object-cover opacity-55 mix-blend-multiply transition duration-700 group-hover:scale-110 group-hover:opacity-70" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#fff8e9] via-[#fff8e9]/30 to-transparent" />
                 <span className="absolute left-5 top-5 text-[10px] font-black tracking-[.2em] text-[#805d2d]">0{index + 1}</span>
                 <span className="absolute right-5 top-5 grid h-10 w-10 place-items-center rounded-full border border-white/80 bg-white/75 text-xl shadow-sm backdrop-blur">{category.id === "staples" ? "🌾" : category.id === "oil" ? "🫒" : category.id === "dairy" ? "🥛" : category.id === "basics" ? "🧂" : category.id === "bakery" ? "🥐" : category.id === "masala" ? "🌶️" : category.id === "tea" ? "🍵" : category.id === "snacks" ? "🍪" : category.id === "beverages" ? "🥤" : category.id === "personal" ? "🧴" : category.id === "cleaning" ? "🧹" : category.id === "fruits" ? "🍎" : category.id === "vegetables" ? "🥬" : category.id === "frozen" ? "🧊" : category.id === "dryfruits" ? "🥜" : category.id === "baby" ? "🍼" : "🛒"}</span>

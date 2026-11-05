@@ -105,11 +105,11 @@ export default function NotFound() {
 
         <h1
           ref={titleRef}
-          className="mt-4 flex max-w-full flex-wrap justify-center text-[clamp(1.35rem,4.8vw,2.65rem)] font-extrabold leading-[1.12] tracking-[0.045em] text-[#800020]"
+          className="mt-4 flex w-full flex-nowrap justify-center whitespace-nowrap text-[clamp(0.78rem,3.8vw,2.25rem)] font-extrabold leading-none tracking-[0.015em] text-[#800020] sm:text-[clamp(1.25rem,3.5vw,2.25rem)]"
           style={{ perspective: "800px" }}
         >
           <span className="sr-only">{title}</span>
-          <span aria-hidden="true" className="inline-flex flex-wrap justify-center">
+          <span aria-hidden="true" className="inline-flex flex-nowrap justify-center whitespace-nowrap">
             {Array.from(title).map((char, index) => (
               <span data-letter key={index} className="inline-block whitespace-pre">
                 {char === " " ? "\u00a0" : char}

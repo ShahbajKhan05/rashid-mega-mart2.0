@@ -1,13 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-plus-jakarta), Arial, Helvetica, sans-serif;
+  --font-sans: var(--font-apple);
   --color-burgundy: #800020;
   --color-cream: #fff9d8;
   --color-gold: #d4a84f;
 }
 
 :root {
+ --font-apple: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
  --burgundy: #800020;
  --cream: #fff9d8;
  --gold: #d4a84f;
@@ -27,7 +28,7 @@ body {
  margin: 0;
  color: var(--dark);
  background: var(--cream);
- font-family: var(--font-plus-jakarta), Arial, Helvetica, sans-serif;
+ font-family: var(--font-apple);
  font-synthesis: none;
  text-rendering: optimizeLegibility;
  -webkit-font-smoothing: antialiased;
@@ -267,7 +268,7 @@ html {
 .admin-form-panel:before{content:"";position:absolute;inset:8px;border:1px solid rgba(255,255,255,.55);border-radius:27px;pointer-events:none}
 .admin-user-emblem{position:relative;z-index:1;width:86px;height:86px;margin:0 auto 16px;display:grid;place-items:center;border-radius:50%;color:white;background:radial-gradient(circle at 35% 25%,#e34a61,#a00028 58%,#620019);border:5px solid rgba(255,255,255,.9);box-shadow:0 0 0 5px rgba(209,52,79,.1),0 10px 28px rgba(128,0,32,.2)}.admin-user-emblem svg{width:48px;height:48px}
 .admin-form-panel h1{position:relative;margin:0;color:#30242a;font-size:clamp(30px,3vw,43px);font-weight:800;letter-spacing:-.045em}.admin-form-panel h1 span{color:var(--admin-maroon)}.admin-form-subtitle{margin:8px 0 30px;color:#665861;font-size:clamp(14px,1.25vw,17px)}
-.admin-login-form{position:relative;display:grid;gap:17px;text-align:left}.admin-input-wrap{height:68px;display:flex;align-items:center;gap:15px;padding:0 20px;border:1px solid rgba(129,80,91,.17);border-radius:17px;background:rgba(255,255,255,.62);box-shadow:inset 0 1px 3px rgba(80,25,40,.04),0 5px 14px rgba(80,25,40,.035);transition:border-color .2s,box-shadow .2s,transform .2s}.admin-input-wrap:focus-within{border-color:rgba(128,0,32,.5);box-shadow:0 0 0 4px rgba(128,0,32,.07);transform:translateY(-1px)}.admin-input-wrap>svg{width:24px;height:24px;flex:none;color:#51434a}.admin-input-wrap input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:#2c2026;font:600 16px var(--font-plus-jakarta),sans-serif}.admin-input-wrap input::placeholder{color:#9b9097;font-weight:500}
+.admin-login-form{position:relative;display:grid;gap:17px;text-align:left}.admin-input-wrap{height:68px;display:flex;align-items:center;gap:15px;padding:0 20px;border:1px solid rgba(129,80,91,.17);border-radius:17px;background:rgba(255,255,255,.62);box-shadow:inset 0 1px 3px rgba(80,25,40,.04),0 5px 14px rgba(80,25,40,.035);transition:border-color .2s,box-shadow .2s,transform .2s}.admin-input-wrap:focus-within{border-color:rgba(128,0,32,.5);box-shadow:0 0 0 4px rgba(128,0,32,.07);transform:translateY(-1px)}.admin-input-wrap>svg{width:24px;height:24px;flex:none;color:#51434a}.admin-input-wrap input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:#2c2026;font:600 16px var(--font-apple)}.admin-input-wrap input::placeholder{color:#9b9097;font-weight:500}
 .admin-eye-button{flex:none;border:0;background:transparent;color:var(--admin-maroon);font-size:10px;font-weight:800;letter-spacing:.08em;cursor:pointer}
 .admin-form-options{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 3px}.admin-remember{display:flex;align-items:center;gap:10px;color:#493b42;font-size:14px;font-weight:600;cursor:pointer}.admin-remember input{position:absolute;opacity:0;width:1px;height:1px}.admin-remember span{width:23px;height:23px;border:1px solid #b8a4aa;border-radius:6px;background:rgba(255,255,255,.8);display:grid;place-items:center}.admin-remember input:checked+span{background:var(--admin-maroon);border-color:var(--admin-maroon)}.admin-remember input:checked+span:after{content:"✓";color:#fff;font-size:16px;font-weight:900}.admin-remember input:focus-visible+span{outline:3px solid var(--admin-gold);outline-offset:3px}
 .admin-forgot{padding:4px 0;border:0;background:transparent;color:var(--admin-maroon);font-size:14px;font-weight:700;cursor:pointer}.admin-forgot:hover{text-decoration:underline}

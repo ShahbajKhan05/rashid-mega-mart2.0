@@ -345,6 +345,7 @@ export function CheckoutPage() {
     const code = couponCode.trim().toUpperCase();
     if (!code) { setCouponMessage("Coupon code enter karein."); return; }
     if (code === "FIRST100") {
+      if (Date.now() > new Date("2026-11-09T23:59:59+05:30").getTime()) { setAppliedCoupon(null); setCouponMessage("FIRST100 offer expire ho chuka hai."); return; }
       if (cartTotal < 499) { setAppliedCoupon(null); setCouponMessage("FIRST100 ke liye minimum shopping ₹499 honi chahiye."); return; }
       setAppliedCoupon({code,discount:100,title:"First shopping offer"});
       setCouponMessage("₹100 discount applied. First-purchase eligibility store verify karega.");

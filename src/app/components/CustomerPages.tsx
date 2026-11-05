@@ -353,7 +353,83 @@ export function ProductDetailPage() {
 }
 
 export function CartPage() {
-  return <CenterPage title="CART PAGE" />;
+  const { language } = useLanguage();
+  const { cartItems, customRequests, cartCount, cartTotal, changeQuantity, removeFromCart, removeCustomRequest } = useCart();
+  const router = useRouter();
+  const isHindi = language === "hi";
+  const formatPrice = (amount: number) => `₹${amount.toLocaleString("en-IN")}`;
+
+  return (
+    <main className="min-h-[calc(100svh-76px)] bg-[#FFFCF0] px-4 pb-28 pt-7 text-[#30251F] sm:px-7 sm:pt-10">
+      <div className="mx-auto max-w-[1080px]">
+        <header className="mb-6 flex items-end justify-between gap-3 border-b border-[#e8dfd2] pb-4">
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[.22em] text-[#a77b3e]">Rashid Mega Mart</p>
+            <h1 className="mt-1 text-3xl font-black tracking-[-.06em] text-[#800020] sm:text-4xl">{isHindi ? "आपका कार्ट" : "Your Cart"}</h1>
+            <p className="mt-1 text-xs text-[#81766d]">{cartCount} {isHindi ? "आइटम" : "items"}</p>
+          </div>
+          <Link href="/products" className="inline-flex h-9 items-center gap-1 text-xs font-bold text-[#800020]">{isHindi ? "खरीदारी जारी रखें" : "Continue shopping"} <ArrowRight size={14}/></Link>
+        </header>
+
+        {cartItems.length === 0 && customRequests.length === 0 ? (
+          <section className="flex min-h-[300px] flex-col items-center justify-center rounded-2xl border border-[#eadfce] bg-white px-5 py-12 text-center">
+            <span className="grid h-16 w-16 place-items-center rounded-full bg-[#800020]/[.06] text-[#800020]"><ShoppingBag size={28}/></span>
+            <h2 className="mt-4 text-lg font-extrabold">{isHindi ? "आपका कार्ट खाली है" : "Your cart is empty"}</h2>
+            <p className="mt-1 max-w-sm text-xs leading-5 text-[#81766d]">{isHindi ? "अपनी पसंद के सामान जोड़ें और यहाँ से ऑर्डर पूरा करें।" : "Add the things you need and review your order here."}</p>
+            <Link href="/products" className="mt-5 inline-flex h-10 items-center rounded-full bg-[#800020] px-5 text-xs font-bold text-white">{isHindi ? "सामान देखें" : "Explore products"}</Link>
+          </section>
+        ) : (
+          <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_320px]">
+            <section className="divide-y divide-[#eee5da] rounded-2xl border border-[#eadfce] bg-white px-3 sm:px-5">
+              {cartItems.map((item) => (
+                <article key={item.id} className="flex items-center gap-3 py-4 sm:gap-4">
+                  <div className="grid h-[76px] w-[76px] shrink-0 place-items-center overflow-hidden rounded-xl bg-[#faf8f3] p-2 sm:h-[88px] sm:w-[88px]">
+                    <Image src={item.image} alt={isHindi ? item.nameHi : item.name} width={176} height={176} sizes="88px" loading="lazy" className="h-full w-full object-contain mix-blend-multiply"/>
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="line-clamp-2 text-[13px] font-bold leading-5">{isHindi ? item.nameHi : item.name}</p>
+                    <p className="mt-1 text-sm font-black text-[#800020]">{formatPrice(item.price)}</p>
+                    <div className="mt-2 flex items-center gap-3">
+                      <div className="inline-flex h-8 items-center rounded-lg border border-[#eadfce] bg-[#fffdfa]">
+                        <button type="button" onClick={() => changeQuantity(item.id, -1)} aria-label={isHindi ? "मात्रा घटाएँ" : "Decrease quantity"} className="grid h-8 w-8 place-items-center text-[#800020]">−</button>
+                        <span className="w-6 text-center text-xs font-bold tabular-nums">{item.quantity}</span>
+                        <button type="button" onClick={() => changeQuantity(item.id, 1)} aria-label={isHindi ? "मात्रा बढ़ाएँ" : "Increase quantity"} className="grid h-8 w-8 place-items-center text-[#800020]">+</button>
+                      </div>
+                      <button type="button" onClick={() => removeFromCart(item.id)} className="inline-flex items-center gap-1 text-[10px] font-semibold text-[#9b625d]"><Trash2 size={12}/>{isHindi ? "हटाएँ" : "Remove"}</button>
+                    </div>
+                  </div>
+                  <strong className="shrink-0 self-start pt-1 text-sm font-black">{formatPrice(item.price * item.quantity)}</strong>
+                </article>
+              ))}
+              {customRequests.map((item) => (
+                <article key={item.id} className="flex items-start justify-between gap-3 py-4">
+                  <div className="min-w-0">
+                    <p className="text-[13px] font-bold">{item.name}</p>
+                    <p className="mt-1 text-[11px] text-[#81766d]">Qty {item.quantity} · {isHindi ? "कीमत स्टोर से कन्फर्म होगी" : "Price to be confirmed by store"}</p>
+                    {item.note && <p className="mt-1 text-[10px] leading-4 text-[#95877c]">{item.note}</p>}
+                  </div>
+                  <div className="flex shrink-0 items-center gap-2">
+                    <span className="text-[10px] font-bold text-[#a77b3e]">TBD</span>
+                    <button type="button" onClick={() => removeCustomRequest(item.id)} aria-label={isHindi ? "अनुरोध हटाएँ" : "Remove request"} className="grid h-8 w-8 place-items-center rounded-full bg-[#faf5ef] text-[#9b625d]"><Trash2 size={14}/></button>
+                  </div>
+                </article>
+              ))}
+            </section>
+
+            <aside className="rounded-2xl border border-[#eadfce] bg-white p-4 sm:p-5 lg:sticky lg:top-24">
+              <h2 className="text-base font-extrabold">{isHindi ? "ऑर्डर सारांश" : "Order summary"}</h2>
+              <div className="mt-4 flex justify-between text-xs"><span className="text-[#81766d]">{isHindi ? "आइटम" : "Items"}</span><strong>{cartCount}</strong></div>
+              <div className="mt-3 flex justify-between text-xs"><span className="text-[#81766d]">{isHindi ? "सबटोटल" : "Subtotal"}</span><strong>{formatPrice(cartTotal)}</strong></div>
+              <div className="mt-3 flex justify-between text-xs"><span className="text-[#81766d]">{isHindi ? "डिलीवरी" : "Delivery"}</span><span className="font-semibold text-[#a77b3e]">{isHindi ? "पुष्टि होगी" : "To be confirmed"}</span></div>
+              <div className="mt-4 flex items-center justify-between border-t border-[#eee5da] pt-4"><span className="text-sm font-extrabold">{isHindi ? "अनुमानित कुल" : "Estimated total"}</span><strong className="text-xl font-black text-[#800020]">{formatPrice(cartTotal)}</strong></div>
+              <p className="mt-2 text-[10px] leading-4 text-[#95877c]">{isHindi ? "कस्टम अनुरोध और डिलीवरी शुल्क स्टोर द्वारा कन्फर्म होंगे।" : "Custom request prices and delivery charges will be confirmed by the store."}</p>
+              <button type="button" onClick={() => router.push("/checkout")} className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#800020] px-4 text-xs font-extrabold text-white transition hover:bg-[#650019] active:scale-[.99]">{isHindi ? "चेकआउट करें" : "Proceed to checkout"} <ArrowRight size={15}/></button>
+            </aside>
+          </div>
+        )}
+      </div>
+    </main>
+  );
 }
 
 export function CheckoutPage() {

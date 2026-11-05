@@ -88,7 +88,7 @@ export function ProductsPage() {
           <div className="mt-5 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4 lg:gap-x-8">
             {filteredProducts.map((product) => (
               <article key={product.id} className="group min-w-0">
-                <Link href={`/products/${product.slug || product.id}`} className="block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#800020]">
+                <Link href={`/products/${product.slug || product.id}`} className="block">
                   <div className="relative flex aspect-[4/4.4] items-center justify-center overflow-hidden bg-white p-4 sm:p-7">\n                    <button type="button" onClick={() => toggleWishlist(product.id)} aria-label={isWishlisted(product.id) ? "Remove from wishlist" : "Save to wishlist"} aria-pressed={isWishlisted(product.id)} className={`absolute right-2 top-2 z-10 grid h-9 w-9 place-items-center rounded-full border shadow-sm backdrop-blur transition active:scale-90 ${isWishlisted(product.id) ? "border-[#800020]/20 bg-[#800020] text-white" : "border-[#eadfce] bg-white/90 text-[#800020] hover:bg-[#800020] hover:text-white"}`}><Heart size={16} fill={isWishlisted(product.id) ? "currentColor" : "none"} /></button>
                     <img src={product.image} alt={isHindi ? product.nameHi : product.name} loading="lazy"
                       className="h-full w-full object-contain mix-blend-multiply transition-transform duration-500 ease-out group-hover:scale-[1.04]" />
@@ -101,7 +101,7 @@ export function ProductsPage() {
                       {product.originalPrice > product.price && <span className="text-[11px] text-[#9b8d81] line-through">₹{product.originalPrice.toLocaleString("en-IN")}</span>}
                     </div>
                   </div>
-                </Link>
+                </div>
                 <Link href={`/products/${product.slug || product.id}`} className="mt-3 inline-flex min-h-9 items-center text-xs font-semibold text-[#800020] transition-colors hover:text-[#a77b3e]">
                   {isHindi ? "विवरण देखें" : "View details"} <span aria-hidden="true" className="ml-1 transition-transform group-hover:translate-x-1">→</span>
                 </Link>

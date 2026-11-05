@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { createContext, useContext, useMemo, useState, useEffect, type ReactNode } from "react";
 import { ShoppingCart, Clock, Receipt, MapPin, Trash2, ShieldCheck, ArrowRight, X, Plus } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
@@ -224,7 +225,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
                       {suggestions.map((item) => (
                         <div key={item.id} className="relative flex flex-col rounded-2xl border border-gray-100 bg-white p-3 shadow-sm">
                           <div className="h-20 w-full flex items-center justify-center mb-2">
-                            <img src={item.image} alt={item.name} className="h-full object-contain mix-blend-multiply" />
+                            <Image src={item.image} alt={item.name} width={160} height={160} sizes="160px" loading="lazy" className="h-full object-contain mix-blend-multiply" />
                           </div>
                           <p className="text-xs font-bold text-[#30251F] line-clamp-2 h-8 leading-tight">{isHindi ? item.nameHi : item.name}</p>
                           <p className="text-sm font-black text-[#800020] mt-1">₹{item.price}</p>
@@ -250,7 +251,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
                     {cartItems.map((item) => (
                       <div key={item.id} className="flex items-start gap-3 border-b border-[#800020]/10 py-4">
                         <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white p-1 shadow-sm">
-                          <img src={item.image} alt="" className="h-full w-full object-contain" />
+                          <Image src={item.image} alt={item.name} width={128} height={128} sizes="64px" loading="lazy" className="h-full w-full object-contain" />
                         </div>
                         <div className="min-w-0 flex-1">
                           <p className="text-sm font-bold text-[#30251F] leading-tight">{isHindi ? item.nameHi : item.name}</p>

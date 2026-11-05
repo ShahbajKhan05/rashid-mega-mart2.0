@@ -220,7 +220,7 @@ export default function OriginalCustomerHome() {
         <div aria-hidden="true" className="rmm-promo-orb rmm-promo-orb-two" />
         <div ref={promoShineRef} aria-hidden="true" className="rmm-promo-shine" />
         <div className="relative mx-auto flex min-h-[72px] max-w-[1440px] flex-wrap items-center justify-center gap-x-4 gap-y-2 px-3 py-3 sm:min-h-[66px] sm:flex-nowrap sm:gap-5 sm:px-7">
-          <img ref={promoLogoRef} src="/Logo.png" alt="Rashid Mega Mart" className="rmm-promo-logo h-9 w-[104px] shrink-0 object-contain sm:h-10 sm:w-[118px]" />
+          <Image ref={promoLogoRef} src="/Logo.png" alt="Rashid Mega Mart" width={118} height={40} priority className="rmm-promo-logo h-9 w-[104px] shrink-0 object-contain sm:h-10 sm:w-[118px]" />
           <span className="hidden h-8 w-px bg-[#8b6b52]/20 sm:block" />
           <div className="flex min-w-0 flex-col items-center leading-tight sm:items-start">
             <span className="mb-1 text-[8px] font-extrabold uppercase tracking-[.2em] text-[#98713c]">{isHindi ? "पहली खरीदारी का खास तोहफा" : "A SPECIAL FIRST-ORDER TREAT"}</span>
@@ -343,7 +343,7 @@ export default function OriginalCustomerHome() {
                 href={"/products?category=" + encodeURIComponent(category.id)}
                 className="group relative isolate flex h-[300px] w-[78vw] max-w-[310px] shrink-0 snap-start overflow-hidden rounded-[24px] border border-white/90 bg-gradient-to-br from-[#fff0d0] to-[#ead6b7] shadow-[0_12px_35px_rgba(67,45,27,.09)] transition duration-500 hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(67,45,27,.15)] sm:h-[330px] sm:w-[300px] md:h-[390px] md:w-[330px] md:rounded-[30px]"
               >
-                <img src={visuals[category.id] || visuals.staples} alt="" loading="lazy" decoding="async" sizes="(max-width: 767px) 78vw, 330px" className="absolute inset-0 h-full w-full object-cover opacity-55 mix-blend-multiply transition duration-700 group-hover:scale-110 group-hover:opacity-70" />
+                <Image src={visuals[category.id] || visuals.staples} alt="" width={720} height={520} loading="lazy" sizes="(max-width: 767px) 78vw, 330px" className="absolute inset-0 h-full w-full object-cover opacity-55 mix-blend-multiply transition duration-700 group-hover:scale-110 group-hover:opacity-70" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#fff8e9] via-[#fff8e9]/30 to-transparent" />
                 <span className="absolute left-5 top-5 text-[10px] font-black tracking-[.2em] text-[#805d2d]">0{index + 1}</span>
                 <span className="absolute right-5 top-5 grid h-10 w-10 place-items-center rounded-full border border-white/80 bg-white/75 text-xl shadow-sm backdrop-blur">{category.id === "staples" ? "🌾" : category.id === "oil" ? "🫒" : category.id === "dairy" ? "🥛" : category.id === "basics" ? "🧂" : category.id === "bakery" ? "🥐" : category.id === "masala" ? "🌶️" : category.id === "tea" ? "🍵" : category.id === "snacks" ? "🍪" : category.id === "beverages" ? "🥤" : category.id === "personal" ? "🧴" : category.id === "cleaning" ? "🧹" : category.id === "fruits" ? "🍎" : category.id === "vegetables" ? "🥬" : category.id === "frozen" ? "🧊" : category.id === "dryfruits" ? "🥜" : category.id === "baby" ? "🍼" : "🛒"}</span>

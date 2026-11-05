@@ -24,6 +24,7 @@ export default function NotFound() {
     const ctx = gsap.context(() => {
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const letters = titleRef.current?.querySelectorAll<HTMLElement>("[data-letter]");
+      if (!letters) return;
 
       if (reduceMotion) {
         gsap.set([logoRef.current, lineRef.current, titleRef.current, buttonRef.current], {

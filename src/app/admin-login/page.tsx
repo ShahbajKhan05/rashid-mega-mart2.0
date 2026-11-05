@@ -61,11 +61,6 @@ export default function AdminLoginPage() {
         ease: "none",
       });
 
-      const button = q(".rm-admin-submit");
-      const onEnter = () => gsap.to(button, { y: -3, duration: 0.22, ease: "power2.out", boxShadow: "0 16px 28px rgba(128,0,32,.24)" });
-      const onLeave = () => gsap.to(button, { y: 0, duration: 0.28, ease: "power2.out", clearProps: "boxShadow" });
-      button[0]?.addEventListener("mouseenter", onEnter);
-      button[0]?.addEventListener("mouseleave", onLeave);
     }, root);
 
     return () => ctx.revert();

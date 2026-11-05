@@ -69,7 +69,7 @@ export function TrackOrderPage() {
     <main className="min-h-[calc(100svh-76px)] bg-[#fffaf2] px-3 py-6 text-[#2d2424] sm:px-5 sm:py-9">
       <div className="mx-auto w-full max-w-2xl">
         <header className="mb-7 flex flex-col items-center text-center">
-          <Link href="/" aria-label="Rashid Mega Mart home" className="mb-5 inline-flex items-center justify-center">
+          <Link href="/" aria-label={isHindi ? "राशिद मेगा मार्ट होम" : "Rashid Mega Mart home"} className="mb-5 inline-flex items-center justify-center">
             <Image src="/Logo.png" alt="Rashid Mega Mart" width={520} height={190} priority className="h-auto max-h-[82px] w-auto max-w-[min(76vw,300px)] object-contain sm:max-h-[104px] sm:max-w-[360px]" />
           </Link>
           <span className="rounded-full border border-[#ead9bd] bg-white px-3.5 py-1.5 text-[11px] font-extrabold uppercase tracking-[.18em] text-[#a77b3e]">{isHindi ? "ऑर्डर अपडेट" : "Order updates"}</span>
@@ -84,15 +84,15 @@ export function TrackOrderPage() {
               <input
                 value={orderId}
                 onChange={(event) => { setOrderId(event.target.value); setLookupMessage(""); }}
-                placeholder="e.g. RMM-1024"
+                placeholder={isHindi ? "जैसे RMM-1024" : "e.g. RMM-1024"}
                 autoComplete="off"
-                aria-label="Order ID"
+                aria-label={isHindi ? "ऑर्डर आईडी" : "Order ID"}
                 className="h-12 w-full rounded-xl border border-[#e7ded2] bg-[#fffdf9] px-4 text-base text-[#241b1b] outline-none transition placeholder:text-[#a69b90] focus:border-[#800020] focus:ring-4 focus:ring-[#800020]/10"
               />
             </label>
             <button type="submit" disabled={isLoading} className="mt-auto inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-[#800020] px-6 text-sm font-extrabold text-white transition hover:bg-[#650019] disabled:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#800020] sm:min-w-[150px]">
               {isLoading ? <LoaderCircle size={17} className="animate-spin" /> : <Package size={17} />}
-              Track order
+              {isHindi ? "ऑर्डर ट्रैक करें" : "Track order"}
             </button>
           </form>
           {lookupMessage && (
@@ -115,8 +115,8 @@ export function TrackOrderPage() {
                 {index < trackingSteps.length - 1 && <span aria-hidden="true" className="absolute left-[15px] top-8 h-[calc(100%+8px)] w-px bg-[#e8ded1] sm:left-8 sm:top-[15px] sm:h-px sm:w-[calc(100%+12px)]" />}
                 <span className="relative z-10 grid h-8 w-8 shrink-0 place-items-center rounded-full border-2 border-[#e6d8c8] bg-[#fffdf8] text-sm font-extrabold text-[#800020]">{index + 1}</span>
                 <div className="min-w-0 pb-1 sm:pb-0">
-                  <p className="text-sm font-extrabold leading-5 text-[#332923]">{step.title}</p>
-                  <p className="mt-0.5 text-xs leading-5 text-[#82776e]">{step.description}</p>
+                  <p className="text-sm font-extrabold leading-5 text-[#332923]">{isHindi ? ["ऑर्डर मिला", "तैयारी जारी", "डिलीवरी के लिए निकला", "डिलीवर हो गया"][index] : step.title}</p>
+                  <p className="mt-0.5 text-xs leading-5 text-[#82776e]">{isHindi ? ["हमें आपका ऑर्डर मिल गया है।", "आपका ऑर्डर तैयार किया जा रहा है।", "आपका ऑर्डर रास्ते में है।", "आपका ऑर्डर आप तक पहुँच गया है।"][index] : step.description}</p>
                 </div>
               </li>
             ))}

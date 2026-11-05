@@ -11,53 +11,32 @@ export default function AdminLoginPage() {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setNotice("Admin sign-in API abhi connect nahi hai. Design ready hai; secure login backend connect karna baaki hai.");
+    setNotice("Admin sign-in API abhi connect nahi hai. Secure login backend connect karna baaki hai.");
   }
 
   return (
     <main className="admin-login-page">
-      <div className="admin-login-orb admin-login-orb-one" aria-hidden="true" />
-      <div className="admin-login-orb admin-login-orb-two" aria-hidden="true" />
       <div className="admin-login-frame">
-        <section className="admin-brand-panel" aria-label="Rashid Mega Mart admin portal">
+        <section className="admin-brand-panel" aria-label="Rashid Mega Mart">
           <div className="admin-brand-lockup">
-            <Image src="/Logo.png" alt="Rashid Mega Mart" width={520} height={180} priority className="admin-brand-logo" />
+            <Image
+              src="/Logo.png"
+              alt="Rashid Mega Mart"
+              width={720}
+              height={360}
+              priority
+              className="admin-brand-logo"
+            />
             <div className="admin-panel-label"><span />ADMIN PANEL<span /></div>
           </div>
-
-          <div className="admin-security-art" aria-hidden="true">
-            <div className="security-orbit security-orbit-a" />
-            <div className="security-orbit security-orbit-b" />
-            <div className="security-pedestal"><i /></div>
-            <div className="security-shield">
-              <svg viewBox="0 0 180 210" role="presentation">
-                <defs>
-                  <linearGradient id="shieldGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#fff0a8"/><stop offset=".45" stopColor="#e5a72e"/><stop offset="1" stopColor="#9d5a12"/></linearGradient>
-                  <linearGradient id="shieldRed" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#a81735"/><stop offset="1" stopColor="#5e0018"/></linearGradient>
-                </defs>
-                <path d="M90 7 164 35v61c0 48-29 83-74 106C45 179 16 144 16 96V35Z" fill="url(#shieldGold)" stroke="#ffe6a0" strokeWidth="5"/>
-                <path d="M90 22 150 44v51c0 39-22 68-60 89-38-21-60-50-60-89V44Z" fill="url(#shieldRed)" stroke="#f8c85d" strokeWidth="3"/>
-                <path d="M67 91V75a23 23 0 0 1 46 0v16" fill="none" stroke="#fff8e9" strokeWidth="12" strokeLinecap="round"/>
-                <rect x="51" y="88" width="78" height="65" rx="13" fill="#fff8e9"/>
-                <circle cx="90" cy="115" r="9" fill="#79001e"/>
-                <path d="M90 121v14" stroke="#79001e" strokeWidth="8" strokeLinecap="round"/>
-              </svg>
-            </div>
-          </div>
-
-          <div className="admin-benefits">
-            <div><b className="benefit-icon">▥</b><span>Manage<br/>Business</span></div>
-            <div><b className="benefit-icon">✓</b><span>Secure<br/>Access</span></div>
-            <div><b className="benefit-icon">⚙</b><span>Control<br/>Everything</span></div>
-          </div>
-          <p className="admin-brand-tagline"><span />SMARTER MANAGEMENT<br/>A STRONGER BUSINESS<span /></p>
+          <p className="admin-brand-tagline">SMARTER MANAGEMENT<br />A STRONGER BUSINESS</p>
         </section>
 
-        <section className="admin-form-panel">
+        <section className="admin-form-panel" aria-labelledby="admin-login-title">
           <div className="admin-user-emblem" aria-hidden="true">
             <svg viewBox="0 0 64 64"><circle cx="32" cy="21" r="12" fill="currentColor"/><path d="M10 55c0-12 9-20 22-20s22 8 22 20v3H10z" fill="currentColor"/></svg>
           </div>
-          <h1>Admin <span>Login</span></h1>
+          <h1 id="admin-login-title">Admin <span>Login</span></h1>
           <p className="admin-form-subtitle">Welcome Back! Please sign in to continue</p>
 
           <form className="admin-login-form" onSubmit={handleSubmit}>

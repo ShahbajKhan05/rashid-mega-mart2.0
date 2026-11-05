@@ -7,11 +7,12 @@ import { AnimatePresence, motion } from "motion/react";
 import {
   House, Package, LayoutGrid, X, ArrowUpRight,
   MapPin, Search, ChevronDown, Crosshair, User, Star, Lock, Heart, LogOut, Gift, ShieldCheck, Truck,
-  Wheat, Droplet, Flame, Cookie // 🔥 Categories ke liye naye icons import kiye
+  Wheat, Droplet, Flame, Cookie, ShoppingCart // Categories and cart navigation
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useLanguage } from "./LanguageProvider";
 import { products, categoryOptions } from "./data";
+import { useCart } from "./CartProvider";
 
 type Language = "en" | "hi";
 const DEFAULT_LOCATION = "Ghoghar, Rewa";
@@ -39,6 +40,7 @@ export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const { language, toggleLanguage } = useLanguage();
+  const { cartCount, openCart } = useCart();
 
   const [searchOpen, setSearchOpen] = useState(false);
   const bodyOverflowBeforeOverlay = useRef<string | null>(null);
@@ -278,7 +280,7 @@ export default function Navbar() {
 
       {/* Flipkart-style mobile bottom navigation */}
       <nav aria-label={isHindi ? "मुख्य नेविगेशन" : "Main navigation"} className="fixed inset-x-0 bottom-0 z-[70] border-t border-[#e9ddcc] bg-[#fffdf8]/96 shadow-[0_-10px_35px_rgba(72,35,24,0.12)] backdrop-blur-2xl xl:hidden" style={{ paddingBottom: "max(env(safe-area-inset-bottom), 7px)" }}>
-        <div className="mx-auto grid h-[68px] max-w-xl grid-cols-4 items-center px-2">
+        <div className="mx-auto grid h-[68px] max-w-xl grid-cols-5 items-center px-1.5">
           <a href="/" aria-current={pathname === "/" ? "page" : undefined} className={`group flex h-full flex-col items-center justify-center gap-1.5 transition-all ${pathname === "/" ? "text-[#800020]" : "text-[#887b73] hover:text-[#800020]"}`}>
             <span className={`flex h-8 w-12 items-center justify-center rounded-2xl transition-all ${pathname === "/" ? "bg-[#800020]/[0.09] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]" : ""}`}><House size={20} strokeWidth={pathname === "/" ? 2.5 : 1.8} /></span>
             <span className="text-[10px] font-extrabold tracking-tight">{isHindi ? "होम" : "Home"}</span>
@@ -295,6 +297,15 @@ export default function Navbar() {
             <span className={`flex h-8 w-12 items-center justify-center rounded-2xl transition-all ${pathname.startsWith("/my-orders") ? "bg-[#800020]/[0.09] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]" : ""}`}><Package size={20} strokeWidth={pathname.startsWith("/my-orders") ? 2.5 : 1.8} /></span>
             <span className="text-[10px] font-extrabold tracking-tight">{isHindi ? "मेरे ऑर्डर" : "My Orders"}</span>
           </a>
+          <button type="button" onClick={openCart} aria-label={isHindi ? `कार्ट, ${cartCount} आइटम` : `Cart, ${cartCount} items`}
+            aria-haspopup="dialog"
+            className={`group relative flex h-full flex-col items-center justify-center gap-1.5 transition-all ${pathname === "/cart" ? "text-[#800020]" : "text-[#887b73] hover:text-[#800020]"}`}>
+            <span className={`relative flex h-8 w-12 items-center justify-center rounded-2xl transition-all ${pathname === "/cart" ? "bg-[#800020]/[0.09]" : ""}`}>
+              <ShoppingCart size={20} strokeWidth={pathname === "/cart" ? 2.5 : 1.8} />
+              {cartCount > 0 && <span className="absolute right-1 top-0 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-[#800020] px-1 text-[9px] font-black leading-none text-white ring-2 ring-[#fffdf8]">{cartCount > 99 ? "99+" : cartCount}</span>}
+            </span>
+            <span className="text-[10px] font-extrabold tracking-tight">{isHindi ? "कार्ट" : "Cart"}</span>
+          </button>
 
         </div>
       </nav>

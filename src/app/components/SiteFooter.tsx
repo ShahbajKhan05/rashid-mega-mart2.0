@@ -2,10 +2,19 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { MapPin, Phone, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, FileText, ShieldCheck } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 
-const phone = "8962531603";
+const policyLinks = [
+  { href: "/privacy-policy", en: "Privacy Policy", hi: "गोपनीयता नीति" },
+  { href: "/terms-and-conditions", en: "Terms & Conditions", hi: "नियम और शर्तें" },
+  { href: "/shipping-policy", en: "Shipping & Delivery", hi: "शिपिंग और डिलीवरी" },
+  { href: "/cancellation-refund", en: "Cancellation & Refund", hi: "रद्द और रिफंड" },
+  { href: "/return-replacement", en: "Returns & Replacement", hi: "रिटर्न और रिप्लेसमेंट" },
+  { href: "/payment-policy", en: "Payment Policy", hi: "भुगतान नीति" },
+  { href: "/grievance-redressal", en: "Grievance Redressal", hi: "शिकायत निवारण" },
+  { href: "/food-safety", en: "Food Safety & FSSAI", hi: "खाद्य सुरक्षा और FSSAI" },
+];
 
 export default function SiteFooter() {
   const { language, t } = useLanguage();
@@ -14,7 +23,7 @@ export default function SiteFooter() {
   return (
     <footer className="relative overflow-hidden border-t border-[#eadfce] bg-[linear-gradient(135deg,#fffdf7_0%,#f8f1e7_52%,#fffaf2_100%)] pb-[calc(68px+max(env(safe-area-inset-bottom),7px)+12px)] pt-10 text-[#382b2b] sm:pt-12 xl:pb-7">
       <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-[#b88a42]/[0.08] blur-3xl" />
-      <div className="relative mx-auto grid max-w-[1320px] grid-cols-2 gap-x-7 gap-y-9 px-5 sm:grid-cols-2 sm:px-8 lg:grid-cols-[1.4fr_.8fr_.9fr_1fr] lg:gap-12 lg:px-10">
+      <div className="relative mx-auto grid max-w-[1320px] grid-cols-2 gap-x-7 gap-y-9 px-5 sm:grid-cols-2 sm:px-8 lg:grid-cols-[1.25fr_.75fr_1fr_1.15fr] lg:gap-10 lg:px-10">
         <div className="col-span-2 max-w-sm lg:col-span-1">
           <Link href="/" aria-label="Rashid Mega Mart home" className="inline-flex items-center gap-3">
             <span className="grid h-14 w-14 place-items-center rounded-2xl border border-white/80 bg-white/75 shadow-[0_8px_24px_rgba(80,35,25,.08)] backdrop-blur-xl">
@@ -26,11 +35,11 @@ export default function SiteFooter() {
             </span>
           </Link>
           <p className="mt-4 max-w-xs text-[13px] leading-6 text-[#76665c]">
-            {isHindi ? "घोघर, रीवा में आपकी रोज़मर्रा की ज़रूरतों का भरोसेमंद पड़ोसी स्टोर।" : "Your neighbourhood store in Ghoghar, Rewa for the things your home needs every day."}
+            {isHindi ? "रोज़मर्रा के किराना और घरेलू सामान की खरीदारी।" : "Everyday grocery and household essentials, made easier to explore."}
           </p>
-          <a href="https://wa.me/918962531603" target="_blank" rel="noreferrer" className="mt-4 inline-flex h-10 items-center gap-2 rounded-full bg-[#800020] px-4 text-xs font-bold text-white shadow-[0_7px_18px_rgba(128,0,32,.16)] transition hover:-translate-y-0.5 hover:bg-[#650019]">
-            {isHindi ? "WhatsApp पर बात करें" : "Chat on WhatsApp"} <ArrowUpRight size={14} />
-          </a>
+          <Link href="/contact" className="mt-4 inline-flex h-10 items-center gap-2 rounded-full bg-[#800020] px-4 text-xs font-bold text-white shadow-[0_7px_18px_rgba(128,0,32,.16)] transition hover:-translate-y-0.5 hover:bg-[#650019]">
+            {isHindi ? "संपर्क जानकारी" : "Contact information"} <ArrowUpRight size={14} />
+          </Link>
         </div>
 
         <div>
@@ -40,29 +49,32 @@ export default function SiteFooter() {
             <li><Link className="transition hover:text-[#800020]" href="/products">{isHindi ? "सभी उत्पाद" : "Shop products"}</Link></li>
             <li><Link className="transition hover:text-[#800020]" href="/order-tracking">{isHindi ? "ऑर्डर ट्रैक करें" : "Track order"}</Link></li>
             <li><Link className="transition hover:text-[#800020]" href="/my-orders">{isHindi ? "मेरे ऑर्डर" : "My orders"}</Link></li>
+            <li><Link className="transition hover:text-[#800020]" href="/about">{isHindi ? "हमारे बारे में" : "About us"}</Link></li>
+            <li><Link className="transition hover:text-[#800020]" href="/faqs">{isHindi ? "अक्सर पूछे जाने वाले सवाल" : "FAQs"}</Link></li>
           </ul>
         </div>
 
         <div>
-          <h2 className="text-[11px] font-extrabold uppercase tracking-[.18em] text-[#a77b3e]">{t("contactUs")}</h2>
-          <ul className="mt-4 space-y-4 text-[13px] text-[#65574f]">
-            <li className="flex items-start gap-2.5"><MapPin size={16} className="mt-0.5 shrink-0 text-[#a77b3e]" /><span>Ghoghar, Rewa, Madhya Pradesh 486001</span></li>
-            <li><a href={`tel:+91${phone}`} className="inline-flex items-center gap-2.5 font-semibold transition hover:text-[#800020]"><Phone size={15} className="text-[#a77b3e]" /> +91 {phone}</a></li>
+          <h2 className="inline-flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-[.18em] text-[#a77b3e]"><ShieldCheck size={14}/>{isHindi ? "नीतियाँ" : "POLICIES"}</h2>
+          <ul className="mt-4 space-y-3 text-[12px] font-medium text-[#65574f]">
+            {policyLinks.map((item) => <li key={item.href}><Link className="transition hover:text-[#800020]" href={item.href}>{isHindi ? item.hi : item.en}</Link></li>)}
           </ul>
         </div>
 
         <div>
-          <h2 className="text-[11px] font-extrabold uppercase tracking-[.18em] text-[#a77b3e]">{t("followUs")}</h2>
-          <p className="mt-4 text-[13px] leading-6 text-[#76665c]">{isHindi ? "ऑर्डर, उपलब्धता और मदद के लिए हमसे जुड़ें।" : "Connect with us for orders, product availability and support."}</p>
-          <a href="https://wa.me/918962531603" target="_blank" rel="noreferrer" className="mt-4 inline-flex items-center gap-2 text-xs font-bold text-[#800020] underline decoration-[#cbb99e] underline-offset-4 hover:text-[#a77b3e]">
-            {isHindi ? "WhatsApp सहायता" : "WhatsApp support"} <ArrowUpRight size={13} />
-          </a>
+          <h2 className="inline-flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-[.18em] text-[#a77b3e]"><FileText size={14}/>{isHindi ? "सहायता और जानकारी" : "HELP & INFORMATION"}</h2>
+          <ul className="mt-4 space-y-3 text-[13px] font-medium text-[#65574f]">
+            <li><Link className="transition hover:text-[#800020]" href="/contact">{isHindi ? "संपर्क करें" : "Contact us"}</Link></li>
+            <li><Link className="transition hover:text-[#800020]" href="/grievance-redressal">{isHindi ? "शिकायत निवारण" : "Grievance redressal"}</Link></li>
+            <li><Link className="transition hover:text-[#800020]" href="/food-safety">{isHindi ? "खाद्य सुरक्षा और FSSAI" : "Food Safety & FSSAI"}</Link></li>
+          </ul>
+          <p className="mt-5 text-[11px] leading-5 text-[#938477]">{isHindi ? "व्यवसाय और संपर्क विवरण सत्यापन के बाद प्रकाशित किए जाएँगे।" : "Business and contact details will be published after verification."}</p>
         </div>
       </div>
 
       <div className="relative mx-auto mt-9 flex max-w-[1320px] flex-col gap-2 border-t border-[#e7dccd] px-5 pt-5 text-[10px] font-medium text-[#96877b] sm:px-8 md:flex-row md:items-center md:justify-between lg:px-10">
         <p>© {new Date().getFullYear()} Rashid Mega Mart. {t("allRightsReserved")}</p>
-        <p>{t("neighbourhoodStore")} <span className="px-1 text-[#b88a42]">✦</span> Rewa, Madhya Pradesh</p>
+        <p>{isHindi ? "आपकी रोज़मर्रा की खरीदारी" : "Everyday shopping, made simpler"} <span className="px-1 text-[#b88a42]">✦</span> <span className="font-semibold text-[#800020]">Created with ♥ by Noor Technologies</span></p>
       </div>
     </footer>
   );

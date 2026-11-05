@@ -7,6 +7,7 @@ import { ArrowRight, ArrowUpRight, ChevronRight, Search, ShieldCheck, ShoppingCa
 import { useLanguage } from "./LanguageProvider";
 import { categoryOptions, products } from "./data";
 import { useCart } from "./CartProvider";
+import HelpCenterFAQ from "./HelpCenterFAQ";
 
 const brands = ["Aashirvaad", "Fortune", "Tata Sampann", "India Gate", "MDH", "Everest", "Tata Tea", "MAGGI", "Parle-G"];
 const visuals: Record<string, string> = {
@@ -272,12 +273,8 @@ export default function OriginalCustomerHome() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[980px] px-4 pb-16 pt-2 sm:px-7 sm:pb-20 lg:px-10">
-        <div className="mb-6 text-center"><p className="text-[11px] font-extrabold tracking-[.2em] text-[#A47A2C]">{isHindi ? "आपके सवाल" : "NEED A HAND?"}</p><h2 className="mt-2 text-3xl font-extrabold tracking-[-.045em] text-[#800020] sm:text-4xl">{isHindi ? "अक्सर पूछे जाने वाले सवाल" : "Frequently asked questions"}</h2></div>
-        <div className="divide-y divide-[#eadfce] border-y border-[#eadfce] bg-white/45 px-4 sm:px-6">
-          {faqs.map((faq, index) => <div key={faq[0]} className="py-4"><button type="button" aria-expanded={openFaq === index} onClick={() => setOpenFaq(openFaq === index ? -1 : index)} className="flex w-full items-center justify-between gap-4 text-left text-sm font-extrabold text-[#40342e]"><span>{isHindi ? faq[2] : faq[0]}</span><span className={"grid h-7 w-7 shrink-0 place-items-center rounded-full border border-[#d9c8ae] text-[#800020] transition " + (openFaq === index ? "rotate-45 bg-[#800020] text-white" : "")}>+</span></button>{openFaq === index && <p className="max-w-3xl pt-3 text-xs leading-6 text-[#76665C] sm:text-sm">{isHindi ? faq[3] : faq[1]}</p>}</div>)}
-        </div>
-      </section>
+      <HelpCenterFAQ language={language} />
+
     </main>
   );
 }

@@ -36,6 +36,8 @@ export default function OriginalCustomerHome() {
   const [promoTimeLeft, setPromoTimeLeft] = useState({days:0,hours:0,minutes:0,seconds:0,expired:false});
   const promoBarRef = useRef<HTMLDivElement>(null);
   const promoShineRef = useRef<HTMLDivElement>(null);
+  const promoLogoRef = useRef<HTMLImageElement>(null);
+  const promoLettersRef = useRef<HTMLSpanElement>(null);
   const brandTrackRef = useRef<HTMLDivElement>(null);
   const brandTweenRef = useRef<gsap.core.Tween | null>(null);
 
@@ -59,12 +61,17 @@ export default function OriginalCustomerHome() {
   useEffect(() => {
     const bar = promoBarRef.current;
     const shine = promoShineRef.current;
-    if (!bar || !shine) return;
+    const logo = promoLogoRef.current;
+    const letters = promoLettersRef.current;
+    if (!bar || !shine || !logo || !letters) return;
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (motionQuery.matches) return;
     const context = gsap.context(() => {
-      gsap.fromTo(bar, { autoAlpha: 0, y: -14 }, { autoAlpha: 1, y: 0, duration: 0.75, ease: "power3.out", clearProps: "transform" });
-      gsap.fromTo(shine, { xPercent: -15 }, { xPercent: 360, duration: 2.8, ease: "power1.inOut", repeat: -1, repeatDelay: 2.1 });
+      const glyphs = letters.querySelectorAll<HTMLElement>("[data-promo-letter]");
+      gsap.fromTo(bar, { autoAlpha: 0, y: -12 }, { autoAlpha: 1, y: 0, duration: .7, ease: "power3.out", clearProps: "transform" });
+      gsap.fromTo(logo, { autoAlpha: 0, y: 9, scale: .88, filter: "blur(7px)" }, { autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)", duration: .9, delay: .12, ease: "back.out(1.7)" });
+      gsap.fromTo(glyphs, { y: 13, autoAlpha: 0, rotateX: -55 }, { y: 0, autoAlpha: 1, rotateX: 0, duration: .58, stagger: .022, delay: .28, ease: "power3.out" });
+      gsap.fromTo(shine, { xPercent: -20 }, { xPercent: 520, duration: 2.4, ease: "power1.inOut", repeat: -1, repeatDelay: 2.8 });
     }, bar);
     return () => context.revert();
   }, []);
@@ -99,39 +106,27 @@ export default function OriginalCustomerHome() {
         <div aria-hidden="true" className="rmm-promo-orb rmm-promo-orb-one" />
         <div aria-hidden="true" className="rmm-promo-orb rmm-promo-orb-two" />
         <div ref={promoShineRef} aria-hidden="true" className="rmm-promo-shine" />
-        <div className="relative mx-auto flex min-h-[66px] max-w-[1440px] flex-col items-center justify-center gap-2 px-3 py-2.5 sm:min-h-[58px] sm:flex-row sm:gap-4 sm:px-6 sm:py-2">
-          <div className="flex min-w-0 items-center justify-center gap-2.5">
-            <span className="rmm-promo-spark grid h-7 w-7 shrink-0 place-items-center rounded-full"><Sparkles size={14} /></span>
-            <span className="flex flex-col items-start leading-none">
-              <span className="text-[8px] font-extrabold uppercase tracking-[.2em] text-[#b58a4b]">{isHindi ? "आपके पहले ऑर्डर पर" : "A LITTLE GIFT ON YOUR FIRST ORDER"}</span>
-              <span className="mt-1 text-[12px] font-black tracking-[-.025em] text-[#fffaf2] sm:text-[13px]">{isHindi ? "₹499+ की खरीदारी पर ₹100 बचाएं" : "GET ₹100 OFF ON SHOPPING ABOVE ₹499"}</span>
+        <div className="relative mx-auto flex min-h-[72px] max-w-[1440px] flex-wrap items-center justify-center gap-x-4 gap-y-2 px-3 py-3 sm:min-h-[66px] sm:flex-nowrap sm:gap-5 sm:px-7">
+          <img ref={promoLogoRef} src="/Logo.png" alt="Rashid Mega Mart" className="rmm-promo-logo h-9 w-[104px] shrink-0 object-contain sm:h-10 sm:w-[118px]" />
+          <span className="hidden h-8 w-px bg-[#8b6b52]/20 sm:block" />
+          <div className="flex min-w-0 flex-col items-center leading-tight sm:items-start">
+            <span className="mb-1 text-[8px] font-extrabold uppercase tracking-[.2em] text-[#98713c]">{isHindi ? "पहली खरीदारी का खास तोहफा" : "A SPECIAL FIRST-ORDER TREAT"}</span>
+            <span ref={promoLettersRef} aria-label={isHindi ? "₹499+ की खरीदारी पर ₹100 की छूट" : "₹100 OFF ON SHOPPING ABOVE ₹499"} className="rmm-promo-headline whitespace-nowrap text-[12px] font-black tracking-[-.025em] sm:text-[14px]">
+              {Array.from(isHindi ? "₹499+ की खरीदारी पर ₹100 की छूट" : "₹100 OFF ON SHOPPING ABOVE ₹499").map((letter, index) => (
+                <span key={index} data-promo-letter="true" aria-hidden="true" className="inline-block">{letter === " " ? "\u00a0" : letter}</span>
+              ))}
             </span>
           </div>
-          <span className="hidden h-7 w-px bg-white/15 sm:block" />
           <div className="flex items-center gap-2">
-            <span className="text-[8px] font-bold tracking-[.12em] text-white/55">{isHindi ? "कोड" : "USE CODE"}</span>
-            <button
-              type="button"
-              disabled={promoTimeLeft.expired}
-              aria-label="Copy FIRST100 coupon code"
-              onClick={async () => {
-                try {
-                  await navigator.clipboard.writeText("FIRST100");
-                  setPromoCopied(true);
-                } catch {
-                  setPromoCopied(false);
-                }
-              }}
-              className="rmm-promo-code group inline-flex h-8 items-center gap-2 rounded-lg border px-3 text-[10px] font-black tracking-[.16em] transition duration-200 hover:-translate-y-0.5 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              FIRST100
-              <span className="text-[9px] font-bold tracking-normal">{promoTimeLeft.expired ? (isHindi ? "खत्म" : "ENDED") : promoCopied ? "✓" : (isHindi ? "कॉपी" : "COPY")}</span>
+            <span className="text-[8px] font-bold tracking-[.12em] text-[#89766a]">{isHindi ? "कोड" : "CODE"}</span>
+            <button type="button" disabled={promoTimeLeft.expired} aria-label="Copy FIRST100 coupon code" onClick={async () => { try { await navigator.clipboard.writeText("FIRST100"); setPromoCopied(true); } catch { setPromoCopied(false); } }} className="rmm-promo-code group inline-flex h-8 items-center gap-2 rounded-lg border px-3 text-[10px] font-black tracking-[.16em] transition duration-200 hover:-translate-y-0.5 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50">
+              FIRST100<span className="text-[9px] font-bold tracking-normal">{promoTimeLeft.expired ? (isHindi ? "खत्म" : "ENDED") : promoCopied ? "✓" : (isHindi ? "कॉपी" : "COPY")}</span>
             </button>
           </div>
           <div className="rmm-promo-countdown flex items-center gap-2 rounded-xl px-3 py-1.5">
             <span className="flex flex-col leading-none">
-              <span className="text-[7px] font-extrabold uppercase tracking-[.17em] text-white/50">{promoTimeLeft.expired ? (isHindi ? "ऑफर समाप्त" : "OFFER ENDED") : (isHindi ? "ऑफर खत्म होगा" : "OFFER ENDS IN")}</span>
-              {!promoTimeLeft.expired && <span className="mt-1 text-[11px] font-black tabular-nums tracking-[.04em] text-[#f4d9a5]">{String(promoTimeLeft.days).padStart(2, "0")}d <span className="text-white/35">:</span> {String(promoTimeLeft.hours).padStart(2, "0")}h <span className="text-white/35">:</span> {String(promoTimeLeft.minutes).padStart(2, "0")}m <span className="text-white/35">:</span> {String(promoTimeLeft.seconds).padStart(2, "0")}s</span>}
+              <span className="text-[7px] font-extrabold uppercase tracking-[.17em] text-[#8b7669]">{promoTimeLeft.expired ? (isHindi ? "ऑफर समाप्त" : "OFFER ENDED") : (isHindi ? "ऑफर खत्म होगा" : "OFFER ENDS IN")}</span>
+              {!promoTimeLeft.expired && <span className="mt-1 text-[11px] font-black tabular-nums tracking-[.04em] text-[#805329]">{String(promoTimeLeft.days).padStart(2, "0")}d <span className="text-[#b8a99c">:</span> {String(promoTimeLeft.hours).padStart(2, "0")}h <span className="text-[#b8a99c">:</span> {String(promoTimeLeft.minutes).padStart(2, "0")}m <span className="text-[#b8a99c">:</span> {String(promoTimeLeft.seconds).padStart(2, "0")}s</span>}
             </span>
           </div>
         </div>

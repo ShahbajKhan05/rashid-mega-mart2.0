@@ -90,16 +90,51 @@ export default function OriginalCustomerHome() {
 
   return (
     <main className="overflow-hidden bg-[#FFFCF0] pb-24 font-[var(--font-plus-jakarta)] text-[#30251F]">
-      <div ref={promoBarRef} className="rmm-promo-glass relative isolate z-10 flex min-h-[52px] flex-wrap items-center justify-center gap-x-2 gap-y-1 overflow-hidden border-y px-2.5 py-1.5 text-center sm:min-h-[46px] sm:flex-nowrap sm:gap-3 sm:px-4">
-        <div ref={promoShineRef} aria-hidden="true" className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-[#f6dfaa]/20 to-transparent" />
-        <span className="rmm-promo-chip relative inline-flex shrink-0 items-center gap-1 rounded-full border px-2 py-1 text-[8px] font-bold uppercase tracking-[.1em] sm:px-2.5 sm:text-[9px]"><Sparkles size={11} /> {isHindi ? "पहला ऑर्डर" : "FIRST ORDER"}</span>
-        <span className="relative whitespace-nowrap text-[11px] font-black tracking-[-.02em] sm:text-sm">{isHindi ? "₹499+ पर ₹100 की छूट" : "₹100 OFF ON ₹499+"}</span>
-        <span className="relative rounded-md border border-[#800020]/10 bg-[#800020]/[.04] px-2 py-1 text-[10px] font-bold tracking-[.1em] text-[#7b2940] sm:px-2.5 sm:text-xs">FIRST100</span>
-        <button type="button" disabled={promoTimeLeft.expired} aria-label="Copy FIRST100 coupon code" onClick={async()=>{try{await navigator.clipboard.writeText("FIRST100");setPromoCopied(true);}catch{setPromoCopied(false);}}} className="rmm-promo-copy relative shrink-0 rounded-full px-2.5 py-1.5 text-[8px] font-bold tracking-[.06em] transition hover:bg-[#800020]/10 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 sm:px-3 sm:text-[9px]">{promoTimeLeft.expired ? (isHindi ? "समाप्त" : "ENDED") : promoCopied ? (isHindi ? "कॉपी ✓" : "COPIED ✓") : (isHindi ? "कॉपी" : "COPY")}</button>
-        <span className="rmm-promo-timer relative inline-flex items-center gap-1 rounded-full border px-2 py-1 text-[8px] font-bold tracking-[.06em] sm:ml-1 sm:px-2.5 sm:text-[9px]">
-          <span className="uppercase text-white/70">{promoTimeLeft.expired ? (isHindi ? "ऑफर खत्म" : "OFFER ENDED") : (isHindi ? "बाकी" : "ENDS IN")}</span>
-          {!promoTimeLeft.expired && <span className="tabular-nums">{String(promoTimeLeft.days).padStart(2,"0")}d : {String(promoTimeLeft.hours).padStart(2,"0")}h : {String(promoTimeLeft.minutes).padStart(2,"0")}m : {String(promoTimeLeft.seconds).padStart(2,"0")}s</span>}
-        </span>
+      <div
+        ref={promoBarRef}
+        role="region"
+        aria-label={isHindi ? "सीमित समय का ऑफर" : "Limited time offer"}
+        className="rmm-promo-glass relative isolate z-30 overflow-hidden border-y"
+      >
+        <div aria-hidden="true" className="rmm-promo-orb rmm-promo-orb-one" />
+        <div aria-hidden="true" className="rmm-promo-orb rmm-promo-orb-two" />
+        <div ref={promoShineRef} aria-hidden="true" className="rmm-promo-shine" />
+        <div className="relative mx-auto flex min-h-[66px] max-w-[1440px] flex-col items-center justify-center gap-2 px-3 py-2.5 sm:min-h-[58px] sm:flex-row sm:gap-4 sm:px-6 sm:py-2">
+          <div className="flex min-w-0 items-center justify-center gap-2.5">
+            <span className="rmm-promo-spark grid h-7 w-7 shrink-0 place-items-center rounded-full"><Sparkles size={14} /></span>
+            <span className="flex flex-col items-start leading-none">
+              <span className="text-[8px] font-extrabold uppercase tracking-[.2em] text-[#b58a4b]">{isHindi ? "आपके पहले ऑर्डर पर" : "A LITTLE GIFT ON YOUR FIRST ORDER"}</span>
+              <span className="mt-1 text-[12px] font-black tracking-[-.025em] text-[#fffaf2] sm:text-[13px]">{isHindi ? "₹499+ की खरीदारी पर ₹100 बचाएं" : "GET ₹100 OFF ON SHOPPING ABOVE ₹499"}</span>
+            </span>
+          </div>
+          <span className="hidden h-7 w-px bg-white/15 sm:block" />
+          <div className="flex items-center gap-2">
+            <span className="text-[8px] font-bold tracking-[.12em] text-white/55">{isHindi ? "कोड" : "USE CODE"}</span>
+            <button
+              type="button"
+              disabled={promoTimeLeft.expired}
+              aria-label="Copy FIRST100 coupon code"
+              onClick={async () => {
+                try {
+                  await navigator.clipboard.writeText("FIRST100");
+                  setPromoCopied(true);
+                } catch {
+                  setPromoCopied(false);
+                }
+              }}
+              className="rmm-promo-code group inline-flex h-8 items-center gap-2 rounded-lg border px-3 text-[10px] font-black tracking-[.16em] transition duration-200 hover:-translate-y-0.5 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              FIRST100
+              <span className="text-[9px] font-bold tracking-normal">{promoTimeLeft.expired ? (isHindi ? "खत्म" : "ENDED") : promoCopied ? "✓" : (isHindi ? "कॉपी" : "COPY")}</span>
+            </button>
+          </div>
+          <div className="rmm-promo-countdown flex items-center gap-2 rounded-xl px-3 py-1.5">
+            <span className="flex flex-col leading-none">
+              <span className="text-[7px] font-extrabold uppercase tracking-[.17em] text-white/50">{promoTimeLeft.expired ? (isHindi ? "ऑफर समाप्त" : "OFFER ENDED") : (isHindi ? "ऑफर खत्म होगा" : "OFFER ENDS IN")}</span>
+              {!promoTimeLeft.expired && <span className="mt-1 text-[11px] font-black tabular-nums tracking-[.04em] text-[#f4d9a5]">{String(promoTimeLeft.days).padStart(2, "0")}d <span className="text-white/35">:</span> {String(promoTimeLeft.hours).padStart(2, "0")}h <span className="text-white/35">:</span> {String(promoTimeLeft.minutes).padStart(2, "0")}m <span className="text-white/35">:</span> {String(promoTimeLeft.seconds).padStart(2, "0")}s</span>}
+            </span>
+          </div>
+        </div>
       </div>
       <section id="top" className="relative isolate overflow-hidden bg-[#FFFCF0] px-4 pb-12 pt-24 sm:px-7 sm:pb-16 sm:pt-28 lg:px-10">
         <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_5%,rgba(212,168,79,.18),transparent_55%)]" />

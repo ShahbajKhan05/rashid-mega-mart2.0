@@ -2,6 +2,8 @@
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 import { ArrowRight, BadgePercent, Check, Heart, ShieldCheck, ShoppingBasket, Sparkles, Truck } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 import { useCart } from "./CartProvider";

@@ -425,8 +425,8 @@ body { background: #f7f5ef; }
     background: rgba(250,249,245,.76) !important;
     border-color: rgba(151,125,102,.15) !important;
     box-shadow: 0 -5px 22px rgba(65,43,35,.05) !important;
-    backdrop-filter: blur(24px) saturate(125%) !important;
-    -webkit-backdrop-filter: blur(24px) saturate(125%) !important;
+    backdrop-filter: blur(10px) saturate(110%) !important;
+    -webkit-backdrop-filter: blur(10px) saturate(110%) !important;
   }
 }
 main [class~="bg-white"][class*="rounded-"][class*="border"] {

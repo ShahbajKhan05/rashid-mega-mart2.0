@@ -58,6 +58,7 @@ export default function OriginalCustomerHome() {
   const entranceRef = useRef<HTMLElement>(null);
   const entranceTitleRef = useRef<HTMLHeadingElement>(null);
   const deliveryBadgeRef = useRef<HTMLDivElement>(null);
+  const bestSellersRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const offerEndsAt = new Date("2026-11-09T23:59:59+05:30").getTime();
@@ -110,6 +111,19 @@ export default function OriginalCustomerHome() {
         y: 0, scale: 1, autoAlpha: 1, duration: 0.8, ease: "back.out(1.8)",
       }, "-=0.48");
       gsap.to(badge, { y: -5, duration: 1.8, ease: "sine.inOut", yoyo: true, repeat: -1, delay: 1.6 });
+    }, section);
+    return () => context.revert();
+  }, []);
+
+  useEffect(() => {
+    const section = bestSellersRef.current;
+    if (!section || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const cards = section.querySelectorAll<HTMLElement>("[data-best-seller-card]");
+    const context = gsap.context(() => {
+      gsap.fromTo(cards, { y: 28, autoAlpha: 0, scale: 0.975 }, {
+        y: 0, autoAlpha: 1, scale: 1, duration: 0.72, stagger: 0.085, ease: "power3.out",
+        scrollTrigger: { trigger: section, start: "top 78%", once: true },
+      });
     }, section);
     return () => context.revert();
   }, []);
@@ -328,23 +342,37 @@ export default function OriginalCustomerHome() {
         <p className="mt-3 text-center text-[9px] font-bold uppercase tracking-[.16em] text-[#a29487] md:mt-5">{isHindi ? "स्क्रॉल करें • कैटेगरी दाईं ओर से आती जाएँगी" : "KEEP SCROLLING — THE AISLES SLIDE IN FROM THE RIGHT"} <span className="ml-1 text-[#A47A2C]">→</span></p>
       </section>
 
-      <section className="bg-[#FFF9D8] px-4 py-12 sm:px-7 sm:py-16 lg:px-10">
-        <div className="mx-auto max-w-[1440px]">
-          <div className="mb-7 flex items-end justify-between gap-4"><div><p className="text-[11px] font-extrabold tracking-[.2em] text-[#A47A2C]">{isHindi ? "आपके लिए चुने गए" : "HANDPICKED FOR YOU"}</p><h2 className="mt-2 text-3xl font-black tracking-[-.06em] text-[#800020] sm:text-4xl">{isHindi ? "बेस्ट सेलर्स" : "Best Sellers"}</h2></div><Link href="/products" className="inline-flex shrink-0 items-center gap-1 text-xs font-black text-[#800020] hover:underline">{isHindi ? "सभी देखें" : "View all"} <ChevronRight size={15} /></Link></div>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4">
-            {products.slice(0, 8).map((product) => {
+      <section ref={bestSellersRef} aria-labelledby="best-sellers-title" className="relative isolate overflow-hidden border-y border-[#eadfce] bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,168,79,.10),transparent_58%),#FFFCF0] px-3 py-9 sm:px-6 sm:py-12 lg:px-8">
+        <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-0 -z-10 h-56 w-[min(90vw,900px)] -translate-x-1/2 rounded-full bg-[#d9bd87]/10 blur-3xl" />
+        <div className="mx-auto max-w-[1280px]">
+          <div className="mb-5 flex flex-col items-center text-center sm:mb-7">
+            <span className="inline-flex items-center gap-2 rounded-full border border-[#dfc99f] bg-white/75 px-3 py-1.5 text-[9px] font-black uppercase tracking-[.2em] text-[#98713c] shadow-sm">
+              <Sparkles size={12} /> {isHindi ? "आपके लिए खास पसंद" : "HANDPICKED FOR YOU"}
+            </span>
+            <h2 id="best-sellers-title" className="mt-2 text-[clamp(2rem,5vw,3.4rem)] font-black leading-none tracking-[-.075em] text-[#800020]">{isHindi ? "बेस्ट सेलर्स" : "Best Sellers"}</h2>
+            <p className="mt-2 max-w-md text-[11px] leading-5 text-[#78685d] sm:text-xs">{isHindi ? "रोज़मर्रा की पसंदीदा चीज़ें — एक ही जगह।" : "Everyday favourites, picked to make your shopping easier."}</p>
+            <Link href="/products" className="mt-3 inline-flex items-center gap-1 border-b border-[#800020]/30 pb-1 text-[10px] font-extrabold uppercase tracking-[.12em] text-[#800020] transition hover:gap-2">{isHindi ? "सभी प्रोडक्ट देखें" : "Explore all products"} <ArrowRight size={13} /></Link>
+          </div>
+          <div className="grid grid-cols-2 gap-2.5 sm:gap-4 lg:grid-cols-4">
+            {products.slice(0, 8).map((product, index) => {
               const discount = product.originalPrice > product.price ? Math.round((1 - product.price / product.originalPrice) * 100) : 0;
-              return <article key={product.id} className="group relative flex min-w-0 flex-col rounded-[18px] border border-[#eadfce] bg-white p-2.5 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg sm:rounded-[22px] sm:p-3">
-                <div className="relative aspect-square overflow-hidden rounded-[14px] bg-[#faf8f3] p-3">
-                  <Link href={"/products/" + (product.slug || product.id)} className="block h-full w-full">
-                    {discount > 0 && <span className="absolute left-2 top-2 z-10 rounded-md bg-[#800020] px-2 py-1 text-[10px] font-extrabold text-white">{discount}% OFF</span>}
-                    <img src={product.image} alt={isHindi ? product.nameHi : product.name} loading="lazy" className="h-full w-full object-contain mix-blend-multiply transition duration-500 group-hover:scale-105" />
+              return <article key={product.id} data-best-seller-card className="group relative flex min-w-0 flex-col overflow-hidden rounded-[16px] border border-[#e9dfd2] bg-white/95 p-2 shadow-[0_5px_18px_rgba(67,45,27,.045)] transition duration-300 hover:-translate-y-1 hover:border-[#d8c29d] hover:shadow-[0_15px_32px_rgba(67,45,27,.11)] sm:rounded-[20px] sm:p-3">
+                <div className="relative aspect-square overflow-hidden rounded-[12px] bg-[#faf8f3] p-2.5 sm:rounded-[15px] sm:p-4">
+                  <Link href={"/products/" + (product.slug || product.id)} aria-label={isHindi ? product.nameHi : product.name} className="block h-full w-full">
+                    <img src={product.image} alt={isHindi ? product.nameHi : product.name} loading="lazy" className="h-full w-full object-contain mix-blend-multiply transition duration-500 ease-out group-hover:scale-110" />
                   </Link>
-                  <button type="button" onClick={() => toggleWishlist(product.id)} aria-label={isWishlisted(product.id) ? "Remove from wishlist" : "Save to wishlist"} aria-pressed={isWishlisted(product.id)} className={`absolute right-2 top-2 z-10 grid h-8 w-8 place-items-center rounded-full shadow-sm backdrop-blur transition active:scale-90 ${isWishlisted(product.id) ? "bg-[#800020] text-white" : "bg-white/90 text-[#800020] hover:bg-[#800020] hover:text-white"}`}><Heart size={15} fill={isWishlisted(product.id) ? "currentColor" : "none"} /></button>
+                  {discount > 0 && <span className="absolute left-2 top-2 rounded-md bg-[#800020] px-2 py-1 text-[9px] font-black tracking-wide text-white shadow-sm">{discount}% OFF</span>}
+                  <span className="absolute bottom-2 left-2 rounded-md border border-white/80 bg-white/85 px-2 py-1 text-[8px] font-extrabold uppercase tracking-[.12em] text-[#80684f] backdrop-blur">{index < 3 ? (isHindi ? "लोकप्रिय पसंद" : "POPULAR PICK") : (isHindi ? "स्टोर पसंद" : "STORE PICK")}</span>
+                  <button type="button" onClick={() => toggleWishlist(product.id)} aria-label={isWishlisted(product.id) ? "Remove from wishlist" : "Save to wishlist"} aria-pressed={isWishlisted(product.id)} className={`absolute right-2 top-2 grid h-8 w-8 place-items-center rounded-full shadow-sm backdrop-blur transition active:scale-90 ${isWishlisted(product.id) ? "bg-[#800020] text-white" : "bg-white/90 text-[#800020] hover:bg-[#800020] hover:text-white"}`}><Heart size={14} fill={isWishlisted(product.id) ? "currentColor" : "none"} /></button>
                 </div>
-                <div className="flex flex-1 flex-col px-1 pt-3"><p className="text-[10px] font-extrabold uppercase tracking-[.12em] text-[#A47A2C]">{product.brand || "Rashid Mega Mart"}{product.unit ? " · " + product.unit : ""}</p><Link href={"/products/" + (product.slug || product.id)} className="mt-1 line-clamp-2 min-h-9 text-[13px] font-bold leading-[1.45] tracking-[-.015em] text-[#40342e] hover:text-[#800020] sm:text-[15px]">{isHindi ? product.nameHi : product.name}</Link>
-                  <div className="mt-2 flex items-baseline gap-2"><span className="text-base font-extrabold tracking-[-.02em] text-[#800020]">₹{product.price.toLocaleString("en-IN")}</span>{discount > 0 && <span className="text-xs font-medium text-[#9b8d81] line-through">₹{product.originalPrice.toLocaleString("en-IN")}</span>}</div>
-                  <button type="button" onClick={() => addToCart(product, 1)} className="mt-3 inline-flex h-9 w-full items-center justify-center gap-2 rounded-lg border border-[#800020]/20 bg-white text-xs font-extrabold tracking-[-.01em] text-[#800020] transition hover:bg-[#800020] hover:text-white active:scale-[.98]"><ShoppingCart size={13} />{isHindi ? "कार्ट में जोड़ें" : "Add to cart"}</button>
+                <div className="flex flex-1 flex-col px-0.5 pt-2.5 sm:px-1 sm:pt-3">
+                  <p className="truncate text-[8px] font-extrabold uppercase tracking-[.13em] text-[#a47a2c] sm:text-[9px]">{product.brand || "Rashid Mega Mart"}{product.unit ? " · " + product.unit : ""}</p>
+                  <Link href={"/products/" + (product.slug || product.id)} className="mt-1 line-clamp-2 min-h-[34px] text-[11px] font-extrabold leading-[1.45] tracking-[-.015em] text-[#40342e] transition-colors hover:text-[#800020] sm:min-h-[42px] sm:text-[13px]">{isHindi ? product.nameHi : product.name}</Link>
+                  <div className="mt-2 flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5">
+                    <span className="text-[14px] font-black tracking-[-.03em] text-[#800020] sm:text-base">₹{product.price.toLocaleString("en-IN")}</span>
+                    {discount > 0 && <span className="text-[10px] font-medium text-[#9b8d81] line-through">₹{product.originalPrice.toLocaleString("en-IN")}</span>}
+                  </div>
+                  <button type="button" onClick={() => addToCart(product, 1)} className="mt-2.5 inline-flex h-8 w-full items-center justify-center gap-1.5 rounded-lg border border-[#800020]/20 bg-[#fffaf5] text-[10px] font-extrabold text-[#800020] transition duration-200 hover:border-[#800020] hover:bg-[#800020] hover:text-white active:scale-[.98] sm:h-9 sm:text-[11px]"><ShoppingCart size={12} />{isHindi ? "कार्ट में जोड़ें" : "Add to cart"}</button>
                 </div>
               </article>;
             })}

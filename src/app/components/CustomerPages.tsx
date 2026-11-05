@@ -131,5 +131,44 @@ export function TrackOrderPage() {
 }
 
 export function MyOrdersPage() {
-  return <CenterPage title="MY ORDERS PAGE" />;
+  return (
+    <main className="min-h-[calc(100svh-76px)] bg-[#fffaf2] px-3 py-6 text-[#2d2424] sm:px-5 sm:py-9">
+      <div className="mx-auto w-full max-w-2xl">
+        <header className="mb-7 flex flex-col items-center text-center">
+          <Link href="/" aria-label="Rashid Mega Mart home" className="mb-5 inline-flex items-center justify-center">
+            <Image src="/Logo.png" alt="Rashid Mega Mart" width={520} height={190} priority className="h-auto max-h-[82px] w-auto max-w-[min(76vw,300px)] object-contain sm:max-h-[104px] sm:max-w-[360px]" />
+          </Link>
+          <span className="rounded-full border border-[#ead9bd] bg-white px-3.5 py-1.5 text-[11px] font-extrabold uppercase tracking-[.18em] text-[#a77b3e]">Your account</span>
+          <h1 className="mt-3 text-[clamp(1.8rem,6vw,2.65rem)] font-extrabold leading-tight tracking-[-.045em] text-[#800020]">My Orders</h1>
+          <p className="mt-2 max-w-md text-sm leading-6 text-[#716760] sm:text-base">Your purchases, all in one place.</p>
+        </header>
+
+        <section className="rounded-2xl border border-[#eee2d3] bg-white px-5 py-8 text-center shadow-[0_14px_42px_rgba(80,32,48,.07)] sm:rounded-3xl sm:px-8 sm:py-11">
+          <div className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-[#f8eff0] text-[#800020] sm:h-[76px] sm:w-[76px]">
+            <Package size={34} strokeWidth={1.6} />
+          </div>
+          <h2 className="mt-5 text-xl font-extrabold tracking-tight text-[#332923] sm:text-2xl">No orders to show yet</h2>
+          <p className="mx-auto mt-2 max-w-sm text-sm leading-6 text-[#82776e] sm:text-base">
+            Orders placed with Rashid Mega Mart will appear here once your order history is connected.
+          </p>
+          <div className="mx-auto mt-6 flex w-full max-w-sm flex-col gap-3">
+            <Link href="/products" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#800020] px-5 text-sm font-extrabold text-white transition hover:bg-[#650019] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#800020]">
+              Explore products <span aria-hidden="true">→</span>
+            </Link>
+            <Link href="/order-tracking" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-[#e8d8d8] bg-white px-5 text-sm font-bold text-[#800020] transition hover:bg-[#fff7f4] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#800020]">
+              <Truck size={17} /> Track an existing order
+            </Link>
+          </div>
+        </section>
+
+        <footer className="mt-5 flex flex-col items-center justify-between gap-3 rounded-2xl bg-[#5a1023] px-4 py-4 text-center text-white sm:flex-row sm:px-5 sm:text-left">
+          <div>
+            <p className="text-sm font-extrabold">Need help with an order?</p>
+            <p className="mt-0.5 text-xs text-white/75">Rashid Mega Mart · Rewa, Madhya Pradesh</p>
+          </div>
+          <a href="https://wa.me/918962531603" target="_blank" rel="noreferrer" className="inline-flex min-h-10 items-center justify-center rounded-lg bg-white px-4 py-2 text-sm font-extrabold text-[#5a1023] transition hover:bg-[#fff3df]">Contact on WhatsApp</a>
+        </footer>
+      </div>
+    </main>
+  );
 }

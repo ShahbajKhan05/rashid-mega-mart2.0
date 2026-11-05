@@ -413,11 +413,11 @@ html {
 }
 body { background: #f7f5ef; }
 .navbar-glass-shell {
-  background: rgba(250,249,245,.70) !important;
+  background: rgba(250,249,245,.86) !important;
   border-color: rgba(151,125,102,.16) !important;
   box-shadow: 0 5px 22px rgba(65,43,35,.045) !important;
-  backdrop-filter: blur(26px) saturate(125%) !important;
-  -webkit-backdrop-filter: blur(26px) saturate(125%) !important;
+  backdrop-filter: blur(14px) saturate(115%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(115%) !important;
 }
 .navbar-glass-shell::before { background: linear-gradient(110deg,rgba(255,255,255,.34),transparent 55%) !important; }
 @media (max-width: 1279px) {
@@ -430,11 +430,9 @@ body { background: #f7f5ef; }
   }
 }
 main [class~="bg-white"][class*="rounded-"][class*="border"] {
-  background: rgba(255,255,255,.62) !important;
+  background: rgba(255,255,255,.88) !important;
   border-color: var(--rmm-glass-border) !important;
   box-shadow: var(--rmm-glass-shadow);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
 }
 main [class*="shadow-[0_"][class*="rounded-"][class*="border"] {
   box-shadow: var(--rmm-glass-shadow) !important;

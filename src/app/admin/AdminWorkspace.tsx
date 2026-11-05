@@ -1,0 +1,127 @@
+"use client";
+
+import Link from "next/link";
+import { useMemo, useState } from "react";
+import {
+  Activity, ArrowDownRight, ArrowUpRight, Bell, Boxes, ChartNoAxesCombined,
+  ChevronDown, ChevronLeft, ChevronRight, CircleHelp, ClipboardList, Command,
+  CreditCard, Download, Ellipsis, LayoutDashboard, LogOut, Menu, Package,
+  Plus, Search, Settings2, ShieldCheck, ShoppingBag, ShoppingCart, Sparkles,
+  Tag, Users, Wallet, X,
+} from "lucide-react";
+
+type Section = "overview" | "orders" | "products" | "customers" | "coupons" | "staff" | "settings";
+
+const navigation: { id: Section; label: string; icon: typeof LayoutDashboard; hint?: string }[] = [
+  { id: "overview", label: "Overview", icon: LayoutDashboard },
+  { id: "orders", label: "Orders", icon: ShoppingBag, hint: "8" },
+  { id: "products", label: "Products", icon: Package },
+  { id: "customers", label: "Customers", icon: Users },
+  { id: "coupons", label: "Coupons", icon: Tag },
+  { id: "staff", label: "Staff", icon: ShieldCheck },
+];
+
+const orders = [
+  { id: "#RMM-2084", customer: "Aarav Sharma", initials: "AS", date: "Today, 10:42 AM", items: 4, total: 1248, status: "Processing" },
+  { id: "#RMM-2083", customer: "Sana Khan", initials: "SK", date: "Today, 10:18 AM", items: 2, total: 645, status: "Confirmed" },
+  { id: "#RMM-2082", customer: "Rahul Patel", initials: "RP", date: "Today, 09:56 AM", items: 6, total: 2180, status: "Delivered" },
+  { id: "#RMM-2081", customer: "Meera Singh", initials: "MS", date: "Today, 09:24 AM", items: 3, total: 890, status: "Pending" },
+  { id: "#RMM-2080", customer: "Imran Ali", initials: "IA", date: "Yesterday", items: 5, total: 1560, status: "Delivered" },
+];
+
+const products = [
+  { name: "Aashirvaad Atta", category: "Staples", sku: "RMM-AT-001", stock: 42, price: 240, state: "In stock", color: "bg-amber-100 text-amber-800", emoji: "🌾" },
+  { name: "India Gate Basmati Rice", category: "Staples", sku: "RMM-RC-002", stock: 8, price: 280, state: "Low stock", color: "bg-orange-100 text-orange-800", emoji: "🍚" },
+  { name: "Fortune Sunflower Oil", category: "Oil & Ghee", sku: "RMM-OL-003", stock: 26, price: 135, state: "In stock", color: "bg-emerald-100 text-emerald-800", emoji: "🫒" },
+  { name: "Tata Sampann Toor Dal", category: "Pulses", sku: "RMM-DL-004", stock: 0, price: 160, state: "Out of stock", color: "bg-rose-100 text-rose-800", emoji: "🫘" },
+  { name: "Amul Butter", category: "Dairy", sku: "RMM-DA-005", stock: 19, price: 265, state: "In stock", color: "bg-emerald-100 text-emerald-800", emoji: "🧈" },
+];
+
+const customers = [
+  { name: "Aarav Sharma", email: "aarav.sharma@email.com", orders: 12, spent: 8420, initials: "AS" },
+  { name: "Sana Khan", email: "sana.khan@email.com", orders: 8, spent: 5360, initials: "SK" },
+  { name: "Rahul Patel", email: "rahul.patel@email.com", orders: 6, spent: 4290, initials: "RP" },
+  { name: "Meera Singh", email: "meera.singh@email.com", orders: 5, spent: 3180, initials: "MS" },
+];
+
+const money = (value: number) => "₹" + value.toLocaleString("en-IN");
+
+function Status({ value }: { value: string }) {
+  const style = value === "Delivered" || value === "Active" ? "bg-emerald-50 text-emerald-700" : value === "Pending" || value === "Low stock" ? "bg-amber-50 text-amber-700" : value === "Out of stock" ? "bg-rose-50 text-rose-700" : "bg-blue-50 text-blue-700";
+  return <span className={`inline-flex rounded-full px-2.5 py-1 text-[11px] font-bold ${style}`}>{value}</span>;
+}
+
+function SectionTitle({ eyebrow, title, description, action }: { eyebrow: string; title: string; description: string; action?: string }) {
+  return <div className="mb-6 flex flex-wrap items-end justify-between gap-4"><div><p className="mb-1.5 text-[10px] font-extrabold uppercase tracking-[.19em] text-[#a47a2c]">{eyebrow}</p><h1 className="text-[28px] font-extrabold tracking-[-.055em] text-[#381a25] sm:text-[34px]">{title}</h1><p className="mt-1 text-sm text-[#8a7d7d]">{description}</p></div>{action && <button className="inline-flex h-10 items-center gap-2 rounded-xl bg-[#800020] px-4 text-xs font-bold text-white shadow-[0_8px_18px_rgba(128,0,32,.16)] transition hover:-translate-y-0.5 hover:bg-[#69001b]"><Plus size={15}/>{action}</button>}</div>;
+}
+
+function Overview() {
+  const stats = [
+    { label: "Total revenue", value: "₹84,250", delta: "+12.8%", icon: Wallet, tone: "bg-[#f8edf0] text-[#800020]", note: "vs last month" },
+    { label: "Total orders", value: "1,284", delta: "+8.2%", icon: ShoppingCart, tone: "bg-[#edf5ef] text-[#28734c]", note: "vs last month" },
+    { label: "Customers", value: "846", delta: "+6.4%", icon: Users, tone: "bg-[#f4effb] text-[#7651a6]", note: "vs last month" },
+    { label: "Avg. order value", value: "₹656", delta: "+3.1%", icon: CreditCard, tone: "bg-[#fff4e8] text-[#b46a20]", note: "vs last month" },
+  ];
+  const bars = [32, 48, 40, 64, 53, 76, 58, 82, 67, 92, 72, 100];
+  return <>
+    <SectionTitle eyebrow="Store pulse · November 2026" title="Good morning, Admin." description="Here’s what’s happening at Rashid Mega Mart today." action="Download report"/>
+    <div className="mb-5 flex items-center gap-2 rounded-xl border border-[#e8dfd3] bg-white/70 px-3.5 py-2.5 text-xs text-[#74645f]"><span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_4px_rgba(16,185,129,.1)]"/><span className="font-bold text-[#4a3838]">Store is online</span><span className="text-[#c1b5a8]">/</span> Dashboard preview with sample data <span className="ml-auto hidden text-[10px] font-bold uppercase tracking-wider text-[#a47a2c] sm:block">Live data connection pending</span></div>
+    <div className="grid grid-cols-2 gap-3 xl:grid-cols-4 xl:gap-4">{stats.map((s) => <div key={s.label} className="rounded-2xl border border-[#eee5d9] bg-white p-4 shadow-[0_5px_18px_rgba(62,37,32,.035)] sm:p-5"><div className="flex items-center justify-between"><span className="text-[11px] font-semibold text-[#8c7e7a] sm:text-xs">{s.label}</span><span className={`grid h-9 w-9 place-items-center rounded-xl ${s.tone}`}><s.icon size={17}/></span></div><p className="mt-3 text-[25px] font-extrabold tracking-[-.055em] text-[#351b25] sm:text-[30px]">{s.value}</p><div className="mt-2 flex items-center gap-1 text-[10px]"><span className="inline-flex items-center font-extrabold text-emerald-700"><ArrowUpRight size={13}/>{s.delta}</span><span className="text-[#a99d97]">{s.note}</span></div></div>)}</div>
+    <div className="mt-5 grid gap-5 xl:grid-cols-[1.55fr_1fr]">
+      <section className="rounded-2xl border border-[#eee5d9] bg-white p-4 shadow-[0_5px_18px_rgba(62,37,32,.035)] sm:p-5">
+        <div className="flex flex-wrap items-start justify-between gap-3"><div><p className="text-sm font-extrabold text-[#432832]">Sales overview</p><p className="mt-1 text-[11px] text-[#9b8d88]">Revenue performance · Last 12 months</p></div><button className="flex items-center gap-2 rounded-lg border border-[#eee7df] px-3 py-2 text-[11px] font-bold text-[#6f5e5c]">This year <ChevronDown size={13}/></button></div>
+        <div className="mt-6 flex h-[210px] items-end gap-2 border-b border-l border-dashed border-[#eee5df] px-2 pb-0 pt-3 sm:gap-3">{bars.map((h,i)=><div key={i} className="group relative flex h-full flex-1 items-end"><div className={`w-full rounded-t-md transition-all duration-300 group-hover:brightness-110 ${i===9?"bg-[#800020]":"bg-[#ead7d0]"}`} style={{height:`${h}%`}}/><span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[9px] font-semibold text-[#a99b95]">{["D","J","F","M","A","M","J","J","A","S","O","N"][i]}</span></div>)}</div>
+        <div className="mt-10 flex items-center justify-between"><div><p className="text-[10px] font-semibold text-[#9b8d88]">Gross sales</p><p className="mt-1 text-xl font-extrabold tracking-tight text-[#3d202b]">₹84,250</p></div><div className="text-right"><p className="text-[10px] font-semibold text-[#9b8d88]">Compared to last month</p><p className="mt-1 flex items-center justify-end gap-1 text-sm font-extrabold text-emerald-700"><ArrowUpRight size={15}/>12.8%</p></div></div>
+      </section>
+      <section className="rounded-2xl border border-[#eee5d9] bg-white p-4 shadow-[0_5px_18px_rgba(62,37,32,.035)] sm:p-5">
+        <div className="flex items-center justify-between"><div><p className="text-sm font-extrabold text-[#432832]">Order status</p><p className="mt-1 text-[11px] text-[#9b8d88]">Current order breakdown</p></div><Ellipsis size={19} className="text-[#a99b95]"/></div>
+        <div className="mx-auto mt-7 grid h-40 w-40 place-items-center rounded-full" style={{background:"conic-gradient(#800020 0 38%, #d9a943 38% 61%, #5b9b76 61% 83%, #e9e2da 83% 100%)"}}><div className="grid h-[112px] w-[112px] place-items-center rounded-full bg-white"><div className="text-center"><p className="text-2xl font-extrabold text-[#3d202b]">128</p><p className="text-[9px] font-bold uppercase tracking-wider text-[#9b8d88]">Orders today</p></div></div></div>
+        <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-3">{[{label:"Processing",value:"38%",color:"bg-[#800020]"},{label:"Confirmed",value:"23%",color:"bg-[#d9a943]"},{label:"Delivered",value:"22%",color:"bg-[#5b9b76]"},{label:"Pending",value:"17%",color:"bg-[#e9e2da]"}].map(x=><div key={x.label} className="flex items-center gap-2"><i className={`h-2 w-2 rounded-full ${x.color}`}/><span className="flex-1 text-[10px] font-semibold text-[#8a7d7d]">{x.label}</span><b className="text-[10px] text-[#4b363d]">{x.value}</b></div>)}</div>
+      </section>
+    </div>
+    <div className="mt-5 grid gap-5 xl:grid-cols-[1.5fr_1fr]">
+      <section className="overflow-hidden rounded-2xl border border-[#eee5d9] bg-white shadow-[0_5px_18px_rgba(62,37,32,.035)]"><div className="flex items-center justify-between px-4 py-4 sm:px-5"><div><p className="text-sm font-extrabold text-[#432832]">Recent orders</p><p className="mt-1 text-[11px] text-[#9b8d88]">Latest activity from your store</p></div><Link href="/admin/orders" className="text-[11px] font-extrabold text-[#800020] hover:underline">View all <ArrowUpRight size={13} className="inline"/></Link></div><OrderTable compact/></section>
+      <section className="rounded-2xl border border-[#eee5d9] bg-white p-4 shadow-[0_5px_18px_rgba(62,37,32,.035)] sm:p-5"><div className="flex items-center justify-between"><div><p className="text-sm font-extrabold text-[#432832]">Stock attention</p><p className="mt-1 text-[11px] text-[#9b8d88]">Products that need a look</p></div><Boxes size={18} className="text-[#a47a2c]"/></div><div className="mt-4 space-y-3">{products.filter(p=>p.stock<10).map(p=><div key={p.sku} className="flex items-center gap-3 rounded-xl bg-[#fff9f4] p-3"><span className="grid h-10 w-10 place-items-center rounded-lg bg-white text-xl">{p.emoji}</span><div className="min-w-0 flex-1"><p className="truncate text-xs font-extrabold text-[#49333b]">{p.name}</p><p className="mt-1 text-[10px] text-[#a1938e]">{p.sku}</p></div><span className="text-xs font-extrabold text-[#9a541f]">{p.stock} left</span></div>)}</div><Link href="/admin/products" className="mt-4 inline-flex items-center gap-1 text-[11px] font-extrabold text-[#800020]">Manage inventory <ChevronRight size={14}/></Link></section>
+    </div>
+  </>;
+}
+
+function OrderTable({ compact = false }: { compact?: boolean }) {
+  return <div className="overflow-x-auto"><table className="w-full min-w-[620px] text-left"><thead><tr className="border-y border-[#f1ebe4] bg-[#fffcf8] text-[9px] font-extrabold uppercase tracking-[.12em] text-[#a1948e]"><th className="px-5 py-3">Order</th><th className="px-4 py-3">Customer</th><th className="px-4 py-3">Date</th><th className="px-4 py-3">Total</th><th className="px-4 py-3">Status</th></tr></thead><tbody>{(compact?orders.slice(0,4):orders).map(o=><tr key={o.id} className="border-b border-[#f4eee8] last:border-0 hover:bg-[#fffcf8]"><td className="px-5 py-4 text-xs font-extrabold text-[#6e142c]">{o.id}</td><td className="px-4 py-4"><div className="flex items-center gap-2.5"><span className="grid h-8 w-8 place-items-center rounded-full bg-[#f7edf0] text-[10px] font-extrabold text-[#800020]">{o.initials}</span><span className="text-xs font-bold text-[#49383d]">{o.customer}</span></div></td><td className="px-4 py-4 text-[11px] text-[#938681]">{o.date}</td><td className="px-4 py-4 text-xs font-extrabold text-[#49383d]">{money(o.total)}</td><td className="px-4 py-4"><Status value={o.status}/></td></tr>)}</tbody></table></div>;
+}
+
+function DataTable({ section, query }: { section: Section; query: string }) {
+  if (section === "orders") return <OrderTable/>;
+  if (section === "products") {
+    const rows=products.filter(p=>`${p.name} ${p.sku} ${p.category}`.toLowerCase().includes(query.toLowerCase()));
+    return <div className="overflow-x-auto"><table className="w-full min-w-[680px] text-left"><thead className="bg-[#fffcf8] text-[9px] font-extrabold uppercase tracking-wider text-[#a1948e]"><tr>{["Product","SKU","Category","Price","Stock","Status"].map(x=><th key={x} className="px-5 py-3">{x}</th>)}</tr></thead><tbody>{rows.map(p=><tr key={p.sku} className="border-t border-[#f1ebe4]"><td className="px-5 py-4"><div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-xl bg-[#fff7e9] text-xl">{p.emoji}</span><span className="text-xs font-extrabold text-[#49383d]">{p.name}</span></div></td><td className="px-5 py-4 text-[11px] text-[#938681]">{p.sku}</td><td className="px-5 py-4 text-xs text-[#716365]">{p.category}</td><td className="px-5 py-4 text-xs font-extrabold">{money(p.price)}</td><td className="px-5 py-4 text-xs font-bold">{p.stock}</td><td className="px-5 py-4"><Status value={p.state}/></td></tr>)}</tbody></table>{rows.length===0&&<p className="p-8 text-center text-sm text-[#938681]">No matching products.</p>}</div>;
+  }
+  if (section === "customers") return <div className="overflow-x-auto"><table className="w-full min-w-[600px] text-left"><thead className="bg-[#fffcf8] text-[9px] font-extrabold uppercase tracking-wider text-[#a1948e]"><tr>{["Customer","Orders","Lifetime spend","Last seen"].map(x=><th key={x} className="px-5 py-3">{x}</th>)}</tr></thead><tbody>{customers.filter(c=>`${c.name} ${c.email}`.toLowerCase().includes(query.toLowerCase())).map(c=><tr key={c.email} className="border-t border-[#f1ebe4]"><td className="px-5 py-4"><div className="flex items-center gap-3"><span className="grid h-9 w-9 place-items-center rounded-full bg-[#f7edf0] text-[10px] font-extrabold text-[#800020]">{c.initials}</span><div><p className="text-xs font-extrabold text-[#49383d]">{c.name}</p><p className="mt-1 text-[10px] text-[#a1948e]">{c.email}</p></div></div></td><td className="px-5 py-4 text-xs font-bold">{c.orders}</td><td className="px-5 py-4 text-xs font-extrabold">{money(c.spent)}</td><td className="px-5 py-4 text-[11px] text-[#938681]">Today</td></tr>)}</tbody></table></div>;
+  const rows = section==="coupons" ? [{name:"WELCOME10",detail:"10% off · New customers",uses:"84 / 200",status:"Active"},{name:"FESTIVE50",detail:"₹50 off · Min. order ₹499",uses:"126 / 150",status:"Active"},{name:"OLDSTORE",detail:"15% off · All customers",uses:"200 / 200",status:"Expired"}] : [{name:"Store Owner",detail:"owner@rashidmegamart.in",uses:"Full access",status:"Active"},{name:"Order Manager",detail:"orders@rashidmegamart.in",uses:"Orders access",status:"Active"},{name:"Catalog Manager",detail:"catalog@rashidmegamart.in",uses:"Products access",status:"Active"}];
+  return <div className="overflow-x-auto"><table className="w-full min-w-[560px] text-left"><thead className="bg-[#fffcf8] text-[9px] font-extrabold uppercase tracking-wider text-[#a1948e]"><tr><th className="px-5 py-3">{section==="coupons"?"Coupon":"Team member"}</th><th className="px-5 py-3">Details</th><th className="px-5 py-3">{section==="coupons"?"Redemptions":"Permissions"}</th><th className="px-5 py-3">Status</th></tr></thead><tbody>{rows.map(r=><tr key={r.name} className="border-t border-[#f1ebe4]"><td className="px-5 py-4 text-xs font-extrabold text-[#49383d]">{r.name}</td><td className="px-5 py-4 text-xs text-[#817477]">{r.detail}</td><td className="px-5 py-4 text-xs font-semibold text-[#625257]">{r.uses}</td><td className="px-5 py-4"><Status value={r.status}/></td></tr>)}</tbody></table></div>;
+}
+
+export default function AdminWorkspace({ section = "overview" }: { section?: string }) {
+  const [mobileOpen,setMobileOpen]=useState(false);
+  const [query,setQuery]=useState("");
+  const [notice,setNotice]=useState("");
+  const current = (navigation.some(n=>n.id===section)?section:"overview") as Section;
+  const title = navigation.find(n=>n.id===current)?.label ?? "Overview";
+  const filteredOrders=useMemo(()=>orders.filter(o=>`${o.id} ${o.customer} ${o.status}`.toLowerCase().includes(query.toLowerCase())),[query]);
+  const isList = ["orders","products","customers","coupons","staff"].includes(current);
+  const iconMap:Record<string,typeof LayoutDashboard>={overview:LayoutDashboard,orders:ShoppingBag,products:Package,customers:Users,coupons:Tag,staff:ShieldCheck,settings:Settings2};
+  const Icon=iconMap[current]??LayoutDashboard;
+  const side = <><div className="flex h-[76px] items-center gap-3 border-b border-white/10 px-5"><div className="grid h-10 w-10 place-items-center rounded-xl bg-white text-lg font-black text-[#800020]">R</div><div><p className="text-sm font-extrabold tracking-tight text-white">Rashid Mega Mart</p><p className="mt-0.5 text-[9px] font-bold uppercase tracking-[.18em] text-[#d6b46e]">Store administration</p></div><button onClick={()=>setMobileOpen(false)} className="ml-auto rounded-lg p-2 text-white/70 lg:hidden" aria-label="Close menu"><X size={18}/></button></div><div className="px-3 pt-6"><p className="px-3 pb-3 text-[9px] font-extrabold uppercase tracking-[.2em] text-white/35">Workspace</p>{navigation.map(n=><Link key={n.id} href={n.id==="overview"?"/admin":`/admin/${n.id}`} onClick={()=>setMobileOpen(false)} className={`mb-1 flex h-11 items-center gap-3 rounded-xl px-3 text-xs font-bold transition ${current===n.id?"bg-white text-[#800020] shadow-lg":"text-white/65 hover:bg-white/10 hover:text-white"}`}><n.icon size={17}/>{n.label}{n.hint&&<span className={`ml-auto rounded-full px-2 py-0.5 text-[9px] ${current===n.id?"bg-[#800020]/10 text-[#800020]":"bg-white/10 text-white/70"}`}>{n.hint}</span>}</Link>)}</div><div className="px-3 pt-7"><p className="px-3 pb-3 text-[9px] font-extrabold uppercase tracking-[.2em] text-white/35">Manage</p><Link href="/admin/settings" onClick={()=>setMobileOpen(false)} className={`flex h-11 items-center gap-3 rounded-xl px-3 text-xs font-bold transition ${current==="settings"?"bg-white text-[#800020]":"text-white/65 hover:bg-white/10 hover:text-white"}`}><Settings2 size={17}/>Store settings</Link></div><div className="mt-auto p-4"><div className="rounded-2xl border border-white/10 bg-white/[.06] p-3.5"><div className="flex items-center gap-2 text-[10px] font-bold text-white"><Sparkles size={14} className="text-[#e6c77f]"/> Store assistant</div><p className="mt-2 text-[10px] leading-5 text-white/45">Your daily store operations, in one place.</p></div><Link href="/admin-login" className="mt-3 flex h-10 items-center gap-3 rounded-xl px-3 text-xs font-semibold text-white/55 hover:bg-white/10 hover:text-white"><LogOut size={16}/>Sign out</Link></div></>;
+  return <div className="min-h-screen bg-[#f7f5f1] text-[#34242a]">
+    <aside className="fixed inset-y-0 left-0 z-40 hidden w-[250px] flex-col bg-[#35131f] lg:flex">{side}</aside>
+    {mobileOpen&&<div className="fixed inset-0 z-50 lg:hidden"><button className="absolute inset-0 bg-black/45" onClick={()=>setMobileOpen(false)} aria-label="Close sidebar"/><aside className="relative flex h-full w-[280px] flex-col bg-[#35131f] shadow-2xl">{side}</aside></div>}
+    <div className="min-h-screen lg:pl-[250px]">
+      <header className="sticky top-0 z-30 flex h-[68px] items-center justify-between border-b border-[#ebe4dc] bg-[#fffdf9]/90 px-4 backdrop-blur-xl sm:px-7"><div className="flex min-w-0 items-center gap-3"><button onClick={()=>setMobileOpen(true)} className="grid h-9 w-9 place-items-center rounded-xl border border-[#eee5dc] bg-white lg:hidden" aria-label="Open menu"><Menu size={18}/></button><div className="hidden items-center gap-2 text-[11px] text-[#a2958e] sm:flex"><span>Rashid Mega Mart</span><ChevronRight size={13}/></div><span className="truncate text-xs font-extrabold text-[#4a2934] sm:text-sm">{title}</span></div><div className="flex items-center gap-2 sm:gap-3"><div className="hidden h-9 items-center gap-2 rounded-xl border border-[#eee7df] bg-white px-3 text-[10px] text-[#938681] md:flex"><Command size={13}/> Quick actions <span className="rounded border border-[#eee7df] px-1.5 py-0.5 font-bold">⌘ K</span></div><button className="relative grid h-9 w-9 place-items-center rounded-xl border border-[#eee7df] bg-white text-[#75666a]" aria-label="Notifications" onClick={()=>setNotice("Notifications panel will connect with live store events.")}><Bell size={16}/><i className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-[#a00030]"/></button><div className="flex items-center gap-2 border-l border-[#eee5dc] pl-3"><div className="grid h-8 w-8 place-items-center rounded-full bg-[#800020] text-[10px] font-black text-white">AD</div><div className="hidden sm:block"><p className="text-[11px] font-extrabold text-[#4a2934]">Administrator</p><p className="text-[9px] text-[#a2958e]">Store owner</p></div><ChevronDown size={14} className="hidden text-[#a2958e] sm:block"/></div></div></header>
+      <main className="mx-auto max-w-[1500px] px-4 py-6 sm:px-7 sm:py-8 xl:px-9">
+        {current==="overview"?<Overview/>:current==="settings"?<><SectionTitle eyebrow="Configuration" title="Store settings" description="Store preferences and operational controls."/><div className="rounded-2xl border border-[#eee5d9] bg-white p-6"><div className="flex items-center gap-3"><Settings2 className="text-[#800020]"/><div><p className="text-sm font-extrabold">Store configuration</p><p className="mt-1 text-xs text-[#938681]">Settings UI is ready for backend wiring.</p></div></div></div></>:<><SectionTitle eyebrow={`Manage your store · ${current}`} title={title} description={current==="orders"?"Review, process and keep track of customer orders.":current==="products"?"Manage your grocery catalogue, pricing and stock.":current==="customers"?"Understand your customers and their shopping activity.":current==="coupons"?"Create and monitor store promotions.":"Manage staff access and team permissions."} action={current==="products"?"Add product":current==="coupons"?"Create coupon":current==="staff"?"Invite staff":undefined}/><div className="mb-4 flex flex-wrap items-center justify-between gap-3"><div className="relative w-full max-w-sm"><Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#a2958e]"/><input value={query} onChange={e=>setQuery(e.target.value)} placeholder={`Search ${current}...`} className="h-10 w-full rounded-xl border border-[#e9e2d9] bg-white pl-9 pr-3 text-xs outline-none transition focus:border-[#b88a42] focus:ring-4 focus:ring-[#b88a42]/10"/></div><button onClick={()=>setNotice("Export will be enabled when live admin data is connected.")} className="inline-flex h-10 items-center gap-2 rounded-xl border border-[#e9e2d9] bg-white px-3 text-xs font-bold text-[#69585e] hover:bg-[#fffcf8]"><Download size={14}/>Export</button></div><div className="overflow-hidden rounded-2xl border border-[#eee5d9] bg-white shadow-[0_5px_18px_rgba(62,37,32,.035)]"><DataTable section={current} query={query}/></div><p className="mt-3 text-[10px] text-[#a2958e]">Preview data only · Live database and admin actions will be connected separately.</p></>}
+        {notice&&<div role="status" className="fixed bottom-5 right-5 z-[80] flex max-w-sm items-center gap-3 rounded-xl bg-[#35131f] px-4 py-3 text-xs font-semibold text-white shadow-xl"><CircleHelp size={16} className="shrink-0 text-[#e6c77f]"/>{notice}<button onClick={()=>setNotice("")} className="ml-2 text-white/60 hover:text-white" aria-label="Dismiss"><X size={14}/></button></div>}
+      </main>
+      <footer className="border-t border-[#ebe4dc] px-4 py-4 text-center text-[10px] font-medium text-[#a2958e] sm:px-7">© {new Date().getFullYear()} Rashid Mega Mart · Store administration</footer>
+    </div>
+  </div>;
+}

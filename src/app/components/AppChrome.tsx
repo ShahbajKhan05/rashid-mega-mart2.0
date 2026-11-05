@@ -12,7 +12,7 @@ export default function AppChrome() {
   return (
     <>
       {!isAdminArea && <IntroLoader />}
-      {!isAdminLogin && <Navbar />}
+      {!isAdminArea && <Navbar />}
     </>
   );
 }

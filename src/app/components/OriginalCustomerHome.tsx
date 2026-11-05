@@ -46,13 +46,25 @@ export default function OriginalCustomerHome() {
             RASHID <span className="text-[#A47A2C]">MEGA MART</span>
           </h1>
           <div className="relative mx-auto mt-6 w-full max-w-[1240px] overflow-hidden rounded-[22px] border-[5px] border-white bg-[#35120D] shadow-[0_25px_70px_rgba(53,18,13,.2)] sm:mt-8 sm:rounded-[30px] sm:border-[8px]">
-            <div className="relative aspect-[1.55/1] max-h-[540px] min-h-[220px] w-full sm:aspect-[2.15/1]">
-              <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=1800&q=90" alt="Fresh vegetables and grocery selection" className="absolute inset-0 h-full w-full object-cover" />
-              <div className="absolute inset-0 bg-[#35120D]/25" />
-              <div className="absolute inset-0 flex items-center justify-center px-3">
-                <span className="select-none text-center text-[clamp(3rem,13.5vw,12rem)] font-black uppercase leading-[.78] tracking-[-.1em] text-white drop-shadow-[0_8px_24px_rgba(0,0,0,.28)]">FRESH<br className="sm:hidden" /> EVERYDAY</span>
-              </div>
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#24150e]/75 to-transparent px-4 pb-4 pt-16 sm:px-8 sm:pb-7">
+            <div className="relative flex aspect-[1.55/1] max-h-[540px] min-h-[220px] w-full items-center justify-center overflow-hidden px-2 sm:aspect-[2.15/1] sm:px-5">
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(164,122,44,.24),transparent_65%)]" />
+              <span
+                aria-label="Fresh Everyday"
+                className="relative z-10 select-none text-center text-[clamp(3.1rem,13.8vw,12.5rem)] font-black uppercase leading-[.78] tracking-[-.105em] text-transparent"
+                style={{
+                  backgroundImage: "url(https://images.unsplash.com/photo-1542838132-92c53300491e?w=1800&q=90)",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  backgroundRepeat: "no-repeat",
+                  WebkitBackgroundClip: "text",
+                  backgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  filter: "drop-shadow(0 8px 18px rgba(0,0,0,.18))",
+                }}
+              >
+                FRESH<br className="sm:hidden" /> EVERYDAY
+              </span>
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#24150e]/80 to-transparent px-4 pb-4 pt-16 sm:px-8 sm:pb-7">
                 <p className="text-[9px] font-black tracking-[.24em] text-[#f4d89f] sm:text-[10px]">{isHindi ? "हर दिन की ज़रूरतें, एक ही जगह" : "YOUR DAILY GROCERY DESTINATION"}</p>
               </div>
             </div>

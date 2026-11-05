@@ -140,7 +140,7 @@ export default function Navbar() {
         {/* =========================================
             DESKTOP HEADER
             ========================================= */}
-        <div className="mx-auto hidden h-[76px] max-w-[1440px] items-center justify-between gap-3 px-4 xl:px-6 lg:flex">
+        <div className="mx-auto hidden h-[76px] max-w-[1440px] items-center justify-between gap-3 px-4 xl:px-6 xl:flex">
           <div className="flex items-center gap-3">
             <a href="/" className="flex items-center gap-2 shrink-0">
               <Image src="/Logo.png" alt="Logo" width={40} height={40} className="h-10 w-10 object-contain" />
@@ -163,7 +163,7 @@ export default function Navbar() {
             </button>
           </div>
 
-          <div className="relative flex-1 max-w-sm">
+          <div className="relative min-w-0 flex-1 max-w-sm">
             <form onSubmit={handleSearchSubmit} className="relative flex items-center">
               <Search size={18} className="absolute left-4 text-gray-400" />
               <input
@@ -196,9 +196,9 @@ export default function Navbar() {
         {/* =========================================
             MOBILE HEADER (Clean & Professional)
             ========================================= */}
-        <div className="flex flex-col gap-2 px-3 pb-2 pt-2 lg:hidden">
+        <div className="flex flex-col gap-2 px-3 pb-2 pt-2 xl:hidden">
 
-          {/* ROW 1: Logo + Location + Cart */}
+          {/* ROW 1: Logo + Location */}
           <div className="flex min-h-10 items-center justify-between gap-2">
             
             {/* Left Side */}
@@ -266,10 +266,10 @@ export default function Navbar() {
 
       {/* Spacer */}
 
-      <div className="h-[145px] lg:h-[76px]" />
+      <div className="h-[145px] xl:h-[76px]" />
 
       {/* Flipkart-style mobile bottom navigation */}
-      <nav aria-label={isHindi ? "मुख्य नेविगेशन" : "Main navigation"} className="fixed inset-x-0 bottom-0 z-[70] border-t border-[#e9ddcc] bg-[#fffdf8]/96 shadow-[0_-10px_35px_rgba(72,35,24,0.12)] backdrop-blur-2xl lg:hidden" style={{ paddingBottom: "max(env(safe-area-inset-bottom), 7px)" }}>
+      <nav aria-label={isHindi ? "मुख्य नेविगेशन" : "Main navigation"} className="fixed inset-x-0 bottom-0 z-[70] border-t border-[#e9ddcc] bg-[#fffdf8]/96 shadow-[0_-10px_35px_rgba(72,35,24,0.12)] backdrop-blur-2xl xl:hidden" style={{ paddingBottom: "max(env(safe-area-inset-bottom), 7px)" }}>
         <div className="mx-auto grid h-[68px] max-w-xl grid-cols-4 items-center px-2">
           <a href="/" aria-current={pathname === "/" ? "page" : undefined} className={`group flex h-full flex-col items-center justify-center gap-1.5 transition-all ${pathname === "/" ? "text-[#800020]" : "text-[#887b73] hover:text-[#800020]"}`}>
             <span className={`flex h-8 w-12 items-center justify-center rounded-2xl transition-all ${pathname === "/" ? "bg-[#800020]/[0.09] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]" : ""}`}><House size={20} strokeWidth={pathname === "/" ? 2.5 : 1.8} /></span>

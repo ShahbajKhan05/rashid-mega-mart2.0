@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
 import { useLanguage } from "./LanguageProvider";
 import Image from "next/image";
-import { AlertCircle, ArrowDownWideNarrow, ArrowLeft, ArrowRight, Check, FileDown, Headset, Home, LoaderCircle, MapPin, MessageCircle, Package, Phone, RotateCcw, Search, ShieldCheck, ShoppingBag, Star, Truck, UserRound, X, XCircle } from "lucide-react";
+import { AlertCircle, ArrowDownWideNarrow, ArrowLeft, ArrowRight, BadgePercent, Check, FileDown, Headset, Home, LoaderCircle, MapPin, MessageCircle, Package, Phone, RotateCcw, Search, ShieldCheck, ShoppingBag, Star, Ticket, Truck, UserRound, X, XCircle } from "lucide-react";
 import { categoryOptions, products } from "./data";
 import { useCart } from "./CartProvider";
 
@@ -331,10 +331,34 @@ export function CheckoutPage() {
   const [landmark, setLandmark] = useState("");
   const [note, setNote] = useState("");
   const [error, setError] = useState("");
+  const [couponCode, setCouponCode] = useState("");
+  const [appliedCoupon, setAppliedCoupon] = useState<{code:string;discount:number;title:string}|null>(null);
+  const [couponMessage, setCouponMessage] = useState("");
 
   const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0)
     + customRequests.reduce((sum, item) => sum + item.quantity, 0);
   const formatPrice = (amount: number) => `₹${amount.toLocaleString("en-IN")}`;
+  const discountAmount = appliedCoupon ? Math.min(cartTotal, appliedCoupon.discount) : 0;
+  const payableTotal = Math.max(0, cartTotal - discountAmount);
+
+  function applyCoupon() {
+    const code = couponCode.trim().toUpperCase();
+    if (!code) { setCouponMessage("Coupon code enter karein."); return; }
+    if (code === "FIRST100") {
+      if (cartTotal < 499) { setAppliedCoupon(null); setCouponMessage("FIRST100 ke liye minimum shopping ₹499 honi chahiye."); return; }
+      setAppliedCoupon({code,discount:100,title:"First shopping offer"});
+      setCouponMessage("₹100 discount applied. First-purchase eligibility store verify karega.");
+      return;
+    }
+    let coupons: Array<{code:string;title:string;type:"flat"|"percent";value:number;minOrder:number;expiresAt:string;status:"active"|"used"}>=[];
+    try { coupons=JSON.parse(localStorage.getItem("rmm-coupons-v1")||"[]"); } catch { coupons=[]; }
+    const coupon=coupons.find(item=>item.code.toUpperCase()===code);
+    if (!coupon || coupon.status!=="active" || new Date(coupon.expiresAt).getTime()<Date.now()) { setAppliedCoupon(null); setCouponMessage("Coupon invalid, used ya expired hai."); return; }
+    if (cartTotal < coupon.minOrder) { setAppliedCoupon(null); setCouponMessage(`Is coupon ke liye minimum order ${formatPrice(coupon.minOrder)} hai.`); return; }
+    const discount=coupon.type==="percent"?Math.floor(cartTotal*coupon.value/100):coupon.value;
+    setAppliedCoupon({code,discount:Math.min(cartTotal,discount),title:coupon.title});
+    setCouponMessage("Coupon successfully applied.");
+  }
 
   function handleCheckout(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -364,7 +388,11 @@ export function CheckoutPage() {
       ...customRequests.map((item) => `• ${item.name} × ${item.quantity} — Price to be confirmed${item.note ? ` (Note: ${item.note})` : ""}`),
       "",
       `*Subtotal: ${formatPrice(cartTotal)}*`,
+      appliedCoupon ? `Coupon: ${appliedCoupon.code} (${appliedCoupon.title})` : "",
+      appliedCoupon ? `Discount: -${formatPrice(discountAmount)}` : "",
+      `*Estimated total after discount: ${formatPrice(payableTotal)}*`,
       customRequests.length ? "Custom request prices and delivery charges to be confirmed by the store." : "Delivery charges to be confirmed by the store.",
+      appliedCoupon?.code==="FIRST100" ? "First-purchase eligibility to be verified by the store before confirmation." : "",
       note.trim() ? `\n*Delivery note:* ${note.trim()}` : "",
       "",
       "Please confirm availability, final total and delivery details."
@@ -440,16 +468,23 @@ export function CheckoutPage() {
               {customRequests.map((item) => <div key={item.id} className="flex items-start justify-between gap-3 border-t border-dashed border-[#eadfce] pt-3"><div className="min-w-0"><p className="text-xs font-bold text-[#493b36]">{item.name}</p><p className="mt-1 text-[11px] text-[#897c72]">Qty {item.quantity} · Price to be confirmed</p></div><span className="text-[10px] font-bold text-[#a77b3e]">TBD</span></div>)}
             </div>
             <div className="my-4 border-t border-[#eee5d8]" />
-            <div className="flex items-center justify-between text-sm"><span className="text-[#76665c]">{isHindi ? "सबटोटल" : "Subtotal"}</span><strong>{formatPrice(cartTotal)}</strong></div>
+            <section className="rounded-xl border border-[#eadfce] bg-[#fffaf1] p-3">
+              <div className="flex items-center gap-2 text-xs font-extrabold text-[#493b36]"><Ticket size={15} className="text-[#800020]"/>Apply a coupon</div>
+              <div className="mt-2 flex gap-2"><input value={couponCode} onChange={e=>{setCouponCode(e.target.value.toUpperCase());setCouponMessage("");}} placeholder="Enter coupon code" className="h-10 min-w-0 flex-1 rounded-lg border border-[#e9e1d7] bg-white px-3 text-xs uppercase outline-none focus:border-[#800020]"/><button type="button" onClick={applyCoupon} className="rounded-lg bg-[#800020] px-4 text-xs font-extrabold text-white">Apply</button></div>
+              {couponMessage&&<p role="status" className="mt-2 text-[10px] font-semibold text-[#800020]">{couponMessage}</p>}
+              {appliedCoupon&&<button type="button" onClick={()=>{setAppliedCoupon(null);setCouponMessage("Coupon removed.");}} className="mt-2 text-[10px] font-bold text-[#8c7e7a] underline">Remove coupon</button>}
+            </section>
+            <div className="mt-4 flex items-center justify-between text-sm"><span className="text-[#76665c]">{isHindi ? "सबटोटल" : "Subtotal"}</span><strong>{formatPrice(cartTotal)}</strong></div>
+            {appliedCoupon&&<div className="mt-2 flex items-center justify-between text-sm text-[#138047]"><span>Coupon discount · {appliedCoupon.code}</span><strong>-{formatPrice(discountAmount)}</strong></div>}
             <div className="mt-2 flex items-center justify-between text-sm"><span className="text-[#76665c]">{isHindi ? "डिलीवरी" : "Delivery"}</span><span className="text-xs font-semibold text-[#a77b3e]">{isHindi ? "पुष्टि होगी" : "To be confirmed"}</span></div>
-            <div className="mt-4 flex items-center justify-between border-t border-[#eee5d8] pt-4"><span className="font-extrabold">{isHindi ? "कुल" : "Total"}</span><strong className="text-xl font-black text-[#800020]">{formatPrice(cartTotal)}</strong></div>
+            <div className="mt-4 flex items-center justify-between border-t border-[#eee5d8] pt-4"><span className="font-extrabold">{isHindi ? "कुल" : "Estimated total"}</span><strong className="text-xl font-black text-[#800020]">{formatPrice(payableTotal)}</strong></div>
             <p className="mt-2 text-[10px] leading-4 text-[#9a8d82]">{isHindi ? "कस्टम अनुरोध और डिलीवरी शुल्क अंतिम पुष्टि के बाद जुड़ेंगे।" : "Custom request prices and delivery charges are confirmed by the store."}</p>
             <div className="mt-4 flex items-center gap-2 rounded-xl bg-[#f8f5ed] px-3 py-2.5 text-[11px] font-semibold text-[#77685e]"><ShieldCheck size={15} className="shrink-0 text-[#a77b3e]" />{isHindi ? "सुरक्षित WhatsApp ऑर्डर अनुरोध" : "Secure WhatsApp order request"}</div>
           </aside>
         </div>
 
         <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#e9dfd1] bg-[#FFFCF0]/95 p-3 backdrop-blur-xl sm:hidden">
-          <button type="submit" form="rmm-checkout-form" className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#800020] text-sm font-extrabold text-white shadow-[0_8px_22px_rgba(128,0,32,.2)]"><MessageCircle size={17} />{isHindi ? "WhatsApp पर ऑर्डर भेजें" : "Send order on WhatsApp"} <span className="ml-auto pr-4">{formatPrice(cartTotal)}</span></button>
+          <button type="submit" form="rmm-checkout-form" className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-[#800020] text-sm font-extrabold text-white shadow-[0_8px_22px_rgba(128,0,32,.2)]"><MessageCircle size={17} />{isHindi ? "WhatsApp पर ऑर्डर भेजें" : "Send order on WhatsApp"} <span className="ml-auto pr-4">{formatPrice(payableTotal)}</span></button>
         </div>
       </div>
     </main>

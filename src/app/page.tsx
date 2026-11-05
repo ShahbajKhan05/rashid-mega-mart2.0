@@ -29,7 +29,7 @@ export default function Home() {
               <Sparkles size={13} /> {isHindi ? "रोज़मर्रा की खरीदारी" : "Your neighbourhood store"}
             </div>
             <h1 className="mt-6 max-w-[620px] text-[clamp(2.65rem,6.5vw,5.8rem)] font-semibold leading-[.98] tracking-[-.075em] text-[#68152b]">
-              {isHindi ? <>हर दिन की<br /><span className="text-[#a77b3e]">ज़रूरतें।</span></> : <>Good days<br /><span className="text-[#a77b3e]">start here.</span>}
+              {isHindi ? <>हर दिन की<br /><span className="text-[#a77b3e]">ज़रूरतें।</span></> : <>Good days<br /><span className="text-[#a77b3e]">start here.</span></>}
             </h1>
             <p className="mt-5 max-w-[430px] text-[14px] leading-7 text-[#716257] sm:text-base sm:leading-8">
               {isHindi ? "घर की ज़रूरत का सामान, एक ही जगह। अपनी पसंद चुनें और खरीदारी को आसान बनाएँ।" : "Everyday essentials, familiar favourites and little things that make home feel like home."}

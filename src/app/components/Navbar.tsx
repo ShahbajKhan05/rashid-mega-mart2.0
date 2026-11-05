@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import {
-  House, Package, LayoutGrid, ShoppingCart, Menu, X, ArrowUpRight,
+  House, Package, LayoutGrid, ShoppingCart, X, ArrowUpRight,
   MapPin, Search, ChevronDown, Crosshair, User, Star, Lock, Heart, LogOut, Gift, ShieldCheck, Truck,
   Wheat, Droplet, Flame, Cookie // 🔥 Categories ke liye naye icons import kiye
 } from "lucide-react";
@@ -42,7 +42,6 @@ export default function Navbar() {
   const { language, toggleLanguage } = useLanguage();
   const { cartCount, openCart } = useCart();
 
-  const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -127,13 +126,12 @@ export default function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem("rmm_user");
     setIsLoggedIn(false);
-    setMenuOpen(false);
     router.push("/");
   };
 
   useEffect(() => {
-    document.body.style.overflow = (menuOpen || searchOpen || locationModalOpen) ? "hidden" : "unset";
-  }, [menuOpen, searchOpen, locationModalOpen]);
+    document.body.style.overflow = (searchOpen || locationModalOpen) ? "hidden" : "unset";
+  }, [searchOpen, locationModalOpen]);
 
   return (
     <>
@@ -206,19 +204,11 @@ export default function Navbar() {
             ========================================= */}
         <div className="flex flex-col gap-2 px-3 pb-2 pt-2 lg:hidden">
 
-          {/* ROW 1: Menu + Logo + Clean Icons */}
+          {/* ROW 1: Logo + Location + Cart */}
           <div className="flex min-h-10 items-center justify-between gap-2">
             
             {/* Left Side */}
             <div className="flex items-center gap-2 min-w-0">
-              {/* Menu Button */}
-              <button
-                onClick={() => setMenuOpen(true)}
-                className="flex h-10 shrink-0 items-center justify-center gap-1.5 rounded-xl border border-white/75 bg-white/45 px-3 text-xs font-bold text-[#514b50] shadow-[0_3px_14px_rgba(31,41,55,0.06)] backdrop-blur-xl transition active:scale-95"
-              >
-                <Menu size={17} /> {isHindi ? "मेन्यू" : "Menu"}
-              </button>
-              
               {/* Logo & Location */}
               <a href="/" className="flex min-w-0 items-center gap-2">
                 <Image src="/Logo.png" alt="Logo" width={30} height={30} className="h-[30px] w-[30px] shrink-0 object-contain" />
@@ -405,42 +395,7 @@ export default function Navbar() {
         )}
       </AnimatePresence>
 
-      {/* =========================================
-          MOBILE MENU DRAWER
-          ========================================= */}
-      <AnimatePresence>
-        {menuOpen && (
-          <>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setMenuOpen(false)} className="fixed inset-0 z-[90] bg-slate-900/10 backdrop-blur-md lg:hidden" />
-            <motion.div initial={{ x: "-100%", opacity: 0.92 }} animate={{ x: 0, opacity: 1 }} exit={{ x: "-100%", opacity: 0.92 }} transition={{ type: "spring", stiffness: 290, damping: 30 }} className="fixed bottom-0 left-0 top-0 z-[100] flex w-[86%] max-w-[340px] flex-col overflow-y-auto border-r border-white/70 bg-white/[0.34] px-5 pb-8 pt-7 text-[#302b32] shadow-[16px_0_48px_rgba(31,41,55,0.10)] backdrop-blur-[24px] backdrop-saturate-[1.6] lg:hidden">
-              <div className="mb-9 flex items-center justify-between border-b border-white/70 pb-6">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/70 bg-white/45 p-1 shadow-[0_5px_18px_rgba(31,41,55,0.10)]"><Image src="/Logo.png" alt="Logo" width={40} height={40} className="h-10 w-10 object-contain" /></div>
-                  <div className="flex flex-col gap-1"><span className="text-[16px] font-semibold tracking-[-0.035em] text-[#4b3440]">{isHindi ? "राशिद मेगा मार्ट" : "Rashid Mega Mart"}</span><span className="text-[9px] font-bold tracking-[0.28em] text-[#9a7950]">THE EVERYDAY LUXURY</span></div>
-                </div>
-                <button onClick={() => setMenuOpen(false)} aria-label="Close menu" className="rounded-full border border-white/80 bg-white/55 p-2.5 text-[#514653] transition hover:bg-white/20"><X size={19} /></button>
-              </div>
 
-              <button onClick={() => { setMenuOpen(false); setLocationModalOpen(true); }} className="mb-9 flex w-full items-center gap-3 rounded-xl border border-white/70 bg-white/30 p-4 text-left shadow-[0_5px_20px_rgba(31,41,55,0.06)] backdrop-blur-xl transition hover:bg-white/70">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/50 text-[#68162a]"><MapPin size={18} /></span>
-                <span className="flex min-w-0 flex-1 flex-col gap-1"><span className="text-[9px] font-medium uppercase tracking-[0.16em] text-[#8b7d70]">{isHindi ? "डिलीवरी का पता" : "Delivering to"}</span><span className="truncate text-[14px] font-bold text-[#514653]">{selectedLocation}</span></span>
-                <ChevronDown size={17} className="text-[#9a7950]" />
-              </button>
-
-              <div className="mb-3 text-[9px] font-medium uppercase tracking-[0.18em] text-[#8b7d70]">{isHindi ? "दुकान देखें" : "Explore the store"}</div>
-              <div className="flex flex-col gap-2">
-                <a href="/" onClick={() => setMenuOpen(false)} className="group flex min-h-[50px] items-center gap-4 rounded-xl border border-white/65 bg-white/30 px-3.5 text-[#403740] shadow-[0_3px_14px_rgba(31,41,55,0.05)] backdrop-blur-xl transition-transform duration-200 ease-out hover:translate-x-0.5 hover:border-[#d8bd8b]/45 hover:bg-white/[0.12]"><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/45 text-[#8a6748]"><House size={18} /></span><span className="flex-1 text-[13px] font-medium">{isHindi ? "होम" : "Home"}</span><ArrowUpRight size={16} className="text-[#9b8e96] transition group-hover:text-[#68162a]" /></a>
-                <a href="/products" onClick={() => setMenuOpen(false)} className="group flex min-h-[58px] items-center gap-4 rounded-2xl border border-white/75 bg-white/45 px-4 text-[#403740] shadow-[0_3px_14px_rgba(31,41,55,0.05)] backdrop-blur-xl transition hover:translate-x-1 hover:border-[#d8bd8b]/45 hover:bg-white/[0.12]"><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#efe7dc]/75 text-[#8a6748]"><Package size={18} /></span><span className="flex-1 text-[14px] font-semibold">{isHindi ? "उत्पाद" : "Products"}</span><ArrowUpRight size={16} className="text-[#9b8e96] transition group-hover:text-[#68162a]" /></a>
-                <a href="/order-tracking" onClick={() => setMenuOpen(false)} className="group flex min-h-[58px] items-center gap-4 rounded-2xl border border-white/75 bg-white/45 px-4 text-[#403740] shadow-[0_3px_14px_rgba(31,41,55,0.05)] backdrop-blur-xl transition hover:translate-x-1 hover:border-[#d8bd8b]/45 hover:bg-white/[0.12]"><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#efe7dc]/75 text-[#8a6748]"><Truck size={18} /></span><span className="flex-1 text-[14px] font-semibold">{isHindi ? "ऑर्डर ट्रैक करें" : "Track Order"}</span><ArrowUpRight size={16} className="text-[#9b8e96] transition group-hover:text-[#68162a]" /></a>
-                <a href="/my-orders" onClick={() => setMenuOpen(false)} className="group flex min-h-[58px] items-center gap-4 rounded-2xl border border-white/75 bg-white/45 px-4 text-[#403740] shadow-[0_3px_14px_rgba(31,41,55,0.05)] backdrop-blur-xl transition hover:translate-x-1 hover:border-[#d8bd8b]/45 hover:bg-white/[0.12]"><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#efe7dc]/75 text-[#8a6748]"><ShoppingCart size={18} /></span><span className="flex-1 text-[14px] font-semibold">{isHindi ? "मेरे ऑर्डर" : "My Orders"}</span><ArrowUpRight size={16} className="text-[#9b8e96] transition group-hover:text-[#68162a]" /></a>
-                <a href="/admin" onClick={() => setMenuOpen(false)} className="group flex min-h-[58px] items-center gap-4 rounded-2xl border border-white/80 bg-white/65 px-4 text-[#68162a] shadow-[0_4px_16px_rgba(31,41,55,0.07)] backdrop-blur-xl transition hover:translate-x-1 hover:bg-[#d8bd8b]/15"><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/80 text-[#68162a]"><ShieldCheck size={18} /></span><span className="flex-1 text-[14px] font-semibold">{isHindi ? "एडमिन पैनल" : "Admin Panel"}</span><ArrowUpRight size={16} className="text-[#9a7950]" /></a>
-              </div>
-
-              <div className="mt-auto pt-10"><div className="h-px bg-gradient-to-r from-transparent via-white/80 to-transparent" /><p className="pt-5 text-center text-[9px] font-semibold tracking-[0.24em] text-[#8e838b]">RASHID MEGA MART · REWA</p></div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
     </>
   );
 }

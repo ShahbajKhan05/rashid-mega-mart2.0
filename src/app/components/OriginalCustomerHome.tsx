@@ -93,7 +93,6 @@ export default function OriginalCustomerHome() {
               </div>
             </div>
             <p className="relative mt-3 text-[9px] leading-4 text-white/50">{isHindi ? "पहली खरीदारी की पात्रता ऑर्डर कन्फर्म करते समय सत्यापित होगी।" : "First-purchase eligibility is verified by the store when confirming your order."}</p>
-            <Link href="/products" className="absolute inset-0 rounded-[24px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f5dca5]" aria-label="Shop now for first order offer"/>
           </div>
         </div>
       </section>

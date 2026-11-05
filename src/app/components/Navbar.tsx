@@ -193,80 +193,65 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* =========================================
-            MOBILE HEADER (Clean & Professional)
-            ========================================= */}
-        <div className="flex flex-col gap-2 px-3 pb-2 pt-2 xl:hidden">
-
-          {/* ROW 1: Logo + Location */}
-          <div className="flex min-h-10 items-center justify-between gap-2">
-            
-            {/* Left Side */}
-            <div className="flex items-center gap-2 min-w-0">
-              {/* Logo & Location */}
-              <div className="flex min-w-0 items-center gap-2">
-                <a href="/" aria-label="Rashid Mega Mart home" className="shrink-0">
-                  <Image src="/Logo.png" alt="Rashid Mega Mart" width={30} height={30} className="h-[30px] w-[30px] object-contain" />
-                </a>
-                <div className="flex min-w-0 flex-col">
-                  <a href="/" className="truncate text-[13px] font-semibold leading-tight tracking-[-0.02em] text-[#3c3440]">
-                    Rashid Mega Mart
-                  </a>
-                  <button type="button" onClick={() => setLocationModalOpen(true)} className="mt-0.5 flex min-w-0 items-center gap-1 text-[10px] font-bold text-gray-500">
-                    <MapPin size={11} className="shrink-0 text-[#138047]" />
-                    <span className="max-w-[112px] truncate">{selectedLocation}</span>
-                    <ChevronDown size={11} className="shrink-0" />
-                  </button>
-                </div>
-              </div>
-            </div>
-
+        {/* COMPACT MOBILE HEADER */}
+        <div className="flex flex-col gap-1.5 px-3 pb-2 pt-2 xl:hidden">
+          <div className="flex h-9 items-center justify-between gap-2">
+            <a href="/" aria-label="Rashid Mega Mart home" className="flex min-w-0 items-center gap-2">
+              <Image src="/Logo.png" alt="Rashid Mega Mart" width={32} height={32} className="h-8 w-8 shrink-0 object-contain" />
+              <span className="truncate text-[14px] font-extrabold tracking-[-0.035em] text-[#5a1023]">Rashid Mega Mart</span>
+            </a>
+            <LanguageToggle language={language} onSelect={() => toggleLanguage()} />
           </div>
 
-          {/* ROW 2: Search + Language */}
-          <div className="flex items-center gap-2">
+          <div className="flex h-10 items-center gap-2">
             <button
+              type="button"
               onClick={() => setSearchOpen(true)}
-              className="flex h-10 flex-1 items-center gap-2.5 rounded-full border border-white/75 bg-white/45 px-3.5 text-sm text-[#817780] shadow-[0_3px_14px_rgba(31,41,55,0.06)] backdrop-blur-xl transition active:scale-[0.99]"
+              className="flex h-10 min-w-0 flex-1 items-center gap-2 rounded-xl border border-[#eadfce] bg-white/80 px-3 text-left text-[#817780] shadow-[0_2px_9px_rgba(72,35,24,0.04)] transition active:scale-[0.99]"
             >
-              <Search size={17} />
+              <Search size={16} className="shrink-0 text-[#800020]" />
               <span className="truncate text-xs font-medium">{isHindi ? "आटा, तेल खोजें..." : "Search atta, oil..."}</span>
             </button>
-            <div className="origin-right shrink-0 scale-95">
-              <LanguageToggle language={language} onSelect={() => toggleLanguage()} />
-            </div>
+            <button
+              type="button"
+              onClick={() => setLocationModalOpen(true)}
+              className="flex h-10 max-w-[42%] shrink-0 items-center gap-1.5 rounded-xl border border-[#eadfce] bg-white/80 px-2.5 text-left shadow-[0_2px_9px_rgba(72,35,24,0.04)]"
+              aria-label={isHindi ? "डिलीवरी लोकेशन बदलें" : "Change delivery location"}
+            >
+              <MapPin size={15} className="shrink-0 text-[#138047]" />
+              <span className="max-w-[112px] truncate text-[11px] font-bold text-[#51463f]">{selectedLocation}</span>
+              <ChevronDown size={12} className="shrink-0 text-[#887b73]" />
+            </button>
           </div>
 
-          {/* 🔥 ROW 3: Categories with Original Icons */}
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          <div className="flex items-center gap-1.5 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
             {categoryOptions.map((cat) => {
-              // 🔥 Har category ke liye uske naam ka sahi icon select kar rahe hain
               let Icon = LayoutGrid;
               const cid = cat.id.toLowerCase();
-              if (cid === 'staples') Icon = Wheat;
-              else if (cid === 'oil') Icon = Droplet;
-              else if (cid === 'masala') Icon = Flame;
-              else if (cid === 'snacks') Icon = Cookie;
+              if (cid === "staples") Icon = Wheat;
+              else if (cid === "oil") Icon = Droplet;
+              else if (cid === "masala") Icon = Flame;
+              else if (cid === "snacks") Icon = Cookie;
 
               return (
                 <a
                   key={cat.id}
                   href={`/products${cat.id !== "all" ? `?category=${cat.id}` : ""}`}
-                  className="flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-white/75 bg-white/45 px-3 py-1.5 text-[10px] font-medium text-[#514b50] shadow-[0_3px_12px_rgba(31,41,55,0.06)] backdrop-blur-xl transition-colors duration-150 hover:border-[#d9c5a8] hover:text-[#68162a] active:scale-[0.98]"
+                  className="flex h-8 shrink-0 items-center gap-1.5 rounded-full border border-[#eadfce] bg-white/75 px-3 text-[10px] font-semibold text-[#514b50] transition-colors hover:border-[#d9c5a8] hover:text-[#68162a] active:scale-[0.98]"
                 >
-                  <Icon size={15} className="text-[#800020]" />
+                  <Icon size={14} className="text-[#800020]" />
                   {isHindi ? cat.hi : cat.en}
                 </a>
               );
             })}
           </div>
-
         </div>
+
       </header>
 
       {/* Spacer */}
 
-      <div className="h-[145px] xl:h-[76px]" />
+      <div className="h-[122px] xl:h-[76px]" />
 
       {/* Flipkart-style mobile bottom navigation */}
       <nav aria-label={isHindi ? "मुख्य नेविगेशन" : "Main navigation"} className="fixed inset-x-0 bottom-0 z-[70] border-t border-[#e9ddcc] bg-[#fffdf8]/96 shadow-[0_-10px_35px_rgba(72,35,24,0.12)] backdrop-blur-2xl xl:hidden" style={{ paddingBottom: "max(env(safe-area-inset-bottom), 7px)" }}>

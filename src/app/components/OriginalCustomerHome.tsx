@@ -53,6 +53,9 @@ export default function OriginalCustomerHome() {
   const categorySectionRef = useRef<HTMLElement>(null);
   const categoryViewportRef = useRef<HTMLDivElement>(null);
   const categoryTrackRef = useRef<HTMLDivElement>(null);
+  const entranceRef = useRef<HTMLElement>(null);
+  const entranceTitleRef = useRef<HTMLHeadingElement>(null);
+  const deliveryBadgeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const offerEndsAt = new Date("2026-11-09T23:59:59+05:30").getTime();
@@ -88,6 +91,27 @@ export default function OriginalCustomerHome() {
     }, bar);
     return () => context.revert();
   }, []);
+  useEffect(() => {
+    const section = entranceRef.current;
+    const title = entranceTitleRef.current;
+    const badge = deliveryBadgeRef.current;
+    if (!section || !title || !badge) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const context = gsap.context(() => {
+      const lines = title.querySelectorAll<HTMLElement>("[data-hero-line]");
+      const intro = gsap.timeline({ defaults: { ease: "power4.out" } });
+      intro.fromTo(lines, { yPercent: 115, rotateX: -28, autoAlpha: 0, filter: "blur(12px)" }, {
+        yPercent: 0, rotateX: 0, autoAlpha: 1, filter: "blur(0px)",
+        duration: 1.15, stagger: 0.16, clearProps: "transform",
+      });
+      intro.fromTo(badge, { y: 24, scale: 0.86, autoAlpha: 0 }, {
+        y: 0, scale: 1, autoAlpha: 1, duration: 0.8, ease: "back.out(1.8)",
+      }, "-=0.48");
+      gsap.to(badge, { y: -5, duration: 1.8, ease: "sine.inOut", yoyo: true, repeat: -1, delay: 1.6 });
+    }, section);
+    return () => context.revert();
+  }, []);
+
   useEffect(() => {
     const track = brandTrackRef.current;
     if (!track) return;
@@ -187,50 +211,27 @@ export default function OriginalCustomerHome() {
           </div>
         </div>
       </div>
-      <section id="top" className="relative isolate overflow-hidden bg-[#FFFCF0] px-4 pb-12 pt-24 sm:px-7 sm:pb-16 sm:pt-28 lg:px-10">
-        <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_5%,rgba(212,168,79,.18),transparent_55%)]" />
-        <div className="mx-auto max-w-[1440px] text-center">
-          <p className="mx-auto inline-flex items-center gap-2 rounded-full border border-[#d9c69f] bg-white/80 px-4 py-2 text-[11px] font-extrabold uppercase tracking-[.16em] text-[#805d2d] shadow-sm backdrop-blur sm:text-[10px]">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#138047]" />
-            {isHindi ? "घोघर, रीवा की भरोसेमंद दुकान" : "YOUR NEIGHBOURHOOD GROCERY STORE"}
-          </p>
-          <h1 className="mt-6 text-[clamp(3.1rem,9vw,8.5rem)] font-black uppercase leading-[.82] tracking-[-.095em] text-[#800020]">
-            RASHID <span className="text-[#A47A2C]">MEGA MART</span>
+      <section id="top" ref={entranceRef} className="relative isolate flex min-h-[min(790px,calc(100svh-72px))] items-center justify-center overflow-hidden bg-[#FFFCF0] px-3 pb-20 pt-10 sm:min-h-[min(860px,calc(100svh-72px))] sm:px-6 sm:pb-24">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_45%,rgba(224,190,119,.16),transparent_58%)]" />
+        <div className="mx-auto flex w-full max-w-[1500px] flex-col items-center justify-center text-center">
+          <h1 ref={entranceTitleRef} className="w-full select-none text-[clamp(3.05rem,13.2vw,12.5rem)] font-black uppercase leading-[.79] tracking-[-.105em] text-transparent [perspective:900px] sm:text-[clamp(6rem,11.2vw,11.5rem)]">
+            <span data-hero-line className="block whitespace-nowrap" style={{
+              backgroundImage: "url(https://images.unsplash.com/photo-1542838132-92c53300491e?w=2200&q=90)",
+              backgroundSize: "cover", backgroundPosition: "center 42%", backgroundRepeat: "no-repeat",
+              WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent",
+              filter: "drop-shadow(0 3px 2px rgba(47,34,20,.10))",
+            }}>RASHID</span>
+            <span data-hero-line className="mt-[.035em] block whitespace-nowrap" style={{
+              backgroundImage: "url(https://images.unsplash.com/photo-1542838132-92c53300491e?w=2200&q=90)",
+              backgroundSize: "cover", backgroundPosition: "center 68%", backgroundRepeat: "no-repeat",
+              WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent",
+              filter: "drop-shadow(0 3px 2px rgba(47,34,20,.10))",
+            }}>MEGA MART</span>
           </h1>
-          <div className="relative mx-auto mt-6 w-full max-w-[1240px] overflow-hidden rounded-[22px] border-[5px] border-white bg-[#35120D] shadow-[0_25px_70px_rgba(53,18,13,.2)] sm:mt-8 sm:rounded-[30px] sm:border-[8px]">
-            <div className="relative flex aspect-[1.55/1] max-h-[540px] min-h-[220px] w-full items-center justify-center overflow-hidden px-2 sm:aspect-[2.15/1] sm:px-5">
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(164,122,44,.24),transparent_65%)]" />
-              <span
-                aria-label="Fresh Everyday"
-                className="relative z-10 block select-none text-center text-[clamp(3.25rem,12.2vw,11.5rem)] font-black uppercase leading-[.76] tracking-[-.105em] text-transparent"
-                style={{
-                  backgroundImage: "url(https://images.unsplash.com/photo-1542838132-92c53300491e?w=1800&q=90)",
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                  WebkitBackgroundClip: "text",
-                  backgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  filter: "drop-shadow(0 5px 14px rgba(0,0,0,.16))",
-                }}
-              >
-                FRESH<br />EVERYDAY
-              </span>
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#24150e]/80 to-transparent px-4 pb-4 pt-16 sm:px-8 sm:pb-7">
-                <p className="text-[11px] font-extrabold tracking-[.2em] text-[#f4d89f] sm:text-[10px]">{isHindi ? "हर दिन की ज़रूरतें, एक ही जगह" : "YOUR DAILY GROCERY DESTINATION"}</p>
-              </div>
-            </div>
+          <div ref={deliveryBadgeRef} className="mt-8 inline-flex min-h-[58px] items-center justify-center gap-3 rounded-full border border-[#d2a64c]/60 bg-[#d9ad50] px-8 py-3 text-[#382719] shadow-[0_12px_28px_rgba(75,54,24,.16)] transition-shadow duration-300 hover:shadow-[0_16px_36px_rgba(75,54,24,.22)] sm:mt-9 sm:min-h-[62px] sm:px-10">
+            <Truck size={23} strokeWidth={2.2} />
+            <span className="text-[17px] font-extrabold tracking-[-.035em] sm:text-[22px]">{isHindi ? "30 मिनट में डिलीवरी" : "Delivery in 30 Mins"}</span>
           </div>
-          <p className="mx-auto mt-6 max-w-[660px] text-sm leading-7 text-[#76665C] sm:text-base">
-            {isHindi ? "आपके घर की हर ज़रूरत — रोज़मर्रा का किराना, पसंदीदा ब्रांड और आसान ऑनलाइन ऑर्डर।" : "Everyday essentials, trusted grocery brands and a simpler way to shop — all in one place."}
-          </p>
-          <div className="mt-6 flex justify-center">
-            <Link href="/products" className="group inline-flex h-12 min-w-[220px] items-center justify-center gap-3 rounded-full border border-[#800020]/20 bg-white px-7 text-sm font-extrabold text-[#800020] shadow-sm transition duration-300 hover:-translate-y-1 hover:border-[#800020] hover:bg-[#800020] hover:text-white">
-              {isHindi ? "अभी खरीदारी करें" : "Explore products"}
-              <span className="grid h-7 w-7 place-items-center rounded-full bg-[#800020] text-white transition-transform duration-300 group-hover:translate-x-1 group-hover:bg-white group-hover:text-[#800020]"><ArrowRight size={15} /></span>
-            </Link>
-          </div>
-
         </div>
       </section>
 

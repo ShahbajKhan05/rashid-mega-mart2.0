@@ -277,7 +277,7 @@ export default function Navbar() {
 
       {/* Spacer */}
 
-      <div className="h-[112px] xl:h-[76px]" />
+      <div className="h-[136px] xl:h-[76px]" />
 
       {/* Flipkart-style mobile bottom navigation */}
       <nav aria-label={isHindi ? "मुख्य नेविगेशन" : "Main navigation"} className="fixed inset-x-0 bottom-0 z-[70] border-t border-[#e9ddcc] bg-[#fffdf8]/96 shadow-[0_-10px_35px_rgba(72,35,24,0.12)] backdrop-blur-2xl xl:hidden" style={{ paddingBottom: "max(env(safe-area-inset-bottom), 7px)" }}>

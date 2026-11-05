@@ -27,7 +27,7 @@ const visuals: Record<string, string> = {
   cleaning: "https://images.unsplash.com/photo-1585421514738-01798e348b17?w=520&q=72&auto=format&fit=crop",
   fruits: "https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=520&q=72&auto=format&fit=crop",
   vegetables: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=520&q=72&auto=format&fit=crop",
-  frozen: "https://images.unsplash.com/photo-1579113800032-c38bd7635818?w=520&q=72&auto=format&fit=crop",
+  frozen: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=520&q=72&auto=format&fit=crop",
   dryfruits: "https://images.unsplash.com/photo-1608797178974-15b35a64ede9?w=520&q=72&auto=format&fit=crop",
   baby: "https://images.unsplash.com/photo-1519689680058-324335c77eba?w=520&q=72&auto=format&fit=crop",
 };
@@ -326,7 +326,7 @@ export default function OriginalCustomerHome() {
         <div className="mx-auto mb-7 w-full max-w-[1440px] px-4 text-center sm:mb-9 sm:px-7 lg:px-10">
           <p className="text-[10px] font-black uppercase tracking-[.24em] text-[#A47A2C]">{isHindi ? "अपनी पसंद चुनें" : "FIND YOUR EVERYDAY ESSENTIALS"}</p>
           <h2 className="mt-2 text-3xl font-black tracking-[-.065em] text-[#800020] sm:text-5xl">{isHindi ? "कैटेगरी से खरीदें" : "Shop by Category"}</h2>
-          <p className="mx-auto mt-2 max-w-md text-xs leading-5 text-[#76665C] sm:text-sm">{isHindi ? "स्क्रॉल करें और अपनी पसंद की कैटेगरी चुनें।" : "Keep scrolling to explore every aisle, one category at a time."}</p>
+          <p className="mx-auto mt-2 max-w-md text-xs leading-5 text-[#76665C] sm:text-sm">{isHindi ? "मोबाइल पर स्वाइप करें, डेस्कटॉप पर स्क्रॉल करें।" : "Swipe on mobile or scroll on desktop to explore every aisle."}</p>
           <label className="mx-auto mt-4 flex h-10 w-full max-w-[280px] items-center gap-2 rounded-full border border-[#e6d9c8] bg-white/80 px-4 shadow-sm backdrop-blur">
             <Search size={15} className="shrink-0 text-[#800020]" />
             <input value={categorySearch} onChange={(event) => setCategorySearch(event.target.value)} placeholder={isHindi ? "कैटेगरी खोजें..." : "Find a category..."} className="min-w-0 flex-1 bg-transparent text-xs outline-none placeholder:text-[#a69b90]" />
@@ -355,7 +355,7 @@ export default function OriginalCustomerHome() {
             {categories.length === 0 && <p className="w-[min(82vw,360px)] rounded-2xl border border-[#eadfce] bg-white/80 p-6 text-center text-sm text-[#76665C]">{isHindi ? "कोई कैटेगरी नहीं मिली।" : "No categories found. Try another search."}</p>}
           </div>
         </div>
-        <p className="mt-3 text-center text-[9px] font-bold uppercase tracking-[.16em] text-[#a29487] md:mt-5">{isHindi ? "स्क्रॉल करें • कैटेगरी दाईं ओर से आती जाएँगी" : "KEEP SCROLLING — THE AISLES SLIDE IN FROM THE RIGHT"} <span className="ml-1 text-[#A47A2C]">→</span></p>
+        <p className="mt-3 text-center text-[9px] font-bold uppercase tracking-[.16em] text-[#a29487] md:mt-5">{isHindi ? "स्वाइप करें • अपनी पसंद की कैटेगरी चुनें" : "SWIPE TO EXPLORE THE AISLES"} <span className="ml-1 text-[#A47A2C]">→</span></p>
       </section>
 
       <section ref={bestSellersRef} aria-labelledby="best-sellers-title" className="relative isolate overflow-hidden border-y border-[#eadfce] bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,168,79,.10),transparent_58%),#FFFCF0] px-3 py-9 sm:px-6 sm:py-12 lg:px-8">
@@ -375,7 +375,7 @@ export default function OriginalCustomerHome() {
               return <article key={product.id} data-best-seller-card className="group relative flex min-w-0 flex-col overflow-hidden rounded-[16px] border border-[#e9dfd2] bg-white/95 p-2 shadow-[0_5px_18px_rgba(67,45,27,.045)] transition duration-300 hover:-translate-y-1 hover:border-[#d8c29d] hover:shadow-[0_15px_32px_rgba(67,45,27,.11)] sm:rounded-[20px] sm:p-3">
                 <div className="relative aspect-square overflow-hidden rounded-[12px] bg-[#faf8f3] p-2.5 sm:rounded-[15px] sm:p-4">
                   <Link href={"/products/" + (product.slug || product.id)} aria-label={isHindi ? product.nameHi : product.name} className="block h-full w-full">
-                    <img src={product.image} alt={isHindi ? product.nameHi : product.name} loading="lazy" className="h-full w-full object-contain mix-blend-multiply transition duration-500 ease-out group-hover:scale-110" />
+                    <img src={product.image} alt={isHindi ? product.nameHi : product.name} loading="lazy" decoding="async" sizes="(max-width: 639px) 46vw, (max-width: 1023px) 30vw, 240px" className="h-full w-full object-contain mix-blend-multiply transition duration-500 ease-out group-hover:scale-110" />
                   </Link>
                   {discount > 0 && <span className="absolute left-2 top-2 rounded-md bg-[#800020] px-2 py-1 text-[9px] font-black tracking-wide text-white shadow-sm">{discount}% OFF</span>}
                   <span className="absolute bottom-2 left-2 rounded-md border border-white/80 bg-white/85 px-2 py-1 text-[8px] font-extrabold uppercase tracking-[.12em] text-[#80684f] backdrop-blur">{index < 3 ? (isHindi ? "लोकप्रिय पसंद" : "POPULAR PICK") : (isHindi ? "स्टोर पसंद" : "STORE PICK")}</span>

@@ -7,10 +7,11 @@ import Navbar from "./Navbar";
 export default function AppChrome() {
   const pathname = usePathname();
   const isAdminLogin = pathname.startsWith("/admin-login");
+  const isAdminArea = pathname.startsWith("/admin");
 
   return (
     <>
-      <IntroLoader />
+      {!isAdminArea && <IntroLoader />}
       {!isAdminLogin && <Navbar />}
     </>
   );

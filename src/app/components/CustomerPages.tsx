@@ -5,9 +5,10 @@ import { useMemo, useState } from "react";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
 import { useLanguage } from "./LanguageProvider";
 import Image from "next/image";
-import { AlertCircle, ArrowDownWideNarrow, ArrowLeft, ArrowRight, Check, FileDown, Headset, Home, LoaderCircle, MapPin, MessageCircle, Package, Phone, RotateCcw, Search, ShieldCheck, ShoppingBag, Star, Ticket, Truck, UserRound, X, XCircle } from "lucide-react";
+import { AlertCircle, ArrowDownWideNarrow, ArrowLeft, ArrowRight, Check, FileDown, Headset, Home, LoaderCircle, MapPin, MessageCircle, Package, Phone, RotateCcw, Search, ShieldCheck, ShoppingBag, Star, Ticket, Truck, UserRound, X, XCircle, Heart, Trash2 } from "lucide-react";
 import { categoryOptions, products } from "./data";
 import { useCart } from "./CartProvider";
+import { useWishlist } from "./WishlistProvider";
 
 function CenterPage({ title }: { title: string }) {
   const { language } = useLanguage();
@@ -23,6 +24,7 @@ function CenterPage({ title }: { title: string }) {
 
 export function ProductsPage() {
   const { language } = useLanguage();
+  const { isWishlisted, toggleWishlist } = useWishlist();
   const searchParams = useSearchParams();
   const isHindi = language === "hi";
   const [activeCategory, setActiveCategory] = useState(searchParams.get("category") || "all");
@@ -87,7 +89,7 @@ export function ProductsPage() {
             {filteredProducts.map((product) => (
               <article key={product.id} className="group min-w-0">
                 <Link href={`/products/${product.slug || product.id}`} className="block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#800020]">
-                  <div className="relative flex aspect-[4/4.4] items-center justify-center overflow-hidden bg-white p-4 sm:p-7">
+                  <div className="relative flex aspect-[4/4.4] items-center justify-center overflow-hidden bg-white p-4 sm:p-7">\n                    <button type="button" onClick={() => toggleWishlist(product.id)} aria-label={isWishlisted(product.id) ? "Remove from wishlist" : "Save to wishlist"} aria-pressed={isWishlisted(product.id)} className={`absolute right-2 top-2 z-10 grid h-9 w-9 place-items-center rounded-full border shadow-sm backdrop-blur transition active:scale-90 ${isWishlisted(product.id) ? "border-[#800020]/20 bg-[#800020] text-white" : "border-[#eadfce] bg-white/90 text-[#800020] hover:bg-[#800020] hover:text-white"}`}><Heart size={16} fill={isWishlisted(product.id) ? "currentColor" : "none"} /></button>
                     <img src={product.image} alt={isHindi ? product.nameHi : product.name} loading="lazy"
                       className="h-full w-full object-contain mix-blend-multiply transition-transform duration-500 ease-out group-hover:scale-[1.04]" />
                   </div>
@@ -113,6 +115,34 @@ export function ProductsPage() {
             <button type="button" onClick={() => { setQuery(""); setActiveCategory("all"); }} className="mt-4 text-xs font-semibold text-[#800020] underline underline-offset-4">{isHindi ? "सभी उत्पाद दिखाएँ" : "Show all products"}</button>
           </div>
         )}
+      </div>
+    </main>
+  );
+}
+
+export function WishlistPage() {
+  const { language } = useLanguage();
+  const { wishlistProducts, wishlistCount, removeFromWishlist, clearWishlist } = useWishlist();
+  const isHindi = language === "hi";
+  return (
+    <main className="min-h-[calc(100svh-76px)] bg-[#FFFCF0] px-4 pb-28 pt-8 text-[#30251F] sm:px-7 sm:pt-12">
+      <div className="mx-auto max-w-[1180px]">
+        <header className="mb-8 flex flex-wrap items-end justify-between gap-4 border-b border-[#e8dfd2] pb-5">
+          <div><p className="text-[10px] font-bold uppercase tracking-[.24em] text-[#a77b3e]">Rashid Mega Mart</p><h1 className="mt-2 text-3xl font-black tracking-[-.06em] text-[#800020] sm:text-4xl">{isHindi ? "आपकी विशलिस्ट" : "Your Wishlist"}</h1><p className="mt-2 text-sm text-[#81766d]">{wishlistCount} {isHindi ? "सेव किए गए प्रोडक्ट" : "saved products"}</p></div>
+          {wishlistCount > 0 && <button type="button" onClick={clearWishlist} className="rounded-full border border-[#800020]/15 bg-white px-4 py-2 text-xs font-bold text-[#800020] transition hover:bg-[#800020] hover:text-white">{isHindi ? "सब हटाएँ" : "Clear all"}</button>}
+        </header>
+        {wishlistProducts.length ? <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4">
+          {wishlistProducts.map(product => <article key={product.id} className="group relative min-w-0 rounded-2xl border border-[#eadfce] bg-white p-2.5 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg sm:p-3">
+            <Link href={"/products/" + (product.slug || product.id)} className="relative block aspect-square overflow-hidden rounded-xl bg-[#faf8f3] p-3"><img src={product.image} alt={isHindi ? product.nameHi : product.name} className="h-full w-full object-contain mix-blend-multiply transition duration-500 group-hover:scale-105" /></Link>
+            <button type="button" onClick={() => removeFromWishlist(product.id)} aria-label="Remove from wishlist" className="absolute right-4 top-4 grid h-8 w-8 place-items-center rounded-full bg-white/95 text-[#800020] shadow-md transition hover:scale-110"><Heart size={15} fill="currentColor" /></button>
+            <div className="px-1 pt-3"><p className="text-[9px] font-bold uppercase tracking-[.14em] text-[#a77b3e]">{product.brand || "Rashid Mega Mart"}</p><Link href={"/products/" + (product.slug || product.id)} className="mt-1 block min-h-10 text-[13px] font-bold leading-5 text-[#30251F] hover:text-[#800020]">{isHindi ? product.nameHi : product.name}</Link><p className="mt-2 text-base font-black text-[#800020]">₹{product.price.toLocaleString("en-IN")}</p><Link href={"/products/" + (product.slug || product.id)} className="mt-3 flex h-9 items-center justify-center rounded-lg bg-[#800020] text-xs font-bold text-white transition hover:bg-[#650019]">{isHindi ? "प्रोडक्ट देखें" : "View product"}</Link></div>
+          </article>)}
+        </div> : <div className="mx-auto flex max-w-md flex-col items-center py-16 text-center">
+          <div className="grid h-24 w-24 place-items-center rounded-full border border-[#eadfce] bg-white text-[#800020] shadow-[0_12px_35px_rgba(67,45,27,.07)]"><Heart size={38} strokeWidth={1.4} /></div>
+          <h2 className="mt-6 text-xl font-black text-[#30251F]">{isHindi ? "अभी विशलिस्ट खाली है" : "Your wishlist is waiting"}</h2>
+          <p className="mt-2 text-sm leading-6 text-[#81766d]">{isHindi ? "पसंदीदा सामान पर दिल दबाएँ। वह यहाँ सेव हो जाएगा।" : "Tap the heart on any product and it will be saved here on this browser."}</p>
+          <Link href="/products" className="mt-6 inline-flex h-11 items-center rounded-full bg-[#800020] px-6 text-sm font-bold text-white shadow-md transition hover:-translate-y-0.5 hover:bg-[#650019]">{isHindi ? "खरीदारी शुरू करें" : "Explore products"}</Link>
+        </div>}
       </div>
     </main>
   );

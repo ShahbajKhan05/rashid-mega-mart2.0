@@ -378,3 +378,21 @@ html {
 @media(max-width:800px){.rm-admin-login{padding:28px 18px 58px}.rm-admin-layout{grid-template-columns:1fr;gap:24px;max-width:460px}.rm-admin-logo{width:min(78%,310px);max-height:115px}.rm-admin-overline{margin-top:12px;font-size:9px}.rm-admin-brand h2{margin:12px 0 6px;font-size:34px}.rm-admin-brand>p{font-size:12px}.rm-admin-trust{margin-top:14px;font-size:8px}.rm-admin-card{padding:26px 23px;border-radius:21px}.rm-admin-card-top{margin-bottom:17px}.rm-admin-subtitle{margin-bottom:20px}}
 @media(max-width:420px){.rm-admin-login{padding:22px 14px 52px}.rm-admin-layout{gap:18px}.rm-admin-logo{width:min(74%,260px);max-height:94px}.rm-admin-brand h2{font-size:30px}.rm-admin-brand>p{max-width:290px}.rm-admin-trust{margin-top:11px;letter-spacing:.1em}.rm-admin-card{padding:22px 18px}.rm-admin-card h1{font-size:32px}.rm-admin-field,.rm-admin-submit{height:52px}}
 @media(prefers-reduced-motion:reduce){.rm-admin-logo,.rm-admin-card{animation:none!important}.rm-admin-field,.rm-admin-submit,.rm-admin-submit span{transition:none!important}}
+
+
+/* GSAP polish: gold reveal line, moving card edge and clean hover feedback */
+.rm-admin-gold-line{position:relative;width:min(250px,58%);height:2px;margin:16px auto 0;overflow:hidden;border-radius:9px;background:linear-gradient(90deg,transparent,rgba(184,138,66,.38),transparent);transform:scaleX(0)}
+.rm-admin-gold-line-shimmer{position:absolute;inset:0 auto 0 0;width:38%;background:linear-gradient(90deg,transparent,#fff0bd,#b88a42,transparent);filter:drop-shadow(0 0 5px rgba(184,138,66,.65))}
+.rm-admin-card{padding:1px;overflow:hidden;isolation:isolate}
+.rm-admin-border-sweep{position:absolute;z-index:-1;inset:-65%;pointer-events:none;background:conic-gradient(from 0deg,transparent 0deg,transparent 285deg,rgba(184,138,66,.68) 310deg,rgba(255,235,184,.95) 322deg,transparent 340deg,transparent 360deg);opacity:.48}
+.rm-admin-card-inner{position:relative;z-index:1;height:100%;padding:34px;border-radius:24px;background:rgba(255,255,255,.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.rm-admin-submit{position:relative;overflow:hidden}
+.rm-admin-submit:after{content:"";position:absolute;inset:-40% auto -40% -35%;width:25%;transform:skewX(-22deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);transition:left .55s ease}
+.rm-admin-submit:hover:after{left:115%}
+.rm-admin-icon{transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s ease}
+.rm-admin-card:hover .rm-admin-icon{transform:translateY(-2px) rotate(-4deg);box-shadow:0 12px 24px rgba(128,0,32,.24)}
+.rm-admin-field:focus-within>svg{color:#800020;transform:scale(1.06)}
+.rm-admin-field>svg{transition:color .2s,transform .2s}
+@media(max-width:800px){.rm-admin-card-inner{padding:26px 23px;border-radius:20px}}
+@media(max-width:420px){.rm-admin-card-inner{padding:22px 18px;border-radius:20px}}
+@media(prefers-reduced-motion:reduce){.rm-admin-gold-line-shimmer,.rm-admin-border-sweep{animation:none!important}.rm-admin-submit:after{display:none}.rm-admin-card:hover .rm-admin-icon{transform:none}}

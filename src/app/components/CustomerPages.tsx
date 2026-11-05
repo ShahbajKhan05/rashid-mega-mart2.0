@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
 import { useLanguage } from "./LanguageProvider";
 import Image from "next/image";
-import { AlertCircle, ArrowDownWideNarrow, ArrowLeft, Check, FileDown, Headset, Home, LoaderCircle, MapPin, MessageCircle, Package, Phone, RotateCcw, Search, ShieldCheck, ShoppingBag, Star, Truck, UserRound, X, XCircle } from "lucide-react";
+import { AlertCircle, ArrowDownWideNarrow, ArrowLeft, ArrowRight, Check, FileDown, Headset, Home, LoaderCircle, MapPin, MessageCircle, Package, Phone, RotateCcw, Search, ShieldCheck, ShoppingBag, Star, Truck, UserRound, X, XCircle } from "lucide-react";
 import { categoryOptions, products } from "./data";
 import { useCart } from "./CartProvider";
 

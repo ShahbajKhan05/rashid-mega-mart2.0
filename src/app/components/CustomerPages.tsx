@@ -468,7 +468,7 @@ export function CheckoutPage() {
   }
 
   return (
-    <main className="min-h-[calc(100svh-76px)] bg-[#faf8f3] px-4 pb-28 pt-5 text-[#302721] sm:px-6 sm:pb-12 sm:pt-9">
+    <main className="min-h-[calc(100svh-76px)] bg-[#faf8f3] px-4 pb-44 pt-5 text-[#302721] sm:px-6 sm:pb-12 sm:pt-9">
       <div ref={checkoutRef} className="mx-auto max-w-6xl">
         <header data-checkout-reveal className="mb-5 flex items-center justify-between gap-3 border-b border-[#e9e2d8] pb-4 sm:mb-7 sm:pb-5">
           <div>
@@ -540,7 +540,7 @@ export function CheckoutPage() {
           </aside>
         </div>
 
-        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#e9e2d8] bg-[#faf8f3]/95 px-4 py-3 pb-[max(env(safe-area-inset-bottom),12px)] backdrop-blur sm:hidden">
+        <div className="fixed inset-x-0 bottom-[calc(4.25rem+env(safe-area-inset-bottom))] z-[80] border-t border-[#e9e2d8] bg-[#faf8f3]/[.98] px-4 py-3 shadow-[0_-8px_24px_rgba(48,39,33,.08)] backdrop-blur-xl sm:hidden">
           <button type="submit" form="rmm-checkout-form" className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#800020] shadow-[0_5px_14px_rgba(128,0,32,.18)] text-sm font-bold text-white active:scale-[.99]"><MessageCircle size={17} />{isHindi ? "WhatsApp पर ऑर्डर भेजें" : "Send order on WhatsApp"}<span className="ml-auto pr-3">{formatPrice(payableTotal)}</span></button>
         </div>
       </div>

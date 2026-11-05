@@ -6,66 +6,84 @@ import { gsap } from "gsap";
 
 export default function IntroLoader() {
   const rootRef = useRef<HTMLDivElement>(null);
-  // Start visible so the loader is present on the first hydrated frame,
-  // and show it again on every full page refresh.
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     if (!visible) return;
 
     const root = rootRef.current;
-    if (!root) return;
+    if (!root) {
+      setVisible(false);
+      return;
+    }
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
+    let finished = false;
+    let fallbackTimer = 0;
+
     const finish = () => {
-      setVisible(false);
+      if (finished) return;
+      finished = true;
+      window.clearTimeout(fallbackTimer);
       document.body.style.overflow = previousOverflow;
+      setVisible(false);
     };
 
+    // Never allow an animation or browser issue to trap the visitor.
+    fallbackTimer = window.setTimeout(finish, 6500);
+
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      const timeout = window.setTimeout(finish, 900);
+      const reducedMotionTimer = window.setTimeout(finish, 700);
       return () => {
-        window.clearTimeout(timeout);
+        window.clearTimeout(reducedMotionTimer);
+        window.clearTimeout(fallbackTimer);
         document.body.style.overflow = previousOverflow;
       };
     }
 
-    const ctx = gsap.context(() => {
-      const timeline = gsap.timeline({ onComplete: finish });
+    let context: gsap.Context | undefined;
 
-      timeline
-        .fromTo(
-          ".intro-brand-mark",
-          { scale: 0.78, opacity: 0, rotate: -8, filter: "blur(10px)" },
-          { scale: 1, opacity: 1, rotate: 0, filter: "blur(0px)", duration: 0.8, ease: "back.out(1.6)" },
-        )
-        .fromTo(
-          ".intro-ring",
-          { scale: 0.72, opacity: 0, rotate: -28 },
-          { scale: 1, opacity: 1, rotate: 0, duration: 0.85, stagger: 0.1, ease: "power3.out" },
-          "-=0.55",
-        )
-        .fromTo(
-          ".intro-title",
-          { y: 14, opacity: 0, letterSpacing: "0.38em" },
-          { y: 0, opacity: 1, letterSpacing: "0.16em", duration: 0.6, ease: "power3.out" },
-          "-=0.45",
-        )
-        .fromTo(
-          ".intro-credit",
-          { y: 8, opacity: 0 },
-          { y: 0, opacity: 0.72, duration: 0.45, ease: "power2.out" },
-          "-=0.25",
-        )
-        .to({}, { duration: 0.55 })
-        .to(".intro-content", { y: -10, opacity: 0, duration: 0.35, ease: "power2.in" })
-        .to(".intro-curtain", { scaleY: 0, transformOrigin: "top", duration: 0.65, ease: "power4.inOut" }, "-=0.04");
-    }, root);
+    try {
+      context = gsap.context(() => {
+        const timeline = gsap.timeline({ onComplete: finish });
+
+        timeline
+          .fromTo(
+            ".intro-brand-mark",
+            { scale: 0.78, autoAlpha: 0, rotation: -8, filter: "blur(10px)" },
+            { scale: 1, autoAlpha: 1, rotation: 0, filter: "blur(0px)", duration: 0.75, ease: "back.out(1.6)" },
+          )
+          .fromTo(
+            ".intro-ring",
+            { scale: 0.72, autoAlpha: 0, rotation: -28 },
+            { scale: 1, autoAlpha: 1, rotation: 0, duration: 0.8, stagger: 0.09, ease: "power3.out" },
+            "-=0.5",
+          )
+          .fromTo(
+            ".intro-title",
+            { y: 14, autoAlpha: 0, letterSpacing: "0.38em" },
+            { y: 0, autoAlpha: 1, letterSpacing: "0.16em", duration: 0.55, ease: "power3.out" },
+            "-=0.4",
+          )
+          .fromTo(
+            ".intro-credit",
+            { y: 8, autoAlpha: 0 },
+            { y: 0, autoAlpha: 0.72, duration: 0.4, ease: "power2.out" },
+            "-=0.2",
+          )
+          .to({}, { duration: 0.45 })
+          .to(".intro-content", { y: -10, autoAlpha: 0, duration: 0.3, ease: "power2.in" })
+          .to(root, { autoAlpha: 0, duration: 0.55, ease: "power2.inOut" });
+      }, root);
+    } catch {
+      // If GSAP fails to initialize, the fallback timer still closes the loader.
+    }
 
     return () => {
-      ctx.revert();
+      window.clearTimeout(fallbackTimer);
+      context?.revert();
       document.body.style.overflow = previousOverflow;
     };
   }, [visible]);

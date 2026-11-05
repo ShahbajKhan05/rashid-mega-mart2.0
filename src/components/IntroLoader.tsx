@@ -11,6 +11,16 @@ export default function IntroLoader() {
   useEffect(() => {
     if (!visible) return;
 
+    // Show the intro only once per browser tab/session, not on every refresh.
+    try {
+      if (window.sessionStorage.getItem("rmm-intro-seen") === "1") {
+        setVisible(false);
+        return;
+      }
+    } catch {
+      // If storage is unavailable, keep the intro functional for this visit.
+    }
+
     const root = rootRef.current;
     if (!root) {
       setVisible(false);
@@ -28,6 +38,11 @@ export default function IntroLoader() {
       finished = true;
       window.clearTimeout(fallbackTimer);
       document.body.style.overflow = previousOverflow;
+      try {
+        window.sessionStorage.setItem("rmm-intro-seen", "1");
+      } catch {
+        // The loader still closes normally when session storage is unavailable.
+      }
       setVisible(false);
     };
 

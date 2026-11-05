@@ -120,7 +120,17 @@ export default function Navbar() {
 
 
   useEffect(() => {
-    document.body.style.overflow = (searchOpen || locationModalOpen) ? "hidden" : "unset";
+    const previousOverflow = document.body.style.overflow;
+
+    if (searchOpen || locationModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = previousOverflow;
+    }
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
   }, [searchOpen, locationModalOpen]);
 
   return (
@@ -194,19 +204,21 @@ export default function Navbar() {
             {/* Left Side */}
             <div className="flex items-center gap-2 min-w-0">
               {/* Logo & Location */}
-              <a href="/" className="flex min-w-0 items-center gap-2">
-                <Image src="/Logo.png" alt="Logo" width={30} height={30} className="h-[30px] w-[30px] shrink-0 object-contain" />
-                <div className="flex flex-col min-w-0">
-                  <span className="truncate text-[13px] font-semibold leading-tight tracking-[-0.02em] text-[#3c3440]">
+              <div className="flex min-w-0 items-center gap-2">
+                <a href="/" aria-label="Rashid Mega Mart home" className="shrink-0">
+                  <Image src="/Logo.png" alt="Rashid Mega Mart" width={30} height={30} className="h-[30px] w-[30px] object-contain" />
+                </a>
+                <div className="flex min-w-0 flex-col">
+                  <a href="/" className="truncate text-[13px] font-semibold leading-tight tracking-[-0.02em] text-[#3c3440]">
                     Rashid Mega Mart
-                  </span>
-                  <button onClick={() => setLocationModalOpen(true)} className="mt-0.5 flex min-w-0 items-center gap-1 text-[10px] font-bold text-gray-500">
+                  </a>
+                  <button type="button" onClick={() => setLocationModalOpen(true)} className="mt-0.5 flex min-w-0 items-center gap-1 text-[10px] font-bold text-gray-500">
                     <MapPin size={11} className="shrink-0 text-[#138047]" />
                     <span className="max-w-[112px] truncate">{selectedLocation}</span>
                     <ChevronDown size={11} className="shrink-0" />
                   </button>
                 </div>
-              </a>
+              </div>
             </div>
 
           </div>

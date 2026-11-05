@@ -5,13 +5,12 @@ import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import {
-  House, Package, LayoutGrid, ShoppingCart, X, ArrowUpRight,
+  House, Package, LayoutGrid, X, ArrowUpRight,
   MapPin, Search, ChevronDown, Crosshair, User, Star, Lock, Heart, LogOut, Gift, ShieldCheck, Truck,
   Wheat, Droplet, Flame, Cookie // 🔥 Categories ke liye naye icons import kiye
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useLanguage } from "./LanguageProvider";
-import { useCart } from "./CartProvider";
 import { products, categoryOptions } from "./data";
 
 type Language = "en" | "hi";
@@ -40,11 +39,9 @@ export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const { language, toggleLanguage } = useLanguage();
-  const { cartCount, openCart } = useCart();
 
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [locationModalOpen, setLocationModalOpen] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState(DEFAULT_LOCATION);
@@ -53,14 +50,11 @@ export default function Navbar() {
   const [locationError, setLocationError] = useState("");
 
   const isHindi = language === "hi";
-  const cartLabelCount = cartCount > 99 ? "99+" : cartCount;
 
   useEffect(() => {
     const saved = localStorage.getItem("rmm_location");
     if (saved) setSelectedLocation(saved);
 
-    const user = localStorage.getItem("rmm_user");
-    if (user) setIsLoggedIn(true);
   }, []);
 
   const handleLiveLocation = () => {
@@ -123,11 +117,7 @@ export default function Navbar() {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("rmm_user");
-    setIsLoggedIn(false);
-    router.push("/");
-  };
+
 
   useEffect(() => {
     document.body.style.overflow = (searchOpen || locationModalOpen) ? "hidden" : "unset";
@@ -135,7 +125,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 navbar-glass-shell border-b border-white/55 bg-white/[0.26] shadow-[0_4px_24px_rgba(31,41,55,0.045)] backdrop-blur-2xl backdrop-saturate-150">
+      <header className="fixed inset-x-0 top-0 z-50 navbar-glass-shell border-b border-[#eadfce]/80 bg-[#fffdf8]/90 shadow-[0_8px_30px_rgba(72,35,24,0.07)] backdrop-blur-2xl backdrop-saturate-150">
 
         {/* =========================================
             DESKTOP HEADER
@@ -189,13 +179,7 @@ export default function Navbar() {
 
             <LanguageToggle language={language} onSelect={() => toggleLanguage()} />
 
-            <button onClick={openCart} className="flex h-11 items-center gap-2.5 rounded-xl border border-white/75 bg-white/55 px-4 text-[#68162a] shadow-[0_4px_18px_rgba(31,41,55,0.08)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white/75 active:translate-y-0">
-              <ShoppingCart size={18} />
-              <span className="text-sm font-bold">{isHindi ? "कार्ट" : "Cart"}</span>
-              <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#D4A84F] px-1 text-[10px] font-black text-[#35120D]">
-                {cartLabelCount}
-              </span>
-            </button>
+
           </div>
         </div>
 
@@ -225,16 +209,6 @@ export default function Navbar() {
               </a>
             </div>
 
-            {/* Right Side Icons (Clean, No heavy borders) */}
-            <div className="flex shrink-0 items-center gap-2">
-              {/* Cart Button */}
-              <button onClick={openCart} className="relative ml-0.5 flex h-10 w-10 items-center justify-center rounded-xl border border-white/75 bg-white/55 text-[#68162a] shadow-[0_3px_14px_rgba(31,41,55,0.08)] backdrop-blur-xl transition active:scale-95">
-                <ShoppingCart size={19} />
-                <span className="absolute -right-1 -top-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#D4A84F] px-1 text-[9px] font-black text-[#35120D] shadow-sm">
-                  {cartLabelCount}
-                </span>
-              </button>
-            </div>
           </div>
 
           {/* ROW 2: Search + Language */}
@@ -283,31 +257,25 @@ export default function Navbar() {
       <div className="h-[145px] lg:h-[76px]" />
 
       {/* Flipkart-style mobile bottom navigation */}
-      <nav aria-label={isHindi ? "मुख्य नेविगेशन" : "Main navigation"} className="fixed inset-x-0 bottom-0 z-[70] border-t border-[#eadfce] bg-[#fffdf8]/95 shadow-[0_-8px_28px_rgba(72,35,24,0.10)] backdrop-blur-2xl lg:hidden" style={{ paddingBottom: "max(env(safe-area-inset-bottom), 7px)" }}>
-        <div className="mx-auto grid h-[66px] max-w-xl grid-cols-5 items-center px-1">
-          <a href="/" aria-current={pathname === "/" ? "page" : undefined} className={`flex h-full flex-col items-center justify-center gap-1 transition-colors ${pathname === "/" ? "text-[#800020]" : "text-[#887b73]"}`}>
-            <House size={21} strokeWidth={pathname === "/" ? 2.6 : 1.9} />
-            <span className="text-[10px] font-bold">{isHindi ? "होम" : "Home"}</span>
+      <nav aria-label={isHindi ? "मुख्य नेविगेशन" : "Main navigation"} className="fixed inset-x-0 bottom-0 z-[70] border-t border-[#e9ddcc] bg-[#fffdf8]/96 shadow-[0_-10px_35px_rgba(72,35,24,0.12)] backdrop-blur-2xl lg:hidden" style={{ paddingBottom: "max(env(safe-area-inset-bottom), 7px)" }}>
+        <div className="mx-auto grid h-[68px] max-w-xl grid-cols-4 items-center px-2">
+          <a href="/" aria-current={pathname === "/" ? "page" : undefined} className={`group flex h-full flex-col items-center justify-center gap-1.5 transition-all ${pathname === "/" ? "text-[#800020]" : "text-[#887b73] hover:text-[#800020]"}`}>
+            <span className={`flex h-8 w-12 items-center justify-center rounded-2xl transition-all ${pathname === "/" ? "bg-[#800020]/[0.09] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]" : ""}`}><House size={20} strokeWidth={pathname === "/" ? 2.5 : 1.8} /></span>
+            <span className="text-[10px] font-extrabold tracking-tight">{isHindi ? "होम" : "Home"}</span>
           </a>
-          <a href="/products" aria-current={pathname.startsWith("/products") ? "page" : undefined} className={`flex h-full flex-col items-center justify-center gap-1 transition-colors ${pathname.startsWith("/products") ? "text-[#800020]" : "text-[#887b73]"}`}>
-            <LayoutGrid size={21} strokeWidth={pathname.startsWith("/products") ? 2.6 : 1.9} />
-            <span className="text-[10px] font-bold">{isHindi ? "सामान" : "Products"}</span>
+          <a href="/products" aria-current={pathname.startsWith("/products") ? "page" : undefined} className={`group flex h-full flex-col items-center justify-center gap-1.5 transition-all ${pathname.startsWith("/products") ? "text-[#800020]" : "text-[#887b73] hover:text-[#800020]"}`}>
+            <span className={`flex h-8 w-12 items-center justify-center rounded-2xl transition-all ${pathname.startsWith("/products") ? "bg-[#800020]/[0.09] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]" : ""}`}><LayoutGrid size={20} strokeWidth={pathname.startsWith("/products") ? 2.5 : 1.8} /></span>
+            <span className="text-[10px] font-extrabold tracking-tight">{isHindi ? "सामान" : "Products"}</span>
           </a>
-          <a href="/order-tracking" aria-current={pathname.startsWith("/order-tracking") ? "page" : undefined} className={`flex h-full flex-col items-center justify-center gap-1 transition-colors ${pathname.startsWith("/order-tracking") ? "text-[#800020]" : "text-[#887b73]"}`}>
-            <Truck size={21} strokeWidth={pathname.startsWith("/order-tracking") ? 2.6 : 1.9} />
-            <span className="text-[10px] font-bold">{isHindi ? "ट्रैक" : "Track"}</span>
+          <a href="/order-tracking" aria-current={pathname.startsWith("/order-tracking") ? "page" : undefined} className={`group flex h-full flex-col items-center justify-center gap-1.5 transition-all ${pathname.startsWith("/order-tracking") ? "text-[#800020]" : "text-[#887b73] hover:text-[#800020]"}`}>
+            <span className={`flex h-8 w-12 items-center justify-center rounded-2xl transition-all ${pathname.startsWith("/order-tracking") ? "bg-[#800020]/[0.09] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]" : ""}`}><Truck size={20} strokeWidth={pathname.startsWith("/order-tracking") ? 2.5 : 1.8} /></span>
+            <span className="text-[10px] font-extrabold tracking-tight">{isHindi ? "ट्रैक" : "Track"}</span>
           </a>
-          <a href="/my-orders" aria-current={pathname.startsWith("/my-orders") ? "page" : undefined} className={`flex h-full flex-col items-center justify-center gap-1 transition-colors ${pathname.startsWith("/my-orders") ? "text-[#800020]" : "text-[#887b73]"}`}>
-            <Package size={21} strokeWidth={pathname.startsWith("/my-orders") ? 2.6 : 1.9} />
-            <span className="text-[10px] font-bold">{isHindi ? "मेरे ऑर्डर" : "My Orders"}</span>
+          <a href="/my-orders" aria-current={pathname.startsWith("/my-orders") ? "page" : undefined} className={`group flex h-full flex-col items-center justify-center gap-1.5 transition-all ${pathname.startsWith("/my-orders") ? "text-[#800020]" : "text-[#887b73] hover:text-[#800020]"}`}>
+            <span className={`flex h-8 w-12 items-center justify-center rounded-2xl transition-all ${pathname.startsWith("/my-orders") ? "bg-[#800020]/[0.09] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]" : ""}`}><Package size={20} strokeWidth={pathname.startsWith("/my-orders") ? 2.5 : 1.8} /></span>
+            <span className="text-[10px] font-extrabold tracking-tight">{isHindi ? "मेरे ऑर्डर" : "My Orders"}</span>
           </a>
-          <button type="button" onClick={openCart} className="relative flex h-full flex-col items-center justify-center gap-1 text-[#887b73] transition-colors active:scale-95">
-            <span className="relative">
-              <ShoppingCart size={21} />
-              {cartCount > 0 && <span className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#d4a84f] px-1 text-[9px] font-black text-[#35120d]">{cartLabelCount}</span>}
-            </span>
-            <span className="text-[10px] font-bold">{isHindi ? "कार्ट" : "Cart"}</span>
-          </button>
+
         </div>
       </nav>
 

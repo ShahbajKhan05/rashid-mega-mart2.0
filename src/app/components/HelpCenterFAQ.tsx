@@ -53,8 +53,8 @@ export default function HelpCenterFAQ({ language }: { language: Language }) {
     const root = sectionRef.current;
     if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const ctx = gsap.context(() => {
-      gsap.fromTo("[data-faq-intro]", { y: 22, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .7, stagger: .1, ease: "power3.out" });
-      gsap.fromTo("[data-faq-card]", { y: 14, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .55, stagger: .045, ease: "power2.out" });
+      gsap.fromTo("[data-faq-intro]", { y: 22, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .8, stagger: .12, ease: "power3.out" });
+      gsap.fromTo("[data-faq-card]", { y: 18, autoAlpha: 0, scale: .985 }, { y: 0, autoAlpha: 1, scale: 1, duration: .65, stagger: .1, ease: "power3.out", delay: .12 });
     }, root);
     return () => ctx.revert();
   }, []);
@@ -71,21 +71,21 @@ export default function HelpCenterFAQ({ language }: { language: Language }) {
     <section ref={sectionRef} id="help-center" className="relative isolate overflow-hidden bg-[#f8f4eb] px-4 py-8 sm:px-7 sm:py-11 lg:px-10">
       <div aria-hidden="true" className="pointer-events-none absolute -left-28 top-10 -z-10 h-72 w-72 rounded-full bg-[#e8d4ae]/35 blur-3xl" />
       <div aria-hidden="true" className="pointer-events-none absolute -right-28 bottom-0 -z-10 h-80 w-80 rounded-full bg-[#e9d8d8]/40 blur-3xl" />
-      <div className="mx-auto max-w-[1080px]">
-        <div className="mb-5 flex flex-col gap-1 text-left sm:mb-6">
-          <span data-faq-intro className="inline-flex items-center gap-2 rounded-full border border-[#e5d6bd] bg-white/75 px-3 py-1.5 text-[9px] font-black uppercase tracking-[.2em] text-[#9a713a] backdrop-blur"><Sparkles size={12} /> {isHindi ? "राशिद मेगा मार्ट हेल्प सेंटर" : "RASHID MEGA MART · HELP CENTRE"}</span>
-          <h2 data-faq-intro className="mt-2 text-[clamp(1.65rem,4vw,2.6rem)] font-black leading-[1.05] tracking-[-.06em] text-[#702039]">{isHindi ? "आपके हर सवाल का जवाब।" : "A little help goes a long way."}</h2>
-          <p data-faq-intro className="mt-1 max-w-xl text-xs leading-5 text-[#796b60]">{isHindi ? "ऑर्डर से लेकर रिवॉर्ड्स तक — जो जानना है, यहाँ खोजें।" : "From placing an order to earning rewards, find clear answers to the things you shop for."}</p>
+      <div className="mx-auto max-w-[1040px]">
+        <div className="mx-auto mb-6 flex max-w-2xl flex-col items-center gap-1 text-center sm:mb-8">
+          <span data-faq-intro className="inline-flex items-center justify-center gap-2 rounded-full border border-[#e5d6bd] bg-white/75 px-3 py-1.5 text-[9px] font-black uppercase tracking-[.2em] text-[#9a713a] backdrop-blur"><Sparkles size={12} /> {isHindi ? "राशिद मेगा मार्ट हेल्प सेंटर" : "RASHID MEGA MART · HELP CENTRE"}</span>
+          <h2 data-faq-intro className="mt-2 text-center text-[clamp(1.8rem,4.5vw,3rem)] font-black leading-[1.04] tracking-[-.065em] text-[#702039]">{isHindi ? "आपके हर सवाल का जवाब।" : "A little help goes a long way."}</h2>
+          <p data-faq-intro className="mx-auto mt-2 max-w-lg text-center text-xs leading-5 text-[#796b60] sm:text-[13px]">{isHindi ? "ऑर्डर से लेकर रिवॉर्ड्स तक — जो जानना है, यहाँ खोजें।" : "From placing an order to earning rewards, find clear answers to the things you shop for."}</p>
         </div>
 
-        <div data-faq-card className="mb-3 flex w-full items-center gap-2.5 rounded-xl border border-[#e7dccb] bg-white/85 px-3.5 py-2.5 shadow-sm backdrop-blur-xl transition focus-within:border-[#b88b57]">
+        <div data-faq-card className="mx-auto mb-4 flex w-full max-w-[720px] items-center gap-2.5 rounded-xl border border-[#e7dccb] bg-white/85 px-3.5 py-2.5 shadow-sm backdrop-blur-xl transition focus-within:border-[#b88b57]">
           <Search size={19} className="shrink-0 text-[#8a5c3c]" />
           <input value={query} onChange={(event) => { setQuery(event.target.value); setOpenIndex(0); }} placeholder={isHindi ? "अपना सवाल खोजें..." : "Search a question, offer, delivery..."} aria-label={isHindi ? "सवाल खोजें" : "Search frequently asked questions"} className="min-w-0 flex-1 bg-transparent text-sm font-medium text-[#40342e] outline-none placeholder:text-[#a99b8e]" />
           {query && <button type="button" onClick={() => { setQuery(""); setOpenIndex(0); }} className="rounded-full px-2 py-1 text-[10px] font-bold text-[#8a5c3c] hover:bg-[#f5eee3]">{isHindi ? "हटाएँ" : "CLEAR"}</button>}
           <span className="hidden rounded-lg bg-[#f7f1e7] px-2 py-1 text-[9px] font-bold text-[#9a8877] sm:inline">FAQ</span>
         </div>
 
-        <div data-faq-card className="mb-3 flex flex-wrap gap-1.5">
+        <div data-faq-card className="mx-auto mb-4 flex max-w-[900px] flex-wrap justify-center gap-1.5 sm:mb-5">
           {categories.map((category) => {
             const Icon = category.icon;
             const selected = activeCategory === category.id;
@@ -95,7 +95,7 @@ export default function HelpCenterFAQ({ language }: { language: Language }) {
           })}
         </div>
 
-        <div data-faq-card className="overflow-hidden rounded-2xl border border-[#e8ddcd] bg-white/85 shadow-[0_8px_26px_rgba(76,48,30,.045)] backdrop-blur-xl">
+        <div data-faq-card className="mx-auto max-w-[850px] overflow-hidden rounded-2xl border border-[#e8ddcd] bg-white/85 shadow-[0_8px_26px_rgba(76,48,30,.045)] backdrop-blur-xl">
           <div className="flex items-center justify-between gap-3 border-b border-[#eee5d9] px-4 py-2.5 sm:px-5">
             <div className="flex items-center gap-2"><span className="grid h-7 w-7 place-items-center rounded-lg bg-[#f6f0e7] text-[#76213b]"><CircleHelp size={15}/></span><span className="text-xs font-extrabold text-[#594a40]">{isHindi ? "सवाल और जवाब" : "Quick answers"}</span></div>
             <span className="text-[10px] font-bold tabular-nums text-[#8c725c]">{filtered.length} {isHindi ? "सवाल" : "questions"}</span>

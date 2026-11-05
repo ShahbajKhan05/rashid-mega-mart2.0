@@ -6,7 +6,7 @@ import { Gift, Coins, ArrowLeft, Sparkles, Clock3 } from "lucide-react";
 
 type Entry={id:string;name:string;phone:string;points:number;createdAt:string;ledger:{id:string;delta:number;note:string;date:string}[]};
 const KEY="rmm-rewards-v1";
-const read=():Entry[]=>{try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch{return []}};
+const read=():Entry[]=>{try{const rows=JSON.parse(localStorage.getItem(KEY)||"[]") as Entry[];const cutoff=Date.now()-180*24*60*60*1000;return rows.map(r=>{const ledger=r.ledger||[];const points=Math.max(0,ledger.filter(x=>new Date(x.date).getTime()>=cutoff).reduce((sum,x)=>sum+x.delta,0));return {...r,ledger,points}})}catch{return []}};
 const write=(rows:Entry[])=>{localStorage.setItem(KEY,JSON.stringify(rows));window.dispatchEvent(new Event("rmm-rewards-change"))};
 export default function RewardsPage(){
  const [rows,setRows]=useState<Entry[]>([]);

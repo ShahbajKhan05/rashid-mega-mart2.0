@@ -6,7 +6,7 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ArrowLeft } from "lucide-react";
 
-const title = "UNDER CONSTRUCTION";
+const title = "PAGE IS UNDER CONSTRUCTION";
 
 export default function NotFound() {
   const router = useRouter();
@@ -80,10 +80,10 @@ export default function NotFound() {
   return (
     <main
       ref={pageRef}
-      className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-[#050505] px-5 py-12 text-center text-white"
+      className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-[#FFFCF0] px-5 py-12 text-center text-[#3b2024]"
     >
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(128,0,32,0.19)_0%,rgba(5,5,5,0)_58%)]" />
-      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#c9a66b]/70 to-transparent" />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(167,123,62,0.13)_0%,rgba(255,252,240,0)_62%)]" />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#a77b3e]/70 to-transparent" />
 
       <section className="relative z-10 flex w-full max-w-3xl flex-col items-center">
         <div ref={logoRef} className="flex items-center justify-center">
@@ -100,12 +100,12 @@ export default function NotFound() {
         <span
           ref={lineRef}
           aria-hidden="true"
-          className="mt-8 h-px w-40 bg-gradient-to-r from-transparent via-[#c9a66b] to-transparent shadow-[0_0_18px_rgba(201,166,107,0.65)] sm:mt-10 sm:w-56"
+          className="mt-8 h-px w-40 bg-gradient-to-r from-transparent via-[#a77b3e] to-transparent shadow-[0_0_18px_rgba(167,123,62,0.35)] sm:mt-10 sm:w-56"
         />
 
         <h1
           ref={titleRef}
-          className="mt-7 flex flex-wrap justify-center text-[clamp(1.45rem,5.2vw,3.25rem)] font-semibold leading-tight tracking-[0.12em] text-[#e6c58d]"
+          className="mt-7 flex flex-wrap justify-center text-[clamp(1.45rem,5.2vw,3.25rem)] font-semibold leading-tight tracking-[0.12em] text-[#800020]"
           style={{ perspective: "800px" }}
         >
           <span className="sr-only">{title}</span>
@@ -118,12 +118,16 @@ export default function NotFound() {
           </span>
         </h1>
 
+        <p className="mt-4 text-sm font-medium tracking-[0.18em] text-[#765b50] sm:text-base">
+          WE&apos;LL BE BACK BY <span className="font-bold text-[#800020]">15 NOVEMBER 2026</span>
+        </p>
+
         <button
           ref={buttonRef}
           type="button"
           onClick={goHome}
           disabled={leaving}
-          className="mt-9 inline-flex min-h-11 items-center gap-2 rounded-full border border-white/20 bg-white/[0.04] px-6 text-sm font-medium text-white/85 transition-colors hover:border-[#c9a66b]/70 hover:bg-white/[0.09] hover:text-[#e6c58d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#c9a66b] disabled:cursor-wait"
+          className="mt-9 inline-flex min-h-11 items-center gap-2 rounded-full border border-white/20 bg-white/[0.04] px-6 text-sm font-medium text-white/85 transition-colors hover:border-[#c9a66b]/70 hover:bg-white/[0.09] hover:text-[#e6c58d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#a77b3e] disabled:cursor-wait"
         >
           <ArrowLeft size={16} />
           Back to Home

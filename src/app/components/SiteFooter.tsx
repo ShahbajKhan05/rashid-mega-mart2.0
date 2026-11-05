@@ -57,7 +57,7 @@ export default function SiteFooter() {
           </Link>
         </div>
 
-        <div>
+        <div className="footer-reveal">
           <h2 className="text-[11px] font-extrabold uppercase tracking-[.18em] text-[#a77b3e]">{t("quickLinks")}</h2>
           <ul className="mt-4 space-y-3 text-[13px] font-medium text-[#65574f]">
             <li><Link className="transition hover:text-[#800020]" href="/">{isHindi ? "होम" : "Home"}</Link></li>
@@ -69,14 +69,14 @@ export default function SiteFooter() {
           </ul>
         </div>
 
-        <div>
+        <div className="footer-reveal">
           <h2 className="inline-flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-[.18em] text-[#a77b3e]"><ShieldCheck size={14}/>{isHindi ? "नीतियाँ" : "POLICIES"}</h2>
           <ul className="mt-4 space-y-3 text-[12px] font-medium text-[#65574f]">
             {policyLinks.map((item) => <li key={item.href}><Link className="transition hover:text-[#800020]" href={item.href}>{isHindi ? item.hi : item.en}</Link></li>)}
           </ul>
         </div>
 
-        <div>
+        <div className="footer-reveal">
           <h2 className="inline-flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-[.18em] text-[#a77b3e]"><FileText size={14}/>{isHindi ? "सहायता और जानकारी" : "HELP & INFORMATION"}</h2>
           <ul className="mt-4 space-y-3 text-[13px] font-medium text-[#65574f]">
             <li><Link className="transition hover:text-[#800020]" href="/contact">{isHindi ? "संपर्क करें" : "Contact us"}</Link></li>

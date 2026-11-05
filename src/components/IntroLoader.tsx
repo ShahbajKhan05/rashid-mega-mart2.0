@@ -4,68 +4,66 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 
+const INTRO_KEY = "rmm-corner-logo-loader-v4";
+
 export default function IntroLoader() {
   const rootRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
+  const copyRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLSpanElement>(null);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     try {
-      if (window.sessionStorage.getItem("rmm-corner-logo-loader-v3") === "1") return;
+      if (window.sessionStorage.getItem(INTRO_KEY) === "1") {
+        setVisible(false);
+        return;
+      }
     } catch {
-      // Continue with a short, non-blocking reveal if storage is unavailable.
+      // Keep the visual loader available when storage is blocked.
     }
-
     setVisible(true);
   }, []);
 
   useEffect(() => {
+    if (!visible) return;
     const root = rootRef.current;
     const logo = logoRef.current;
+    const copy = copyRef.current;
     const progress = progressRef.current;
-    if (!visible || !root || !logo || !progress) return;
+    if (!root || !logo || !copy || !progress) return;
 
-    let completed = false;
+    let finished = false;
     const finish = () => {
-      if (completed) return;
-      completed = true;
-      try {
-        window.sessionStorage.setItem("rmm-corner-logo-loader-v3", "1");
-      } catch {
-        // The reveal remains non-blocking without session storage.
-      }
+      if (finished) return;
+      finished = true;
+      try { window.sessionStorage.setItem(INTRO_KEY, "1"); } catch {}
       setVisible(false);
     };
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      const timer = window.setTimeout(finish, 450);
+      const timer = window.setTimeout(finish, 1800);
       return () => window.clearTimeout(timer);
     }
 
-    const context = gsap.context(() => {
-      const timeline = gsap.timeline({ onComplete: finish });
-      timeline
-        .fromTo(root, { y: 8, x: 70, autoAlpha: 0, scale: .94 }, {
-          y: 0, x: 0, autoAlpha: 1, scale: 1, duration: .58, ease: "power3.out",
-        })
-        .fromTo(logo, { scale: .45, rotation: -18, filter: "blur(8px)", clipPath: "inset(50% 50% 50% 50% round 50%)" }, {
-          scale: 1, rotation: 0, filter: "blur(0px)", clipPath: "inset(0% 0% 0% 0% round 50%)",
-          duration: .72, ease: "back.out(1.8)",
-        }, "-=.12")
-        .fromTo(".intro-loader-copy", { x: 10, autoAlpha: 0 }, {
-          x: 0, autoAlpha: 1, duration: .36, ease: "power2.out",
-        }, "-=.38")
-        .fromTo(progress, { scaleX: 0, transformOrigin: "left center" }, {
-          scaleX: 1, duration: .92, ease: "power2.inOut",
-        }, "-=.12")
-        .to(root, { y: 8, x: 70, scale: .96, autoAlpha: 0, duration: .42, ease: "power2.in" }, "+=.12");
+    const ctx = gsap.context(() => {
+      gsap.set([logo, copy], { autoAlpha: 0 });
+      gsap.set(logo, { scale: .55, rotation: -14, filter: "blur(7px)" });
+      gsap.set(copy, { x: 18 });
+      gsap.set(progress, { scaleX: 0, transformOrigin: "left center" });
+
+      gsap.timeline({ onComplete: finish })
+        .to(root, { x: 0, autoAlpha: 1, duration: .2, ease: "power2.out" })
+        .to(logo, { autoAlpha: 1, scale: 1, rotation: 0, filter: "blur(0px)", duration: .7, ease: "back.out(1.8)" })
+        .to(copy, { autoAlpha: 1, x: 0, duration: .42, ease: "power3.out" }, "-=.35")
+        .to(progress, { scaleX: 1, duration: 1.9, ease: "power2.inOut" }, "-=.1")
+        .to(root, { x: 90, autoAlpha: 0, duration: .45, ease: "power3.in" }, "+=.2");
     }, root);
 
-    const fallback = window.setTimeout(finish, 2600);
+    const fallback = window.setTimeout(finish, 4200);
     return () => {
       window.clearTimeout(fallback);
-      context.revert();
+      ctx.revert();
     };
   }, [visible]);
 
@@ -74,21 +72,22 @@ export default function IntroLoader() {
   return (
     <div
       ref={rootRef}
-      className="pointer-events-none fixed bottom-[calc(86px+env(safe-area-inset-bottom))] right-3 z-[120] flex flex-row-reverse items-center gap-3 rounded-2xl border border-white/80 bg-[#fffdf7]/90 px-3 py-2.5 shadow-[0_12px_38px_rgba(61,36,25,.16)] backdrop-blur-2xl sm:bottom-5 sm:right-5 sm:gap-3.5 sm:px-4 sm:py-3"
+      className="pointer-events-none fixed bottom-[calc(88px+env(safe-area-inset-bottom))] right-3 z-[9999] flex translate-x-0 flex-row-reverse items-center gap-3 rounded-2xl border border-[#e9d9b9] bg-[#fffdf7] px-3.5 py-3 opacity-100 shadow-[0_16px_48px_rgba(49,28,17,.24)] sm:bottom-6 sm:right-6 sm:gap-4 sm:px-4 sm:py-3.5"
       role="status"
+      aria-live="polite"
       aria-label="Rashid Mega Mart loading"
     >
-      <div className="relative grid h-11 w-11 shrink-0 place-items-center sm:h-12 sm:w-12">
-        <span className="absolute inset-0 rounded-full border border-[#d6b36c]/40" />
-        <span className="absolute inset-0 rounded-full border-[2px] border-transparent border-t-[#800020] border-r-[#d6aa4b] animate-spin" />
-        <div ref={logoRef} className="relative grid h-9 w-9 place-items-center overflow-hidden rounded-full bg-white shadow-sm sm:h-10 sm:w-10">
-          <Image src="/Logo.png" alt="Rashid Mega Mart" width={44} height={44} sizes="40px" className="h-full w-full object-contain" />
+      <div className="relative grid h-14 w-14 shrink-0 place-items-center">
+        <span className="absolute inset-0 rounded-full border-[3px] border-[#eadfcf]" />
+        <span className="absolute inset-0 animate-spin rounded-full border-[3px] border-transparent border-r-[#d6aa4b] border-t-[#800020]" />
+        <div ref={logoRef} className="relative grid h-11 w-11 place-items-center overflow-hidden rounded-full bg-white shadow-sm">
+          <Image src="/Logo.png" alt="Rashid Mega Mart" width={48} height={48} priority unoptimized className="h-full w-full object-contain" />
         </div>
       </div>
-      <div className="intro-loader-copy min-w-[116px] sm:min-w-[132px]">
-        <p className="text-[10px] font-black uppercase tracking-[.12em] text-[#5a1023] sm:text-[11px]">Rashid Mega Mart</p>
-        <p className="mt-0.5 text-[9px] font-medium tracking-wide text-[#8c7867] sm:text-[10px]">Freshness is loading</p>
-        <span className="mt-2 block h-[3px] w-full overflow-hidden rounded-full bg-[#eadfce]">
+      <div ref={copyRef} className="min-w-[132px] sm:min-w-[150px]">
+        <p className="text-[11px] font-black uppercase tracking-[.1em] text-[#5a1023]">Rashid Mega Mart</p>
+        <p className="mt-1 text-[10px] font-semibold text-[#806e5c]">Freshness is loading…</p>
+        <span className="mt-2 block h-1 w-full overflow-hidden rounded-full bg-[#eadfce]">
           <span ref={progressRef} className="block h-full w-full origin-left scale-x-0 rounded-full bg-gradient-to-r from-[#800020] via-[#a65b42] to-[#d9ad50]" />
         </span>
       </div>

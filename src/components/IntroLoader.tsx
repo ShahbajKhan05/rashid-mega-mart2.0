@@ -6,100 +6,66 @@ import { gsap } from "gsap";
 
 export default function IntroLoader() {
   const rootRef = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(true);
+  const logoRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef<HTMLSpanElement>(null);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    if (!visible) return;
-
-    // Show the intro only once per browser tab/session, not on every refresh.
     try {
-      if (window.sessionStorage.getItem("rmm-intro-seen") === "1") {
-        setVisible(false);
-        return;
-      }
+      if (window.sessionStorage.getItem("rmm-intro-seen") === "1") return;
     } catch {
-      // If storage is unavailable, keep the intro functional for this visit.
+      // Continue with a short, non-blocking reveal if storage is unavailable.
     }
 
+    setVisible(true);
+  }, []);
+
+  useEffect(() => {
     const root = rootRef.current;
-    if (!root) {
-      setVisible(false);
-      return;
-    }
+    const logo = logoRef.current;
+    const progress = progressRef.current;
+    if (!visible || !root || !logo || !progress) return;
 
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    let finished = false;
-    let fallbackTimer = 0;
-
+    let completed = false;
     const finish = () => {
-      if (finished) return;
-      finished = true;
-      window.clearTimeout(fallbackTimer);
-      document.body.style.overflow = previousOverflow;
+      if (completed) return;
+      completed = true;
       try {
         window.sessionStorage.setItem("rmm-intro-seen", "1");
       } catch {
-        // The loader still closes normally when session storage is unavailable.
+        // The reveal remains non-blocking without session storage.
       }
       setVisible(false);
     };
 
-    // Never allow an animation or browser issue to trap the visitor.
-    fallbackTimer = window.setTimeout(finish, 6500);
-
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      const reducedMotionTimer = window.setTimeout(finish, 700);
-      return () => {
-        window.clearTimeout(reducedMotionTimer);
-        window.clearTimeout(fallbackTimer);
-        document.body.style.overflow = previousOverflow;
-      };
+      const timer = window.setTimeout(finish, 450);
+      return () => window.clearTimeout(timer);
     }
 
-    let context: gsap.Context | undefined;
+    const context = gsap.context(() => {
+      const timeline = gsap.timeline({ onComplete: finish });
+      timeline
+        .fromTo(root, { y: 18, x: 18, autoAlpha: 0, scale: .94 }, {
+          y: 0, x: 0, autoAlpha: 1, scale: 1, duration: .42, ease: "power3.out",
+        })
+        .fromTo(logo, { scale: .45, rotation: -18, filter: "blur(8px)", clipPath: "inset(50% 50% 50% 50% round 50%)" }, {
+          scale: 1, rotation: 0, filter: "blur(0px)", clipPath: "inset(0% 0% 0% 0% round 50%)",
+          duration: .72, ease: "back.out(1.8)",
+        }, "-=.12")
+        .fromTo(".intro-loader-copy", { x: 10, autoAlpha: 0 }, {
+          x: 0, autoAlpha: 1, duration: .36, ease: "power2.out",
+        }, "-=.38")
+        .fromTo(progress, { scaleX: 0, transformOrigin: "left center" }, {
+          scaleX: 1, duration: .92, ease: "power2.inOut",
+        }, "-=.12")
+        .to(root, { y: 12, x: 12, scale: .96, autoAlpha: 0, duration: .34, ease: "power2.in" }, "+=.12");
+    }, root);
 
-    try {
-      context = gsap.context(() => {
-        const timeline = gsap.timeline({ onComplete: finish });
-
-        timeline
-          .fromTo(
-            ".intro-brand-mark",
-            { scale: 0.78, autoAlpha: 0, rotation: -8, filter: "blur(10px)" },
-            { scale: 1, autoAlpha: 1, rotation: 0, filter: "blur(0px)", duration: 0.75, ease: "back.out(1.6)" },
-          )
-          .fromTo(
-            ".intro-ring",
-            { scale: 0.72, autoAlpha: 0, rotation: -28 },
-            { scale: 1, autoAlpha: 1, rotation: 0, duration: 0.8, stagger: 0.09, ease: "power3.out" },
-            "-=0.5",
-          )
-          .fromTo(
-            ".intro-title",
-            { y: 14, autoAlpha: 0, letterSpacing: "0.38em" },
-            { y: 0, autoAlpha: 1, letterSpacing: "0.16em", duration: 0.55, ease: "power3.out" },
-            "-=0.4",
-          )
-          .fromTo(
-            ".intro-credit",
-            { y: 8, autoAlpha: 0 },
-            { y: 0, autoAlpha: 0.72, duration: 0.4, ease: "power2.out" },
-            "-=0.2",
-          )
-          .to({}, { duration: 0.45 })
-          .to(".intro-content", { y: -10, autoAlpha: 0, duration: 0.3, ease: "power2.in" })
-          .to(root, { autoAlpha: 0, duration: 0.55, ease: "power2.inOut" });
-      }, root);
-    } catch {
-      // If GSAP fails to initialize, the fallback timer still closes the loader.
-    }
-
+    const fallback = window.setTimeout(finish, 2600);
     return () => {
-      window.clearTimeout(fallbackTimer);
-      context?.revert();
-      document.body.style.overflow = previousOverflow;
+      window.clearTimeout(fallback);
+      context.revert();
     };
   }, [visible]);
 
@@ -108,41 +74,24 @@ export default function IntroLoader() {
   return (
     <div
       ref={rootRef}
-      className="intro-curtain fixed inset-0 z-[9999] flex min-h-[100svh] items-center justify-center overflow-hidden bg-[#FFFCF0]"
+      className="pointer-events-none fixed bottom-[calc(86px+env(safe-area-inset-bottom))] right-3 z-[120] flex items-center gap-3 rounded-2xl border border-white/80 bg-[#fffdf7]/90 px-3 py-2.5 shadow-[0_12px_38px_rgba(61,36,25,.16)] backdrop-blur-2xl sm:bottom-5 sm:right-5 sm:gap-3.5 sm:px-4 sm:py-3"
       role="status"
-      aria-label="Rashid Mega Mart is loading"
+      aria-label="Rashid Mega Mart loading"
     >
-      <div className="pointer-events-none absolute inset-0 opacity-[0.12] [background-image:radial-gradient(#5A0014_0.7px,transparent_0.7px)] [background-size:20px_20px]" />
-      <div className="intro-content relative flex flex-col items-center px-6 text-center">
-        <div className="relative mb-7 flex h-48 w-48 items-center justify-center sm:h-56 sm:w-56">
-          <div className="intro-ring absolute inset-0 rounded-full border border-[#D4A84F]/80" />
-          <div className="intro-ring absolute inset-3 rounded-full border border-dashed border-[#5A0014]/30" />
-          <div className="intro-ring absolute inset-7 rounded-full border border-[#D4A84F]/45" />
-          <div className="intro-brand-mark relative flex h-32 w-32 items-center justify-center rounded-full border border-white bg-white shadow-[0_18px_55px_rgba(90,0,20,0.13)] sm:h-36 sm:w-36">
-            <Image
-              src="/Logo.png"
-              alt="Rashid Mega Mart"
-              width={150}
-              height={150}
-              priority
-              className="h-[82%] w-[82%] object-contain"
-            />
-          </div>
-          <span className="absolute -right-1 top-9 h-2.5 w-2.5 rounded-full bg-[#D4A84F]" />
-          <span className="absolute -bottom-1 left-10 h-2 w-2 rounded-full bg-[#5A0014]" />
+      <div className="relative grid h-11 w-11 shrink-0 place-items-center sm:h-12 sm:w-12">
+        <span className="absolute inset-0 rounded-full border border-[#d6b36c]/40" />
+        <span className="absolute inset-0 rounded-full border-[2px] border-transparent border-t-[#800020] border-r-[#d6aa4b] animate-spin" />
+        <div ref={logoRef} className="relative grid h-9 w-9 place-items-center overflow-hidden rounded-full bg-white shadow-sm sm:h-10 sm:w-10">
+          <Image src="/Logo.png" alt="Rashid Mega Mart" width={44} height={44} sizes="40px" className="h-full w-full object-contain" />
         </div>
-
-        <p className="intro-title text-[11px] font-extrabold uppercase tracking-[0.16em] text-[#5A0014] sm:text-xs">
-          RASHID MEGA MART
-        </p>
-        <div className="mt-3 h-px w-16 bg-[#D4A84F]" />
-        <p className="intro-credit mt-3 text-[9px] font-semibold uppercase tracking-[0.28em] text-[#5A0014]">
-          NOOR TECHNOLOGIES
-        </p>
       </div>
-      <span className="absolute bottom-7 text-[9px] font-semibold uppercase tracking-[0.24em] text-[#5A0014]/45">
-        A better way to shop
-      </span>
+      <div className="intro-loader-copy min-w-[116px] sm:min-w-[132px]">
+        <p className="text-[10px] font-black uppercase tracking-[.12em] text-[#5a1023] sm:text-[11px]">Rashid Mega Mart</p>
+        <p className="mt-0.5 text-[9px] font-medium tracking-wide text-[#8c7867] sm:text-[10px]">Freshness is loading</p>
+        <span className="mt-2 block h-[3px] w-full overflow-hidden rounded-full bg-[#eadfce]">
+          <span ref={progressRef} className="block h-full w-full origin-left scale-x-0 rounded-full bg-gradient-to-r from-[#800020] via-[#a65b42] to-[#d9ad50]" />
+        </span>
+      </div>
     </div>
   );
 }

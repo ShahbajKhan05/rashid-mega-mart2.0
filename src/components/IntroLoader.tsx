@@ -48,7 +48,7 @@ export default function IntroLoader() {
 
     const ctx = gsap.context(() => {
       gsap.set([logo, copy], { autoAlpha: 0 });
-      gsap.set(logo, { scale: .55, rotation: -14, filter: "blur(7px)" });
+      gsap.set(logo, { scale: .72, rotation: -8 });
       gsap.set(copy, { x: 18 });
       gsap.set(progress, { scaleX: 0, transformOrigin: "left center" });
 
@@ -60,7 +60,7 @@ export default function IntroLoader() {
         .to(root, { x: 90, autoAlpha: 0, duration: .45, ease: "power3.in" }, "+=.2");
     }, root);
 
-    const fallback = window.setTimeout(finish, 4200);
+    const fallback = window.setTimeout(finish, 3400);
     return () => {
       window.clearTimeout(fallback);
       ctx.revert();

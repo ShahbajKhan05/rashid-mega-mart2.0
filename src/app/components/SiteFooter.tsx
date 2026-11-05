@@ -12,7 +12,7 @@ export default function SiteFooter() {
   const isHindi = language === "hi";
 
   return (
-    <footer className="relative overflow-hidden border-t border-[#eadfce] bg-[linear-gradient(135deg,#fffdf7_0%,#f8f1e7_52%,#fffaf2_100%)] pb-[112px] pt-10 text-[#382b2b] sm:pt-12 xl:pb-7">
+    <footer className="relative overflow-hidden border-t border-[#eadfce] bg-[linear-gradient(135deg,#fffdf7_0%,#f8f1e7_52%,#fffaf2_100%)] pb-[calc(68px+max(env(safe-area-inset-bottom),7px)+12px)] pt-10 text-[#382b2b] sm:pt-12 xl:pb-7">
       <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-[#b88a42]/[0.08] blur-3xl" />
       <div className="relative mx-auto grid max-w-[1320px] grid-cols-2 gap-x-7 gap-y-9 px-5 sm:grid-cols-2 sm:px-8 lg:grid-cols-[1.4fr_.8fr_.9fr_1fr] lg:gap-12 lg:px-10">
         <div className="col-span-2 max-w-sm lg:col-span-1">

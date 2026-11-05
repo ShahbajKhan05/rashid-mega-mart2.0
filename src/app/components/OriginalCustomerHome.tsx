@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -375,7 +376,7 @@ export default function OriginalCustomerHome() {
               return <article key={product.id} data-best-seller-card className="group relative flex min-w-0 flex-col overflow-hidden rounded-[16px] border border-[#e9dfd2] bg-white/95 p-2 shadow-[0_5px_18px_rgba(67,45,27,.045)] transition duration-300 hover:-translate-y-1 hover:border-[#d8c29d] hover:shadow-[0_15px_32px_rgba(67,45,27,.11)] sm:rounded-[20px] sm:p-3">
                 <div className="relative aspect-square overflow-hidden rounded-[12px] bg-[#faf8f3] p-2.5 sm:rounded-[15px] sm:p-4">
                   <Link href={"/products/" + (product.slug || product.id)} aria-label={isHindi ? product.nameHi : product.name} className="block h-full w-full">
-                    <img src={product.image} alt={isHindi ? product.nameHi : product.name} loading="lazy" decoding="async" sizes="(max-width: 639px) 46vw, (max-width: 1023px) 30vw, 240px" className="h-full w-full object-contain mix-blend-multiply transition duration-500 ease-out group-hover:scale-110" />
+                    <Image src={product.image} alt={isHindi ? product.nameHi : product.name} width={400} height={400} loading="lazy" sizes="(max-width: 639px) 46vw, (max-width: 1023px) 30vw, 240px" className="h-full w-full object-contain mix-blend-multiply transition duration-500 ease-out group-hover:scale-110" />
                   </Link>
                   {discount > 0 && <span className="absolute left-2 top-2 rounded-md bg-[#800020] px-2 py-1 text-[9px] font-black tracking-wide text-white shadow-sm">{discount}% OFF</span>}
                   <span className="absolute bottom-2 left-2 rounded-md border border-white/80 bg-white/85 px-2 py-1 text-[8px] font-extrabold uppercase tracking-[.12em] text-[#80684f] backdrop-blur">{index < 3 ? (isHindi ? "लोकप्रिय पसंद" : "POPULAR PICK") : (isHindi ? "स्टोर पसंद" : "STORE PICK")}</span>

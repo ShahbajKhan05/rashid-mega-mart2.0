@@ -301,7 +301,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
                            {suggestions.slice(0, 3).map((item) => (
                              <div key={item.id} className="shrink-0 w-[120px] flex flex-col rounded-xl border border-gray-100 bg-white p-2 shadow-sm">
                                 <div className="h-16 w-full flex items-center justify-center mb-1">
-                                  <img src={item.image} alt={item.name} className="h-full object-contain mix-blend-multiply" />
+                                  <Image src={item.image} alt={item.name} width={128} height={128} sizes="120px" loading="lazy" className="h-full object-contain mix-blend-multiply" />
                                 </div>
                                 <p className="text-[10px] font-bold text-[#30251F] line-clamp-2 leading-tight h-7">{isHindi ? item.nameHi : item.name}</p>
                                 <div className="flex items-center justify-between mt-1">

@@ -9,7 +9,7 @@ import {
   MapPin, Search, ChevronDown, Crosshair, User, Star, Lock, Heart, LogOut, Gift, ShieldCheck, Truck,
   Wheat, Droplet, Flame, Cookie // 🔥 Categories ke liye naye icons import kiye
 } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useLanguage } from "./LanguageProvider";
 import { useCart } from "./CartProvider";
 import { products, categoryOptions } from "./data";
@@ -38,6 +38,7 @@ function LanguageToggle({ language, onSelect }: { language: Language; onSelect: 
 
 export default function Navbar() {
   const router = useRouter();
+  const pathname = usePathname();
   const { language, toggleLanguage } = useLanguage();
   const { cartCount, openCart } = useCart();
 
@@ -288,7 +289,38 @@ export default function Navbar() {
       </header>
 
       {/* Spacer */}
+
       <div className="h-[145px] lg:h-[76px]" />
+
+      {/* Flipkart-style mobile bottom navigation */}
+      <nav aria-label={isHindi ? "मुख्य नेविगेशन" : "Main navigation"} className="fixed inset-x-0 bottom-0 z-[70] border-t border-[#eadfce] bg-[#fffdf8]/95 shadow-[0_-8px_28px_rgba(72,35,24,0.10)] backdrop-blur-2xl lg:hidden" style={{ paddingBottom: "max(env(safe-area-inset-bottom), 7px)" }}>
+        <div className="mx-auto grid h-[66px] max-w-xl grid-cols-5 items-center px-1">
+          <a href="/" aria-current={pathname === "/" ? "page" : undefined} className={`flex h-full flex-col items-center justify-center gap-1 transition-colors ${pathname === "/" ? "text-[#800020]" : "text-[#887b73]"}`}>
+            <House size={21} strokeWidth={pathname === "/" ? 2.6 : 1.9} />
+            <span className="text-[10px] font-bold">{isHindi ? "होम" : "Home"}</span>
+          </a>
+          <a href="/products" aria-current={pathname.startsWith("/products") ? "page" : undefined} className={`flex h-full flex-col items-center justify-center gap-1 transition-colors ${pathname.startsWith("/products") ? "text-[#800020]" : "text-[#887b73]"}`}>
+            <LayoutGrid size={21} strokeWidth={pathname.startsWith("/products") ? 2.6 : 1.9} />
+            <span className="text-[10px] font-bold">{isHindi ? "सामान" : "Products"}</span>
+          </a>
+          <a href="/order-tracking" aria-current={pathname.startsWith("/order-tracking") ? "page" : undefined} className={`flex h-full flex-col items-center justify-center gap-1 transition-colors ${pathname.startsWith("/order-tracking") ? "text-[#800020]" : "text-[#887b73]"}`}>
+            <Truck size={21} strokeWidth={pathname.startsWith("/order-tracking") ? 2.6 : 1.9} />
+            <span className="text-[10px] font-bold">{isHindi ? "ट्रैक" : "Track"}</span>
+          </a>
+          <a href="/my-orders" aria-current={pathname.startsWith("/my-orders") ? "page" : undefined} className={`flex h-full flex-col items-center justify-center gap-1 transition-colors ${pathname.startsWith("/my-orders") ? "text-[#800020]" : "text-[#887b73]"}`}>
+            <Package size={21} strokeWidth={pathname.startsWith("/my-orders") ? 2.6 : 1.9} />
+            <span className="text-[10px] font-bold">{isHindi ? "मेरे ऑर्डर" : "My Orders"}</span>
+          </a>
+          <button type="button" onClick={openCart} className="relative flex h-full flex-col items-center justify-center gap-1 text-[#887b73] transition-colors active:scale-95">
+            <span className="relative">
+              <ShoppingCart size={21} />
+              {cartCount > 0 && <span className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#d4a84f] px-1 text-[9px] font-black text-[#35120d]">{cartLabelCount}</span>}
+            </span>
+            <span className="text-[10px] font-bold">{isHindi ? "कार्ट" : "Cart"}</span>
+          </button>
+        </div>
+      </nav>
+
 
       {/* =========================================
           LOCATION MODAL

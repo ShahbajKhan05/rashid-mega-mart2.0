@@ -354,7 +354,7 @@ export function CheckoutPage() {
     try { coupons=JSON.parse(localStorage.getItem("rmm-coupons-v1")||"[]"); } catch { coupons=[]; }
     const coupon=coupons.find(item=>item.code.toUpperCase()===code);
     if (!coupon || coupon.status!=="active" || new Date(coupon.expiresAt).getTime()<Date.now()) { setAppliedCoupon(null); setCouponMessage("Coupon invalid, used ya expired hai."); return; }
-    if (coupon.ownerPhone && phone.replace(/\\D/g,"").slice(-10)!==coupon.ownerPhone) { setAppliedCoupon(null); setCouponMessage("Yeh rewards coupon usi registered mobile number se use hoga."); return; }
+    if (coupon.ownerPhone && phone.replace(/\D/g,"").slice(-10)!==coupon.ownerPhone) { setAppliedCoupon(null); setCouponMessage("Yeh rewards coupon usi registered mobile number se use hoga."); return; }
     if (cartTotal < coupon.minOrder) { setAppliedCoupon(null); setCouponMessage(`Is coupon ke liye minimum order ${formatPrice(coupon.minOrder)} hai.`); return; }
     const discount=coupon.type==="percent"?Math.floor(cartTotal*coupon.value/100):coupon.value;
     setAppliedCoupon({code,discount:Math.min(cartTotal,discount),title:coupon.title});
@@ -365,7 +365,7 @@ export function CheckoutPage() {
     event.preventDefault();
     setError("");
 
-    const cleanPhone = phone.replace(/\\D/g, "");
+    const cleanPhone = phone.replace(/\D/g, "");
     if (cleanPhone.length !== 10) {
       setError(isHindi ? "10 अंकों का सही मोबाइल नंबर दर्ज करें।" : "Enter a valid 10-digit mobile number.");
       return;
@@ -439,7 +439,7 @@ export function CheckoutPage() {
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <label className="block sm:col-span-2"><span className="mb-1.5 block text-xs font-bold text-[#62534c]">{isHindi ? "पूरा नाम" : "Full name"} *</span><input required maxLength={80} autoComplete="name" value={name} onChange={(e) => setName(e.target.value)} placeholder={isHindi ? "अपना नाम लिखें" : "Enter your name"} className="h-12 w-full rounded-xl border border-[#e9e1d7] bg-[#fffdf9] px-4 text-sm text-[#332923] outline-none transition placeholder:text-[#a69b90] focus:border-[#800020] focus:ring-4 focus:ring-[#800020]/[.07]" /></label>
-                <label className="block sm:col-span-2"><span className="mb-1.5 block text-xs font-bold text-[#62534c]">{isHindi ? "मोबाइल नंबर" : "Mobile number"} *</span><div className="flex h-12 items-center rounded-xl border border-[#e9e1d7] bg-[#fffdf9] px-3 focus-within:border-[#800020] focus-within:ring-4 focus-within:ring-[#800020]/[.07]"><span className="border-r border-[#e9e1d7] pr-3 text-sm font-bold text-[#76665c]">+91</span><input required inputMode="numeric" autoComplete="tel-national" maxLength={10} value={phone} onChange={(e) => setPhone(e.target.value.replace(/\\D/g, "").slice(0, 10))} placeholder="10-digit mobile number" className="h-full min-w-0 flex-1 bg-transparent px-3 text-sm text-[#332923] outline-none placeholder:text-[#a69b90]" /><Phone size={17} className="text-[#a77b3e]" /></div></label>
+                <label className="block sm:col-span-2"><span className="mb-1.5 block text-xs font-bold text-[#62534c]">{isHindi ? "मोबाइल नंबर" : "Mobile number"} *</span><div className="flex h-12 items-center rounded-xl border border-[#e9e1d7] bg-[#fffdf9] px-3 focus-within:border-[#800020] focus-within:ring-4 focus-within:ring-[#800020]/[.07]"><span className="border-r border-[#e9e1d7] pr-3 text-sm font-bold text-[#76665c]">+91</span><input required inputMode="numeric" autoComplete="tel-national" maxLength={10} value={phone} onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))} placeholder="10-digit mobile number" className="h-full min-w-0 flex-1 bg-transparent px-3 text-sm text-[#332923] outline-none placeholder:text-[#a69b90]" /><Phone size={17} className="text-[#a77b3e]" /></div></label>
               </div>
             </section>
 

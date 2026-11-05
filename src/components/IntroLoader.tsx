@@ -12,7 +12,7 @@ export default function IntroLoader() {
 
   useEffect(() => {
     try {
-      if (window.sessionStorage.getItem("rmm-intro-seen") === "1") return;
+      if (window.sessionStorage.getItem("rmm-corner-logo-loader-v3") === "1") return;
     } catch {
       // Continue with a short, non-blocking reveal if storage is unavailable.
     }
@@ -31,7 +31,7 @@ export default function IntroLoader() {
       if (completed) return;
       completed = true;
       try {
-        window.sessionStorage.setItem("rmm-intro-seen", "1");
+        window.sessionStorage.setItem("rmm-corner-logo-loader-v3", "1");
       } catch {
         // The reveal remains non-blocking without session storage.
       }

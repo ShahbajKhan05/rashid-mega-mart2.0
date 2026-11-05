@@ -198,6 +198,7 @@ export default function Navbar() {
             <nav className="flex items-center gap-1.5">
               <motion.a href="/" className="nav-glass-link rounded-lg px-3 py-2 text-[13px] font-semibold tracking-[-0.01em] text-[#65574f] hover:bg-white/35 hover:text-[#68162a]" whileHover={{ y: -2, scale: 1.025 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 420, damping: 28 }}>{isHindi ? "होम" : "Home"}</motion.a>
               <motion.a href="/products" className="nav-glass-link rounded-full px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-white/40 hover:text-[#800020]" whileHover={{ y: -2, scale: 1.025 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 420, damping: 28 }}>{isHindi ? "सामान" : "Products"}</motion.a>
+              <motion.a href="/kits" className="nav-glass-link rounded-full px-3 py-2 text-sm font-extrabold text-[#9a6b22] hover:bg-white/40 hover:text-[#800020]" whileHover={{ y: -2, scale: 1.025 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 420, damping: 28 }}>{isHindi ? "बचत किट" : "Kits"}</motion.a>
               <motion.a href="/order-tracking" className="nav-glass-link rounded-full px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-white/40 hover:text-[#800020]" whileHover={{ y: -2, scale: 1.025 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 420, damping: 28 }}>{isHindi ? "ऑर्डर ट्रैक करें" : "Track Order"}</motion.a>
               <motion.a href="/my-orders" className="nav-glass-link rounded-full px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-white/40 hover:text-[#800020]" whileHover={{ y: -2, scale: 1.025 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 420, damping: 28 }}>{isHindi ? "मेरे ऑर्डर" : "My Orders"}</motion.a>
               <motion.a href="/rewards" className="nav-glass-link rounded-full px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-white/40 hover:text-[#800020]" whileHover={{ y: -2, scale: 1.025 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 420, damping: 28 }}>{isHindi ? "रिवॉर्ड्स" : "Rewards"}</motion.a>
@@ -332,6 +333,7 @@ export default function Navbar() {
               <div className="grid grid-cols-2 gap-2">
                 {[
                   { href: "/rewards", label: isHindi ? "Rashid Rewards" : "Rashid Rewards", hint: isHindi ? "पॉइंट्स और कूपन" : "Points & vouchers", icon: <Gift size={19}/> },
+                  { href: "/kits", label: isHindi ? "स्मार्ट बचत किट" : "Smart Bachat Kits", hint: isHindi ? "मंथली राशन कॉम्बो" : "Monthly ration combos", icon: <ShoppingCart size={19}/> },
                   { href: "/my-orders", label: isHindi ? "मेरे ऑर्डर" : "My Orders", hint: isHindi ? "ऑर्डर हिस्ट्री" : "Order history", icon: <Package size={19}/> },
                   { href: "/cart", label: isHindi ? "मेरा कार्ट" : "My Cart", hint: isHindi ? "खरीदारी जारी रखें" : "Continue shopping", icon: <ShoppingCart size={19}/> },
                   { href: "/faqs", label: "FAQs", hint: isHindi ? "सवालों के जवाब" : "Quick answers", icon: <CircleHelp size={19}/> },

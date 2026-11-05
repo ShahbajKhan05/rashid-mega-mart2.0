@@ -110,6 +110,7 @@ export default function RewardsPage() {
               </div>
               <div className="relative mt-4 flex items-center justify-between border-t border-white/10 pt-2.5 text-[8px] font-bold uppercase tracking-[.16em] text-white/40"><span>SMART SAVER CLUB</span><span>MEMBER SINCE {new Date(member.createdAt).toLocaleDateString("en-IN", { month: "short", year: "numeric" })}</span></div>
             </section>
+            <div className="mb-4 flex justify-end"><Link href="/admin-login" className="inline-flex items-center gap-1.5 rounded-full border border-[#e8dcc8] bg-white/75 px-3 py-1.5 text-[9px] font-bold text-[#897b70] shadow-sm transition hover:border-[#c9ad7d] hover:text-[#800020]"><LockKeyhole size={11} /> Staff Login</Link></div>
 
             <section className="rounded-[19px] border border-[#eee3c9] bg-white p-4 shadow-[0_5px_16px_rgba(70,48,20,.07)] sm:p-5">
               <div className="flex items-start justify-between gap-3"><div><h2 className="text-[15px] font-black tracking-[-.035em]">Your Rewards Progress</h2><p className="mt-0.5 text-[10px] text-[#8c7e73]">Collect points and unlock your ₹50 reward</p></div><p className="text-right text-[19px] font-black leading-none text-[#800020]">{member.points}<span className="ml-1 text-[10px] font-bold text-[#a29487]">/ 50</span></p></div>

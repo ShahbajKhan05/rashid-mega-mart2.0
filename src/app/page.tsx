@@ -1,3 +1,5 @@
+"use client";
+
 import { useLanguage } from "./components/LanguageProvider";
 
 export default function Home() {

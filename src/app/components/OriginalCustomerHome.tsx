@@ -10,6 +10,7 @@ import { categoryOptions, products } from "./data";
 import { useCart } from "./CartProvider";
 import { useWishlist } from "./WishlistProvider";
 import HelpCenterFAQ from "./HelpCenterFAQ";
+import KitsPage from "./KitsPage";
 
 const brands = ["Aashirvaad", "Fortune", "Tata Sampann", "India Gate", "MDH", "Everest", "Tata Tea", "MAGGI", "Parle-G"];
 const visuals: Record<string, string> = {
@@ -386,6 +387,8 @@ export default function OriginalCustomerHome() {
           <div className="rmm-home-cta-art relative grid min-h-[190px] place-items-center overflow-hidden"><div className="absolute h-[310px] w-[310px] rounded-full border border-[#e6c88f]/35 sm:h-[390px] sm:w-[390px]" /><div className="relative grid h-[170px] w-[170px] place-items-center rounded-full border border-[#e6c88f]/35 bg-white/[.06] text-center shadow-xl backdrop-blur sm:h-[220px] sm:w-[220px]"><div className="text-6xl">🛍️</div><p className="mt-2 text-[9px] font-black tracking-[.22em]">RASHID MEGA MART</p><p className="rmm-home-cta-muted mt-1 text-[8px] tracking-[.16em]">EVERYDAY, MADE SIMPLE</p></div></div>
         </div>
       </section>
+
+      <KitsPage />
 
       <HelpCenterFAQ language={language} />
 

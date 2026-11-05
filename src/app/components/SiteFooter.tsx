@@ -47,7 +47,7 @@ export default function SiteFooter() {
   const headingClass = "text-[13px] font-extrabold uppercase tracking-[.12em] text-[#800020]";
 
   return (
-    <footer ref={footerRef} className="relative isolate overflow-hidden border-t border-[#D4A84F]/55 bg-[#FFF9D8] pb-[calc(78px+env(safe-area-inset-bottom))] pt-8 text-[#30251F] [font-family:Inter,sans-serif] sm:pt-10 xl:pb-6">
+    <footer ref={footerRef} className="relative isolate overflow-hidden border-t border-[#D4A84F]/55 bg-[#FFF9D8] pb-[calc(78px+env(safe-area-inset-bottom))] pt-8 text-[#30251F] [font-family:var(--font-apple)] sm:pt-10 xl:pb-6">
       <div aria-hidden="true" className="pointer-events-none absolute -right-32 -top-36 -z-10 h-[420px] w-[420px] rounded-full bg-[#EAB308]/10 blur-3xl"/>
       <div aria-hidden="true" className="pointer-events-none absolute -bottom-40 -left-32 -z-10 h-[360px] w-[360px] rounded-full bg-[#800020]/[0.035] blur-3xl"/>
       <div className="mx-auto max-w-[1480px] px-5 sm:px-8 lg:px-12">

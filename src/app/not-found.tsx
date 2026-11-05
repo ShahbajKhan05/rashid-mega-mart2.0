@@ -6,19 +6,19 @@ import { Home } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <main className="relative flex min-h-[100svh] flex-col items-center overflow-hidden bg-[#fffaf1] px-4 pb-6 pt-7 text-[#241c1b] sm:pt-9">
+    <main className="relative flex min-h-[100svh] flex-col items-center overflow-hidden bg-[#fffaf1] px-4 pb-4 pt-4 text-[#241c1b] sm:pt-5">
       <div aria-hidden="true" className="pointer-events-none absolute -left-28 -top-36 h-72 w-[48rem] -rotate-[12deg] rounded-[50%] border-[18px] border-[#7f172d] sm:-left-20 sm:-top-40 sm:border-[25px]" />
       <div aria-hidden="true" className="pointer-events-none absolute -left-20 -top-28 h-72 w-[48rem] -rotate-[12deg] rounded-[50%] border-[10px] border-[#e9b64f] sm:-top-32 sm:border-[14px]" />
       <div aria-hidden="true" className="pointer-events-none absolute -bottom-44 -right-28 h-72 w-[48rem] -rotate-[12deg] rounded-[50%] border-[18px] border-[#7f172d] sm:-bottom-48 sm:border-[25px]" />
       <div aria-hidden="true" className="pointer-events-none absolute -bottom-36 -right-20 h-72 w-[48rem] -rotate-[12deg] rounded-[50%] border-[10px] border-[#e9b64f] sm:-bottom-40 sm:border-[14px]" />
 
-      <Link href="/" aria-label="Rashid Mega Mart home" className="relative z-10 mb-5 inline-flex items-center justify-center sm:mb-7">
-        <Image src="/Logo.png" alt="Rashid Mega Mart" width={560} height={180} priority className="h-auto max-h-[86px] w-auto max-w-[min(78vw,360px)] object-contain sm:max-h-[112px] sm:max-w-[440px]" />
+      <Link href="/" aria-label="Rashid Mega Mart home" className="relative z-10 mb-2 inline-flex items-center justify-center sm:mb-3">
+        <Image src="/Logo.png" alt="Rashid Mega Mart" width={560} height={180} priority className="h-auto max-h-[72px] w-auto max-w-[min(72vw,310px)] object-contain sm:max-h-[92px] sm:max-w-[390px]" />
       </Link>
 
-      <section className="relative z-10 flex w-full max-w-[1180px] flex-1 flex-col items-center justify-center text-center">
+      <section className="relative z-10 flex w-full max-w-[1180px] flex-col items-center justify-center text-center">
         <div className="relative w-full">
-          <svg viewBox="0 0 1200 430" role="img" aria-label="Three dimensional maroon 404 numbers with a yellow construction helmet, a safety barrier and a subtle tower crane" className="mx-auto block h-auto w-full max-w-[1120px] overflow-visible">
+          <svg viewBox="0 0 1200 430" role="img" aria-label="Three dimensional maroon 404 numbers with a yellow construction helmet, a safety barrier and a subtle tower crane" className="mx-auto block h-auto w-full max-w-[980px] overflow-visible max-[600px]:max-w-[560px]">
             <defs>
               <linearGradient id="errorFace" x1="0" y1="0" x2="0.15" y2="1">
                 <stop offset="0" stopColor="#a62943" />
@@ -84,18 +84,18 @@ export default function NotFound() {
           </svg>
         </div>
 
-        <h1 className="mt-0 text-[clamp(2rem,6vw,4.5rem)] font-extrabold leading-[1.08] tracking-[-.055em] text-[#241c1b]">
+        <h1 className="mt-[-8px] text-[clamp(2rem,5.5vw,4rem)] font-extrabold leading-[1.02] tracking-[-.055em] text-[#241c1b]">
           Page <span className="text-[#84172f]">Not Found</span>
         </h1>
-        <p className="mt-3 max-w-[760px] text-[clamp(1rem,2.4vw,1.55rem)] font-light leading-relaxed text-[#655b58]">
+        <p className="mt-2 max-w-[700px] text-[clamp(.95rem,2vw,1.35rem)] font-light leading-[1.35] text-[#655b58]">
           The page you are looking for might be under construction<br className="hidden sm:block" /> or doesn’t exist.
         </p>
-        <Link href="/" className="mt-5 inline-flex min-h-[58px] items-center justify-center gap-3 rounded-full bg-gradient-to-b from-[#9b1e3b] to-[#74132b] px-9 text-base font-bold text-white shadow-[0_12px_26px_rgba(116,19,43,.2)] transition duration-200 hover:-translate-y-1 hover:shadow-[0_16px_30px_rgba(116,19,43,.27)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#84172f] sm:min-h-[66px] sm:px-12 sm:text-lg">
+        <Link href="/" className="mt-4 inline-flex min-h-[52px] items-center justify-center gap-3 rounded-full bg-gradient-to-b from-[#9b1e3b] to-[#74132b] px-8 text-base font-bold text-white shadow-[0_12px_26px_rgba(116,19,43,.2)] transition duration-200 hover:-translate-y-1 hover:shadow-[0_16px_30px_rgba(116,19,43,.27)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#84172f] sm:min-h-[58px] sm:px-10 sm:text-lg">
           <Home size={21} fill="currentColor" /> Back to Home
         </Link>
       </section>
 
-      <footer className="relative z-10 mt-7 flex w-full max-w-[700px] items-center justify-center gap-4 text-center text-[10px] font-semibold tracking-[.22em] text-[#84172f] sm:mt-9 sm:text-sm sm:tracking-[.3em]">
+      <footer className="relative z-10 mt-5 flex w-full max-w-[700px] items-center justify-center gap-3 text-center text-[9px] font-semibold tracking-[.18em] text-[#84172f] sm:mt-6 sm:text-xs sm:tracking-[.28em]">
         <span className="h-px flex-1 bg-[#c87983]" />
         <span className="whitespace-nowrap">RASHID MEGA MART <span className="px-2">•</span> ALWAYS WITH YOU</span>
         <span className="h-px flex-1 bg-[#c87983]" />
@@ -108,6 +108,19 @@ export default function NotFound() {
         @keyframes helmetFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
         @keyframes craneSway { 0%,100% { transform: rotate(0); } 50% { transform: rotate(.6deg); } }
         @keyframes barrierBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+
+        @media (max-height: 760px) and (min-width: 601px) {
+          main { padding-top: 10px; padding-bottom: 10px; }
+          main > a img { max-height: 64px; }
+          main > section > div > svg { max-width: 820px; }
+          main > footer { margin-top: 12px; }
+        }
+        @media (max-width: 600px) {
+          main { padding-left: 12px; padding-right: 12px; padding-top: 14px; padding-bottom: 14px; }
+          main > a img { max-height: 58px; max-width: min(72vw, 260px); }
+          main > section > div > svg { max-width: 100%; }
+          main > footer { margin-top: 18px; font-size: 8px; letter-spacing: .12em; gap: 8px; }
+        }
         @media (prefers-reduced-motion: reduce) {
           .helmet-art,.crane-art,.barrier-art { animation: none !important; }
         }

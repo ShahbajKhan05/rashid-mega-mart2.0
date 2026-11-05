@@ -54,14 +54,22 @@ export default function HelpCenterFAQ({ language }: { language: Language }) {
     if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const ctx = gsap.context(() => {
       gsap.fromTo("[data-faq-intro]", { y: 22, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .8, stagger: .12, ease: "power3.out" });
-      gsap.fromTo("[data-faq-card]", { y: 18, autoAlpha: 0, scale: .985 }, { y: 0, autoAlpha: 1, scale: 1, duration: .65, stagger: .1, ease: "power3.out", delay: .12 });
+      gsap.fromTo("[data-faq-card]", { y: 18, autoAlpha: 0, scale: .985 }, { y: 0, autoAlpha: 1, scale: 1, duration: .48, stagger: .055, ease: "power2.out", delay: .08 });
     }, root);
     return () => ctx.revert();
   }, []);
 
   useEffect(() => {
-    if (!listRef.current || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    gsap.fromTo(listRef.current.children, { y: 10, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .35, stagger: .035, ease: "power2.out", overwrite: true });
+    const list = listRef.current;
+    if (!list || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const items = Array.from(list.children);
+    gsap.killTweensOf(items);
+    gsap.set(items, { clearProps: "transform,opacity,visibility" });
+    const tween = gsap.fromTo(items, { y: 7, autoAlpha: 0 }, {
+      y: 0, autoAlpha: 1, duration: .24, stagger: .018,
+      ease: "power2.out", overwrite: "auto",
+    });
+    return () => tween.kill();
   }, [activeCategory, query]);
 
   const questionLabel = (item: FAQ) => isHindi ? item.questionHi : item.question;

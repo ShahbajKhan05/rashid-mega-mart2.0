@@ -4,10 +4,11 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowRight, ArrowUpRight, ChevronRight, Search, ShieldCheck, ShoppingCart, Sparkles, Truck } from "lucide-react";
+import { ArrowRight, ArrowUpRight, ChevronRight, Search, ShieldCheck, ShoppingCart, Sparkles, Truck, Heart } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 import { categoryOptions, products } from "./data";
 import { useCart } from "./CartProvider";
+import { useWishlist } from "./WishlistProvider";
 import HelpCenterFAQ from "./HelpCenterFAQ";
 
 const brands = ["Aashirvaad", "Fortune", "Tata Sampann", "India Gate", "MDH", "Everest", "Tata Tea", "MAGGI", "Parle-G"];
@@ -39,6 +40,7 @@ const faqs = [
 export default function OriginalCustomerHome() {
   const { language } = useLanguage();
   const { addToCart } = useCart();
+  const { isWishlisted, toggleWishlist } = useWishlist();
   const isHindi = language === "hi";
   const [categorySearch, setCategorySearch] = useState("");
   const [openFaq, setOpenFaq] = useState(0);
@@ -335,6 +337,7 @@ export default function OriginalCustomerHome() {
               return <article key={product.id} className="group relative flex min-w-0 flex-col rounded-[18px] border border-[#eadfce] bg-white p-2.5 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg sm:rounded-[22px] sm:p-3">
                 <Link href={"/products/" + (product.slug || product.id)} className="relative block aspect-square overflow-hidden rounded-[14px] bg-[#faf8f3] p-3">
                   {discount > 0 && <span className="absolute left-2 top-2 z-10 rounded-md bg-[#800020] px-2 py-1 text-[10px] font-extrabold text-white">{discount}% OFF</span>}
+                  <button type="button" onClick={(event) => { event.preventDefault(); toggleWishlist(product.id); }} aria-label={isWishlisted(product.id) ? "Remove from wishlist" : "Save to wishlist"} aria-pressed={isWishlisted(product.id)} className={`absolute right-2 top-2 z-10 grid h-8 w-8 place-items-center rounded-full shadow-sm backdrop-blur transition active:scale-90 ${isWishlisted(product.id) ? "bg-[#800020] text-white" : "bg-white/90 text-[#800020] hover:bg-[#800020] hover:text-white"}`}><Heart size={15} fill={isWishlisted(product.id) ? "currentColor" : "none"} /></button>
                   <img src={product.image} alt={isHindi ? product.nameHi : product.name} loading="lazy" className="h-full w-full object-contain mix-blend-multiply transition duration-500 group-hover:scale-105" />
                 </Link>
                 <div className="flex flex-1 flex-col px-1 pt-3"><p className="text-[10px] font-extrabold uppercase tracking-[.12em] text-[#A47A2C]">{product.brand || "Rashid Mega Mart"}{product.unit ? " · " + product.unit : ""}</p><Link href={"/products/" + (product.slug || product.id)} className="mt-1 line-clamp-2 min-h-9 text-[13px] font-bold leading-[1.45] tracking-[-.015em] text-[#40342e] hover:text-[#800020] sm:text-[15px]">{isHindi ? product.nameHi : product.name}</Link>

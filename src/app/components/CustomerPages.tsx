@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useLanguage } from "./LanguageProvider";
 import Image from "next/image";
-import { AlertCircle, ArrowDownWideNarrow, FileDown, Headset, LoaderCircle, MapPin, Package, RotateCcw, Search, ShoppingBag, SlidersHorizontal, Star, Truck, UserRound, X, XCircle } from "lucide-react";
+import { AlertCircle, ArrowDownWideNarrow, FileDown, Headset, LoaderCircle, MapPin, Package, RotateCcw, Search, ShoppingBag, Star, Truck, UserRound, X, XCircle } from "lucide-react";
 import { categoryOptions, products } from "./data";
 
 function CenterPage({ title }: { title: string }) {
@@ -79,7 +79,7 @@ export function ProductsPage() {
           </div>
         </section>
 
-        <section className="sticky top-[112px] z-30 -mx-1 mt-4 rounded-2xl border border-white/80 bg-[#fffaf2]/90 p-2 shadow-[0_8px_24px_rgba(72,35,24,.07)] backdrop-blur-xl sm:top-[76px] sm:mx-0 sm:mt-5 sm:rounded-2xl sm:p-3">
+        <section className="sticky top-[112px] z-30 -mx-1 mt-4 rounded-2xl border border-white/80 bg-[#fffaf2]/90 p-2 shadow-[0_8px_24px_rgba(72,35,24,.07)] backdrop-blur-xl xl:top-[76px] sm:mx-0 sm:mt-5 sm:rounded-2xl sm:p-3">
           <label className="flex h-10 items-center gap-2 rounded-xl border border-[#eadfce] bg-white px-3 focus-within:border-[#b88a42] focus-within:ring-4 focus-within:ring-[#a77b3e]/10">
             <Search size={16} className="shrink-0 text-[#800020]" />
             <input

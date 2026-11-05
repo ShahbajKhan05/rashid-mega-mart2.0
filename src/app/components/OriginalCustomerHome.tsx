@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { ArrowRight, ArrowUpRight, ChevronRight, Search, ShieldCheck, ShoppingCart, Truck } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ArrowRight, ArrowUpRight, ChevronRight, Search, ShieldCheck, ShoppingCart, Sparkles, Truck } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 import { categoryOptions, products } from "./data";
 import { useCart } from "./CartProvider";
@@ -32,17 +33,33 @@ export default function OriginalCustomerHome() {
   const [categorySearch, setCategorySearch] = useState("");
   const [openFaq, setOpenFaq] = useState(0);
   const [promoCopied, setPromoCopied] = useState(false);
+  const promoBarRef = useRef<HTMLDivElement>(null);
+  const promoShineRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const bar = promoBarRef.current;
+    const shine = promoShineRef.current;
+    if (!bar || !shine) return;
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (motionQuery.matches) return;
+    const context = gsap.context(() => {
+      gsap.fromTo(bar, { autoAlpha: 0, y: -14 }, { autoAlpha: 1, y: 0, duration: 0.75, ease: "power3.out", clearProps: "transform" });
+      gsap.fromTo(shine, { xPercent: -15 }, { xPercent: 360, duration: 2.8, ease: "power1.inOut", repeat: -1, repeatDelay: 2.1 });
+    }, bar);
+    return () => context.revert();
+  }, []);
   const categories = categoryOptions.filter((item) => item.id !== "all" && (!categorySearch.trim() || item.en.toLowerCase().includes(categorySearch.toLowerCase()) || item.hi.includes(categorySearch.trim())));
 
   return (
     <main className="overflow-hidden bg-[#FFFCF0] pb-24 font-[var(--font-plus-jakarta)] text-[#30251F]">
-      <div className="relative z-20 flex min-h-10 items-center justify-center gap-2 overflow-hidden bg-[#68152b] px-3 py-2 text-center text-[10px] font-extrabold tracking-[.035em] text-[#fff8e9] sm:min-h-11 sm:gap-3 sm:text-xs">
-        <span className="shrink-0 rounded-full border border-[#e6c88f]/45 bg-[#e6c88f]/15 px-2 py-0.5 text-[8px] font-black uppercase tracking-[.14em] text-[#f2d79f] sm:text-[9px]">FIRST ORDER</span>
-        <span className="whitespace-nowrap">{isHindi ? "पहली खरीदारी पर ₹100 की छूट" : "GET ₹100 OFF YOUR FIRST SHOPPING"}</span>
-        <span className="hidden h-3 w-px bg-white/25 sm:block" />
-        <span className="hidden whitespace-nowrap text-white/75 sm:inline">{isHindi ? "₹499 की खरीदारी पर" : "ON SHOPPING OF ₹499+"}</span>
-        <span className="shrink-0 rounded-md border border-[#f2d79f]/45 bg-[#f2d79f]/10 px-2 py-1 font-black tracking-[.12em] text-[#f2d79f]">FIRST100</span>
-        <button type="button" aria-label="Copy FIRST100 coupon code" onClick={async()=>{try{await navigator.clipboard.writeText("FIRST100");setPromoCopied(true);}catch{setPromoCopied(false);}}} className="shrink-0 rounded-full bg-[#fff8e9] px-3 py-1.5 text-[9px] font-black text-[#68152b] transition hover:bg-[#f2d79f] active:scale-95">{promoCopied ? (isHindi ? "कॉपी ✓" : "COPIED ✓") : (isHindi ? "कॉपी" : "COPY")}</button>
+      <div ref={promoBarRef} className="relative isolate z-10 flex min-h-[48px] items-center justify-center gap-2 overflow-hidden border-y border-[#d9b86e]/35 bg-[linear-gradient(105deg,#4b0d20_0%,#791b37_48%,#4b0d20_100%)] px-2.5 py-2 text-center text-white shadow-[0_5px_18px_rgba(75,13,32,.16)] sm:min-h-[54px] sm:gap-3 sm:px-4">
+        <div ref={promoShineRef} aria-hidden="true" className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-[#f6dfaa]/20 to-transparent" />
+        <span className="relative inline-flex shrink-0 items-center gap-1 rounded-full border border-[#f0d69a]/45 bg-[#f0d69a]/10 px-2 py-1 text-[8px] font-black uppercase tracking-[.12em] text-[#f7dfa7] sm:px-2.5 sm:text-[9px]"><Sparkles size={11} /> {isHindi ? "पहला ऑर्डर" : "FIRST ORDER"}</span>
+        <span className="relative whitespace-nowrap text-[11px] font-black tracking-[-.02em] sm:text-sm">{isHindi ? "₹499+ पर ₹100 की छूट" : "₹100 OFF ON ₹499+"}</span>
+        <span className="relative hidden h-4 w-px bg-white/25 sm:block" />
+        <span className="relative hidden whitespace-nowrap text-[10px] font-semibold text-white/75 sm:inline">{isHindi ? "कोड" : "USE CODE"}</span>
+        <span className="relative rounded-md border border-[#f2d79f]/50 bg-[#f2d79f]/10 px-2 py-1 text-[10px] font-black tracking-[.12em] text-[#f7dfa7] sm:px-2.5 sm:text-xs">FIRST100</span>
+        <button type="button" aria-label="Copy FIRST100 coupon code" onClick={async()=>{try{await navigator.clipboard.writeText("FIRST100");setPromoCopied(true);}catch{setPromoCopied(false);}}} className="relative shrink-0 rounded-full bg-[#fff8e9] px-2.5 py-1.5 text-[8px] font-black tracking-[.06em] text-[#68152b] shadow-[0_2px_8px_rgba(0,0,0,.12)] transition hover:bg-[#f2d79f] active:scale-95 sm:px-3 sm:text-[9px]">{promoCopied ? (isHindi ? "कॉपी ✓" : "COPIED ✓") : (isHindi ? "कॉपी" : "COPY")}</button>
       </div>
       <section id="top" className="relative isolate overflow-hidden bg-[#FFFCF0] px-4 pb-12 pt-24 sm:px-7 sm:pb-16 sm:pt-28 lg:px-10">
         <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_5%,rgba(212,168,79,.18),transparent_55%)]" />

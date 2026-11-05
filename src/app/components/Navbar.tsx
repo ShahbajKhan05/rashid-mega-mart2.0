@@ -156,7 +156,7 @@ export default function Navbar() {
             >
               <MapPin size={16} className="text-[#138047]" />
               <div className="flex flex-col items-start">
-                <span className="text-[10px] font-bold text-[#138047]">Delivery in 30 mins</span>
+                <span className="text-[10px] font-bold text-[#138047]">{isHindi ? "30 मिनट में डिलीवरी" : "Delivery in 30 mins"}</span>
                 <span className="flex items-center gap-1 text-[11px] font-black text-gray-800">
                   {selectedLocation} <ChevronDown size={14} className="text-gray-500" />
                 </span>
@@ -171,7 +171,7 @@ export default function Navbar() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search for atta, oil..."
+                placeholder={isHindi ? "आटा, तेल खोजें..." : "Search for atta, oil..."}
                 className="h-11 w-full rounded-xl border border-[#eee7dc] bg-[#f8f6f1] pl-11 pr-4 text-[13px] font-medium text-[#493d37] outline-none transition placeholder:text-[#a69b90] focus:border-[#b99a70] focus:bg-white focus:ring-4 focus:ring-[#a77b3e]/10"
               />
             </form>
@@ -179,12 +179,12 @@ export default function Navbar() {
 
           <div className="flex items-center gap-3">
             <nav className="flex items-center gap-1.5">
-              <motion.a href="/" className="nav-glass-link rounded-lg px-3 py-2 text-[13px] font-semibold tracking-[-0.01em] text-[#65574f] hover:bg-white/35 hover:text-[#68162a]" whileHover={{ y: -2, scale: 1.025 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 420, damping: 28 }}>Home</motion.a>
-              <motion.a href="/products" className="nav-glass-link rounded-full px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-white/40 hover:text-[#800020]" whileHover={{ y: -2, scale: 1.025 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 420, damping: 28 }}>Products</motion.a>
-              <motion.a href="/order-tracking" className="nav-glass-link rounded-full px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-white/40 hover:text-[#800020]" whileHover={{ y: -2, scale: 1.025 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 420, damping: 28 }}>Track Order</motion.a>
-              <motion.a href="/my-orders" className="nav-glass-link rounded-full px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-white/40 hover:text-[#800020]" whileHover={{ y: -2, scale: 1.025 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 420, damping: 28 }}>My Orders</motion.a>
+              <motion.a href="/" className="nav-glass-link rounded-lg px-3 py-2 text-[13px] font-semibold tracking-[-0.01em] text-[#65574f] hover:bg-white/35 hover:text-[#68162a]" whileHover={{ y: -2, scale: 1.025 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 420, damping: 28 }}>{isHindi ? "होम" : "Home"}</motion.a>
+              <motion.a href="/products" className="nav-glass-link rounded-full px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-white/40 hover:text-[#800020]" whileHover={{ y: -2, scale: 1.025 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 420, damping: 28 }}>{isHindi ? "सामान" : "Products"}</motion.a>
+              <motion.a href="/order-tracking" className="nav-glass-link rounded-full px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-white/40 hover:text-[#800020]" whileHover={{ y: -2, scale: 1.025 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 420, damping: 28 }}>{isHindi ? "ऑर्डर ट्रैक करें" : "Track Order"}</motion.a>
+              <motion.a href="/my-orders" className="nav-glass-link rounded-full px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-white/40 hover:text-[#800020]" whileHover={{ y: -2, scale: 1.025 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 420, damping: 28 }}>{isHindi ? "मेरे ऑर्डर" : "My Orders"}</motion.a>
               <motion.a href="/admin" className="nav-glass-link flex items-center gap-1 rounded-lg px-3 py-2 text-[13px] font-semibold text-[#88796f] hover:bg-white/35 hover:text-[#68162a]" whileHover={{ y: -2, scale: 1.025 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 420, damping: 28 }}>
-                <ShieldCheck size={14} /> Admin
+                <ShieldCheck size={14} /> {isHindi ? "एडमिन" : "Admin"}
               </motion.a>
             </nav>
 
@@ -192,7 +192,7 @@ export default function Navbar() {
 
             <button onClick={openCart} className="flex h-11 items-center gap-2.5 rounded-xl border border-white/75 bg-white/55 px-4 text-[#68162a] shadow-[0_4px_18px_rgba(31,41,55,0.08)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:bg-white/75 active:translate-y-0">
               <ShoppingCart size={18} />
-              <span className="text-sm font-bold">Cart</span>
+              <span className="text-sm font-bold">{isHindi ? "कार्ट" : "Cart"}</span>
               <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#D4A84F] px-1 text-[10px] font-black text-[#35120D]">
                 {cartLabelCount}
               </span>
@@ -215,7 +215,7 @@ export default function Navbar() {
                 onClick={() => setMenuOpen(true)}
                 className="flex h-10 shrink-0 items-center justify-center gap-1.5 rounded-xl border border-white/75 bg-white/45 px-3 text-xs font-bold text-[#514b50] shadow-[0_3px_14px_rgba(31,41,55,0.06)] backdrop-blur-xl transition active:scale-95"
               >
-                <Menu size={17} /> Menu
+                <Menu size={17} /> {isHindi ? "मेन्यू" : "Menu"}
               </button>
               
               {/* Logo & Location */}
@@ -384,18 +384,18 @@ export default function Navbar() {
               <div className="mb-9 flex items-center justify-between border-b border-white/70 pb-6">
                 <div className="flex items-center gap-3">
                   <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/70 bg-white/45 p-1 shadow-[0_5px_18px_rgba(31,41,55,0.10)]"><Image src="/Logo.png" alt="Logo" width={40} height={40} className="h-10 w-10 object-contain" /></div>
-                  <div className="flex flex-col gap-1"><span className="text-[16px] font-semibold tracking-[-0.035em] text-[#4b3440]">Rashid Mega Mart</span><span className="text-[9px] font-bold tracking-[0.28em] text-[#9a7950]">THE EVERYDAY LUXURY</span></div>
+                  <div className="flex flex-col gap-1"><span className="text-[16px] font-semibold tracking-[-0.035em] text-[#4b3440]">{isHindi ? "राशिद मेगा मार्ट" : "Rashid Mega Mart"}</span><span className="text-[9px] font-bold tracking-[0.28em] text-[#9a7950]">THE EVERYDAY LUXURY</span></div>
                 </div>
                 <button onClick={() => setMenuOpen(false)} aria-label="Close menu" className="rounded-full border border-white/80 bg-white/55 p-2.5 text-[#514653] transition hover:bg-white/20"><X size={19} /></button>
               </div>
 
               <button onClick={() => { setMenuOpen(false); setLocationModalOpen(true); }} className="mb-9 flex w-full items-center gap-3 rounded-xl border border-white/70 bg-white/30 p-4 text-left shadow-[0_5px_20px_rgba(31,41,55,0.06)] backdrop-blur-xl transition hover:bg-white/70">
                 <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/50 text-[#68162a]"><MapPin size={18} /></span>
-                <span className="flex min-w-0 flex-1 flex-col gap-1"><span className="text-[9px] font-medium uppercase tracking-[0.16em] text-[#8b7d70]">Delivering to</span><span className="truncate text-[14px] font-bold text-[#514653]">{selectedLocation}</span></span>
+                <span className="flex min-w-0 flex-1 flex-col gap-1"><span className="text-[9px] font-medium uppercase tracking-[0.16em] text-[#8b7d70]">{isHindi ? "डिलीवरी का पता" : "Delivering to"}</span><span className="truncate text-[14px] font-bold text-[#514653]">{selectedLocation}</span></span>
                 <ChevronDown size={17} className="text-[#9a7950]" />
               </button>
 
-              <div className="mb-3 text-[9px] font-medium uppercase tracking-[0.18em] text-[#8b7d70]">Explore the store</div>
+              <div className="mb-3 text-[9px] font-medium uppercase tracking-[0.18em] text-[#8b7d70]">{isHindi ? "दुकान देखें" : "Explore the store"}</div>
               <div className="flex flex-col gap-2">
                 <a href="/" onClick={() => setMenuOpen(false)} className="group flex min-h-[50px] items-center gap-4 rounded-xl border border-white/65 bg-white/30 px-3.5 text-[#403740] shadow-[0_3px_14px_rgba(31,41,55,0.05)] backdrop-blur-xl transition-transform duration-200 ease-out hover:translate-x-0.5 hover:border-[#d8bd8b]/45 hover:bg-white/[0.12]"><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/45 text-[#8a6748]"><House size={18} /></span><span className="flex-1 text-[13px] font-medium">{isHindi ? "होम" : "Home"}</span><ArrowUpRight size={16} className="text-[#9b8e96] transition group-hover:text-[#68162a]" /></a>
                 <a href="/products" onClick={() => setMenuOpen(false)} className="group flex min-h-[58px] items-center gap-4 rounded-2xl border border-white/75 bg-white/45 px-4 text-[#403740] shadow-[0_3px_14px_rgba(31,41,55,0.05)] backdrop-blur-xl transition hover:translate-x-1 hover:border-[#d8bd8b]/45 hover:bg-white/[0.12]"><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#efe7dc]/75 text-[#8a6748]"><Package size={18} /></span><span className="flex-1 text-[14px] font-semibold">{isHindi ? "उत्पाद" : "Products"}</span><ArrowUpRight size={16} className="text-[#9b8e96] transition group-hover:text-[#68162a]" /></a>

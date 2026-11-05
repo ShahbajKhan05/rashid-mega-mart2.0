@@ -4,6 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, FileText, ShieldCheck } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const policyLinks = [
   { href: "/privacy-policy", en: "Privacy Policy", hi: "गोपनीयता नीति" },
@@ -18,13 +21,25 @@ const policyLinks = [
 
 export default function SiteFooter() {
   const { language, t } = useLanguage();
+  const footerRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const root = footerRef.current;
+    if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    gsap.registerPlugin(ScrollTrigger);
+    const ctx = gsap.context(() => {
+      gsap.fromTo(".footer-reveal", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, stagger: 0.1, ease: "power3.out", scrollTrigger: { trigger: root, start: "top 88%", once: true } });
+      gsap.to(".footer-heart", { scale: 1.22, duration: 0.55, repeat: -1, yoyo: true, ease: "power2.inOut", transformOrigin: "center" });
+    }, root);
+    return () => ctx.revert();
+  }, []);
   const isHindi = language === "hi";
 
   return (
-    <footer className="relative overflow-hidden border-t border-[#eadfce] bg-[linear-gradient(135deg,#fffdf7_0%,#f8f1e7_52%,#fffaf2_100%)] pb-[calc(68px+max(env(safe-area-inset-bottom),7px)+12px)] pt-10 text-[#382b2b] sm:pt-12 xl:pb-7">
+    <footer ref={footerRef} className="relative overflow-hidden border-t border-[#eadfce] bg-[linear-gradient(135deg,#fffdf7_0%,#f8f1e7_52%,#fffaf2_100%)] pb-[calc(68px+max(env(safe-area-inset-bottom),7px)+12px)] pt-10 text-[#382b2b] sm:pt-12 xl:pb-7">
       <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-[#b88a42]/[0.08] blur-3xl" />
       <div className="relative mx-auto grid max-w-[1320px] grid-cols-2 gap-x-7 gap-y-9 px-5 sm:grid-cols-2 sm:px-8 lg:grid-cols-[1.25fr_.75fr_1fr_1.15fr] lg:gap-10 lg:px-10">
-        <div className="col-span-2 max-w-sm lg:col-span-1">
+        <div className="footer-reveal col-span-2 max-w-sm lg:col-span-1">
           <Link href="/" aria-label="Rashid Mega Mart home" className="inline-flex items-center gap-3">
             <span className="grid h-14 w-14 place-items-center rounded-2xl border border-white/80 bg-white/75 shadow-[0_8px_24px_rgba(80,35,25,.08)] backdrop-blur-xl">
               <Image src="/Logo.png" alt="Rashid Mega Mart" width={46} height={46} className="h-11 w-11 object-contain" />
@@ -74,7 +89,7 @@ export default function SiteFooter() {
 
       <div className="relative mx-auto mt-9 flex max-w-[1320px] flex-col gap-2 border-t border-[#e7dccd] px-5 pt-5 text-[10px] font-medium text-[#96877b] sm:px-8 md:flex-row md:items-center md:justify-between lg:px-10">
         <p>© {new Date().getFullYear()} Rashid Mega Mart. {t("allRightsReserved")}</p>
-        <p>{isHindi ? "आपकी रोज़मर्रा की खरीदारी" : "Everyday shopping, made simpler"} <span className="px-1 text-[#b88a42]">✦</span> <span className="font-semibold text-[#800020]">Created with ♥ by Noor Technologies</span></p>
+        <p>{isHindi ? "आपकी रोज़मर्रा की खरीदारी" : "Everyday shopping, made simpler"} <span className="px-1 text-[#b88a42]">✦</span> <span className="font-semibold text-[#800020]">Created with <span className="footer-heart inline-block text-[#b32645]">♥</span> by Noor Technologies</span></p>
       </div>
     </footer>
   );

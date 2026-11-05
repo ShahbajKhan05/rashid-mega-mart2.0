@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from "motion/react";
 import {
   House, Package, LayoutGrid, X, ArrowUpRight,
   MapPin, Search, ChevronDown, Crosshair, User, Star, Lock, Heart, LogOut, Gift, ShieldCheck, Truck,
-  Wheat, Droplet, Flame, Cookie, ShoppingCart // Categories and cart navigation
+  Wheat, Droplet, Flame, Cookie, ShoppingCart, MoreHorizontal, CircleHelp, Info, Phone, FileText, Utensils // Categories and cart navigation
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useLanguage } from "./LanguageProvider";
@@ -45,6 +45,7 @@ export default function Navbar() {
   const { wishlistCount } = useWishlist();
 
   const [searchOpen, setSearchOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
   const bodyOverflowBeforeOverlay = useRef<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -300,10 +301,10 @@ export default function Navbar() {
             <span className={`relative flex h-8 w-10 items-center justify-center rounded-2xl transition-all ${pathname === "/wishlist" ? "bg-[#800020]/[0.09]" : ""}`}><Heart size={19} strokeWidth={pathname === "/wishlist" ? 2.5 : 1.8} />{wishlistCount > 0 && <span className="absolute right-0 top-0 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#800020] px-1 text-[8px] font-black text-white ring-2 ring-[#fffdf8]">{wishlistCount > 99 ? "99+" : wishlistCount}</span>}</span>
             <span className="text-[9px] font-extrabold tracking-tight">{isHindi ? "विशलिस्ट" : "Saved"}</span>
           </a>
-          <a href="/my-orders" aria-current={pathname.startsWith("/my-orders") ? "page" : undefined} className={`group flex h-full flex-col items-center justify-center gap-1.5 transition-all ${pathname.startsWith("/my-orders") ? "text-[#800020]" : "text-[#887b73] hover:text-[#800020]"}`}>
-            <span className={`flex h-8 w-12 items-center justify-center rounded-2xl transition-all ${pathname.startsWith("/my-orders") ? "bg-[#800020]/[0.09] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]" : ""}`}><Package size={20} strokeWidth={pathname.startsWith("/my-orders") ? 2.5 : 1.8} /></span>
-            <span className="text-[10px] font-extrabold tracking-tight">{isHindi ? "मेरे ऑर्डर" : "My Orders"}</span>
-          </a>
+          <button type="button" onClick={() => setMoreOpen(true)} aria-haspopup="dialog" aria-expanded={moreOpen} className={`group flex h-full flex-col items-center justify-center gap-1.5 transition-all ${moreOpen || ["/my-orders","/rewards","/faqs","/about","/contact","/food-safety","/privacy-policy","/terms-and-conditions","/shipping-policy","/payment-policy","/return-replacement","/cancellation-refund","/grievance-redressal"].some(path => pathname.startsWith(path)) ? "text-[#800020]" : "text-[#887b73] hover:text-[#800020]"}`}>
+            <span className={`flex h-8 w-12 items-center justify-center rounded-2xl transition-all ${moreOpen ? "bg-[#800020]/[0.09]" : ""}`}><MoreHorizontal size={21} /></span>
+            <span className="text-[10px] font-extrabold tracking-tight">{isHindi ? "और" : "More"}</span>
+          </button>
           <button type="button" onClick={openCart} aria-label={isHindi ? `कार्ट, ${cartCount} आइटम` : `Cart, ${cartCount} items`}
             aria-haspopup="dialog"
             className={`group relative flex h-full flex-col items-center justify-center gap-1.5 transition-all ${pathname === "/cart" ? "text-[#800020]" : "text-[#887b73] hover:text-[#800020]"}`}>
@@ -317,6 +318,45 @@ export default function Navbar() {
         </div>
       </nav>
 
+
+      <AnimatePresence>
+        {moreOpen && (
+          <>
+            <motion.button type="button" aria-label={isHindi ? "मेन्यू बंद करें" : "Close menu"} onClick={() => setMoreOpen(false)} className="fixed inset-0 z-[95] bg-[#24151a]/45 backdrop-blur-[3px] xl:hidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} />
+            <motion.section role="dialog" aria-modal="true" aria-label={isHindi ? "और विकल्प" : "More options"} className="fixed inset-x-0 bottom-0 z-[96] max-h-[82svh] overflow-y-auto rounded-t-[28px] border-t border-white/70 bg-[#fffdf8]/95 px-4 pb-[max(env(safe-area-inset-bottom),18px)] pt-3 shadow-[0_-18px_60px_rgba(35,20,20,.2)] backdrop-blur-2xl xl:hidden" initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }} transition={{ type: "spring", stiffness: 340, damping: 32 }}>
+              <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-[#d9cbbd]" />
+              <div className="mb-4 flex items-center justify-between">
+                <div><p className="text-[9px] font-black uppercase tracking-[.22em] text-[#a77b3e]">Rashid Mega Mart</p><h2 className="mt-1 text-xl font-black tracking-tight text-[#800020]">{isHindi ? "और विकल्प" : "Explore more"}</h2></div>
+                <button type="button" onClick={() => setMoreOpen(false)} aria-label="Close" className="grid h-9 w-9 place-items-center rounded-full border border-[#eadfce] bg-white text-[#800020]"><X size={17}/></button>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                {[
+                  { href: "/rewards", label: isHindi ? "Rashid Rewards" : "Rashid Rewards", hint: isHindi ? "पॉइंट्स और कूपन" : "Points & vouchers", icon: <Gift size={19}/> },
+                  { href: "/my-orders", label: isHindi ? "मेरे ऑर्डर" : "My Orders", hint: isHindi ? "ऑर्डर हिस्ट्री" : "Order history", icon: <Package size={19}/> },
+                  { href: "/cart", label: isHindi ? "मेरा कार्ट" : "My Cart", hint: isHindi ? "खरीदारी जारी रखें" : "Continue shopping", icon: <ShoppingCart size={19}/> },
+                  { href: "/faqs", label: "FAQs", hint: isHindi ? "सवालों के जवाब" : "Quick answers", icon: <CircleHelp size={19}/> },
+                  { href: "/about", label: isHindi ? "हमारे बारे में" : "About us", hint: isHindi ? "हमारी कहानी" : "Our store", icon: <Info size={19}/> },
+                  { href: "/contact", label: isHindi ? "संपर्क करें" : "Contact us", hint: isHindi ? "हमसे बात करें" : "Get in touch", icon: <Phone size={19}/> },
+                  { href: "/food-safety", label: isHindi ? "फूड सेफ्टी" : "Food safety", hint: isHindi ? "सुरक्षा जानकारी" : "Safety information", icon: <Utensils size={19}/> },
+                  { href: "/shipping-policy", label: isHindi ? "डिलीवरी पॉलिसी" : "Shipping policy", hint: isHindi ? "डिलीवरी जानकारी" : "Delivery details", icon: <Truck size={19}/> },
+                  { href: "/payment-policy", label: isHindi ? "पेमेंट पॉलिसी" : "Payment policy", hint: isHindi ? "भुगतान जानकारी" : "Payment details", icon: <FileText size={19}/> },
+                  { href: "/return-replacement", label: isHindi ? "रिटर्न पॉलिसी" : "Returns policy", hint: isHindi ? "रिटर्न और बदलाव" : "Returns & replacement", icon: <ShieldCheck size={19}/> },
+                  { href: "/cancellation-refund", label: isHindi ? "कैंसलेशन और रिफंड" : "Cancellation & refund", hint: isHindi ? "रिफंड नियम" : "Refund information", icon: <FileText size={19}/> },
+                  { href: "/privacy-policy", label: isHindi ? "प्राइवेसी पॉलिसी" : "Privacy policy", hint: isHindi ? "डेटा और प्राइवेसी" : "Your privacy", icon: <Lock size={19}/> },
+                  { href: "/terms-and-conditions", label: isHindi ? "नियम और शर्तें" : "Terms & conditions", hint: isHindi ? "स्टोर के नियम" : "Store terms", icon: <FileText size={19}/> },
+                  { href: "/grievance-redressal", label: isHindi ? "शिकायत सहायता" : "Grievance support", hint: isHindi ? "सहायता और शिकायत" : "Help & complaints", icon: <CircleHelp size={19}/> },
+                ].map(item => (
+                  <a key={item.href} href={item.href} onClick={() => setMoreOpen(false)} className={`flex min-h-[68px] items-center gap-3 rounded-2xl border px-3 py-2.5 transition active:scale-[.98] ${pathname === item.href ? "border-[#800020]/25 bg-[#800020]/[.06]" : "border-[#eee4d8] bg-white/80 hover:border-[#d8c1a2]"}`}>
+                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[#800020]/[.07] text-[#800020]">{item.icon}</span>
+                    <span className="min-w-0"><span className="block truncate text-[12px] font-extrabold text-[#49352f]">{item.label}</span><span className="mt-0.5 block truncate text-[10px] text-[#95877c]">{item.hint}</span></span>
+                  </a>
+                ))}
+              </div>
+              <a href="/wishlist" onClick={() => setMoreOpen(false)} className="mt-3 flex min-h-11 items-center justify-center gap-2 rounded-xl border border-[#eadfce] bg-white text-xs font-bold text-[#800020]"><Heart size={15}/> {isHindi ? "सेव की गई विशलिस्ट देखें" : "View saved wishlist"}{wishlistCount > 0 ? ` · ${wishlistCount}` : ""}</a>
+            </motion.section>
+          </>
+        )}
+      </AnimatePresence>
 
       {/* =========================================
           LOCATION MODAL

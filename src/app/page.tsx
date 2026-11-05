@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, BadgeCheck, ChevronRight, Clock3, PackageCheck, Search, ShieldCheck, ShoppingBag, Sparkles, Star, Truck } from "lucide-react";
+import { ArrowRight, ArrowUpRight, ChevronRight, Headset, PackageCheck, ShieldCheck, ShoppingBag, Sparkles, Star, Truck } from "lucide-react";
 import { useLanguage } from "./components/LanguageProvider";
 import { categoryOptions, products } from "./components/data";
 

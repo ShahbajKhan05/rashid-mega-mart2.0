@@ -8,16 +8,10 @@ export default function IntroLoader() {
   const [visible, setVisible] = useState(true);
   const rootRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
-  const taglineRef = useRef<HTMLParagraphElement>(null);
-  const haloRef = useRef<HTMLDivElement>(null);
-  const scanRef = useRef<HTMLDivElement>(null);
-  const progressRef = useRef<HTMLDivElement>(null);
-  const countRef = useRef<HTMLSpanElement>(null);
-  const leftCurtainRef = useRef<HTMLDivElement>(null);
-  const rightCurtainRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const sessionKey = "rashid-mega-mart:intro-seen";
+
     try {
       if (window.sessionStorage.getItem(sessionKey) === "1") {
         setVisible(false);
@@ -25,125 +19,83 @@ export default function IntroLoader() {
       }
       window.sessionStorage.setItem(sessionKey, "1");
     } catch {
-      // Continue normally when session storage is unavailable.
+      // Keep the loader functional when session storage is unavailable.
     }
 
     const root = rootRef.current;
     const logo = logoRef.current;
-    const tagline = taglineRef.current;
-    const halo = haloRef.current;
-    const scan = scanRef.current;
-    const progress = progressRef.current;
-    const count = countRef.current;
-    const leftCurtain = leftCurtainRef.current;
-    const rightCurtain = rightCurtainRef.current;
 
-    if (!root || !logo || !tagline || !halo || !scan || !progress || !count || !leftCurtain || !rightCurtain) {
+    if (!root || !logo) {
       setVisible(false);
       return;
     }
 
     const oldOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    let completed = false;
-    let fallback = 0;
 
-    const finish = () => {
-      if (completed) return;
-      completed = true;
-      window.clearTimeout(fallback);
-      document.body.style.overflow = oldOverflow;
-      setVisible(false);
+    let pageLoaded = document.readyState === "complete";
+    let revealComplete = false;
+    let finished = false;
+    let revealTimer = 0;
+
+    const finishIfReady = () => {
+      if (!pageLoaded || !revealComplete || finished) return;
+      finished = true;
+      gsap.to(root, {
+        autoAlpha: 0,
+        duration: 0.38,
+        ease: "power2.out",
+        onComplete: () => {
+          document.body.style.overflow = oldOverflow;
+          setVisible(false);
+        },
+      });
     };
 
+    const handleLoad = () => {
+      pageLoaded = true;
+      finishIfReady();
+    };
+
+    window.addEventListener("load", handleLoad, { once: true });
+
+    gsap.set(logo, {
+      autoAlpha: 0,
+      scale: 0.9,
+      y: 10,
+      filter: "blur(8px)",
+      transformOrigin: "50% 50%",
+    });
+
+    gsap.to(logo, {
+      autoAlpha: 1,
+      scale: 1,
+      y: 0,
+      filter: "blur(0px)",
+      duration: 0.85,
+      ease: "power3.out",
+      onComplete: () => {
+        revealComplete = true;
+        finishIfReady();
+      },
+    });
+
+    // Avoid a flash on very fast loads while never forcing a long fixed loader.
+    revealTimer = window.setTimeout(() => {
+      revealComplete = true;
+      finishIfReady();
+    }, 900);
+
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      const timer = window.setTimeout(finish, 160);
-      return () => {
-        window.clearTimeout(timer);
-        document.body.style.overflow = oldOverflow;
-      };
+      gsap.set(logo, { autoAlpha: 1, scale: 1, y: 0, filter: "none" });
+      revealComplete = true;
+      finishIfReady();
     }
 
-    fallback = window.setTimeout(finish, 9000);
-
-    const ctx = gsap.context(() => {
-      const state = { value: 0 };
-
-      gsap.set(logo, {
-        autoAlpha: 0,
-        y: 38,
-        z: -90,
-        scale: 0.84,
-        rotateX: 9,
-        filter: "blur(10px)",
-        clipPath: "inset(0 50% 0 50% round 32px)",
-        transformPerspective: 1200,
-        transformOrigin: "50% 65%",
-        force3D: true,
-      });
-      gsap.set(tagline, { autoAlpha: 0, y: 12, filter: "blur(5px)" });
-      gsap.set(halo, { autoAlpha: 0, scale: 0.72 });
-      gsap.set(scan, { xPercent: -150, autoAlpha: 0 });
-      gsap.set(progress, { scaleX: 0, transformOrigin: "left center" });
-      gsap.set([leftCurtain, rightCurtain], { xPercent: 0 });
-
-      const tl = gsap.timeline({ onComplete: finish });
-
-      tl.to(halo, {
-        autoAlpha: 1,
-        scale: 1,
-        duration: 1.15,
-        ease: "power2.out",
-      }, 0)
-        .to(logo, {
-          autoAlpha: 1,
-          y: 0,
-          z: 0,
-          scale: 1,
-          rotateX: 0,
-          filter: "blur(0px)",
-          clipPath: "inset(0 0% 0 0% round 32px)",
-          duration: 1.45,
-          ease: "power3.out",
-        }, 0.28)
-        .to(tagline, {
-          autoAlpha: 1,
-          y: 0,
-          filter: "blur(0px)",
-          duration: 0.85,
-          ease: "power3.out",
-        }, 1.18)
-        .to(scan, {
-          xPercent: 150,
-          autoAlpha: 0.85,
-          duration: 1.25,
-          ease: "power2.inOut",
-        }, 1.05)
-        .to(scan, { autoAlpha: 0, duration: 0.28 }, 2.05)
-        .to(state, {
-          value: 100,
-          duration: 3.25,
-          ease: "power1.inOut",
-          onUpdate: () => {
-            count.textContent = String(Math.round(state.value));
-            gsap.set(progress, { scaleX: state.value / 100 });
-          },
-        }, 1.05)
-        .to([leftCurtain, rightCurtain], {
-          xPercent: (index) => (index === 0 ? -103 : 103),
-          duration: 1.25,
-          ease: "power3.inOut",
-        }, 4.35)
-        .to(root, {
-          autoAlpha: 0,
-          duration: 0.3,
-          ease: "power1.out",
-        }, 5.42);
-    }, root);
-
     return () => {
-      window.clearTimeout(fallback);
-      ctx.revert();
+      window.removeEventListener("load", handleLoad);
+      window.clearTimeout(revealTimer);
+      gsap.killTweensOf([root, logo]);
       document.body.style.overflow = oldOverflow;
     };
   }, []);
@@ -151,74 +103,25 @@ export default function IntroLoader() {
   if (!visible) return null;
 
   return (
-    <>
-      <h1 className="sr-only">Rashid Mega Mart</h1>
+    <div
+      ref={rootRef}
+      className="fixed inset-0 z-[99999] flex items-center justify-center overflow-hidden bg-[#FFFCF0]"
+      role="status"
+      aria-label="Loading Rashid Mega Mart"
+    >
       <div
-        ref={rootRef}
-        className="fixed inset-0 z-[99999] isolate flex items-center justify-center overflow-hidden bg-[#FFFFFF]"
-        aria-hidden="true"
+        ref={logoRef}
+        className="relative flex w-[min(72vw,360px)] items-center justify-center"
       >
-        <div
-          ref={haloRef}
-          className="pointer-events-none absolute left-1/2 top-[43%] z-0 h-[min(78vw,660px)] w-[min(78vw,660px)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(220,197,145,0.30)_0%,rgba(220,197,145,0.13)_38%,rgba(20,104,49,0.07)_57%,rgba(255,255,255,0)_74%)] blur-2xl"
+        <Image
+          src="/Logo.png"
+          alt="Rashid Mega Mart"
+          width={900}
+          height={900}
+          priority
+          className="h-auto max-h-[42vh] w-full object-contain"
         />
-
-        <div className="relative z-40 flex w-full -translate-y-5 flex-col items-center px-6">
-          <div className="relative flex h-[min(66vw,430px)] w-[min(78vw,500px)] items-center justify-center [perspective:1200px]">
-            <div
-              ref={logoRef}
-              className="relative z-20 flex w-[min(67vw,390px)] items-center justify-center rounded-[2rem] border border-white/90 bg-white/85 p-5 shadow-[0_28px_70px_rgba(27,64,39,0.14),0_10px_28px_rgba(174,143,85,0.16),inset_0_1px_0_rgba(255,255,255,1)] backdrop-blur-xl [transform-style:preserve-3d] sm:p-7"
-            >
-              <Image
-                src="/Logo.png"
-                alt="Rashid Mega Mart"
-                width={1100}
-                height={1100}
-                priority
-                className="h-auto max-h-[34vh] w-full object-contain drop-shadow-[0_15px_24px_rgba(18,76,35,0.20)]"
-              />
-              <div
-                ref={scanRef}
-                className="pointer-events-none absolute inset-y-[7%] left-[-30%] z-30 w-[38%] skew-x-[-18deg] bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.18)_15%,rgba(255,255,255,0.96)_50%,rgba(224,196,139,0.32)_76%,transparent)] mix-blend-screen"
-              />
-            </div>
-          </div>
-
-
-          <p
-            ref={taglineRef}
-            className="mt-1 text-center text-[10px] font-semibold uppercase tracking-[0.22em] text-[#315B3B] sm:text-xs sm:tracking-[0.28em]"
-          >
-            You Choose Quality. We Deliver Quality.
-          </p>
-
-          <div className="mt-9 flex w-[min(70vw,360px)] flex-col items-center gap-3">
-            <div className="h-[3px] w-full overflow-hidden rounded-full bg-[#EEEAE2] shadow-[inset_0_1px_2px_rgba(80,70,50,0.08)]">
-              <div
-                ref={progressRef}
-                className="h-full w-full origin-left rounded-full bg-[linear-gradient(90deg,#145C2B,#8EAD73,#C6A568)] shadow-[0_0_9px_rgba(142,173,115,0.35)]"
-              />
-            </div>
-            <div className="flex w-full items-center justify-between text-[10px] font-medium tracking-[0.16em] text-[#817966]">
-              <span>PREPARING YOUR EXPERIENCE</span>
-              <span className="tabular-nums text-[#315B3B]"><span ref={countRef}>0</span>%</span>
-            </div>
-          </div>
-        </div>
-
-        <div
-          ref={leftCurtainRef}
-          className="pointer-events-none absolute inset-y-0 left-0 z-30 w-1/2 border-r border-[#E7E1D5]/80 bg-[repeating-linear-gradient(90deg,#FFFFFF_0px,#FFFFFF_34px,#F7F5F0_58px,#FFFFFF_82px,#FBFAF7_112px)] shadow-[18px_0_45px_rgba(107,82,46,0.08)]"
-        >
-          <div className="absolute inset-y-0 right-0 w-5 bg-[linear-gradient(90deg,transparent,rgba(160,126,75,0.10))]" />
-        </div>
-        <div
-          ref={rightCurtainRef}
-          className="pointer-events-none absolute inset-y-0 right-0 z-30 w-1/2 border-l border-[#E7E1D5]/80 bg-[repeating-linear-gradient(90deg,#FFFFFF_0px,#FFFFFF_34px,#F7F5F0_58px,#FFFFFF_82px,#FBFAF7_112px)] shadow-[-18px_0_45px_rgba(107,82,46,0.08)]"
-        >
-          <div className="absolute inset-y-0 left-0 w-5 bg-[linear-gradient(270deg,transparent,rgba(160,126,75,0.10))]" />
-        </div>
       </div>
-    </>
+    </div>
   );
 }

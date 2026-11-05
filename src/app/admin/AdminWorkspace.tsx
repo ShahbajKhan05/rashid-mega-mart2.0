@@ -55,34 +55,21 @@ function SectionTitle({ eyebrow, title, description, action }: { eyebrow: string
 }
 
 function Overview() {
-  const stats = [
-    { label: "Total revenue", value: "₹84,250", delta: "+12.8%", icon: Wallet, tone: "bg-[#f8edf0] text-[#800020]", note: "vs last month" },
-    { label: "Total orders", value: "1,284", delta: "+8.2%", icon: ShoppingCart, tone: "bg-[#edf5ef] text-[#28734c]", note: "vs last month" },
-    { label: "Customers", value: "846", delta: "+6.4%", icon: Users, tone: "bg-[#f4effb] text-[#7651a6]", note: "vs last month" },
-    { label: "Avg. order value", value: "₹656", delta: "+3.1%", icon: CreditCard, tone: "bg-[#fff4e8] text-[#b46a20]", note: "vs last month" },
+  const shortcuts = [
+    { href: "/admin/orders", title: "Orders", detail: "Customer ke orders dekhein", icon: ShoppingBag },
+    { href: "/admin/products", title: "Products", detail: "Samaan aur stock manage karein", icon: Package },
+    { href: "/admin/customers", title: "Customers", detail: "Customer list dekhein", icon: Users },
+    { href: "/admin/monthly-kit", title: "Monthly Kit", detail: "Monthly kits manage karein", icon: Boxes },
+    { href: "/admin/settings", title: "Dukaan ki details", detail: "Naam, phone, address aur timing", icon: Settings2 },
   ];
-  const bars = [32, 48, 40, 64, 53, 76, 58, 82, 67, 92, 72, 100];
-  return <>
-    <SectionTitle eyebrow="Store pulse · November 2026" title="Good morning, Admin." description="Here’s what’s happening at Rashid Mega Mart today." action="Download report"/>
-    <div className="mb-5 flex items-center gap-2 rounded-xl border border-[#e8dfd3] bg-white/70 px-3.5 py-2.5 text-xs text-[#74645f]"><span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_0_4px_rgba(16,185,129,.1)]"/><span className="font-bold text-[#4a3838]">Store is online</span><span className="text-[#c1b5a8]">/</span> Dashboard preview with sample data <span className="ml-auto hidden text-[10px] font-bold uppercase tracking-wider text-[#a47a2c] sm:block">Live data connection pending</span></div>
-    <div className="grid grid-cols-2 gap-3 xl:grid-cols-4 xl:gap-4">{stats.map((s) => <div key={s.label} className="rounded-2xl border border-[#eee5d9] bg-white p-4 shadow-[0_5px_18px_rgba(62,37,32,.035)] sm:p-5"><div className="flex items-center justify-between"><span className="text-[11px] font-semibold text-[#8c7e7a] sm:text-xs">{s.label}</span><span className={`grid h-9 w-9 place-items-center rounded-xl ${s.tone}`}><s.icon size={17}/></span></div><p className="mt-3 text-[25px] font-extrabold tracking-[-.055em] text-[#351b25] sm:text-[30px]">{s.value}</p><div className="mt-2 flex items-center gap-1 text-[10px]"><span className="inline-flex items-center font-extrabold text-emerald-700"><ArrowUpRight size={13}/>{s.delta}</span><span className="text-[#a99d97]">{s.note}</span></div></div>)}</div>
-    <div className="mt-5 grid gap-5 xl:grid-cols-[1.55fr_1fr]">
-      <section className="rounded-2xl border border-[#eee5d9] bg-white p-4 shadow-[0_5px_18px_rgba(62,37,32,.035)] sm:p-5">
-        <div className="flex flex-wrap items-start justify-between gap-3"><div><p className="text-sm font-extrabold text-[#432832]">Sales overview</p><p className="mt-1 text-[11px] text-[#9b8d88]">Revenue performance · Last 12 months</p></div><button className="flex items-center gap-2 rounded-lg border border-[#eee7df] px-3 py-2 text-[11px] font-bold text-[#6f5e5c]">This year <ChevronDown size={13}/></button></div>
-        <div className="mt-6 flex h-[210px] items-end gap-2 border-b border-l border-dashed border-[#eee5df] px-2 pb-0 pt-3 sm:gap-3">{bars.map((h,i)=><div key={i} className="group relative flex h-full flex-1 items-end"><div className={`w-full rounded-t-md transition-all duration-300 group-hover:brightness-110 ${i===9?"bg-[#800020]":"bg-[#ead7d0]"}`} style={{height:`${h}%`}}/><span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[9px] font-semibold text-[#a99b95]">{["D","J","F","M","A","M","J","J","A","S","O","N"][i]}</span></div>)}</div>
-        <div className="mt-10 flex items-center justify-between"><div><p className="text-[10px] font-semibold text-[#9b8d88]">Gross sales</p><p className="mt-1 text-xl font-extrabold tracking-tight text-[#3d202b]">₹84,250</p></div><div className="text-right"><p className="text-[10px] font-semibold text-[#9b8d88]">Compared to last month</p><p className="mt-1 flex items-center justify-end gap-1 text-sm font-extrabold text-emerald-700"><ArrowUpRight size={15}/>12.8%</p></div></div>
-      </section>
-      <section className="rounded-2xl border border-[#eee5d9] bg-white p-4 shadow-[0_5px_18px_rgba(62,37,32,.035)] sm:p-5">
-        <div className="flex items-center justify-between"><div><p className="text-sm font-extrabold text-[#432832]">Order status</p><p className="mt-1 text-[11px] text-[#9b8d88]">Current order breakdown</p></div><Ellipsis size={19} className="text-[#a99b95]"/></div>
-        <div className="mx-auto mt-7 grid h-40 w-40 place-items-center rounded-full" style={{background:"conic-gradient(#800020 0 38%, #d9a943 38% 61%, #5b9b76 61% 83%, #e9e2da 83% 100%)"}}><div className="grid h-[112px] w-[112px] place-items-center rounded-full bg-white"><div className="text-center"><p className="text-2xl font-extrabold text-[#3d202b]">128</p><p className="text-[9px] font-bold uppercase tracking-wider text-[#9b8d88]">Orders today</p></div></div></div>
-        <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-3">{[{label:"Processing",value:"38%",color:"bg-[#800020]"},{label:"Confirmed",value:"23%",color:"bg-[#d9a943]"},{label:"Delivered",value:"22%",color:"bg-[#5b9b76]"},{label:"Pending",value:"17%",color:"bg-[#e9e2da]"}].map(x=><div key={x.label} className="flex items-center gap-2"><i className={`h-2 w-2 rounded-full ${x.color}`}/><span className="flex-1 text-[10px] font-semibold text-[#8a7d7d]">{x.label}</span><b className="text-[10px] text-[#4b363d]">{x.value}</b></div>)}</div>
-      </section>
+  return <section className="max-w-5xl">
+    <div className="mb-6 rounded-2xl border border-[#eadfbd] bg-white p-5 sm:p-7">
+      <p className="text-[11px] font-extrabold uppercase tracking-[.14em] text-[#9a7b36]">Rashid Mega Mart</p>
+      <h1 className="mt-2 text-2xl font-extrabold tracking-tight text-[#800020] sm:text-3xl">Namaste, dukaan yahin se manage karein.</h1>
+      <p className="mt-2 text-sm text-[#786b50]">Zaroori kaam seedhe kholein. Koi extra section nahi.</p>
     </div>
-    <div className="mt-5 grid gap-5 xl:grid-cols-[1.5fr_1fr]">
-      <section className="overflow-hidden rounded-2xl border border-[#eee5d9] bg-white shadow-[0_5px_18px_rgba(62,37,32,.035)]"><div className="flex items-center justify-between px-4 py-4 sm:px-5"><div><p className="text-sm font-extrabold text-[#432832]">Recent orders</p><p className="mt-1 text-[11px] text-[#9b8d88]">Latest activity from your store</p></div><Link href="/admin/orders" className="text-[11px] font-extrabold text-[#800020] hover:underline">View all <ArrowUpRight size={13} className="inline"/></Link></div><OrderTable compact/></section>
-      <section className="rounded-2xl border border-[#eee5d9] bg-white p-4 shadow-[0_5px_18px_rgba(62,37,32,.035)] sm:p-5"><div className="flex items-center justify-between"><div><p className="text-sm font-extrabold text-[#432832]">Stock attention</p><p className="mt-1 text-[11px] text-[#9b8d88]">Products that need a look</p></div><Boxes size={18} className="text-[#a47a2c]"/></div><div className="mt-4 space-y-3">{products.filter(p=>p.stock<10).map(p=><div key={p.sku} className="flex items-center gap-3 rounded-xl bg-[#fff9f4] p-3"><span className="grid h-10 w-10 place-items-center rounded-lg bg-white text-xl">{p.emoji}</span><div className="min-w-0 flex-1"><p className="truncate text-xs font-extrabold text-[#49333b]">{p.name}</p><p className="mt-1 text-[10px] text-[#a1938e]">{p.sku}</p></div><span className="text-xs font-extrabold text-[#9a541f]">{p.stock} left</span></div>)}</div><Link href="/admin/products" className="mt-4 inline-flex items-center gap-1 text-[11px] font-extrabold text-[#800020]">Manage inventory <ChevronRight size={14}/></Link></section>
-    </div>
-  </>;
+    <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">{shortcuts.map(item=><Link key={item.href} href={item.href} className="group flex min-h-[112px] items-center gap-4 rounded-2xl border border-[#eadfbd] bg-white p-4 transition hover:-translate-y-0.5 hover:border-[#800020]/40 hover:shadow-md sm:p-5"><span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#fff4d1] text-[#800020]"><item.icon size={21}/></span><span className="min-w-0 flex-1"><b className="block text-sm font-extrabold text-[#800020]">{item.title}</b><small className="mt-1 block text-xs text-[#887a5b]">{item.detail}</small></span><ChevronRight size={17} className="text-[#a18c5d] transition group-hover:translate-x-1"/></Link>)}</div>
+  </section>;
 }
 
 

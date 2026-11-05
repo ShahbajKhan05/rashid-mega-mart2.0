@@ -54,11 +54,9 @@ export default function SiteFooter() {
         <div>
           <h2 className="text-[11px] font-extrabold uppercase tracking-[.18em] text-[#a77b3e]">{t("followUs")}</h2>
           <p className="mt-4 text-[13px] leading-6 text-[#76665c]">{isHindi ? "ऑर्डर, उपलब्धता और मदद के लिए हमसे जुड़ें।" : "Connect with us for orders, product availability and support."}</p>
-          <div className="mt-4 flex flex-wrap gap-2">
-            <Link href="/privacy-policy" className="text-xs font-semibold text-[#65574f] underline decoration-[#cbb99e] underline-offset-4 hover:text-[#800020]">{t("privacyPolicy")}</Link>
-            <span className="text-[#c3b4a3]">·</span>
-            <Link href="/terms" className="text-xs font-semibold text-[#65574f] underline decoration-[#cbb99e] underline-offset-4 hover:text-[#800020]">{t("termsConditions")}</Link>
-          </div>
+          <a href="https://wa.me/918962531603" target="_blank" rel="noreferrer" className="mt-4 inline-flex items-center gap-2 text-xs font-bold text-[#800020] underline decoration-[#cbb99e] underline-offset-4 hover:text-[#a77b3e]">
+            {isHindi ? "WhatsApp सहायता" : "WhatsApp support"} <ArrowUpRight size={13} />
+          </a>
         </div>
       </div>
 

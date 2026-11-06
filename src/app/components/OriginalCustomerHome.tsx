@@ -10,6 +10,7 @@ import { categoryOptions, products } from "./data";
 import { useCart } from "./CartProvider";
 import HelpCenterFAQ from "./HelpCenterFAQ";
 import KitsPage from "./KitsPage";
+import NetworkSection from "./NetworkSection";
 
 export default function OriginalCustomerHome() {
   const { language } = useLanguage();
@@ -224,6 +225,8 @@ export default function OriginalCustomerHome() {
           </div>
         </div>
       </section>
+
+      <NetworkSection language={language} />
 
       <HelpCenterFAQ language={language} />
 

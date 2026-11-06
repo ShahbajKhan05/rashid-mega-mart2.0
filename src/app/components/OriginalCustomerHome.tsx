@@ -5,11 +5,10 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowRight, ArrowUpRight, Search, ShoppingCart, Sparkles, Truck, Heart } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Search, ShoppingCart, Sparkles, Truck } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 import { categoryOptions, products } from "./data";
 import { useCart } from "./CartProvider";
-import { useWishlist } from "./WishlistProvider";
 import HelpCenterFAQ from "./HelpCenterFAQ";
 import KitsPage from "./KitsPage";
 
@@ -47,7 +46,6 @@ const visuals: Record<string, string> = {
 export default function OriginalCustomerHome() {
   const { language } = useLanguage();
   const { addToCart } = useCart();
-  const { isWishlisted, toggleWishlist } = useWishlist();
   const isHindi = language === "hi";
   const [categorySearch, setCategorySearch] = useState("");
   const [promoCopied, setPromoCopied] = useState(false);
@@ -363,7 +361,7 @@ export default function OriginalCustomerHome() {
             <Link href="/products" className="mb-0.5 inline-flex shrink-0 items-center gap-1 rounded-full border border-[#800020]/15 bg-white/80 px-3 py-2 text-[9px] font-extrabold text-[#800020] transition hover:bg-[#800020] hover:text-white sm:text-[10px]">{isHindi ? "सभी देखें" : "View all"} <ArrowRight size={12} /></Link>
           </div>
           <div className="flex snap-x snap-mandatory gap-2.5 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-2 sm:gap-3 sm:overflow-visible sm:pb-0 lg:grid-cols-4">
-            {products.slice(0, 8).map((product, index) => {
+            {products.slice(0, 8).map((product) => {
               const discount = product.originalPrice > product.price ? Math.round((1 - product.price / product.originalPrice) * 100) : 0;
               return <article key={product.id} data-best-seller-card className="group relative flex w-[min(82vw,330px)] shrink-0 snap-start items-center gap-3 overflow-hidden rounded-xl border border-[#e9dfd2] bg-white/95 p-2 shadow-[0_3px_12px_rgba(67,45,27,.04)] transition duration-300 hover:border-[#d8c29d] hover:shadow-md sm:w-auto sm:rounded-2xl sm:p-2.5 lg:flex-col lg:items-stretch">
                 <div className="relative h-[104px] w-[104px] shrink-0 overflow-hidden rounded-lg bg-[#faf8f3] p-2 sm:h-32 sm:w-32 lg:h-auto lg:w-full lg:aspect-square lg:rounded-xl lg:p-3">

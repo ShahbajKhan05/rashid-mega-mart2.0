@@ -556,3 +556,14 @@ textarea {
     transition-duration: .01ms !important;
   }
 }
+
+
+@keyframes rmm-delivery-shimmer {
+  0%, 68% { transform: translateX(0) skewX(-12deg); opacity: 0; }
+  72% { opacity: .75; }
+  100% { transform: translateX(560%) skewX(-12deg); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rmm-free-delivery-card,
+  .rmm-delivery-truck-icon { animation: none !important; }
+}

@@ -16,7 +16,7 @@ export default function BikanoShowcase() {
   const isHindi = language === "hi";
 
   return (
-    <section aria-labelledby="bikano-title" className="relative isolate overflow-hidden bg-[#65152a] px-3 py-8 text-[#fff8e9] sm:px-6 sm:py-12">
+    <section id="bikano" aria-labelledby="bikano-title" className="relative isolate overflow-hidden bg-[#65152a] px-3 py-8 text-[#fff8e9] sm:px-6 sm:py-12">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_12%_15%,rgba(244,190,89,.2),transparent_35%),radial-gradient(ellipse_at_88%_85%,rgba(221,139,54,.18),transparent_38%)]" />
       <div className="mx-auto max-w-[1240px]">
         <div className="flex flex-wrap items-end justify-between gap-4">

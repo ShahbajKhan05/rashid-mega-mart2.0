@@ -4,65 +4,26 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowRight, ArrowUpRight, Search, ShoppingCart, Sparkles, Truck } from "lucide-react";
+import { ArrowRight, ShoppingCart, Truck } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 import { categoryOptions, products } from "./data";
 import { useCart } from "./CartProvider";
 import HelpCenterFAQ from "./HelpCenterFAQ";
 import KitsPage from "./KitsPage";
 
-const brands = [
-  { name: "Aashirvaad", domain: "aashirvaad.com", logo: "https://cdn.brandfetch.io/idUtruKbFk/theme/dark/logo.svg?c=1bxid64Mup7aczewSAYMX" },
-  { name: "Fortune", domain: "fortunefoods.com", logo: "https://cdn.brandfetch.io/idKeX6P0SA/w/400/h/130/theme/dark/logo.png?c=1bxid64Mup7aczewSAYMX" },
-  { name: "Tata Sampann", domain: "tataconsumer.com", logo: "https://www.tatanutrikorner.com/cdn/shop/files/Tata-Sampann-Logo.png" },
-  { name: "India Gate", domain: "indiagatefoods.com", logo: "https://cdn.brandfetch.io/idmaXGHkyM/w/400/h/488/theme/dark/logo.png?c=1bxid64Mup7aczewSAYMX" },
-  { name: "MDH", domain: "mdhspices.com", logo: "https://commons.wikimedia.org/wiki/Special:FilePath/MDH%20spices%20logo.png" },
-  { name: "Everest", domain: "everestfoods.com", logo: "https://cdn.brandfetch.io/idaMIUY7Lc/w/973/h/256/theme/dark/logo.png?c=1bxid64Mup7aczewSAYMX" },
-  { name: "Tata Tea", domain: "tataconsumer.com", logo: "https://commons.wikimedia.org/wiki/Special:FilePath/Tata%20Tea%20Logo.svg" },
-  { name: "MAGGI", domain: "maggi.in", logo: "https://cdn.brandfetch.io/idZBpfPIH0/w/803/h/505/theme/light/logo.png?c=1bxid64Mup7aczewSAYMX" },
-  { name: "Parle-G", domain: "parleproducts.com", logo: "https://cdn.brandfetch.io/idALCUGTR6/theme/dark/logo.svg?c=1bxid64Mup7aczewSAYMX" },
-];
-const visuals: Record<string, string> = {
-  staples: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=520&q=72&auto=format&fit=crop",
-  oil: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=520&q=72&auto=format&fit=crop",
-  basics: "https://images.unsplash.com/photo-1626197031507-c17099753214?w=520&q=72&auto=format&fit=crop",
-  dairy: "https://images.unsplash.com/photo-1550583724-b2692b85b150?w=520&q=72&auto=format&fit=crop",
-  bakery: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=520&q=72&auto=format&fit=crop",
-  masala: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=520&q=72&auto=format&fit=crop",
-  tea: "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=520&q=72&auto=format&fit=crop",
-  snacks: "https://images.unsplash.com/photo-1621939514649-280e2aa2f1c9?w=520&q=72&auto=format&fit=crop",
-  beverages: "https://images.unsplash.com/photo-1544145945-f90425340c7e?w=520&q=72&auto=format&fit=crop",
-  personal: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=520&q=72&auto=format&fit=crop",
-  cleaning: "https://images.unsplash.com/photo-1585421514738-01798e348b17?w=520&q=72&auto=format&fit=crop",
-  fruits: "https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=520&q=72&auto=format&fit=crop",
-  vegetables: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=520&q=72&auto=format&fit=crop",
-  frozen: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=520&q=72&auto=format&fit=crop",
-  dryfruits: "https://images.unsplash.com/photo-1608797178974-15b35a64ede9?w=520&q=72&auto=format&fit=crop",
-  baby: "https://images.unsplash.com/photo-1519689680058-324335c77eba?w=520&q=72&auto=format&fit=crop",
-};
-
-
 export default function OriginalCustomerHome() {
   const { language } = useLanguage();
   const { addToCart } = useCart();
   const isHindi = language === "hi";
-  const [categorySearch, setCategorySearch] = useState("");
   const [promoCopied, setPromoCopied] = useState(false);
   const [promoTimeLeft, setPromoTimeLeft] = useState({days:0,hours:0,minutes:0,seconds:0,expired:false});
   const promoBarRef = useRef<HTMLDivElement>(null);
   const promoShineRef = useRef<HTMLDivElement>(null);
   const promoLogoRef = useRef<HTMLImageElement>(null);
   const promoLettersRef = useRef<HTMLSpanElement>(null);
-  const brandTrackRef = useRef<HTMLDivElement>(null);
-  const brandSectionRef = useRef<HTMLElement>(null);
-  const categorySectionRef = useRef<HTMLElement>(null);
-  const categoryViewportRef = useRef<HTMLDivElement>(null);
-  const categoryTrackRef = useRef<HTMLDivElement>(null);
   const entranceRef = useRef<HTMLElement>(null);
   const entranceTitleRef = useRef<HTMLHeadingElement>(null);
   const deliveryBadgeRef = useRef<HTMLDivElement>(null);
-  const bestSellersRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const offerEndsAt = new Date("2026-11-09T23:59:59+05:30").getTime();
@@ -119,96 +80,8 @@ export default function OriginalCustomerHome() {
     return () => context.revert();
   }, []);
 
-  useEffect(() => {
-    const section = bestSellersRef.current;
-    if (!section || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const cards = section.querySelectorAll<HTMLElement>("[data-best-seller-card]");
-    const context = gsap.context(() => {
-      gsap.fromTo(cards, { y: 28, autoAlpha: 0, scale: 0.975 }, {
-        y: 0, autoAlpha: 1, scale: 1, duration: 0.72, stagger: 0.085, ease: "power3.out",
-        scrollTrigger: { trigger: section, start: "top 78%", once: true },
-      });
-    }, section);
-    return () => context.revert();
-  }, []);
 
-  useEffect(() => {
-    const section = brandSectionRef.current;
-    const wrapper = brandTrackRef.current;
-    if (!section || !wrapper) return;
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const context = gsap.context(() => {
-      const items = wrapper.querySelectorAll<HTMLElement>("[data-brand-item]");
-      if (!reducedMotion) {
-        gsap.fromTo(items, { y: 14, autoAlpha: 0, scale: 0.94 }, {
-          y: 0, autoAlpha: 1, scale: 1, duration: 0.6, stagger: 0.035, ease: "back.out(1.4)",
-          scrollTrigger: { trigger: section, start: "top 88%", once: true },
-        });
-        wrapper.querySelectorAll<HTMLElement>("[data-brand-marquee]").forEach((track, index) => {
-          const tween = index === 0
-            ? gsap.to(track, { xPercent: -50, duration: 34, ease: "none", repeat: -1 })
-            : gsap.fromTo(track, { xPercent: -50 }, { xPercent: 0, duration: 38, ease: "none", repeat: -1 });
-          const row = track.parentElement;
-          row?.addEventListener("mouseenter", () => tween.pause());
-          row?.addEventListener("mouseleave", () => tween.play());
-          row?.addEventListener("focusin", () => tween.pause());
-          row?.addEventListener("focusout", () => tween.play());
-        });
-      }
-    }, section);
-    return () => context.revert();
-  }, []);
-
-  useEffect(() => {
-    const section = categorySectionRef.current;
-    const viewport = categoryViewportRef.current;
-    const track = categoryTrackRef.current;
-    if (!section || !viewport || !track) return;
-
-    gsap.registerPlugin(ScrollTrigger);
-    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const media = gsap.matchMedia();
-
-    if (!motionQuery.matches) {
-      media.add("(min-width: 768px)", () => {
-        const cards = track.querySelectorAll<HTMLElement>("[data-category-card]");
-        const getTravel = () => Math.max(0, track.scrollWidth - viewport.clientWidth);
-        gsap.fromTo(cards, { y: 18, autoAlpha: 0 }, {
-          y: 0, autoAlpha: 1, duration: 0.55, stagger: 0.045, ease: "power2.out",
-          scrollTrigger: { trigger: section, start: "top 78%", once: true },
-        });
-        gsap.to(track, {
-          x: () => -getTravel(),
-          ease: "none",
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: () => "+=" + Math.max(getTravel(), window.innerHeight * 0.8),
-            pin: true,
-            scrub: 0.65,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-          },
-        });
-      });
-    }
-
-    let refreshFrame = 0;
-    const resizeObserver = new ResizeObserver(() => {
-      if (window.innerWidth < 768 || motionQuery.matches) return;
-      window.cancelAnimationFrame(refreshFrame);
-      refreshFrame = window.requestAnimationFrame(() => ScrollTrigger.refresh());
-    });
-    resizeObserver.observe(track);
-    resizeObserver.observe(viewport);
-    return () => {
-      window.cancelAnimationFrame(refreshFrame);
-      resizeObserver.disconnect();
-      media.revert();
-    };
-  }, []);
-
-  const categories = categoryOptions.filter((item) => item.id !== "all" && (!categorySearch.trim() || item.en.toLowerCase().includes(categorySearch.toLowerCase()) || item.hi.includes(categorySearch.trim())));
+  const shopCategories = categoryOptions.filter((item) => item.id !== "all" && products.some((product) => product.category === item.id));
 
   return (
     <main className="overflow-clip bg-[#FFFCF0] pb-24 font-[var(--font-plus-jakarta)] text-[#30251F]">
@@ -270,119 +143,87 @@ export default function OriginalCustomerHome() {
         </div>
       </section>
 
-      <section ref={brandSectionRef} aria-label="Popular brands" className="relative isolate overflow-hidden border-y border-[#eadfce] bg-[radial-gradient(ellipse_at_50%_0%,rgba(164,122,44,.10),transparent_68%)] px-4 py-6 sm:px-6 sm:py-11">
-        <div className="mx-auto mb-4 max-w-[760px] text-center sm:mb-7">
-          <span className="inline-flex rounded-full border border-[#e9dfd2] bg-white/75 px-3 py-1 text-[9px] font-black tracking-[.2em] text-[#8b6b43] shadow-sm">{isHindi ? "ब्रांड्स जिन्हें आप जानते हैं" : "BRANDS YOU KNOW & TRUST"}</span>
-          <h2 className="mt-2.5 text-[24px] font-black leading-[1.05] tracking-[-.065em] text-[#800020] sm:text-3xl">{isHindi ? "आपके पसंदीदा ब्रांड" : "Shop your favourite brands"}</h2>
-          <p className="mx-auto mt-2 max-w-sm text-[11px] leading-5 text-[#8a7a6d] sm:text-sm">{isHindi ? "रोज़मर्रा की खरीदारी के भरोसेमंद नाम, एक ही जगह।" : "Everyday favourites, all together in one place."}</p>
+      <section aria-label="Store highlights" className="border-y border-[#eadfce] bg-white/75 px-3 py-3 sm:px-6 sm:py-4">
+        <div className="mx-auto grid max-w-[1100px] grid-cols-3 divide-x divide-[#eadfce] text-center">
+          <div className="px-1.5"><p className="text-[17px] font-black leading-none tracking-tight text-[#800020] sm:text-2xl">{products.length}+</p><p className="mt-1 text-[8px] font-semibold leading-tight text-[#827267] sm:text-[11px]">Products listed</p></div>
+          <div className="px-1.5"><p className="text-[17px] font-black leading-none tracking-tight text-[#800020] sm:text-2xl">{shopCategories.length}+</p><p className="mt-1 text-[8px] font-semibold leading-tight text-[#827267] sm:text-[11px]">Shopping categories</p></div>
+          <div className="px-1.5"><p className="text-[17px] font-black leading-none tracking-tight text-[#800020] sm:text-2xl">30 min</p><p className="mt-1 text-[8px] font-semibold leading-tight text-[#827267] sm:text-[11px]">Delivery promise</p></div>
         </div>
-        <div ref={brandTrackRef} className="mx-auto flex w-full max-w-[760px] flex-col gap-2.5 overflow-hidden rounded-[24px] border border-white/90 bg-[#f3f1ed]/90 py-3 shadow-[0_12px_34px_rgba(67,45,27,.07)] backdrop-blur-xl sm:gap-3 sm:rounded-[30px] sm:py-4">
-          {[brands.slice(0, 5), brands.slice(5)].map((rowBrands, rowIndex) => (
-            <div key={rowIndex} className="relative w-full overflow-hidden">
-              <div data-brand-marquee className="flex w-max items-center gap-2.5 px-2 sm:gap-4 sm:px-4">
-                {[0, 1].map((copy) => (
-                  <div key={copy} aria-hidden={copy === 1} className="flex shrink-0 items-center gap-2.5 sm:gap-4">
-                    {rowBrands.map((brand) => (
-                      <a
-                        key={brand.name}
-                        data-brand-item
-                        href={`https://${brand.domain}`}
-                        target="_blank"
-                        rel="noreferrer"
-                        aria-label={`Visit ${brand.name} official website`}
-                        tabIndex={copy === 1 ? -1 : 0}
-                        className="group flex h-[76px] w-[78px] shrink-0 flex-col items-center justify-center gap-1.5 rounded-2xl border border-transparent px-1 transition-[transform,background-color,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:scale-110 hover:border-white hover:bg-white hover:shadow-[0_9px_20px_rgba(67,45,27,.10)] active:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a47a2c] sm:h-[88px] sm:w-[104px]"
-                      >
-                        <span className="grid h-10 w-10 place-items-center rounded-[13px] bg-white shadow-[0_2px_8px_rgba(50,35,20,.08)] ring-1 ring-[#e9e3da] transition duration-300 group-hover:shadow-[0_5px_14px_rgba(50,35,20,.12)] sm:h-12 sm:w-12">
-                          <Image src={brand.logo} alt={`${brand.name} logo`} width={180} height={72} unoptimized loading="lazy" className="h-9 w-[66px] object-contain sm:h-11 sm:w-[82px]" />
-                        </span>
-                        <span className="max-w-full truncate text-center text-[8px] font-extrabold tracking-[-.02em] text-[#665448] sm:text-[9px]">{brand.name}</span>
-                      </a>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-        <p className="mt-3 text-center text-[9px] font-semibold tracking-[.08em] text-[#a29487]">{isHindi ? "और भी कई पसंदीदा ब्रांड स्टोर में उपलब्ध हैं" : "And many more everyday favourites in store"}</p>
       </section>
 
-      <section
-        id="categories"
-        ref={categorySectionRef}
-        className="relative flex min-h-0 flex-col justify-center overflow-hidden border-y border-[#eadfce] bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,168,79,.14),transparent_62%)] py-8 md:min-h-[92svh] md:py-14"
-      >
-        <div className="mx-auto mb-5 w-full max-w-[1440px] px-4 text-center sm:mb-9 sm:px-7 lg:px-10">
-          <p className="text-[10px] font-black uppercase tracking-[.24em] text-[#A47A2C]">{isHindi ? "अपनी पसंद चुनें" : "FIND YOUR EVERYDAY ESSENTIALS"}</p>
-          <h2 className="mt-2 text-3xl font-black tracking-[-.065em] text-[#800020] sm:text-5xl">{isHindi ? "कैटेगरी से खरीदें" : "Shop by Category"}</h2>
-          <p className="mx-auto mt-2 max-w-md text-xs leading-5 text-[#76665C] sm:text-sm">{isHindi ? "मोबाइल पर स्वाइप करें, डेस्कटॉप पर स्क्रॉल करें।" : "Swipe on mobile or scroll on desktop to explore every aisle."}</p>
-          <label className="mx-auto mt-4 flex h-10 w-full max-w-[280px] items-center gap-2 rounded-full border border-[#e6d9c8] bg-white/80 px-4 shadow-sm backdrop-blur">
-            <Search size={15} className="shrink-0 text-[#800020]" />
-            <input value={categorySearch} onChange={(event) => setCategorySearch(event.target.value)} placeholder={isHindi ? "कैटेगरी खोजें..." : "Find a category..."} className="min-w-0 flex-1 bg-transparent text-xs outline-none placeholder:text-[#a69b90]" />
-          </label>
-        </div>
-
-        <div ref={categoryViewportRef} className="w-full snap-x snap-mandatory overflow-x-auto overscroll-x-contain px-4 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:overflow-hidden md:px-0">
-          <div ref={categoryTrackRef} className="flex w-max gap-3 pr-4 sm:gap-5 md:gap-6 md:pl-[max(5vw,calc((100vw-1320px)/2))] md:pr-[max(5vw,calc((100vw-1320px)/2))]">
-            {categories.map((category, index) => (
-              <Link
-                key={category.id}
-                data-category-card
-                href={"/products?category=" + encodeURIComponent(category.id)}
-                className="group relative isolate flex h-[250px] w-[78vw] max-w-[310px] shrink-0 snap-start overflow-hidden rounded-[24px] border border-white/90 bg-gradient-to-br from-[#fff0d0] to-[#ead6b7] shadow-[0_12px_35px_rgba(67,45,27,.09)] transition duration-500 hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(67,45,27,.15)] sm:h-[330px] sm:w-[300px] md:h-[390px] md:w-[330px] md:rounded-[30px]"
-              >
-                <Image src={visuals[category.id] || visuals.staples} alt="" width={720} height={520} loading="lazy" sizes="(max-width: 767px) 78vw, 330px" className="absolute inset-0 h-full w-full object-cover opacity-55 mix-blend-multiply transition duration-700 group-hover:scale-110 group-hover:opacity-70" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#fff8e9] via-[#fff8e9]/30 to-transparent" />
-                <span className="absolute left-5 top-5 text-[10px] font-black tracking-[.2em] text-[#805d2d]">0{index + 1}</span>
-                <span className="absolute right-5 top-5 grid h-10 w-10 place-items-center rounded-full border border-white/80 bg-white/75 text-xl shadow-sm backdrop-blur">{category.id === "staples" ? "🌾" : category.id === "oil" ? "🫒" : category.id === "dairy" ? "🥛" : category.id === "basics" ? "🧂" : category.id === "bakery" ? "🥐" : category.id === "masala" ? "🌶️" : category.id === "tea" ? "🍵" : category.id === "snacks" ? "🍪" : category.id === "beverages" ? "🥤" : category.id === "personal" ? "🧴" : category.id === "cleaning" ? "🧹" : category.id === "fruits" ? "🍎" : category.id === "vegetables" ? "🥬" : category.id === "frozen" ? "🧊" : category.id === "dryfruits" ? "🥜" : category.id === "baby" ? "🍼" : "🛒"}</span>
-                <div className="relative z-10 mt-auto w-full p-5 sm:p-6">
-                  <h3 className="text-2xl font-black leading-tight tracking-[-.055em] text-[#68152b] sm:text-[28px]">{isHindi ? category.hi : category.en}</h3>
-                  <span className="mt-3 inline-flex items-center gap-2 rounded-full border border-[#800020]/15 bg-white/75 px-4 py-2 text-[10px] font-extrabold uppercase tracking-[.12em] text-[#800020] backdrop-blur transition group-hover:border-[#800020] group-hover:bg-[#800020] group-hover:text-white">{isHindi ? "अभी देखें" : "Explore aisle"} <ArrowUpRight size={13} /></span>
-                </div>
-              </Link>
-            ))}
-            {categories.length === 0 && <p className="w-[min(82vw,360px)] rounded-2xl border border-[#eadfce] bg-white/80 p-6 text-center text-sm text-[#76665C]">{isHindi ? "कोई कैटेगरी नहीं मिली।" : "No categories found. Try another search."}</p>}
+      <section id="categories" aria-label="Shop products by category" className="bg-[#FFFCF0] px-3 py-5 sm:px-6 sm:py-8">
+        <div className="mx-auto max-w-[1240px]">
+          <div className="mb-4 text-center sm:mb-5">
+            <p className="text-[9px] font-black uppercase tracking-[.2em] text-[#A47A2C]">YOUR EVERYDAY STORE</p>
+            <h2 className="mt-1 text-[clamp(1.35rem,4vw,2rem)] font-black leading-tight tracking-[-.055em] text-[#800020]">{isHindi ? "आपकी रोज़मर्रा की पसंद" : "Shop your daily essentials"}</h2>
+            <p className="mt-1 text-[10px] text-[#817166] sm:text-xs">{isHindi ? "अपनी पसंद की कैटेगरी से सामान चुनें।" : "Browse a category and add what you need."}</p>
           </div>
-        </div>
-        <p className="mt-3 text-center text-[9px] font-bold uppercase tracking-[.16em] text-[#a29487] md:mt-5">{isHindi ? "स्वाइप करें • अपनी पसंद की कैटेगरी चुनें" : "SWIPE TO EXPLORE THE AISLES"} <span className="ml-1 text-[#A47A2C]">→</span></p>
-      </section>
 
-      <section ref={bestSellersRef} aria-labelledby="best-sellers-title" className="relative isolate overflow-hidden border-y border-[#eadfce] bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,168,79,.08),transparent_58%),#FFFCF0] px-3 py-7 sm:px-6 sm:py-10 lg:px-8">
-        <div className="mx-auto max-w-[1440px]">
-          <div className="mb-4 flex items-end justify-between gap-3 px-1 sm:mb-6">
-            <div className="min-w-0">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-[#dfc99f] bg-white/75 px-2.5 py-1 text-[8px] font-black uppercase tracking-[.15em] text-[#98713c]"><Sparkles size={11} /> {isHindi ? "सबकी पसंद" : "CUSTOMER FAVOURITES"}</span>
-              <h2 id="best-sellers-title" className="mt-1.5 text-[clamp(1.55rem,5vw,2.45rem)] font-black leading-none tracking-[-.065em] text-[#800020]">{isHindi ? "बेस्ट सेलर्स" : "Best Sellers"}</h2>
-              <p className="mt-1 text-[10px] leading-4 text-[#78685d] sm:text-xs">{isHindi ? "दुकान की पसंदीदा चीज़ें।" : "Popular picks from our store."}</p>
-            </div>
-            <Link href="/products" className="mb-0.5 inline-flex shrink-0 items-center gap-1 rounded-full border border-[#800020]/15 bg-white/80 px-3 py-2 text-[9px] font-extrabold text-[#800020] transition hover:bg-[#800020] hover:text-white sm:text-[10px]">{isHindi ? "सभी देखें" : "View all"} <ArrowRight size={12} /></Link>
-          </div>
-          <div className="w-full snap-x snap-mandatory overflow-x-auto overscroll-x-contain pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            <div className="flex w-max gap-3 pr-4 sm:gap-5 md:gap-6 md:pl-[max(5vw,calc((100vw-1320px)/2))] md:pr-[max(5vw,calc((100vw-1320px)/2))]">
-              {products.slice(0, 8).map((product) => {
-                const discount = product.originalPrice > product.price ? Math.round((1 - product.price / product.originalPrice) * 100) : 0;
-                return <article key={product.id} data-best-seller-card className="group relative isolate flex h-[250px] w-[78vw] max-w-[310px] shrink-0 snap-start flex-col overflow-hidden rounded-[24px] border border-white/90 bg-gradient-to-br from-[#fff0d0] to-[#ead6b7] shadow-[0_12px_35px_rgba(67,45,27,.09)] transition duration-500 hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(67,45,27,.15)] sm:h-[330px] sm:w-[300px] md:h-[390px] md:w-[330px] md:rounded-[30px]">
-                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_22%,rgba(255,255,255,.88),transparent_62%),linear-gradient(180deg,rgba(255,250,237,.18)_0%,rgba(255,248,233,.94)_68%,#fff8e9_100%)]" />
-                  <Link href={"/products/" + (product.slug || product.id)} aria-label={isHindi ? product.nameHi : product.name} className="absolute inset-x-0 top-0 z-0 flex h-[66%] items-center justify-center p-7 sm:p-8">
-                    <Image src={product.image} alt={isHindi ? product.nameHi : product.name} width={480} height={480} loading="lazy" sizes="(max-width: 767px) 78vw, 330px" className="h-full w-full object-contain mix-blend-multiply transition duration-700 ease-out group-hover:scale-110" />
-                  </Link>
-                  <span className="absolute left-4 top-4 z-10 max-w-[65%] truncate text-[9px] font-black uppercase tracking-[.18em] text-[#805d2d] sm:left-5 sm:top-5">{product.brand || "RASHID MEGA MART"}</span>
-                  {discount > 0 && <span className="absolute right-4 top-4 z-10 rounded-full border border-[#800020]/10 bg-[#800020] px-2.5 py-1 text-[8px] font-black tracking-wide text-white sm:right-5 sm:top-5">{discount}% OFF</span>}
-                  <div className="relative z-10 mt-auto w-full p-4 sm:p-5 md:p-6">
-                    <Link href={"/products/" + (product.slug || product.id)} className="block line-clamp-2 text-[17px] font-black leading-[1.12] tracking-[-.045em] text-[#68152b] sm:text-xl md:text-[22px]">{isHindi ? product.nameHi : product.name}</Link>
-                    <div className="mt-2 flex items-baseline gap-2"><span className="text-base font-black tracking-[-.03em] text-[#800020] sm:text-lg">₹{product.price.toLocaleString("en-IN")}</span>{discount > 0 && <span className="text-[10px] text-[#9b8d81] line-through">₹{product.originalPrice.toLocaleString("en-IN")}</span>}{product.unit && <span className="truncate text-[9px] text-[#89786b]">{product.unit}</span>}</div>
-                    <button type="button" onClick={() => addToCart(product, 1)} className="mt-2.5 inline-flex h-8 w-full items-center justify-center gap-1.5 rounded-full border border-[#800020]/15 bg-white/80 px-3 text-[9px] font-extrabold uppercase tracking-[.1em] text-[#800020] backdrop-blur transition hover:border-[#800020] hover:bg-[#800020] hover:text-white active:scale-[.98] sm:h-9 sm:text-[10px]"><ShoppingCart size={12} />{isHindi ? "कार्ट में जोड़ें" : "Add to cart"}</button>
+          <div className="space-y-6 sm:space-y-8">
+            {shopCategories.map((category) => {
+              const categoryProducts = products.filter((product) => product.category === category.id);
+              return (
+                <section key={category.id} aria-labelledby={"category-" + category.id} className="min-w-0">
+                  <div className="mb-2.5 flex items-center justify-between gap-2">
+                    <div className="min-w-0">
+                      <h3 id={"category-" + category.id} className="truncate text-[15px] font-black leading-tight tracking-[-.04em] text-[#30251F] sm:text-lg">{isHindi ? category.hi : category.en}</h3>
+                      <p className="mt-0.5 text-[9px] text-[#928276]">{categoryProducts.length} {isHindi ? "प्रोडक्ट" : "products"}</p>
+                    </div>
+                    <Link href={"/products?category=" + encodeURIComponent(category.id)} className="inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-1 text-[9px] font-extrabold text-[#800020] transition hover:bg-[#800020]/5 sm:text-[10px]">{isHindi ? "सभी देखें" : "See all"} <ArrowRight size={12}/></Link>
                   </div>
-                </article>;
-              })}
-            </div>
+
+                  <div className="flex snap-x snap-mandatory gap-2.5 overflow-x-auto overscroll-x-contain pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-3">
+                    {categoryProducts.slice(0, 8).map((product) => {
+                      const discount = product.originalPrice > product.price ? Math.round((1 - product.price / product.originalPrice) * 100) : 0;
+                      return (
+                        <article key={product.id} className="group w-[148px] shrink-0 snap-start overflow-hidden rounded-[13px] border border-[#eee5d8] bg-white shadow-[0_3px_12px_rgba(68,45,27,.045)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(68,45,27,.09)] sm:w-[190px] sm:rounded-[16px]">
+                          <Link href={"/products/" + (product.slug || product.id)} aria-label={isHindi ? product.nameHi : product.name} className="relative flex h-[105px] items-center justify-center overflow-hidden bg-[linear-gradient(145deg,#fffdf7,#f7f0e4)] p-3 sm:h-[142px] sm:p-4">
+                            {discount > 0 && <span className="absolute left-2 top-2 z-10 rounded-full bg-[#800020] px-1.5 py-1 text-[7px] font-black text-white sm:text-[8px]">{discount}% OFF</span>}
+                            <Image src={product.image} alt={isHindi ? product.nameHi : product.name} width={360} height={360} loading="lazy" sizes="(max-width: 639px) 148px, 190px" className="h-full w-full object-contain mix-blend-multiply transition duration-500 group-hover:scale-105"/>
+                          </Link>
+                          <div className="p-2 sm:p-2.5">
+                            <Link href={"/products/" + (product.slug || product.id)} className="block min-h-[29px] line-clamp-2 text-[10px] font-extrabold leading-[1.35] text-[#3b3029] sm:min-h-[36px] sm:text-xs">{isHindi ? product.nameHi : product.name}</Link>
+                            <div className="mt-1 flex flex-wrap items-baseline gap-x-1.5">
+                              <span className="text-[12px] font-black leading-none text-[#800020] sm:text-sm">₹{product.price.toLocaleString("en-IN")}</span>
+                              {discount > 0 && <span className="text-[8px] text-[#a99b8f] line-through">₹{product.originalPrice.toLocaleString("en-IN")}</span>}
+                              {product.unit && <span className="text-[8px] text-[#938477]">{product.unit}</span>}
+                            </div>
+                            {discount > 0 && <p className="mt-1 text-[8px] font-bold text-[#16834b]">Save ₹{(product.originalPrice-product.price).toLocaleString("en-IN")}</p>}
+                            <button type="button" onClick={() => addToCart(product, 1)} className="mt-2 inline-flex h-7 w-full items-center justify-center gap-1 rounded-md border border-[#800020]/15 bg-[#fff9f2] text-[9px] font-extrabold text-[#800020] transition hover:bg-[#800020] hover:text-white active:scale-[.98] sm:h-8 sm:text-[10px]"><ShoppingCart size={11}/>{isHindi ? "जोड़ें" : "ADD"}</button>
+                          </div>
+                        </article>
+                      );
+                    })}
+                  </div>
+                </section>
+              );
+            })}
           </div>
-          <p className="mt-0 text-center text-[9px] font-bold uppercase tracking-[.16em] text-[#a29487]">{isHindi ? "स्वाइप करें • पसंदीदा सामान देखें" : "SWIPE TO EXPLORE BEST SELLERS"} <span className="ml-1 text-[#A47A2C]">→</span></p>
         </div>
       </section>
 
       <KitsPage />
+
+      <section aria-labelledby="delivery-models-title" className="bg-[#f8f3e9] px-3 py-5 sm:px-6 sm:py-8">
+        <div className="mx-auto max-w-[1100px]">
+          <div className="mb-3 text-center">
+            <p className="text-[9px] font-black uppercase tracking-[.2em] text-[#A47A2C]">SHOP THE WAY YOU NEED</p>
+            <h2 id="delivery-models-title" className="mt-1 text-[clamp(1.3rem,4vw,1.9rem)] font-black tracking-[-.055em] text-[#800020]">{isHindi ? "आपकी खरीदारी, आपकी सुविधा" : "Choose how you shop"}</h2>
+          </div>
+          <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-3">
+            <Link href="/products" className="group relative isolate flex min-h-[112px] items-end overflow-hidden rounded-[13px] bg-[#8b263d] p-3.5 text-white shadow-[0_7px_20px_rgba(67,35,35,.12)] sm:min-h-[150px] sm:p-5">
+              <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_82%_18%,rgba(255,220,160,.42),transparent_34%),linear-gradient(115deg,#8b263d,#b95750)] transition duration-500 group-hover:scale-105"/>
+              <div><span className="text-[8px] font-black uppercase tracking-[.18em] text-white/75">EVERYDAY SHOPPING</span><h3 className="mt-1 text-[18px] font-black leading-tight sm:text-2xl">{isHindi ? "रोज़ का राशन और ज़रूरतें" : "Daily grocery essentials"}</h3><p className="mt-1 text-[9px] text-white/85 sm:text-xs">{isHindi ? "अपनी लिस्ट बनाएं और ऑर्डर रिक्वेस्ट भेजें।" : "Build your basket and send an order request."}</p></div>
+              <span className="absolute right-3 top-3 grid h-7 w-7 place-items-center rounded-full bg-white/15 transition group-hover:translate-x-1"><ArrowRight size={14}/></span>
+            </Link>
+            <Link href="/kits" className="group relative isolate flex min-h-[112px] items-end overflow-hidden rounded-[13px] bg-[#4b397f] p-3.5 text-white shadow-[0_7px_20px_rgba(67,35,35,.12)] sm:min-h-[150px] sm:p-5">
+              <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_82%_18%,rgba(255,220,160,.35),transparent_34%),linear-gradient(115deg,#4b397f,#7b68a6)] transition duration-500 group-hover:scale-105"/>
+              <div><span className="text-[8px] font-black uppercase tracking-[.18em] text-white/75">VALUE PACKS</span><h3 className="mt-1 text-[18px] font-black leading-tight sm:text-2xl">{isHindi ? "मंथली ग्रॉसरी किट" : "Monthly grocery kits"}</h3><p className="mt-1 text-[9px] text-white/85 sm:text-xs">{isHindi ? "बजट के हिसाब से तैयार राशन पैक देखें।" : "Explore ready-made packs for your budget."}</p></div>
+              <span className="absolute right-3 top-3 grid h-7 w-7 place-items-center rounded-full bg-white/15 transition group-hover:translate-x-1"><ArrowRight size={14}/></span>
+            </Link>
+          </div>
+        </div>
+      </section>
 
       <HelpCenterFAQ language={language} />
 

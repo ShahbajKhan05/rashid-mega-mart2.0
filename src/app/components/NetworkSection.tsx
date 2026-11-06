@@ -50,16 +50,28 @@ export default function NetworkSection({ language = "en" }: { language?: "en" | 
         ease: "power3.out",
         scrollTrigger: { trigger: section, start: "top 76%", once: true },
       });
+      const mobileNodes = gsap.utils.toArray<HTMLElement>("[data-network-mobile-node]");
+      mobileNodes.forEach((node, index) => {
+        gsap.fromTo(node, { autoAlpha: 0, y: 18, scale: 0.92 }, {
+          autoAlpha: 1, y: 0, scale: 1, duration: 0.62, delay: index * 0.1,
+          ease: "back.out(1.7)",
+          scrollTrigger: { trigger: section, start: "top 78%", once: true },
+        });
+      });
+      gsap.to("[data-network-pulse]", {
+        scale: 1.16, opacity: 0.55, duration: 1.15, repeat: -1, yoyo: true,
+        ease: "sine.inOut", transformOrigin: "center center",
+      });
     }, section);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} aria-labelledby="network-title" className="overflow-hidden bg-[#fff7f4] px-3 py-8 sm:px-6 sm:py-12">
+    <section ref={sectionRef} aria-labelledby="network-title" className="overflow-hidden bg-[#fff7f4] px-3 py-5 sm:px-6 sm:py-12">
       <div className="mx-auto max-w-[1240px]">
-        <div className="mb-7 text-center sm:mb-9">
+        <div className="mb-4 text-center sm:mb-9">
           <p className="text-[9px] font-black uppercase tracking-[.22em] text-[#b77a37]">FROM EVERYDAY SOURCES TO EVERYDAY HOMES</p>
-          <h2 id="network-title" className="mt-1 text-[clamp(1.35rem,4.5vw,2.45rem)] font-black leading-tight tracking-[-.055em] text-[#800020]">
+          <h2 id="network-title" className="mt-1 text-[clamp(1.2rem,4.5vw,2.45rem)] font-black leading-tight tracking-[-.055em] text-[#800020]">
             {isHindi ? "एक मज़बूत लोकल नेटवर्क" : "Building a stronger local network"}
           </h2>
           <p className="mt-1 text-[10px] text-[#827267] sm:text-xs">
@@ -100,11 +112,11 @@ export default function NetworkSection({ language = "en" }: { language?: "en" | 
           </div>
         </div>
 
-        <div className="grid grid-cols-[1fr_28px_1fr] items-center gap-1.5 md:hidden">
+        <div className="relative grid grid-cols-[1fr_28px_1fr] items-center gap-1.5 md:hidden">
           <div className="flex flex-col gap-2.5">
             {suppliers.map(({ label, icon: Icon, tone }) => (
-              <div data-network-node key={label} className="flex min-h-[58px] items-center gap-2 rounded-xl border border-white bg-white/90 p-2 shadow-sm">
-                <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-lg ${tone} text-[#800020]`}><Icon size={15}/></span>
+              <div data-network-node data-network-mobile-node key={label} className="flex min-h-[48px] items-center gap-2 rounded-xl border border-white bg-white/90 p-2 shadow-sm">
+                <span className={`grid h-7 w-7 shrink-0 place-items-center rounded-lg ${tone} text-[#800020]`}><Icon size={15}/></span>
                 <span className="text-[8px] font-black leading-tight tracking-[.02em] text-[#49342e]">{label}</span>
               </div>
             ))}
@@ -113,7 +125,7 @@ export default function NetworkSection({ language = "en" }: { language?: "en" | 
             <svg aria-hidden="true" viewBox="0 0 28 190" preserveAspectRatio="none" className="absolute inset-0 h-full w-full">
               <path data-network-path d="M0 28 C18 28 10 95 28 95 M0 95 H28 M0 162 C18 162 10 95 28 95" fill="none" stroke="#d9a46a" strokeWidth="1.7" strokeDasharray="4 4"/>
             </svg>
-            <span className="z-10 grid h-7 w-7 place-items-center rounded-full bg-[#800020] text-white"><ShoppingBasket size={14}/></span>
+            <span data-network-pulse className="z-10 grid h-8 w-8 place-items-center rounded-full bg-[#800020] text-white shadow-[0_0_0_5px_rgba(128,0,32,.08),0_5px_16px_rgba(128,0,32,.2)]"><ShoppingBasket size={15}/></span>
           </div>
           <div className="flex flex-col gap-2.5">
             {customers.map(({ label, icon: Icon, tone }) => (
@@ -123,7 +135,7 @@ export default function NetworkSection({ language = "en" }: { language?: "en" | 
               </div>
             ))}
           </div>
-          <div data-network-center className="col-span-3 mt-3 flex items-center justify-center rounded-2xl border border-[#f0d8d2] bg-white px-4 py-3 shadow-[0_8px_24px_rgba(128,0,32,.08)]">
+          <div data-network-center data-network-mobile-node className="col-span-3 mt-2 flex items-center justify-center rounded-xl border border-[#f0d8d2] bg-white px-4 py-3 shadow-[0_8px_24px_rgba(128,0,32,.08)]">
             <Image src="/Logo.png" alt="Rashid Mega Mart" width={180} height={70} className="h-10 w-auto max-w-full object-contain"/>
             <span className="ml-3 text-[8px] font-extrabold uppercase tracking-[.13em] text-[#a47a2c]">YOUR EVERYDAY STORE</span>
           </div>

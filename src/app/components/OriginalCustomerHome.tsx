@@ -80,6 +80,21 @@ export default function OriginalCustomerHome() {
           scrollTrigger: { trigger: card, start: "top 94%", once: true },
         });
       });
+      const stats = gsap.utils.toArray<HTMLElement>("[data-store-stat]");
+      gsap.fromTo(stats, { y: 34, scale: .88, autoAlpha: 0, rotateX: -12 }, {
+        y: 0, scale: 1, autoAlpha: 1, rotateX: 0, duration: .85, stagger: .16,
+        ease: "back.out(1.7)", clearProps: "transform",
+        scrollTrigger: { trigger: stats[0]?.parentElement, start: "top 88%", once: true },
+      });
+      stats.forEach((card) => {
+        const icon = card.querySelector<HTMLElement>("[data-stat-icon]");
+        const shine = card.querySelector<HTMLElement>("[data-stat-shine]");
+        if (icon) gsap.to(icon, { y: -3, scale: 1.09, duration: 1.15, ease: "sine.inOut", yoyo: true, repeat: -1, delay: .35 });
+        if (shine) gsap.fromTo(shine, { xPercent: -150, autoAlpha: 0 }, {
+          xPercent: 180, autoAlpha: .75, duration: 1.1, ease: "power2.inOut",
+          repeat: -1, repeatDelay: 3.8, delay: .8,
+        });
+      });
     }, root);
     return () => context.revert();
   }, []);
@@ -179,15 +194,17 @@ export default function OriginalCustomerHome() {
       <section aria-label="Why shop with Rashid Mega Mart" className="relative overflow-hidden border-y border-[#eadfce] bg-[linear-gradient(110deg,#fffaf4_0%,#fff_48%,#fff8f0_100%)] px-3 py-3.5 sm:px-6 sm:py-5">
         <div className="pointer-events-none absolute -right-12 -top-16 h-36 w-36 rounded-full bg-[#ead5b5]/25 blur-3xl" />
         <div className="relative mx-auto grid max-w-[1100px] grid-cols-3 gap-1.5 sm:gap-3">
-          <div className="group relative flex min-w-0 flex-col items-center justify-center gap-1.5 rounded-xl border border-[#eee2d3] bg-white/85 px-1 py-3 text-center shadow-[0_5px_18px_rgba(85,48,25,.045)] transition duration-300 hover:-translate-y-0.5 hover:border-[#d9bd8b] hover:shadow-[0_10px_24px_rgba(85,48,25,.08)] sm:flex-row sm:justify-start sm:gap-3 sm:rounded-2xl sm:px-4 sm:py-3.5 sm:text-left">
-            <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-[#f8eee7] text-[#800020] sm:h-10 sm:w-10 sm:rounded-xl"><Package size={17} strokeWidth={1.8}/></span>
+          <div data-store-stat className="group relative isolate flex min-w-0 flex-col items-center justify-center gap-1.5 overflow-hidden rounded-xl border border-[#ead9c5] bg-white/90 px-1 py-3 text-center shadow-[0_6px_20px_rgba(85,48,25,.07)] transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-[#c9a66b] hover:shadow-[0_14px_30px_rgba(85,48,25,.13)] active:scale-[.97] sm:flex-row sm:justify-start sm:gap-3 sm:rounded-2xl sm:px-4 sm:py-3.5 sm:text-left">
+            <span data-stat-shine aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-[#f4dfbd]/70 to-transparent opacity-0" />
+            <span data-stat-icon className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-[#f8eee7] text-[#800020] transition-colors duration-300 group-hover:bg-[#800020] group-hover:text-white sm:h-10 sm:w-10 sm:rounded-xl"><Package size={17} strokeWidth={1.8}/></span>
             <div className="min-w-0"><p className="text-[16px] font-black leading-none tracking-[-.05em] text-[#800020] sm:text-2xl">{products.length}+</p><p className="mt-1 text-[8px] font-bold leading-tight text-[#65564c] sm:text-[11px]"><span className="sm:hidden">Products</span><span className="hidden sm:inline">Products listed</span></p><p className="mt-0.5 hidden text-[9px] text-[#a08d7e] sm:block">Everyday essentials</p></div>
           </div>
-          <div className="group relative flex min-w-0 items-center gap-2 rounded-xl border border-[#eee2d3] bg-white/85 px-2 py-2.5 shadow-[0_5px_18px_rgba(85,48,25,.045)] transition duration-300 hover:-translate-y-0.5 hover:border-[#d9bd8b] hover:shadow-[0_10px_24px_rgba(85,48,25,.08)] sm:gap-3 sm:rounded-2xl sm:px-4 sm:py-3.5">
-            <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-[#f8eee7] text-[#800020] sm:h-10 sm:w-10 sm:rounded-xl"><Layers3 size={17} strokeWidth={1.8}/></span>
-            <div className="min-w-0"><p className="text-[17px] font-black leading-none tracking-[-.05em] text-[#800020] sm:text-2xl">{shopCategories.length}+</p><p className="mt-1 text-[8px] font-bold leading-tight text-[#65564c] sm:text-[11px]"><span className="sm:hidden">Categories</span><span className="hidden sm:inline">Shopping categories</span></p><p className="mt-0.5 hidden text-[9px] text-[#a08d7e] sm:block">Find it your way</p></div>
+          <div data-store-stat className="group relative isolate flex min-w-0 flex-col items-center justify-center gap-1.5 overflow-hidden rounded-xl border border-[#ead9c5] bg-white/90 px-1 py-3 text-center shadow-[0_6px_20px_rgba(85,48,25,.07)] transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-[#c9a66b] hover:shadow-[0_14px_30px_rgba(85,48,25,.13)] active:scale-[.97] sm:flex-row sm:justify-start sm:gap-3 sm:rounded-2xl sm:px-4 sm:py-3.5 sm:text-left">
+            <span data-stat-shine aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-[#f4dfbd]/70 to-transparent opacity-0" />
+            <span data-stat-icon className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-[#f8eee7] text-[#800020] transition-colors duration-300 group-hover:bg-[#800020] group-hover:text-white sm:h-10 sm:w-10 sm:rounded-xl"><Layers3 size={17} strokeWidth={1.8}/></span>
+            <div className="min-w-0"><p className="text-[16px] font-black leading-none tracking-[-.05em] text-[#800020] sm:text-2xl">{shopCategories.length}+</p><p className="mt-1 text-[8px] font-bold leading-tight text-[#65564c] sm:text-[11px]"><span className="sm:hidden">Categories</span><span className="hidden sm:inline">Shopping categories</span></p><p className="mt-0.5 hidden text-[9px] text-[#a08d7e] sm:block">Find it your way</p></div>
           </div>
-          <div className="group relative flex min-w-0 items-center gap-2 rounded-xl border border-[#eee2d3] bg-white/85 px-2 py-2.5 shadow-[0_5px_18px_rgba(85,48,25,.045)] transition duration-300 hover:-translate-y-0.5 hover:border-[#d9bd8b] hover:shadow-[0_10px_24px_rgba(85,48,25,.08)] sm:gap-3 sm:rounded-2xl sm:px-4 sm:py-3.5">
+          <div data-store-stat className="group relative isolate flex min-w-0 flex-col items-center justify-center gap-1.5 overflow-hidden rounded-xl border border-[#ead9c5] bg-white/90 px-1 py-3 text-center shadow-[0_6px_20px_rgba(85,48,25,.07)] transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-[#c9a66b] hover:shadow-[0_14px_30px_rgba(85,48,25,.13)] active:scale-[.97] sm:flex-row sm:justify-start sm:gap-3 sm:rounded-2xl sm:px-4 sm:py-3.5 sm:text-left">
             <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-[#f8eee7] text-[#800020] sm:h-10 sm:w-10 sm:rounded-xl"><MapPin size={17} strokeWidth={1.8}/></span>
             <div className="min-w-0"><p className="text-[11px] font-black leading-tight tracking-[-.035em] text-[#800020] sm:text-lg"><span className="sm:hidden">By area</span><span className="hidden sm:inline">Area-based</span></p><p className="mt-1 text-[8px] font-bold leading-tight text-[#65564c] sm:text-[11px]"><span className="sm:hidden">Delivery by area</span><span className="hidden sm:inline">Delivery details</span></p><p className="mt-0.5 hidden text-[9px] text-[#a08d7e] sm:block">Checked for your area</p></div>
           </div>

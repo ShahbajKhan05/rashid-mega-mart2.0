@@ -5,6 +5,7 @@ import { MotionConfig } from "motion/react";
 import IntroLoader from "@/components/IntroLoader";
 import Navbar from "./Navbar";
 import SiteFooter from "./SiteFooter";
+import FloatingQuickActions from "./FloatingQuickActions";
 
 export default function AppChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -18,6 +19,7 @@ export default function AppChrome({ children }: { children: React.ReactNode }) {
       <Navbar />
       {children}
       <SiteFooter />
+      <FloatingQuickActions />
     </MotionConfig>
   );
 }

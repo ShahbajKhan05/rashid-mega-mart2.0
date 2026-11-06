@@ -7,12 +7,13 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "lenis/dist/lenis.css";
 
-gsap.registerPlugin(ScrollTrigger);
 import { MotionConfig } from "motion/react";
 import IntroLoader from "@/components/IntroLoader";
 import Navbar from "./Navbar";
 import SiteFooter from "./SiteFooter";
 import FloatingQuickActions from "./FloatingQuickActions";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function AppChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

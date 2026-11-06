@@ -7,7 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
-import { ArrowRight, ShoppingCart, Truck } from "lucide-react";
+import { ArrowRight, ShoppingCart, Truck, Package, Layers3, MapPin } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 import { categoryOptions, products } from "./data";
 import { useCart } from "./CartProvider";
@@ -176,11 +176,21 @@ export default function OriginalCustomerHome() {
         </div>
       </section>
 
-      <section aria-label="Store highlights" className="border-y border-[#eadfce] bg-white/45 px-3 py-3 sm:px-6 sm:py-4">
-        <div className="mx-auto grid max-w-[1100px] grid-cols-3 divide-x divide-[#eadfce] text-center">
-          <div className="px-1.5"><p className="text-[17px] font-black leading-none tracking-tight text-[#800020] sm:text-2xl">{products.length}+</p><p className="mt-1 text-[8px] font-semibold leading-tight text-[#827267] sm:text-[11px]">Products listed</p></div>
-          <div className="px-1.5"><p className="text-[17px] font-black leading-none tracking-tight text-[#800020] sm:text-2xl">{shopCategories.length}+</p><p className="mt-1 text-[8px] font-semibold leading-tight text-[#827267] sm:text-[11px]">Shopping categories</p></div>
-          <div className="px-1.5"><p className="text-[17px] font-black leading-none tracking-tight text-[#800020] sm:text-2xl">Area-based</p><p className="mt-1 text-[8px] font-semibold leading-tight text-[#827267] sm:text-[11px]">Delivery details</p></div>
+      <section aria-label="Why shop with Rashid Mega Mart" className="relative overflow-hidden border-y border-[#eadfce] bg-[linear-gradient(110deg,#fffaf4_0%,#fff_48%,#fff8f0_100%)] px-3 py-3.5 sm:px-6 sm:py-5">
+        <div className="pointer-events-none absolute -right-12 -top-16 h-36 w-36 rounded-full bg-[#ead5b5]/25 blur-3xl" />
+        <div className="relative mx-auto grid max-w-[1100px] grid-cols-3 gap-2 sm:gap-3">
+          <div className="group relative flex min-w-0 items-center gap-2 rounded-xl border border-[#eee2d3] bg-white/85 px-2 py-2.5 shadow-[0_5px_18px_rgba(85,48,25,.045)] transition duration-300 hover:-translate-y-0.5 hover:border-[#d9bd8b] hover:shadow-[0_10px_24px_rgba(85,48,25,.08)] sm:gap-3 sm:rounded-2xl sm:px-4 sm:py-3.5">
+            <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-[#f8eee7] text-[#800020] sm:h-10 sm:w-10 sm:rounded-xl"><Package size={17} strokeWidth={1.8}/></span>
+            <div className="min-w-0"><p className="text-[17px] font-black leading-none tracking-[-.05em] text-[#800020] sm:text-2xl">{products.length}+</p><p className="mt-1 text-[8px] font-bold leading-tight text-[#65564c] sm:text-[11px]">Products listed</p><p className="mt-0.5 hidden text-[9px] text-[#a08d7e] sm:block">Everyday essentials</p></div>
+          </div>
+          <div className="group relative flex min-w-0 items-center gap-2 rounded-xl border border-[#eee2d3] bg-white/85 px-2 py-2.5 shadow-[0_5px_18px_rgba(85,48,25,.045)] transition duration-300 hover:-translate-y-0.5 hover:border-[#d9bd8b] hover:shadow-[0_10px_24px_rgba(85,48,25,.08)] sm:gap-3 sm:rounded-2xl sm:px-4 sm:py-3.5">
+            <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-[#f8eee7] text-[#800020] sm:h-10 sm:w-10 sm:rounded-xl"><Layers3 size={17} strokeWidth={1.8}/></span>
+            <div className="min-w-0"><p className="text-[17px] font-black leading-none tracking-[-.05em] text-[#800020] sm:text-2xl">{shopCategories.length}+</p><p className="mt-1 text-[8px] font-bold leading-tight text-[#65564c] sm:text-[11px]">Shopping categories</p><p className="mt-0.5 hidden text-[9px] text-[#a08d7e] sm:block">Find it your way</p></div>
+          </div>
+          <div className="group relative flex min-w-0 items-center gap-2 rounded-xl border border-[#eee2d3] bg-white/85 px-2 py-2.5 shadow-[0_5px_18px_rgba(85,48,25,.045)] transition duration-300 hover:-translate-y-0.5 hover:border-[#d9bd8b] hover:shadow-[0_10px_24px_rgba(85,48,25,.08)] sm:gap-3 sm:rounded-2xl sm:px-4 sm:py-3.5">
+            <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-[#f8eee7] text-[#800020] sm:h-10 sm:w-10 sm:rounded-xl"><MapPin size={17} strokeWidth={1.8}/></span>
+            <div className="min-w-0"><p className="text-[12px] font-black leading-tight tracking-[-.035em] text-[#800020] sm:text-lg">Area-based</p><p className="mt-1 text-[8px] font-bold leading-tight text-[#65564c] sm:text-[11px]">Delivery details</p><p className="mt-0.5 hidden text-[9px] text-[#a08d7e] sm:block">Checked for your area</p></div>
+          </div>
         </div>
       </section>
 

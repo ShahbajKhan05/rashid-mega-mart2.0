@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import {
-  House, Package, LayoutGrid, X, ArrowUpRight,
+  House, Package, LayoutGrid, X, ArrowUpRight, ShoppingBag, Heart, ShoppingCart, Gift,
   MapPin, Search, ChevronDown, Crosshair, ShieldCheck, Truck,
   Wheat, Droplet, Flame, Cookie
 } from "lucide-react";
@@ -280,37 +280,35 @@ export default function Navbar() {
 
       <div className="h-[136px] xl:h-[76px]" />
 
-      {/* Four-item mobile bottom navigation */}
+      {/* Full mobile bottom navigation — swipe to see every shortcut */}
       <nav
         aria-label={isHindi ? "मुख्य नेविगेशन" : "Main navigation"}
-        className="fixed inset-x-0 bottom-0 z-[70] border-t border-[#d8cfc2]/50 bg-white/60 shadow-[0_-5px_22px_rgba(65,43,35,0.05)] backdrop-blur-2xl xl:hidden"
+        className="fixed inset-x-0 bottom-0 z-[70] border-t border-[#d8cfc2]/60 bg-[#fffdf9]/90 shadow-[0_-5px_22px_rgba(65,43,35,0.07)] backdrop-blur-2xl xl:hidden"
         style={{ paddingBottom: "max(env(safe-area-inset-bottom), 7px)" }}
       >
-        <div className="mx-auto grid h-[62px] max-w-md grid-cols-4 items-center gap-1 px-2">
-          <a href="/" aria-current={pathname === "/" ? "page" : undefined} className={`group flex h-full min-w-0 flex-col items-center justify-center gap-1 transition-colors ${pathname === "/" ? "text-[#800020]" : "text-[#887b73] hover:text-[#800020]"}`}>
-            <span className={`flex h-8 w-12 items-center justify-center rounded-2xl transition-colors ${pathname === "/" ? "bg-[#800020]/[0.09]" : ""}`}>
-              <House size={20} strokeWidth={pathname === "/" ? 2.5 : 1.8} />
-            </span>
-            <span className="text-[11px] font-extrabold tracking-tight">{isHindi ? "होम" : "Home"}</span>
-          </a>
-          <a href="/products" aria-current={pathname.startsWith("/products") ? "page" : undefined} className={`group flex h-full min-w-0 flex-col items-center justify-center gap-1 transition-colors ${pathname.startsWith("/products") ? "text-[#800020]" : "text-[#887b73] hover:text-[#800020]"}`}>
-            <span className={`flex h-8 w-12 items-center justify-center rounded-2xl transition-colors ${pathname.startsWith("/products") ? "bg-[#800020]/[0.09]" : ""}`}>
-              <LayoutGrid size={20} strokeWidth={pathname.startsWith("/products") ? 2.5 : 1.8} />
-            </span>
-            <span className="text-[11px] font-extrabold tracking-tight">{isHindi ? "सामान" : "Products"}</span>
-          </a>
-          <a href="/order-tracking" aria-current={pathname.startsWith("/order-tracking") ? "page" : undefined} className={`group flex h-full min-w-0 flex-col items-center justify-center gap-1 transition-colors ${pathname.startsWith("/order-tracking") ? "text-[#800020]" : "text-[#887b73] hover:text-[#800020]"}`}>
-            <span className={`flex h-8 w-12 items-center justify-center rounded-2xl transition-colors ${pathname.startsWith("/order-tracking") ? "bg-[#800020]/[0.09]" : ""}`}>
-              <Truck size={20} strokeWidth={pathname.startsWith("/order-tracking") ? 2.5 : 1.8} />
-            </span>
-            <span className="text-[11px] font-extrabold tracking-tight">{isHindi ? "ट्रैक" : "Track"}</span>
-          </a>
-          <a href="/my-orders" aria-current={pathname.startsWith("/my-orders") ? "page" : undefined} className={`group flex h-full min-w-0 flex-col items-center justify-center gap-1 transition-colors ${pathname.startsWith("/my-orders") ? "text-[#800020]" : "text-[#887b73] hover:text-[#800020]"}`}>
-            <span className={`flex h-8 w-12 items-center justify-center rounded-2xl transition-colors ${pathname.startsWith("/my-orders") ? "bg-[#800020]/[0.09]" : ""}`}>
-              <Package size={20} strokeWidth={pathname.startsWith("/my-orders") ? 2.5 : 1.8} />
-            </span>
-            <span className="text-[11px] font-extrabold tracking-tight">{isHindi ? "मेरे ऑर्डर" : "My Orders"}</span>
-          </a>
+        <div className="mx-auto flex h-[64px] max-w-xl items-stretch gap-0.5 overflow-x-auto px-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          {[
+            { href: "/", label: isHindi ? "होम" : "Home", Icon: House, active: pathname === "/" },
+            { href: "/products", label: isHindi ? "सामान" : "Shop", Icon: LayoutGrid, active: pathname.startsWith("/products") },
+            { href: "/kits", label: isHindi ? "किट्स" : "Kits", Icon: ShoppingBag, active: pathname.startsWith("/kits") },
+            { href: "/order-tracking", label: isHindi ? "ट्रैक" : "Track", Icon: Truck, active: pathname.startsWith("/order-tracking") },
+            { href: "/my-orders", label: isHindi ? "ऑर्डर" : "Orders", Icon: Package, active: pathname.startsWith("/my-orders") },
+            { href: "/rewards", label: isHindi ? "रिवॉर्ड्स" : "Rewards", Icon: Gift, active: pathname.startsWith("/rewards") },
+            { href: "/wishlist", label: isHindi ? "पसंद" : "Wishlist", Icon: Heart, active: pathname.startsWith("/wishlist") },
+            { href: "/cart", label: isHindi ? "कार्ट" : "Cart", Icon: ShoppingCart, active: pathname.startsWith("/cart") },
+          ].map(({ href, label, Icon, active }) => (
+            <a
+              key={href}
+              href={href}
+              aria-current={active ? "page" : undefined}
+              className={`flex min-w-[58px] flex-1 shrink-0 flex-col items-center justify-center gap-1 rounded-xl px-1 transition-colors ${active ? "text-[#800020]" : "text-[#887b73] hover:text-[#800020]"}`}
+            >
+              <span className={`flex h-8 w-10 items-center justify-center rounded-xl transition-colors ${active ? "bg-[#800020]/[0.10]" : ""}`}>
+                <Icon size={19} strokeWidth={active ? 2.5 : 1.8} />
+              </span>
+              <span className="whitespace-nowrap text-[9px] font-extrabold tracking-tight">{label}</span>
+            </a>
+          ))}
         </div>
       </nav>
 

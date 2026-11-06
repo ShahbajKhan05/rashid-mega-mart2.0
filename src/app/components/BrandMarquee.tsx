@@ -30,7 +30,7 @@ export default function BrandMarquee({ language = "en" }: { language?: "en" | "h
   const heading = language === "hi" ? "आपके भरोसेमंद ब्रांड्स" : "Brands you know & trust";
 
   return (
-    <section aria-label={heading} className="overflow-hidden border-y border-[#eee2d1] bg-white py-4 sm:py-5">
+    <section aria-label={heading} className="overflow-hidden border-y border-[#eee2d1] bg-transparent py-4 sm:py-5">
       <div className="mx-auto mb-3 flex max-w-[1240px] items-center justify-center gap-3 px-3 sm:mb-4">
         <span className="h-px w-8 bg-[#d9bd8b] sm:w-14" />
         <h2 className="text-center text-[9px] font-black uppercase tracking-[.2em] text-[#800020] sm:text-[11px]">{heading}</h2>

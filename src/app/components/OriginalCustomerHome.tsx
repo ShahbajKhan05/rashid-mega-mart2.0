@@ -89,7 +89,7 @@ export default function OriginalCustomerHome() {
   const popularPicks = [...products].sort((a, b) => b.rating - a.rating).slice(0, 8);
 
   return (
-    <main className="overflow-clip bg-[#FFFCF0] pb-24 font-[var(--font-roboto)] text-[#30251F]">
+    <main className="overflow-clip bg-[#fff7f4] pb-24 font-[var(--font-roboto)] text-[#30251F]">
       <div
         ref={promoBarRef}
         role="region"
@@ -123,7 +123,7 @@ export default function OriginalCustomerHome() {
           </div>
         </div>
       </div>
-      <section id="top" ref={entranceRef} className="relative isolate flex min-h-[min(560px,calc(100svh-120px))] items-center justify-center overflow-hidden bg-[#FFFCF0] px-3 pb-8 pt-5 sm:min-h-[min(860px,calc(100svh-72px))] sm:px-6 sm:pb-24">
+      <section id="top" ref={entranceRef} className="relative isolate flex min-h-[min(560px,calc(100svh-120px))] items-center justify-center overflow-hidden bg-[#fff7f4] px-3 pb-8 pt-5 sm:min-h-[min(860px,calc(100svh-72px))] sm:px-6 sm:pb-24">
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_45%,rgba(224,190,119,.16),transparent_58%)]" />
         <div className="mx-auto flex w-full max-w-[1500px] flex-col items-center justify-center text-center">
           <h1 ref={entranceTitleRef} className="w-full select-none text-[clamp(3.05rem,13.2vw,12.5rem)] font-black uppercase leading-[.79] tracking-[-.105em] text-transparent [perspective:900px] sm:text-[clamp(6rem,11.2vw,11.5rem)]">
@@ -151,7 +151,7 @@ export default function OriginalCustomerHome() {
         </div>
       </section>
 
-      <section aria-label="Store highlights" className="border-y border-[#eadfce] bg-white/75 px-3 py-3 sm:px-6 sm:py-4">
+      <section aria-label="Store highlights" className="border-y border-[#eadfce] bg-white/45 px-3 py-3 sm:px-6 sm:py-4">
         <div className="mx-auto grid max-w-[1100px] grid-cols-3 divide-x divide-[#eadfce] text-center">
           <div className="px-1.5"><p className="text-[17px] font-black leading-none tracking-tight text-[#800020] sm:text-2xl">{products.length}+</p><p className="mt-1 text-[8px] font-semibold leading-tight text-[#827267] sm:text-[11px]">Products listed</p></div>
           <div className="px-1.5"><p className="text-[17px] font-black leading-none tracking-tight text-[#800020] sm:text-2xl">{shopCategories.length}+</p><p className="mt-1 text-[8px] font-semibold leading-tight text-[#827267] sm:text-[11px]">Shopping categories</p></div>
@@ -161,23 +161,7 @@ export default function OriginalCustomerHome() {
 
       <BrandMarquee language={language} />
 
-      <section id="deals" className="bg-[#fffaf0] px-3 py-5 sm:px-6 sm:py-8" aria-label={isHindi ? "आज की बचत" : "Best deals"}>
-        <div className="mx-auto max-w-[1240px]">
-          <div className="mb-3 flex items-end justify-between gap-3"><div><p className="text-[9px] font-black uppercase tracking-[.18em] text-[#a47a2c]">{isHindi ? "आज की खास बचत" : "TODAY'S BEST OFFERS"}</p><h2 className="mt-1 text-[21px] font-black leading-tight tracking-[-.05em] text-[#800020] sm:text-3xl">{isHindi ? "कम दाम, ज़्यादा बचत" : "Best deals for your home"}</h2><p className="mt-1 text-[10px] text-[#817166] sm:text-xs">{isHindi ? "ऑफर वाले सामान सीधे कार्ट में जोड़ें।" : "Real product discounts. Add your favourites in one tap."}</p></div><Link href="/products" className="mb-1 inline-flex shrink-0 items-center gap-1 text-[10px] font-black text-[#800020]">{isHindi ? "सभी ऑफर" : "All deals"} <ArrowRight size={13}/></Link></div>
-          <ShoppingProductRail items={bestDeals} language={language} />
-        </div>
-      </section>
-
-      <section className="bg-[#FFFCF0] px-3 py-5 sm:px-6 sm:py-8" aria-label={isHindi ? "लोकप्रिय सामान" : "Popular picks"}>
-        <div className="mx-auto max-w-[1240px]">
-          <div className="mb-3 flex items-end justify-between gap-3"><div><p className="text-[9px] font-black uppercase tracking-[.18em] text-[#a47a2c]">{isHindi ? "ग्राहकों की पसंद" : "CUSTOMER FAVOURITES"}</p><h2 className="mt-1 text-[21px] font-black leading-tight tracking-[-.05em] text-[#800020] sm:text-3xl">{isHindi ? "पॉपुलर पिक्स" : "Popular picks"}</h2><p className="mt-1 text-[10px] text-[#817166] sm:text-xs">{isHindi ? "सबसे अच्छी रेटिंग वाले प्रोडक्ट।" : "Highly rated everyday essentials, ready to shop."}</p></div><Link href="/products" className="mb-1 inline-flex shrink-0 items-center gap-1 text-[10px] font-black text-[#800020]">{isHindi ? "सभी देखें" : "Shop all"} <ArrowRight size={13}/></Link></div>
-          <ShoppingProductRail items={popularPicks} language={language} />
-        </div>
-      </section>
-
-      <KitsPage />
-
-      <section id="categories" aria-label="Shop products by category" className="bg-[#FFFCF0] px-3 py-5 sm:px-6 sm:py-8">
+      <section id="categories" aria-label="Shop products by category" className="bg-transparent px-3 py-5 sm:px-6 sm:py-8">
         <div className="mx-auto max-w-[1240px]">
           <div className="mb-4 text-center sm:mb-5">
             <p className="text-[9px] font-black uppercase tracking-[.2em] text-[#A47A2C]">YOUR EVERYDAY STORE</p>
@@ -228,8 +212,27 @@ export default function OriginalCustomerHome() {
         </div>
       </section>
 
+      <section id="deals" className="bg-transparent px-3 py-5 sm:px-6 sm:py-8" aria-label={isHindi ? "आज की बचत" : "Best deals"}>
+        <div className="mx-auto max-w-[1240px]">
+          <div className="mb-3 flex items-end justify-between gap-3"><div><p className="text-[9px] font-black uppercase tracking-[.18em] text-[#a47a2c]">{isHindi ? "आज की खास बचत" : "TODAY'S BEST OFFERS"}</p><h2 className="mt-1 text-[21px] font-black leading-tight tracking-[-.05em] text-[#800020] sm:text-3xl">{isHindi ? "कम दाम, ज़्यादा बचत" : "Best deals for your home"}</h2><p className="mt-1 text-[10px] text-[#817166] sm:text-xs">{isHindi ? "ऑफर वाले सामान सीधे कार्ट में जोड़ें।" : "Real product discounts. Add your favourites in one tap."}</p></div><Link href="/products" className="mb-1 inline-flex shrink-0 items-center gap-1 text-[10px] font-black text-[#800020]">{isHindi ? "सभी ऑफर" : "All deals"} <ArrowRight size={13}/></Link></div>
+          <ShoppingProductRail items={bestDeals} language={language} />
+        </div>
+      </section>
+
+      <section className="bg-[#FFFCF0] px-3 py-5 sm:px-6 sm:py-8" aria-label={isHindi ? "लोकप्रिय सामान" : "Popular picks"}>
+        <div className="mx-auto max-w-[1240px]">
+          <div className="mb-3 flex items-end justify-between gap-3"><div><p className="text-[9px] font-black uppercase tracking-[.18em] text-[#a47a2c]">{isHindi ? "ग्राहकों की पसंद" : "CUSTOMER FAVOURITES"}</p><h2 className="mt-1 text-[21px] font-black leading-tight tracking-[-.05em] text-[#800020] sm:text-3xl">{isHindi ? "पॉपुलर पिक्स" : "Popular picks"}</h2><p className="mt-1 text-[10px] text-[#817166] sm:text-xs">{isHindi ? "सबसे अच्छी रेटिंग वाले प्रोडक्ट।" : "Highly rated everyday essentials, ready to shop."}</p></div><Link href="/products" className="mb-1 inline-flex shrink-0 items-center gap-1 text-[10px] font-black text-[#800020]">{isHindi ? "सभी देखें" : "Shop all"} <ArrowRight size={13}/></Link></div>
+          <ShoppingProductRail items={popularPicks} language={language} />
+        </div>
+      </section>
+
+
+
+
 
       <NetworkSection language={language} />
+
+      <KitsPage />
 
       <HelpCenterFAQ language={language} />
 

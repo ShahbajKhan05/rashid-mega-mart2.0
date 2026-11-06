@@ -230,7 +230,7 @@ export default function OriginalCustomerHome() {
         </div>
       </section>
 
-      <NetworkSection language={language} />      <NetworkSection language={language} />
+      <NetworkSection language={language} />
 
       <HelpCenterFAQ language={language} />
 

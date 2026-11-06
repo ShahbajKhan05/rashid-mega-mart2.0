@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import {
-  House, Package, LayoutGrid, X, ArrowUpRight, ShoppingBag, Heart, ShoppingCart, Gift, MoreHorizontal,
+  House, Package, LayoutGrid, X, ArrowUpRight, ShoppingBag, Heart, Gift, MoreHorizontal,
   MapPin, Search, ChevronDown, Crosshair, ShieldCheck, Truck,
   Wheat, Droplet, Flame, Cookie
 } from "lucide-react";
@@ -296,13 +296,12 @@ export default function Navbar() {
 
       {/* Mobile bottom navigation with always-visible More */}
       <nav aria-label={isHindi ? "मुख्य नेविगेशन" : "Main navigation"} className="fixed inset-x-0 bottom-0 z-[70] border-t border-[#d8cfc2]/60 bg-[#fffdf9]/95 shadow-[0_-5px_22px_rgba(65,43,35,0.08)] backdrop-blur-2xl xl:hidden" style={{ paddingBottom: "max(env(safe-area-inset-bottom), 7px)" }}>
-        <div className="mx-auto grid h-[64px] max-w-xl grid-cols-6 items-stretch gap-px px-1">
+        <div className="mx-auto grid h-[64px] max-w-xl grid-cols-5 items-stretch gap-px px-1">
           {[
             { href: "/", label: isHindi ? "होम" : "Home", Icon: House, active: pathname === "/" },
             { href: "/products", label: isHindi ? "शॉप" : "Shop", Icon: LayoutGrid, active: pathname.startsWith("/products") },
             { href: "/order-tracking", label: isHindi ? "ट्रैक" : "Track", Icon: Truck, active: pathname.startsWith("/order-tracking") },
             { href: "/rewards", label: isHindi ? "रिवॉर्ड्स" : "Rewards", Icon: Gift, active: pathname.startsWith("/rewards") },
-            { href: "/cart", label: isHindi ? "कार्ट" : "Cart", Icon: ShoppingCart, active: pathname.startsWith("/cart") },
           ].map(({ href, label, Icon, active }) => (
             <a key={href} href={href} aria-current={active ? "page" : undefined} className={`flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl px-0.5 transition-colors ${active ? "text-[#800020]" : "text-[#887b73]"}`}>
               <span className={`flex h-8 w-10 items-center justify-center rounded-xl ${active ? "bg-[#800020]/[0.10]" : ""}`}><Icon size={19} strokeWidth={active ? 2.5 : 1.8} /></span>

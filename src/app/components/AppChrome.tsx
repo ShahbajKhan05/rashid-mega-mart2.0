@@ -12,6 +12,7 @@ import IntroLoader from "@/components/IntroLoader";
 import Navbar from "./Navbar";
 import SiteFooter from "./SiteFooter";
 import FloatingQuickActions from "./FloatingQuickActions";
+import SitewideDeliveryNotice from "./SitewideDeliveryNotice";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -54,6 +55,7 @@ export default function AppChrome({ children }: { children: React.ReactNode }) {
     <MotionConfig reducedMotion="user">
       <IntroLoader />
       <Navbar />
+      <SitewideDeliveryNotice />
       {children}
       <SiteFooter />
       <FloatingQuickActions />

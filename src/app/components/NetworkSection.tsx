@@ -58,7 +58,7 @@ export default function NetworkSection({ language = "en" }: { language?: "en" | 
   }, []);
 
   return (
-    <section ref={sectionRef} aria-labelledby="journey-title" className="overflow-hidden bg-[#fff7f4] px-3 py-7 sm:px-6 sm:py-14">
+    <section ref={sectionRef} aria-labelledby="journey-title" className="overflow-hidden bg-transparent px-3 py-7 sm:px-6 sm:py-14">
       <div className="mx-auto max-w-[1120px]">
         <div data-journey-intro className="mb-7 text-center sm:mb-10">
           <p className="text-[9px] font-black uppercase tracking-[.22em] text-[#b77a37]">{isHindi ? "हर ऑर्डर में थोड़ी extra care" : "A LITTLE CARE IN EVERY STEP"}</p>

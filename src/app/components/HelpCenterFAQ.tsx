@@ -69,7 +69,9 @@ export default function HelpCenterFAQ({ language }: { language: Language }) {
       y: 0, autoAlpha: 1, duration: .24, stagger: .018,
       ease: "power2.out", overwrite: "auto",
     });
-    return () => tween.kill();
+    return () => {
+      tween.kill();
+    };
   }, [activeCategory, query]);
 
   const questionLabel = (item: FAQ) => isHindi ? item.questionHi : item.question;

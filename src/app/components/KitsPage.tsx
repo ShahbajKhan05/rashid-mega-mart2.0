@@ -34,9 +34,9 @@ export default function KitsPage() {
 
   const requestKit = (kit: typeof groceryKits[number]) => {
     addCustomRequest({
-      name: \`Rashid Mega Mart · \${kit.title} (₹\${kit.price.toLocaleString("en-IN")})\`,
+      name: `Rashid Mega Mart · ${kit.title} (₹${kit.price.toLocaleString("en-IN")})`,
       quantity: 1,
-      note: \`Requested kit: \${kit.items.join(", ")}. Displayed package tier ₹\${kit.price}; store must confirm exact quantities, brands, stock and final price before acceptance.\`,
+      note: `Requested kit: ${kit.items.join(", ")}. Displayed package tier ₹${kit.price}; store must confirm exact quantities, brands, stock and final price before acceptance.`,
     });
     router.push("/cart");
   };

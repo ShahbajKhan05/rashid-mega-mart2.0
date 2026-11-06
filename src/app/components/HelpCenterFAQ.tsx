@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 import { ChevronDown } from "lucide-react";
 
 type Language = "en" | "hi";

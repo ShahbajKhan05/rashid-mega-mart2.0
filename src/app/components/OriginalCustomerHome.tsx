@@ -237,57 +237,34 @@ export default function OriginalCustomerHome() {
         </div>
       </section>
 
-      <section id="categories" data-shop-section aria-label="Shop products by category" className="bg-transparent px-3 py-5 sm:px-6 sm:py-8">
-        <div className="mx-auto max-w-[1240px]">
-          <div className="mb-4 text-center sm:mb-5">
-            <p className="text-[9px] font-black uppercase tracking-[.2em] text-[#A47A2C]">YOUR EVERYDAY STORE</p>
-            <h2 className="mt-1 text-[clamp(1.35rem,4vw,2rem)] font-black leading-tight tracking-[-.055em] text-[#800020]">{isHindi ? "आपकी रोज़मर्रा की पसंद" : "Shop your daily essentials"}</h2>
-            <p className="mt-1 text-[10px] text-[#817166] sm:text-xs">{isHindi ? "अपनी पसंद की कैटेगरी से सामान चुनें।" : "Browse a category and add what you need."}</p>
+      <section id="categories" data-shop-section aria-label={isHindi ? "शॉपिंग कैटेगरी" : "Shop by category"} className="bg-[#fffaf2] px-3 py-4 sm:px-6 sm:py-7">
+        <div className="mx-auto max-w-[1240px] overflow-hidden rounded-[22px] border border-[#ead9c5] bg-[linear-gradient(112deg,#fff 0%,#fff9ed 58%,#f5e7ce 100%)] p-3 shadow-[0_8px_24px_rgba(68,45,27,.055)] sm:rounded-[28px] sm:p-6">
+          <div className="mb-3 flex items-end justify-between gap-3 sm:mb-4">
+            <div className="min-w-0">
+              <span className="text-[8px] font-black uppercase tracking-[.17em] text-[#a47a2c] sm:text-[9px]">{isHindi ? "अपनी पसंद चुनें" : "FIND YOUR EVERYDAY NEEDS"}</span>
+              <h2 className="mt-1 text-[19px] font-black leading-tight tracking-[-.05em] text-[#800020] sm:text-[26px]">{isHindi ? "कैटेगरी से खरीदारी करें" : "Shop by category"}</h2>
+              <p className="mt-1 text-[9px] text-[#817166] sm:text-[11px]">{isHindi ? "कैटेगरी चुनें और सीधे शॉप पर जाएं।" : "Pick a category and explore products in the shop."}</p>
+            </div>
+            <Link href="/products" className="inline-flex h-8 shrink-0 items-center gap-1 rounded-full bg-[#800020] px-3 text-[9px] font-black text-white transition hover:bg-[#64152b] active:scale-[.97] sm:h-9 sm:px-4 sm:text-[10px]">{isHindi ? "सभी देखें" : "Shop all"} <ArrowRight size={12}/></Link>
           </div>
-
-          <div className="space-y-6 sm:space-y-8">
+          <div className="flex snap-x snap-mandatory gap-2 overflow-x-auto overscroll-x-contain pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-4 sm:gap-2.5 sm:overflow-visible">
             {shopCategories.map((category) => {
               const categoryProducts = products.filter((product) => product.category === category.id);
               return (
-                <section data-home-category key={category.id} aria-labelledby={"category-" + category.id} className="min-w-0">
-                  <div className="mb-2.5 flex items-center justify-between gap-2">
-                    <div className="min-w-0">
-                      <h3 id={"category-" + category.id} className="truncate text-[15px] font-black leading-tight tracking-[-.04em] text-[#30251F] sm:text-lg">{isHindi ? category.hi : category.en}</h3>
-                      <p className="mt-0.5 text-[9px] text-[#928276]">{categoryProducts.length} {isHindi ? "प्रोडक्ट" : "products"}</p>
-                    </div>
-                    <Link href={"/products?category=" + encodeURIComponent(category.id)} className="inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-1 text-[9px] font-extrabold text-[#800020] transition hover:bg-[#800020]/5 sm:text-[10px]">{isHindi ? "सभी देखें" : "See all"} <ArrowRight size={12}/></Link>
-                  </div>
-
-                  <div className="flex snap-x snap-mandatory gap-2.5 overflow-x-auto overscroll-x-contain pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-3">
-                    {categoryProducts.slice(0, 8).map((product) => {
-                      const discount = product.originalPrice > product.price ? Math.round((1 - product.price / product.originalPrice) * 100) : 0;
-                      return (
-                        <article data-home-product key={product.id} className="group w-[148px] shrink-0 snap-start overflow-hidden rounded-[13px] border border-[#eee5d8] bg-white shadow-[0_3px_12px_rgba(68,45,27,.045)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(68,45,27,.09)] sm:w-[190px] sm:rounded-[16px]">
-                          <Link href={"/products/" + (product.slug || product.id)} aria-label={isHindi ? product.nameHi : product.name} className="relative flex h-[105px] items-center justify-center overflow-hidden bg-[linear-gradient(145deg,#fffdf7,#f7f0e4)] p-3 sm:h-[142px] sm:p-4">
-                            {discount > 0 && <span className="absolute left-2 top-2 z-10 rounded-full bg-[#800020] px-1.5 py-1 text-[7px] font-black text-white sm:text-[8px]">{discount}% OFF</span>}
-                            <Image src={product.image} alt={isHindi ? product.nameHi : product.name} width={360} height={360} loading="lazy" sizes="(max-width: 639px) 148px, 190px" className="h-full w-full object-contain mix-blend-multiply transition duration-500 group-hover:scale-105"/>
-                          </Link>
-                          <div className="p-2 sm:p-2.5">
-                            <Link href={"/products/" + (product.slug || product.id)} className="block min-h-[29px] line-clamp-2 text-[10px] font-extrabold leading-[1.35] text-[#3b3029] sm:min-h-[36px] sm:text-xs">{isHindi ? product.nameHi : product.name}</Link>
-                            <div className="mt-1 flex flex-wrap items-baseline gap-x-1.5">
-                              <span className="text-[12px] font-black leading-none text-[#800020] sm:text-sm">₹{product.price.toLocaleString("en-IN")}</span>
-                              {discount > 0 && <span className="text-[8px] text-[#a99b8f] line-through">₹{product.originalPrice.toLocaleString("en-IN")}</span>}
-                              {product.unit && <span className="text-[8px] text-[#938477]">{product.unit}</span>}
-                            </div>
-                            {discount > 0 && <p className="mt-1 text-[8px] font-bold text-[#16834b]">Save ₹{(product.originalPrice-product.price).toLocaleString("en-IN")}</p>}
-                            <button type="button" onClick={() => addToCart(product, 1)} className="mt-2 inline-flex h-7 w-full items-center justify-center gap-1 rounded-md border border-[#800020]/15 bg-[#fff9f2] text-[9px] font-extrabold text-[#800020] transition hover:bg-[#800020] hover:text-white active:scale-[.98] sm:h-8 sm:text-[10px]"><ShoppingCart size={11}/>{isHindi ? "जोड़ें" : "ADD"}</button>
-                          </div>
-                        </article>
-                      );
-                    })}
-                  </div>
-                </section>
+                <Link key={category.id} href={"/products?category=" + encodeURIComponent(category.id)} className="group flex min-h-[58px] w-[148px] shrink-0 snap-start items-center gap-2 rounded-xl border border-[#eadcc8] bg-white/90 px-2.5 py-2 transition duration-200 hover:-translate-y-0.5 hover:border-[#c9a66b] hover:bg-white hover:shadow-[0_6px_16px_rgba(85,48,25,.08)] active:scale-[.98] sm:min-h-[66px] sm:w-auto sm:rounded-2xl sm:px-3 sm:py-2.5">
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-[#f8eee7] text-[19px] sm:h-10 sm:w-10 sm:rounded-xl">{categoryProducts[0]?.emoji || "🛒"}</span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate text-[9px] font-extrabold leading-tight text-[#49382d] sm:text-[10px]">{isHindi ? category.hi : category.en}</span>
+                    <span className="mt-1 block text-[8px] font-medium text-[#9a8878]">{categoryProducts.length} {isHindi ? "प्रोडक्ट" : "products"}</span>
+                  </span>
+                  <ArrowRight size={12} className="shrink-0 text-[#a47a2c] transition-transform group-hover:translate-x-0.5"/>
+                </Link>
               );
             })}
           </div>
+          <div className="mt-2 flex items-center justify-center gap-1 text-[8px] font-semibold text-[#9a8878] sm:hidden"><span className="h-px w-5 bg-[#ddc9a9]"/>{isHindi ? "और कैटेगरी देखने के लिए स्वाइप करें" : "Swipe to explore more categories"}<span className="h-px w-5 bg-[#ddc9a9]"/></div>
         </div>
       </section>
-
 
       <BrandMarquee language={language} />
 

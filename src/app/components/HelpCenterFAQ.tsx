@@ -98,7 +98,7 @@ export default function HelpCenterFAQ({ language }: { language: Language }) {
           {categories.map((category) => {
             const Icon = category.icon;
             const selected = activeCategory === category.id;
-            return <button key={category.id} type="button" onClick={() => { setActiveCategory(category.id); setOpenIndex(0); }} aria-pressed={selected} className={"inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 text-[10px] font-bold transition duration-200 " + (selected ? "border-[#76213b] bg-[#76213b] text-white shadow-[0_7px_18px_rgba(118,33,59,.18)]" : "border-[#e5d9c8] bg-white/70 text-[#76665b] hover:-translate-y-0.5 hover:border-[#c8ad88] hover:bg-white")}>
+            return <button key={category.id} type="button" onClick={() => { setActiveCategory(category.id); setOpenIndex(0); }} aria-pressed={selected} className={"inline-flex shrink-0 items-center gap-1 rounded-full border px-2.5 py-1.5 text-[9px] font-bold transition duration-200 " + (selected ? "border-[#76213b] bg-[#76213b] text-white shadow-[0_7px_18px_rgba(118,33,59,.18)]" : "border-[#e5d9c8] bg-white/70 text-[#76665b] hover:-translate-y-0.5 hover:border-[#c8ad88] hover:bg-white")}>
               <Icon size={13} />{isHindi ? category.labelHi : category.label}
             </button>;
           })}
@@ -112,7 +112,6 @@ export default function HelpCenterFAQ({ language }: { language: Language }) {
           <div ref={listRef} className="divide-y divide-[#eee7dd] px-2.5 sm:px-4">
             {filtered.map((item, index) => {
               const expanded = openIndex === index;
-              const vote = feedback[item.question];
               return <article key={item.question}>
                 <button type="button" aria-expanded={expanded} onClick={() => setOpenIndex(expanded ? -1 : index)} className="group flex w-full items-center gap-2 py-2.5 text-left">
                   <span className={"grid h-6 w-6 shrink-0 place-items-center rounded-md text-[9px] font-black transition " + (expanded ? "bg-[#76213b] text-white" : "bg-[#f6f0e7] text-[#9a7957]")}>{String(index + 1).padStart(2, "0")}</span>

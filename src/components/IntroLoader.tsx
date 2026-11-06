@@ -16,13 +16,12 @@ export default function IntroLoader() {
   useEffect(() => {
     try {
       if (window.sessionStorage.getItem(INTRO_KEY) === "1") {
-        setVisible(false);
-        return;
+        const frame = window.requestAnimationFrame(() => setVisible(false));
+        return () => window.cancelAnimationFrame(frame);
       }
     } catch {
       // Keep the visual loader available when storage is blocked.
     }
-    setVisible(true);
   }, []);
 
   useEffect(() => {

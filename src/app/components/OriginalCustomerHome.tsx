@@ -239,31 +239,38 @@ export default function OriginalCustomerHome() {
       </section>
 
       <section id="categories" data-shop-section aria-label={isHindi ? "शॉपिंग कैटेगरी" : "Shop by category"} className="bg-[#fffaf2] px-3 py-4 sm:px-6 sm:py-7">
-        <div className="mx-auto max-w-[1240px] overflow-hidden rounded-[22px] border border-[#ead9c5] bg-[linear-gradient(112deg,#fff 0%,#fff9ed 58%,#f5e7ce 100%)] p-3 shadow-[0_8px_24px_rgba(68,45,27,.055)] sm:rounded-[28px] sm:p-6">
-          <div className="mb-3 flex items-end justify-between gap-3 sm:mb-4">
+        <div className="mx-auto max-w-[1240px]">
+          <div className="mb-3 flex items-end justify-between gap-3 sm:mb-5">
             <div className="min-w-0">
-              <span className="text-[8px] font-black uppercase tracking-[.17em] text-[#a47a2c] sm:text-[9px]">{isHindi ? "अपनी पसंद चुनें" : "FIND YOUR EVERYDAY NEEDS"}</span>
-              <h2 className="mt-1 text-[19px] font-black leading-tight tracking-[-.05em] text-[#800020] sm:text-[26px]">{isHindi ? "कैटेगरी से खरीदारी करें" : "Shop by category"}</h2>
-              <p className="mt-1 text-[9px] text-[#817166] sm:text-[11px]">{isHindi ? "कैटेगरी चुनें और सीधे शॉप पर जाएं।" : "Pick a category and explore products in the shop."}</p>
+              <span className="text-[8px] font-black uppercase tracking-[.19em] text-[#a47a2c] sm:text-[9px]">{isHindi ? "एक नज़र में सब कुछ" : "A LITTLE BIT OF EVERYTHING"}</span>
+              <h2 className="mt-1 text-[21px] font-black leading-tight tracking-[-.055em] text-[#800020] sm:text-[28px]">{isHindi ? "अपनी पसंद की कैटेगरी चुनें" : "Shop by category"}</h2>
+              <p className="mt-1 text-[9px] text-[#817166] sm:text-[11px]">{isHindi ? "ज़रूरत चुनें और खरीदारी शुरू करें।" : "Find what you need and start shopping."}</p>
             </div>
-            <Link href="/products" className="inline-flex h-8 shrink-0 items-center gap-1 rounded-full bg-[#800020] px-3 text-[9px] font-black text-white transition hover:bg-[#64152b] active:scale-[.97] sm:h-9 sm:px-4 sm:text-[10px]">{isHindi ? "सभी देखें" : "Shop all"} <ArrowRight size={12}/></Link>
+            <Link href="/products" className="inline-flex h-8 shrink-0 items-center gap-1 rounded-full border border-[#d9bd8b] bg-white px-3 text-[9px] font-black text-[#800020] shadow-sm transition hover:bg-[#800020] hover:text-white active:scale-[.97] sm:h-9 sm:px-4 sm:text-[10px]">{isHindi ? "सभी सामान" : "Shop all"} <ArrowRight size={12}/></Link>
           </div>
-          <div className="flex snap-x snap-mandatory gap-2 overflow-x-auto overscroll-x-contain pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-4 sm:gap-2.5 sm:overflow-visible">
-            {shopCategories.map((category) => {
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4">
+            {shopCategories.map((category, index) => {
               const categoryProducts = products.filter((product) => product.category === category.id);
+              const tones = [
+                "from-[#fff0df] to-[#f8dfc7]", "from-[#f9eee1] to-[#e9dfc8]",
+                "from-[#fce9e7] to-[#f3d8d1]", "from-[#edf1df] to-[#dce7cb]",
+              ];
               return (
-                <Link key={category.id} href={"/products?category=" + encodeURIComponent(category.id)} className="group flex min-h-[58px] w-[148px] shrink-0 snap-start items-center gap-2 rounded-xl border border-[#eadcc8] bg-white/90 px-2.5 py-2 transition duration-200 hover:-translate-y-0.5 hover:border-[#c9a66b] hover:bg-white hover:shadow-[0_6px_16px_rgba(85,48,25,.08)] active:scale-[.98] sm:min-h-[66px] sm:w-auto sm:rounded-2xl sm:px-3 sm:py-2.5">
-                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-[#f8eee7] text-[19px] sm:h-10 sm:w-10 sm:rounded-xl">{categoryProducts[0]?.emoji || "🛒"}</span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate text-[9px] font-extrabold leading-tight text-[#49382d] sm:text-[10px]">{isHindi ? category.hi : category.en}</span>
-                    <span className="mt-1 block text-[8px] font-medium text-[#9a8878]">{categoryProducts.length} {isHindi ? "प्रोडक्ट" : "products"}</span>
+                <Link key={category.id} href={"/products?category=" + encodeURIComponent(category.id)} className="group relative flex min-h-[86px] min-w-0 items-center gap-2 overflow-hidden rounded-[15px] border border-[#eadcc8] bg-white p-2 shadow-[0_3px_12px_rgba(68,45,27,.045)] transition duration-200 hover:-translate-y-0.5 hover:border-[#c9a66b] hover:shadow-[0_9px_22px_rgba(85,48,25,.10)] active:scale-[.98] sm:min-h-[104px] sm:gap-3 sm:rounded-[19px] sm:p-3">
+                  <span className={`relative grid h-[52px] w-[52px] shrink-0 place-items-center rounded-[13px] bg-gradient-to-br ${tones[index % tones.length]} text-[27px] shadow-inner sm:h-[68px] sm:w-[68px] sm:rounded-[16px] sm:text-[34px]`}>
+                    {categoryProducts[0]?.emoji || "🛒"}
+                    <span className="absolute -bottom-1 -right-1 h-3 w-3 rounded-full border-2 border-white bg-[#b68a43]"/>
                   </span>
-                  <ArrowRight size={12} className="shrink-0 text-[#a47a2c] transition-transform group-hover:translate-x-0.5"/>
+                  <span className="min-w-0 flex-1">
+                    <span className="block line-clamp-2 text-[10px] font-black leading-[1.2] tracking-[-.02em] text-[#49382d] sm:text-[12px]">{isHindi ? category.hi : category.en}</span>
+                    <span className="mt-1 block text-[8px] font-medium text-[#9a8878] sm:text-[9px]">{categoryProducts.length} {isHindi ? "प्रोडक्ट" : "products"}</span>
+                    <span className="mt-1 inline-flex items-center gap-1 text-[8px] font-black text-[#800020] sm:text-[9px]">{isHindi ? "देखें" : "Explore"} <ArrowRight size={10} className="transition-transform group-hover:translate-x-1"/></span>
+                  </span>
+                  <span aria-hidden="true" className="pointer-events-none absolute -right-5 -top-6 h-16 w-16 rounded-full border-[10px] border-[#f5eadb]/70 transition-transform duration-300 group-hover:scale-125"/>
                 </Link>
               );
             })}
           </div>
-          <div className="mt-2 flex items-center justify-center gap-1 text-[8px] font-semibold text-[#9a8878] sm:hidden"><span className="h-px w-5 bg-[#ddc9a9]"/>{isHindi ? "और कैटेगरी देखने के लिए स्वाइप करें" : "Swipe to explore more categories"}<span className="h-px w-5 bg-[#ddc9a9]"/></div>
         </div>
       </section>
 

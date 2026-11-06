@@ -11,6 +11,7 @@ import { useCart } from "./CartProvider";
 import HelpCenterFAQ from "./HelpCenterFAQ";
 import KitsPage from "./KitsPage";
 import NetworkSection from "./NetworkSection";
+import BrandMarquee from "./BrandMarquee";
 
 export default function OriginalCustomerHome() {
   const { language } = useLanguage();
@@ -151,6 +152,8 @@ export default function OriginalCustomerHome() {
           <div className="px-1.5"><p className="text-[17px] font-black leading-none tracking-tight text-[#800020] sm:text-2xl">30 min</p><p className="mt-1 text-[8px] font-semibold leading-tight text-[#827267] sm:text-[11px]">Delivery promise</p></div>
         </div>
       </section>
+
+      <BrandMarquee language={language} />
 
       <section id="categories" aria-label="Shop products by category" className="bg-[#FFFCF0] px-3 py-5 sm:px-6 sm:py-8">
         <div className="mx-auto max-w-[1240px]">

@@ -46,7 +46,7 @@ export default function KitsPage() {
   };
 
   return (
-    <section id="ration-kits" className="bg-[#FFFCF0] px-3 py-6 sm:px-6 sm:py-9">
+    <section id="ration-kits" className="bg-transparent px-3 py-6 sm:px-6 sm:py-9">
       <div className="mx-auto max-w-[1240px]">
         <div data-kit-heading className="mb-4 text-center sm:mb-6">
           <p className="text-[9px] font-black uppercase tracking-[.2em] text-[#A47A2C]">{isHindi ? "महीने की खरीदारी, हुई आसान" : "YOUR MONTHLY GROCERY, MADE SIMPLE"}</p>
@@ -63,7 +63,7 @@ export default function KitsPage() {
 
         <div className="flex snap-x snap-mandatory gap-2.5 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-3">
           {groceryKits.map((kit) => (
-            <article data-kit-row key={kit.id} className="flex w-[min(84vw,330px)] shrink-0 snap-start gap-3 rounded-[13px] border border-[#eee5d8] bg-[#fffdf8] p-2.5 shadow-[0_3px_12px_rgba(68,45,27,.045)] sm:w-[360px] sm:rounded-[16px] sm:p-3">
+            <article data-kit-row key={kit.id} className="flex w-[min(84vw,330px)] shrink-0 snap-start gap-3 rounded-[13px] border border-[#eee5d8] bg-white/90 p-2.5 shadow-[0_3px_12px_rgba(68,45,27,.045)] sm:w-[360px] sm:rounded-[16px] sm:p-3">
               <div className="relative h-[88px] w-[82px] shrink-0 overflow-hidden rounded-[10px] bg-[#f4ead8] sm:h-[104px] sm:w-[96px]">
                 <Image src={kit.image} alt={kit.imageAlt} width={240} height={240} sizes="96px" loading="lazy" className="h-full w-full object-cover"/>
                 <span className="absolute bottom-1 left-1 right-1 truncate rounded bg-white/90 px-1 py-0.5 text-center text-[7px] font-black text-[#805d2d]">{kit.badge}</span>

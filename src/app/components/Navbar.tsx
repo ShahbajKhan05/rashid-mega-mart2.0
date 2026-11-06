@@ -202,6 +202,7 @@ export default function Navbar() {
               
               <motion.a href="/order-tracking" className="nav-glass-link rounded-full px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-white/40 hover:text-[#800020]" whileHover={{ y: -2, scale: 1.025 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 420, damping: 28 }}>{isHindi ? "ऑर्डर ट्रैक करें" : "Track Order"}</motion.a>
               <motion.a href="/my-orders" className="nav-glass-link rounded-full px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-white/40 hover:text-[#800020]" whileHover={{ y: -2, scale: 1.025 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 420, damping: 28 }}>{isHindi ? "मेरे ऑर्डर" : "My Orders"}</motion.a>
+              <motion.a href="/kits" className="nav-glass-link rounded-full px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-white/40 hover:text-[#800020]" whileHover={{ y: -2, scale: 1.025 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 420, damping: 28 }}>{isHindi ? "किट्स" : "Kits"}</motion.a>
               <motion.a href="/rewards" className="nav-glass-link rounded-full px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-white/40 hover:text-[#800020]" whileHover={{ y: -2, scale: 1.025 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 420, damping: 28 }}>{isHindi ? "रिवॉर्ड्स" : "Rewards"}</motion.a>
               <motion.a href="/admin" className="nav-glass-link flex items-center gap-1 rounded-lg px-3 py-2 text-[13px] font-semibold text-[#88796f] hover:bg-white/35 hover:text-[#68162a]" whileHover={{ y: -2, scale: 1.025 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 420, damping: 28 }}>
                 <ShieldCheck size={14} /> {isHindi ? "एडमिन" : "Admin"}
@@ -300,7 +301,7 @@ export default function Navbar() {
           {[
             { href: "/", label: isHindi ? "होम" : "Home", Icon: House, active: pathname === "/" },
             { href: "/products", label: isHindi ? "शॉप" : "Shop", Icon: LayoutGrid, active: pathname.startsWith("/products") },
-            { href: "/order-tracking", label: isHindi ? "ट्रैक" : "Track", Icon: Truck, active: pathname.startsWith("/order-tracking") },
+            { href: "/kits", label: isHindi ? "किट्स" : "Kits", Icon: ShoppingBag, active: pathname.startsWith("/kits") },
             { href: "/rewards", label: isHindi ? "रिवॉर्ड्स" : "Rewards", Icon: Gift, active: pathname.startsWith("/rewards") },
           ].map(({ href, label, Icon, active }) => (
             <a key={href} href={href} aria-current={active ? "page" : undefined} className={`flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl px-0.5 transition-colors ${active ? "text-[#800020]" : "text-[#887b73]"}`}>
@@ -323,6 +324,7 @@ export default function Navbar() {
               <div className="grid grid-cols-2 gap-2">
                 {[
                   { href: "/kits", label: isHindi ? "किट्स" : "Shopping Kits", Icon: ShoppingBag },
+                  { href: "/order-tracking", label: isHindi ? "ऑर्डर ट्रैक करें" : "Track Order", Icon: Truck },
                   { href: "/my-orders", label: isHindi ? "मेरे ऑर्डर" : "My Orders", Icon: Package },
                   { href: "/wishlist", label: isHindi ? "विशलिस्ट" : "Wishlist", Icon: Heart },
                   { href: "/contact", label: isHindi ? "संपर्क" : "Contact Support", Icon: ArrowUpRight },

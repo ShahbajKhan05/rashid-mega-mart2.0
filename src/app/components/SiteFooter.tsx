@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ShieldCheck, ArrowUpRight, ChevronRight, Headset } from "lucide-react";
+import { ArrowUpRight, ChevronRight, Headset, ShieldCheck } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
@@ -16,165 +16,100 @@ export default function SiteFooter() {
   useEffect(() => {
     const root = footerRef.current;
     if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
     gsap.registerPlugin(ScrollTrigger);
     const ctx = gsap.context(() => {
-      gsap.fromTo(".rm-footer-reveal", { y: 14, opacity: 0 }, {
-        y: 0,
-        opacity: 1,
-        duration: 0.55,
-        stagger: 0.07,
-        ease: "power3.out",
-        scrollTrigger: { trigger: root, start: "top 96%", once: true },
+      gsap.fromTo("[data-footer-reveal]", { y: 22, opacity: 0 }, {
+        y: 0, opacity: 1, duration: 0.7, stagger: 0.08, ease: "power3.out",
+        scrollTrigger: { trigger: root, start: "top 94%", once: true },
+      });
+      gsap.fromTo("[data-footer-wordmark]", { yPercent: 28, opacity: 0.25 }, {
+        yPercent: 0, opacity: 1, duration: 1.1, ease: "power4.out",
+        scrollTrigger: { trigger: root, start: "top 90%", once: true },
       });
     }, root);
-
     return () => ctx.revert();
   }, []);
 
-  const quickLinks = [
+  const explore = [
     { href: "/", en: "Home", hi: "होम" },
-    { href: "/kits", en: "Grocery Kits", hi: "किराना किट" },
-    { href: "/about", en: "About Us", hi: "हमारे बारे में" },
-    { href: "/contact", en: "Contact Us", hi: "संपर्क करें" },
+    { href: "/products", en: "Shop all products", hi: "सभी सामान" },
+    { href: "/kits", en: "Grocery kits", hi: "किराना किट" },
+    { href: "/rewards", en: "Rashid Rewards", hi: "राशिद रिवॉर्ड्स" },
+    { href: "/about", en: "Our store", hi: "हमारी दुकान" },
+    { href: "/contact", en: "Contact us", hi: "संपर्क करें" },
   ];
-
-  const policyLinks = [
+  const policies = [
+    { href: "/shipping-policy", en: "Shipping & Delivery", hi: "शिपिंग और डिलीवरी" },
+    { href: "/payment-policy", en: "Payment Policy", hi: "भुगतान नीति" },
+    { href: "/return-replacement", en: "Returns & Replacement", hi: "रिटर्न और रिप्लेसमेंट" },
+    { href: "/cancellation-refund", en: "Cancellation & Refund", hi: "रद्द और रिफंड" },
     { href: "/privacy-policy", en: "Privacy Policy", hi: "गोपनीयता नीति" },
     { href: "/terms-and-conditions", en: "Terms & Conditions", hi: "नियम और शर्तें" },
-    { href: "/shipping-policy", en: "Shipping & Delivery", hi: "शिपिंग और डिलीवरी" },
-    { href: "/cancellation-refund", en: "Cancellation & Refund", hi: "रद्द और रिफंड" },
-    { href: "/return-replacement", en: "Returns & Replacement", hi: "रिटर्न और रिप्लेसमेंट" },
-    { href: "/payment-policy", en: "Payment Policy", hi: "भुगतान नीति" },
     { href: "/grievance-redressal", en: "Grievance Redressal", hi: "शिकायत निवारण" },
     { href: "/food-safety", en: "Food Safety", hi: "खाद्य सुरक्षा" },
   ];
-
-  const linkClass = "group inline-flex min-w-0 items-start gap-1.5 rounded-sm text-left text-[11px] leading-[1.45] text-[#55483C] transition-colors duration-200 hover:text-[#800020] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A84F] focus-visible:ring-offset-2 sm:gap-2.5 sm:text-[14px] sm:leading-6";
-  const headingClass = "text-[12px] font-extrabold uppercase tracking-[.12em] text-[#800020] sm:text-[13px]";
+  const linkClass = "group inline-flex min-w-0 items-center justify-center gap-1.5 text-[12px] leading-5 text-white/70 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f2d49a] sm:justify-start sm:text-[13px]";
+  const headingClass = "text-[10px] font-extrabold uppercase tracking-[.22em] text-[#f0cf91] sm:text-[11px]";
 
   return (
-    <footer
-      ref={footerRef}
-      className="relative isolate overflow-hidden border-t border-[#D4A84F]/55 bg-[#FFF9D8] pb-[calc(80px+env(safe-area-inset-bottom))] pt-7 text-[#30251F] [font-family:var(--font-apple)] sm:pt-9 xl:pb-6"
-    >
-      <div aria-hidden="true" className="pointer-events-none absolute -right-32 -top-36 -z-10 h-[420px] w-[420px] rounded-full bg-[#EAB308]/10 blur-3xl" />
-      <div aria-hidden="true" className="pointer-events-none absolute -bottom-40 -left-32 -z-10 h-[360px] w-[360px] rounded-full bg-[#800020]/[0.035] blur-3xl" />
-
-      <div className="mx-auto max-w-[1480px] px-5 sm:px-8 lg:px-12">
-        <div className="rm-footer-reveal flex flex-row items-center gap-3 border-b border-[#92400E]/15 pb-4 text-left sm:flex-col sm:items-center sm:gap-5 sm:pb-7 sm:text-center">
-          <div className="flex min-w-0 flex-1 flex-row items-center gap-3 sm:flex-col sm:gap-3">
-            <Link
-              href="/"
-              aria-label="Rashid Mega Mart home"
-              className="group grid h-[54px] w-[54px] shrink-0 place-items-center rounded-xl border border-[#D4A84F]/30 bg-white/65 p-1.5 shadow-[0_5px_18px_rgba(48,37,31,.06)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_9px_24px_rgba(48,37,31,.10)] sm:h-[84px] sm:w-[84px] sm:rounded-2xl sm:p-2"
-            >
-              <Image src="/Logo.png" alt="Rashid Mega Mart" width={100} height={100} sizes="(max-width: 640px) 54px, 84px" className="h-full w-full object-contain" />
+    <footer ref={footerRef} className="relative isolate overflow-hidden bg-[#650019] pb-[calc(76px+env(safe-area-inset-bottom))] pt-10 text-white sm:pb-8 sm:pt-14">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_0%,rgba(255,224,171,.13),transparent_54%)]" />
+      <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
+        <div className="grid gap-9 border-b border-white/15 pb-8 text-center sm:grid-cols-[1.15fr_.85fr] sm:items-start sm:gap-10 sm:pb-10 sm:text-left">
+          <div data-footer-reveal className="flex flex-col items-center sm:items-start">
+            <Link href="/" aria-label="Rashid Mega Mart home" className="mb-4 grid h-[76px] w-[76px] place-items-center rounded-2xl border border-white/20 bg-white p-2 shadow-[0_10px_30px_rgba(0,0,0,.16)] transition-transform duration-300 hover:-translate-y-1 sm:h-[84px] sm:w-[84px]">
+              <Image src="/Logo.png" alt="Rashid Mega Mart" width={100} height={100} sizes="84px" className="h-full w-full object-contain" />
             </Link>
-            <div className="min-w-0 text-left sm:text-center">
-              <p className="text-[9px] font-bold uppercase tracking-[.12em] sm:text-[10px] sm:tracking-[.2em] text-[#A47A2C]">
-                {isHindi ? "आपकी भरोसेमंद किराना दुकान" : "Your neighbourhood grocery store"}
-              </p>
-              <h2 className="mt-1 text-[19px] font-extrabold leading-[1.08] tracking-[-.045em] text-[#800020] sm:text-[30px]">
-                Rashid Mega Mart
-              </h2>
-              <p className="mt-1.5 max-w-xl text-[11px] leading-4 text-[#76665C] sm:mx-auto sm:mt-2 sm:text-[14px] sm:leading-5">
-                {isHindi ? "आपके परिवार की रोज़मर्रा की ज़रूरतें, अब आसानी से।" : "Everyday groceries for your family's daily needs."}
-              </p>
-            </div>
+            <p className="text-[9px] font-bold uppercase tracking-[.24em] text-[#f0cf91]">{isHindi ? "आपकी रोज़मर्रा की खरीदारी" : "YOUR EVERYDAY GROCERY STORE"}</p>
+            <h2 className="mt-2 max-w-[560px] text-[clamp(1.8rem,6vw,3.35rem)] font-semibold leading-[1.02] tracking-[-.055em] text-white">
+              {isHindi ? "हर दिन की ज़रूरतें, भरोसे के साथ।" : "Everyday essentials. One trusted store."}
+            </h2>
+            <p className="mt-3 max-w-[420px] text-[12px] leading-6 text-white/65 sm:text-[13px]">
+              {isHindi ? "किराना, घरेलू सामान और तैयार किट — आपकी सुविधा के लिए एक ही जगह।" : "Groceries, household essentials and ready-to-shop kits — thoughtfully brought together in one place."}
+            </p>
+            <Link href="/contact" className="mt-5 inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#f2d49a] px-5 text-[12px] font-extrabold text-[#650019] transition duration-300 hover:-translate-y-0.5 hover:bg-white">
+              <Headset size={15} /> {isHindi ? "हमसे संपर्क करें" : "Get in touch"} <ArrowUpRight size={15} />
+            </Link>
           </div>
 
-          <Link
-            href="/food-safety"
-            className="group hidden w-full max-w-[340px] items-center justify-center gap-3 rounded-2xl border border-[#138047]/20 bg-white/65 px-4 py-3 shadow-[0_4px_14px_rgba(48,37,31,.045)] transition duration-300 hover:-translate-y-0.5 hover:border-[#138047]/40 hover:bg-white sm:inline-flex"
-          >
-            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#138047]/10 text-[#138047]">
-              <ShieldCheck size={22} />
-            </span>
-            <span className="min-w-0 flex-1">
-              <span className="block text-[10px] font-bold uppercase tracking-[.14em] text-[#138047]">
-                {isHindi ? "जानकारी और नीतियाँ" : "Store information"}
-              </span>
-              <span className="mt-1 block text-[13px] font-semibold text-[#30251F]">
-                {isHindi ? "खाद्य सुरक्षा और जानकारी" : "Food safety & store policies"}
-              </span>
-            </span>
-            <ArrowUpRight size={17} className="shrink-0 text-[#A47A2C] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          <div data-footer-reveal className="grid grid-cols-2 gap-x-4 gap-y-7 text-center sm:pt-2 sm:text-left">
+            <div className="flex flex-col items-center sm:items-start">
+              <h3 className={headingClass}>{isHindi ? "खरीदारी" : "Explore"}</h3>
+              <ul className="mt-3 flex flex-col items-center gap-2 sm:items-start">
+                {explore.map(item => <li key={item.href}><Link href={item.href} className={linkClass}><span>{isHindi ? item.hi : item.en}</span><ArrowUpRight size={12} className="opacity-50 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></Link></li>)}
+              </ul>
+            </div>
+            <div className="flex flex-col items-center sm:items-start">
+              <h3 className={headingClass}>{isHindi ? "जानकारी" : "Information"}</h3>
+              <ul className="mt-3 flex flex-col items-center gap-2 sm:items-start">
+                {policies.map(item => <li key={item.href}><Link href={item.href} className={linkClass}><span>{isHindi ? item.hi : item.en}</span><ArrowUpRight size={12} className="opacity-50 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></Link></li>)}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div data-footer-reveal className="grid gap-5 border-b border-white/15 py-6 text-center sm:grid-cols-[1fr_auto] sm:items-center sm:text-left">
+          <div className="flex flex-col items-center gap-2 sm:items-start">
+            <span className={headingClass}>{isHindi ? "स्टोर और ग्राहक जानकारी" : "STORE & CUSTOMER INFORMATION"}</span>
+            <p className="max-w-2xl text-[11px] leading-5 text-white/60 sm:text-xs">
+              {isHindi ? "खाद्य सुरक्षा, व्यवसाय पंजीकरण और ग्राहक सहायता की सत्यापित जानकारी उपलब्ध होने पर यहाँ प्रकाशित की जाएगी।" : "Verified food-safety, business registration and customer-support details will be published here once confirmed by the store."}
+            </p>
+          </div>
+          <Link href="/food-safety" className="inline-flex min-h-10 items-center justify-center gap-2 text-[11px] font-bold text-[#f2d49a] transition hover:text-white">
+            <ShieldCheck size={15} /> {isHindi ? "खाद्य सुरक्षा जानकारी" : "Food safety information"} <ArrowUpRight size={13} />
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 items-start gap-x-4 gap-y-5 py-5 sm:justify-items-center sm:gap-x-8 sm:gap-y-8 sm:py-8 xl:grid-cols-[.9fr_.8fr_1.3fr] xl:items-start xl:gap-x-12 xl:py-9">
-          <section className="rm-footer-reveal col-span-2 flex w-full min-w-0 flex-col items-start text-left sm:col-span-1 sm:max-w-[560px] sm:items-center sm:text-center xl:col-span-1 xl:max-w-none xl:items-start xl:text-left">
-            <h3 className={headingClass}>{isHindi ? "संपर्क और सहायता" : "Contact & Support"}</h3>
-            <p className="mt-1.5 max-w-[340px] text-[11px] leading-[1.45] text-[#76665C] sm:mt-3 sm:text-[13px] sm:leading-6 xl:max-w-[300px]">
-              {isHindi
-                ? "ऑर्डर, सामान की उपलब्धता या सहायता की जानकारी के लिए संपर्क पेज देखें।"
-                : "For order questions, product availability or support information, visit our Contact page."}
-            </p>
-            <Link
-              href="/contact"
-              className="mt-2 inline-flex min-h-10 w-auto max-w-[280px] items-center justify-center gap-2 rounded-lg bg-[#800020] px-3 py-2 text-[11px] font-bold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-[#650019] sm:mt-4 sm:min-h-11 sm:w-full sm:rounded-xl sm:px-4 sm:py-2.5 sm:text-[12px] xl:w-auto"
-            >
-              <Headset size={16} />
-              {isHindi ? "संपर्क पेज देखें" : "Visit contact page"}
-              <ArrowUpRight size={14} />
-            </Link>
-          </section>
-
-          <section className="rm-footer-reveal flex w-full min-w-0 flex-col items-start text-left sm:max-w-[560px] sm:items-center sm:text-center xl:max-w-none xl:items-start xl:text-left">
-            <h3 className={headingClass}>{isHindi ? "खरीदारी" : "Explore"}</h3>
-            <ul className="mt-2 flex w-full flex-col items-start gap-1 sm:mt-3 sm:items-center sm:gap-1.5 xl:items-start">
-              {quickLinks.map((item) => (
-                <li key={item.href} className="w-full">
-                  <Link href={item.href} className={linkClass}>
-                    <ChevronRight size={15} className="mt-[5px] shrink-0 text-[#D4A84F] transition-transform group-hover:translate-x-1" />
-                    <span className="min-w-0 break-words">{isHindi ? item.hi : item.en}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          <section className="rm-footer-reveal col-span-2 flex w-full min-w-0 flex-col text-left sm:col-span-2 sm:max-w-[800px] sm:items-center sm:text-center xl:col-span-1 xl:max-w-none xl:items-start xl:text-left">
-            <h3 className={headingClass}>{isHindi ? "नीतियाँ और सहायता" : "Policies & Help"}</h3>
-            <details className="group mt-2 w-full border-y border-[#92400E]/15 py-2 sm:hidden">
-              <summary className="flex min-h-9 cursor-pointer list-none items-center justify-between gap-3 text-[12px] font-semibold text-[#55483C] marker:content-none">
-                <span>{isHindi ? "सभी नीतियाँ देखें" : "View all store policies"}</span>
-                <ChevronRight size={16} className="shrink-0 text-[#800020] transition-transform duration-200 group-open:rotate-90" />
-              </summary>
-              <ul className="grid grid-cols-2 gap-x-3 gap-y-2 pt-2">
-                {policyLinks.map((item) => (
-                  <li key={item.href} className="min-w-0">
-                    <Link href={item.href} className={linkClass}>
-                      <ChevronRight size={13} className="mt-[2px] shrink-0 text-[#D4A84F]" />
-                      <span className="min-w-0 break-words">{isHindi ? item.hi : item.en}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </details>
-            <ul className="mt-3 hidden w-full grid-cols-2 justify-items-start gap-x-5 gap-y-1.5 sm:grid xl:gap-x-3">
-              {policyLinks.map((item) => (
-                <li key={item.href} className="w-full min-w-0">
-                  <Link href={item.href} className={linkClass}>
-                    <ChevronRight size={15} className="mt-[5px] shrink-0 text-[#D4A84F] transition-transform group-hover:translate-x-1" />
-                    <span className="min-w-0 break-words">{isHindi ? item.hi : item.en}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
+        <div data-footer-reveal className="flex flex-col items-center gap-2 py-5 text-center text-[10px] text-white/55 sm:flex-row sm:justify-between sm:text-[11px]">
+          <p>© {new Date().getFullYear()} <span className="font-bold text-white">Rashid Mega Mart.</span> {isHindi ? "सर्वाधिकार सुरक्षित।" : "All rights reserved."}</p>
+          <p>{isHindi ? "आपकी रोज़मर्रा की खरीदारी" : "Made for everyday shopping"} <span className="mx-1 text-[#f2d49a]">✦</span> <span className="font-semibold text-white/75">Noor Technologies</span></p>
         </div>
 
-        <div className="rm-footer-reveal flex flex-col items-start gap-1.5 border-t border-[#92400E]/15 pt-3 text-left text-[10px] text-[#76665C] sm:items-center sm:gap-2 sm:pt-5 sm:text-center sm:text-[12px]">
-          <p>
-            © {new Date().getFullYear()} <span className="font-bold text-[#800020]">Rashid Mega Mart.</span> {isHindi ? "सर्वाधिकार सुरक्षित।" : "All rights reserved."}
-          </p>
-          <p className="flex flex-wrap items-center justify-center gap-1.5">
-            {isHindi ? "आपकी रोज़मर्रा की खरीदारी" : "Crafted for your everyday needs"}
-            <span className="text-[#EAB308]">✦</span>
-            <span className="font-bold text-[#800020]">Noor Technologies</span>
-          </p>
+        <div aria-hidden="true" className="overflow-hidden pt-1">
+          <div data-footer-wordmark className="select-none whitespace-nowrap text-center text-[19vw] font-black leading-[.78] tracking-[-.095em] text-[#fff8ed] sm:text-[17vw] xl:text-[220px]">
+            RASHID
+          </div>
+          <p className="mt-3 text-center text-[8px] font-bold tracking-[.32em] text-white/35 sm:text-[9px]">MEGA MART · EVERYDAY MADE SIMPLE</p>
         </div>
       </div>
     </footer>

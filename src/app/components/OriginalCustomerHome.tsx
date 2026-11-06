@@ -42,12 +42,7 @@ const visuals: Record<string, string> = {
   dryfruits: "https://images.unsplash.com/photo-1608797178974-15b35a64ede9?w=520&q=72&auto=format&fit=crop",
   baby: "https://images.unsplash.com/photo-1519689680058-324335c77eba?w=520&q=72&auto=format&fit=crop",
 };
-const faqs = [
-  ["How do I place an order?", "Choose products, add them to your cart and submit your details at checkout. Our team will confirm availability and delivery details.", "ऑर्डर कैसे करें?", "सामान चुनें, कार्ट में जोड़ें और चेकआउट पर जानकारी भेजें। हमारी टीम उपलब्धता और डिलीवरी की पुष्टि करेगी।"],
-  ["Is my order confirmed immediately?", "Your request is received first. The store confirms availability, final amount and delivery before accepting the order.", "क्या ऑर्डर तुरंत कन्फर्म होता है?", "पहले आपकी रिक्वेस्ट मिलती है। ऑर्डर स्वीकार करने से पहले दुकान उपलब्धता, कीमत और डिलीवरी कन्फर्म करती है।"],
-  ["How can I track my order?", "Open Track Order and enter the details shared with you by the store.", "ऑर्डर ट्रैक कैसे करें?", "Track Order पेज खोलें और दुकान से मिली जानकारी भरें।"],
-  ["Which payment methods are available?", "The store will share available payment options while confirming your order.", "पेमेंट कैसे कर सकते हैं?", "ऑर्डर कन्फर्म करते समय दुकान आपको उपलब्ध पेमेंट विकल्प बताएगी।"],
-];
+
 
 export default function OriginalCustomerHome() {
   const { language } = useLanguage();
@@ -55,7 +50,6 @@ export default function OriginalCustomerHome() {
   const { isWishlisted, toggleWishlist } = useWishlist();
   const isHindi = language === "hi";
   const [categorySearch, setCategorySearch] = useState("");
-  const [openFaq, setOpenFaq] = useState(0);
   const [promoCopied, setPromoCopied] = useState(false);
   const [promoTimeLeft, setPromoTimeLeft] = useState({days:0,hours:0,minutes:0,seconds:0,expired:false});
   const promoBarRef = useRef<HTMLDivElement>(null);

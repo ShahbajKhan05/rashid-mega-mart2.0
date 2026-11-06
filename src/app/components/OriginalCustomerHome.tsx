@@ -188,8 +188,6 @@ export default function OriginalCustomerHome() {
         </div>
       </section>
 
-      <BrandMarquee language={language} />
-
       <section id="categories" data-shop-section aria-label="Shop products by category" className="bg-transparent px-3 py-5 sm:px-6 sm:py-8">
         <div className="mx-auto max-w-[1240px]">
           <div className="mb-4 text-center sm:mb-5">
@@ -240,6 +238,8 @@ export default function OriginalCustomerHome() {
           </div>
         </div>
       </section>
+
+      <BrandMarquee language={language} />
 
       <section id="deals" data-shop-section className="bg-transparent px-3 py-5 sm:px-6 sm:py-8" aria-label={isHindi ? "आज की बचत" : "Best deals"}>
         <div className="mx-auto max-w-[1240px]">

@@ -211,29 +211,26 @@ export default function OriginalCustomerHome() {
 
       <KitsPage />
 
-      <section aria-labelledby="delivery-models-title" className="bg-[#f8f3e9] px-3 py-5 sm:px-6 sm:py-8">
-        <div className="mx-auto max-w-[1100px]">
-          <div className="mb-3 text-center">
-            <p className="text-[9px] font-black uppercase tracking-[.16em] text-[#A47A2C]">{isHindi ? "खरीदारी के 2 आसान तरीके" : "TWO SIMPLE WAYS TO SHOP"}</p>
-            <h2 id="delivery-models-title" className="mt-1 text-[clamp(1.35rem,5.2vw,1.9rem)] font-black leading-[1.12] tracking-[-.045em] text-[#800020]">{isHindi ? "अपनी ज़रूरत के हिसाब से खरीदें" : "Shop your way"}</h2>
-            <p className="mx-auto mt-1.5 max-w-[290px] text-[11px] leading-[1.5] text-[#76675B] sm:max-w-none sm:text-xs">{isHindi ? "रोज़ का सामान अलग-अलग लें या तैयार मंथली किट चुनें।" : "Buy everyday items one by one, or choose a ready-made monthly kit."}</p>
+      <section aria-labelledby="delivery-models-title" className="bg-[#f8f3e9] px-3 py-3 sm:px-6 sm:py-6">
+        <div className="mx-auto max-w-[900px]">
+          <div className="mb-2 text-center">
+            <h2 id="delivery-models-title" className="text-[17px] font-black leading-tight tracking-[-.04em] text-[#800020] sm:text-2xl">{isHindi ? "क्या खरीदना है?" : "What would you like to shop?"}</h2>
+            <p className="mt-0.5 text-[10px] leading-snug text-[#76675B] sm:text-xs">{isHindi ? "एक-एक सामान लें या पूरी महीने की किट।" : "Choose individual groceries or a ready monthly kit."}</p>
           </div>
-          <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-3">
-            <Link href="/products" className="group relative isolate flex min-h-[112px] items-end overflow-hidden rounded-[13px] bg-[#8b263d] p-3.5 text-white shadow-[0_7px_20px_rgba(67,35,35,.12)] sm:min-h-[150px] sm:p-5">
-              <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_82%_18%,rgba(255,220,160,.42),transparent_34%),linear-gradient(115deg,#8b263d,#b95750)] transition duration-500 group-hover:scale-105"/>
-              <div><span className="text-[8px] font-black uppercase tracking-[.18em] text-white/75">BUY ITEMS INDIVIDUALLY</span><h3 className="mt-1 text-[18px] font-black leading-tight sm:text-2xl">{isHindi ? "अपना रोज़ का सामान चुनें" : "Pick your daily groceries"}</h3><p className="mt-1 max-w-[245px] text-[10px] leading-[1.45] text-white/90 sm:text-xs">{isHindi ? "चावल, दाल, तेल और अपनी पसंद का सामान कार्ट में जोड़ें।" : "Choose rice, dal, oil and only what you need."}</p></div>
-              <span className="absolute right-3 top-3 grid h-7 w-7 place-items-center rounded-full bg-white/15 transition group-hover:translate-x-1"><ArrowRight size={14}/></span>
+          <div className="grid grid-cols-2 gap-2">
+            <Link href="/products" className="group flex min-h-[76px] items-center justify-between gap-2 rounded-xl border border-[#e8d8c5] bg-white px-3 py-2.5 shadow-[0_2px_8px_rgba(74,45,25,.05)] transition hover:-translate-y-0.5 hover:border-[#b77a37] sm:min-h-[92px] sm:px-4">
+              <span className="min-w-0"><span className="block text-[8px] font-extrabold uppercase tracking-[.1em] text-[#a47a2c] sm:text-[9px]">{isHindi ? "अलग-अलग सामान" : "ITEM BY ITEM"}</span><span className="mt-1 block text-[12px] font-black leading-tight text-[#5d142b] sm:text-base">{isHindi ? "रोज़ का राशन" : "Daily groceries"}</span><span className="mt-0.5 block text-[9px] leading-tight text-[#76675B] sm:text-[10px]">{isHindi ? "चावल, दाल, तेल आदि" : "Rice, dal, oil & more"}</span></span>
+              <ArrowRight size={16} className="shrink-0 text-[#9b6b39] transition-transform group-hover:translate-x-1"/>
             </Link>
-            <Link href="/kits" className="group relative isolate flex min-h-[112px] items-end overflow-hidden rounded-[13px] bg-[#4b397f] p-3.5 text-white shadow-[0_7px_20px_rgba(67,35,35,.12)] sm:min-h-[150px] sm:p-5">
-              <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_82%_18%,rgba(255,220,160,.35),transparent_34%),linear-gradient(115deg,#4b397f,#7b68a6)] transition duration-500 group-hover:scale-105"/>
-              <div><span className="text-[8px] font-black uppercase tracking-[.18em] text-white/75">READY-MADE MONTHLY PACKS</span><h3 className="mt-1 text-[18px] font-black leading-tight sm:text-2xl">{isHindi ? "तैयार मंथली राशन किट" : "Shop monthly grocery kits"}</h3><p className="mt-1 max-w-[245px] text-[10px] leading-[1.45] text-white/90 sm:text-xs">{isHindi ? "एक पैक में महीने का ज़रूरी राशन — बजट के अनुसार चुनें।" : "Monthly essentials grouped together in one convenient pack."}</p></div>
-              <span className="absolute right-3 top-3 grid h-7 w-7 place-items-center rounded-full bg-white/15 transition group-hover:translate-x-1"><ArrowRight size={14}/></span>
+            <Link href="/kits" className="group flex min-h-[76px] items-center justify-between gap-2 rounded-xl border border-[#e8d8c5] bg-white px-3 py-2.5 shadow-[0_2px_8px_rgba(74,45,25,.05)] transition hover:-translate-y-0.5 hover:border-[#b77a37] sm:min-h-[92px] sm:px-4">
+              <span className="min-w-0"><span className="block text-[8px] font-extrabold uppercase tracking-[.1em] text-[#a47a2c] sm:text-[9px]">{isHindi ? "तैयार पैक" : "READY-MADE PACK"}</span><span className="mt-1 block text-[12px] font-black leading-tight text-[#5d142b] sm:text-base">{isHindi ? "महीने की राशन किट" : "Monthly ration kit"}</span><span className="mt-0.5 block text-[9px] leading-tight text-[#76675B] sm:text-[10px]">{isHindi ? "ज़रूरी सामान एक साथ" : "Essentials packed together"}</span></span>
+              <ArrowRight size={16} className="shrink-0 text-[#9b6b39] transition-transform group-hover:translate-x-1"/>
             </Link>
           </div>
         </div>
       </section>
 
-      <NetworkSection language={language} />
+      <NetworkSection language={language} />      <NetworkSection language={language} />
 
       <HelpCenterFAQ language={language} />
 

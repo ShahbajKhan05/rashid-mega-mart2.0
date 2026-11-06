@@ -28,7 +28,7 @@ export default function FloatingQuickActions() {
         ease: "back.out(1.8)", delay: .35, clearProps: "transform",
       });
       gsap.to(help.querySelector("[data-help-ring]"), {
-        scale: 1.32, autoAlpha: 0, duration: 1.8, repeat: -1,
+        scale: 1.32, autoAlpha: 0, duration: 1.8, repeat: -1, yoyo: true,
         ease: "sine.out", transformOrigin: "center",
       });
     }, root);

@@ -59,32 +59,32 @@ export default function SiteFooter() {
 
       <div
         aria-hidden="true"
-        className="relative h-[112px] overflow-hidden border-b border-[#D8B36B]/55 sm:h-[142px] lg:h-[170px]"
+        className="relative h-[68px] overflow-hidden border-b border-[#D8B36B]/55 sm:h-[112px] lg:h-[150px]"
         style={{ backgroundImage: "linear-gradient(90deg,rgba(255,248,235,.18),rgba(255,248,235,.32)),url(https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=2000&q=85)", backgroundPosition: "center 48%", backgroundSize: "cover" }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-[#FFF8EA]/30 via-[#FFF8EA]/5 to-[#FFF8EA]/15" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#FBF5E9]/35 to-transparent" />
       </div>
 
-      <div className="mx-auto max-w-[1480px] px-5 sm:px-8 lg:px-10">
-        <div className="grid gap-8 py-8 sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-[1.2fr_1.08fr_.78fr_.9fr_1.08fr] lg:gap-0 lg:py-9">
-          <section className="rm-footer-reveal flex min-w-0 flex-col items-center text-center sm:items-start sm:text-left lg:pr-7">
+      <div className="mx-auto max-w-[1480px] px-4 sm:px-8 lg:px-10">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-5 py-5 sm:gap-x-8 sm:gap-y-7 sm:py-7 lg:grid-cols-[1.2fr_1.08fr_.78fr_.9fr_1.08fr] lg:gap-0 lg:py-9">
+          <section className="rm-footer-reveal col-span-2 flex min-w-0 flex-col items-center text-center sm:items-start sm:text-left lg:col-span-1 lg:pr-7">
             <Link href="/" aria-label="Rashid Mega Mart home" className="inline-flex">
-              <Image src="/Logo.png" alt="Rashid Mega Mart" width={230} height={105} className="h-[66px] w-[190px] object-contain object-center sm:object-left" />
+              <Image src="/Logo.png" alt="Rashid Mega Mart" width={230} height={105} className="h-[54px] w-[158px] object-contain object-center sm:h-[66px] sm:w-[190px] sm:object-left" />
             </Link>
-            <p className="mt-2 max-w-[290px] text-[13px] font-semibold leading-5 text-[#8C2028]">{isHindi ? "हर घर की जरूरत, एक ही जगह" : "Har Ghar Ki Zaroorat, Ek Hi Jagah"}</p>
-            <p className="mt-2 max-w-[290px] text-[12px] leading-[1.65] text-[#69534B]">
+            <p className="mt-1 max-w-[290px] text-[12px] font-semibold leading-4 text-[#8C2028] sm:mt-2 sm:text-[13px] sm:leading-5">{isHindi ? "हर घर की जरूरत, एक ही जगह" : "Har Ghar Ki Zaroorat, Ek Hi Jagah"}</p>
+            <p className="mt-1 max-w-[290px] text-[11px] leading-[1.45] text-[#69534B] sm:mt-2 sm:text-[12px] sm:leading-[1.65]">
               {isHindi ? "रोज़मर्रा की ज़रूरतों के लिए भरोसेमंद खरीदारी।" : "Everyday essentials, quality products and a better shopping experience — all in one place."}
             </p>
-            <div className="mt-4 flex items-center gap-2.5">
-              <a href="https://wa.me/918962531603" target="_blank" rel="noreferrer" aria-label="WhatsApp" className="grid h-9 w-9 place-items-center rounded-full bg-[#168B55] text-white transition-transform hover:-translate-y-1"><MessageCircle size={17} /></a>
+            <div className="mt-3 flex items-center gap-2 sm:mt-4 sm:gap-2.5">
+              <a href="https://wa.me/918962531603" target="_blank" rel="noreferrer" aria-label="WhatsApp" className="grid h-8 w-8 place-items-center rounded-full bg-[#168B55] text-white transition-transform hover:-translate-y-1"><MessageCircle size={17} /></a>
               <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram" className="grid h-9 w-9 place-items-center rounded-full bg-[#B52D58] text-white transition-transform hover:-translate-y-1"><Instagram size={17} /></a>
               <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook" className="grid h-9 w-9 place-items-center rounded-full bg-[#2866B2] text-white transition-transform hover:-translate-y-1"><Facebook size={17} /></a>
               <a href="https://www.youtube.com/" target="_blank" rel="noreferrer" aria-label="YouTube" className="grid h-9 w-9 place-items-center rounded-full bg-[#D52D2D] text-white transition-transform hover:-translate-y-1"><Youtube size={17} /></a>
             </div>
           </section>
 
-          <section className="rm-footer-reveal flex min-w-0 flex-col items-center text-center sm:items-start sm:text-left lg:border-l lg:border-[#D8B36B]/70 lg:px-7">
+          <section className="rm-footer-reveal col-span-2 flex min-w-0 flex-col items-center text-center sm:items-start sm:text-left lg:col-span-1 lg:border-l lg:border-[#D8B36B]/70 lg:px-7">
             <h2 className={headingClass}>{isHindi ? "संपर्क करें" : "CONTACT US"}</h2>
             <a href={`tel:${PHONE_LINK}`} className={linkClass}><Phone size={16} className="shrink-0 text-[#941F2B]" />{PHONE}</a>
             <Link href="/contact" className={linkClass}><Mail size={16} className="shrink-0 text-[#941F2B]" />{isHindi ? "संपर्क और सहायता" : "Contact & Support"}</Link>
@@ -111,16 +111,16 @@ export default function SiteFooter() {
             </ul>
           </nav>
 
-          <section className="rm-footer-reveal flex min-w-0 flex-col items-center text-center sm:col-span-2 sm:items-start sm:text-left lg:col-span-1 lg:border-l lg:border-[#D8B36B]/70 lg:pl-6">
+          <section className="rm-footer-reveal col-span-2 flex min-w-0 flex-col items-center text-center sm:col-span-2 sm:items-start sm:text-left lg:col-span-1 lg:border-l lg:border-[#D8B36B]/70 lg:pl-6">
             <h2 className={headingClass}>{isHindi ? "हमारा स्टोर" : "FIND OUR STORE"}</h2>
-            <a href={STORE_MAP} target="_blank" rel="noreferrer" aria-label="Open Rashid Mega Mart location in Google Maps" className="block w-full max-w-[340px] overflow-hidden rounded-[14px] border border-[#D9C59F] bg-white shadow-[0_5px_18px_rgba(86,54,28,.08)]">
-              <iframe title="Rashid Mega Mart location map" src={STORE_EMBED} loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="pointer-events-none h-[125px] w-full sm:h-[138px]" />
+            <a href={STORE_MAP} target="_blank" rel="noreferrer" aria-label="Open Rashid Mega Mart location in Google Maps" className="block w-full max-w-full overflow-hidden rounded-[12px] sm:max-w-[340px] sm:rounded-[14px] border border-[#D9C59F] bg-white shadow-[0_5px_18px_rgba(86,54,28,.08)]">
+              <iframe title="Rashid Mega Mart location map" src={STORE_EMBED} loading="lazy" referrerPolicy="no-referrer-when-downgrade" className="pointer-events-none h-[105px] w-full sm:h-[138px]" />
             </a>
             <a href={STORE_MAP} target="_blank" rel="noreferrer" className="mt-2 inline-flex items-center gap-1 text-[11px] font-bold text-[#8C2028] transition-colors hover:text-[#54221F]">{isHindi ? "मैप पर देखें" : "VIEW ON MAP"}<ArrowUpRight size={13} /></a>
           </section>
         </div>
 
-        <div className="rm-footer-reveal flex flex-col items-center justify-between gap-2 border-t border-[#D8B36B]/70 py-4 text-center sm:flex-row sm:text-left">
+        <div className="rm-footer-reveal flex flex-col items-center justify-between gap-1.5 border-t border-[#D8B36B]/70 py-3 text-center sm:flex-row sm:gap-2 sm:py-4 sm:text-left">
           <p className="text-[10px] leading-5 text-[#78645A] sm:text-[11px]">© {new Date().getFullYear()} <span className="font-bold text-[#54221F]">Rashid Mega Mart</span>. {isHindi ? "सर्वाधिकार सुरक्षित।" : "All Rights Reserved."}</p>
           <p className="text-[10px] font-semibold tracking-wide text-[#8C2028] sm:text-[11px]">{isHindi ? "आपका भरोसेमंद किराना स्टोर" : "Shop Smart. Shop Local."}</p>
         </div>

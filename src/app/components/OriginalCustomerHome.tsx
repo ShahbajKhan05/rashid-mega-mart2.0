@@ -12,10 +12,11 @@ import HelpCenterFAQ from "./HelpCenterFAQ";
 import KitsPage from "./KitsPage";
 import NetworkSection from "./NetworkSection";
 import BrandMarquee from "./BrandMarquee";
+import ShoppingProductRail from "./ShoppingProductRail";
 
 export default function OriginalCustomerHome() {
   const { language } = useLanguage();
-  const { addToCart } = useCart();
+  const { addToCart, cartCount, cartTotal, openCart } = useCart();
   const isHindi = language === "hi";
   const [promoCopied, setPromoCopied] = useState(false);
   const [promoTimeLeft, setPromoTimeLeft] = useState({days:0,hours:0,minutes:0,seconds:0,expired:false});
@@ -84,9 +85,11 @@ export default function OriginalCustomerHome() {
 
 
   const shopCategories = categoryOptions.filter((item) => item.id !== "all" && products.some((product) => product.category === item.id));
+  const bestDeals = [...products].filter((product) => product.originalPrice > product.price).sort((a, b) => ((b.originalPrice - b.price) / b.originalPrice) - ((a.originalPrice - a.price) / a.originalPrice)).slice(0, 8);
+  const popularPicks = [...products].sort((a, b) => b.rating - a.rating).slice(0, 8);
 
   return (
-    <main className="overflow-clip bg-[#FFFCF0] pb-24 font-[var(--font-plus-jakarta)] text-[#30251F]">
+    <main className="overflow-clip bg-[#FFFCF0] pb-24 font-[var(--font-roboto)] text-[#30251F]">
       <div
         ref={promoBarRef}
         role="region"
@@ -96,9 +99,8 @@ export default function OriginalCustomerHome() {
         <div aria-hidden="true" className="rmm-promo-orb rmm-promo-orb-one" />
         <div aria-hidden="true" className="rmm-promo-orb rmm-promo-orb-two" />
         <div ref={promoShineRef} aria-hidden="true" className="rmm-promo-shine" />
-        <div className="relative mx-auto flex min-h-[154px] max-w-[1440px] flex-col items-center justify-center gap-2 px-3 py-3 text-center sm:min-h-[90px] sm:flex-row sm:flex-wrap sm:gap-x-5 sm:gap-y-2 sm:px-7 sm:py-3">
-          <Image ref={promoLogoRef} src="/Logo.png" alt="Rashid Mega Mart" width={118} height={40} priority className="rmm-promo-logo h-9 w-[76px] shrink-0 object-contain sm:h-10 sm:w-[100px]" />
-          <span className="hidden h-8 w-px bg-[#8b6b52]/20 sm:block" />
+        <div className="relative mx-auto flex min-h-[164px] max-w-[900px] flex-col items-center justify-center gap-2.5 px-3 py-4 text-center sm:min-h-[176px] sm:gap-3 sm:px-7 sm:py-5">
+          <Image ref={promoLogoRef} src="/Logo.png" alt="Rashid Mega Mart" width={118} height={40} priority className="rmm-promo-logo h-9 w-[82px] shrink-0 object-contain sm:h-11 sm:w-[108px]" />
           <div className="flex min-w-0 flex-col items-center leading-tight text-center">
             <span className="mb-1 text-[8px] font-extrabold uppercase tracking-[.2em] text-[#98713c]">{isHindi ? "पहली खरीदारी का खास तोहफा" : "A SPECIAL FIRST-ORDER TREAT"}</span>
             <span ref={promoLettersRef} aria-label={isHindi ? "₹499+ की खरीदारी पर ₹100 की छूट" : "₹100 OFF ON SHOPPING ABOVE ₹499"} className="rmm-promo-headline whitespace-normal text-center text-[12px] font-black tracking-[-.035em] sm:text-[14px]">
@@ -107,7 +109,7 @@ export default function OriginalCustomerHome() {
               ))}
             </span>
           </div>
-          <div className="flex w-full items-center justify-center gap-2 sm:w-auto">
+          <div className="flex w-full items-center justify-center gap-2">
             <span className="text-[8px] font-bold tracking-[.12em] text-[#89766a]">{isHindi ? "कोड" : "CODE"}</span>
             <button type="button" disabled={promoTimeLeft.expired} aria-label="Copy FIRST100 coupon code" onClick={async () => { try { await navigator.clipboard.writeText("FIRST100"); setPromoCopied(true); } catch { setPromoCopied(false); } }} className="rmm-promo-code group inline-flex h-8 items-center gap-2 rounded-lg border px-3 text-[10px] font-black tracking-[.16em] transition duration-200 hover:-translate-y-0.5 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50">
               FIRST100<span className="text-[9px] font-bold tracking-normal">{promoTimeLeft.expired ? (isHindi ? "खत्म" : "ENDED") : promoCopied ? "✓" : (isHindi ? "कॉपी" : "COPY")}</span>
@@ -154,6 +156,22 @@ export default function OriginalCustomerHome() {
       </section>
 
       <BrandMarquee language={language} />
+
+      <section className="bg-[#fffaf0] px-3 py-5 sm:px-6 sm:py-8" aria-label={isHindi ? "आज की बचत" : "Best deals"}>
+        <div className="mx-auto max-w-[1240px]">
+          <div className="mb-3 flex items-end justify-between gap-3"><div><p className="text-[9px] font-black uppercase tracking-[.18em] text-[#a47a2c]">{isHindi ? "आज की खास बचत" : "TODAY'S BEST OFFERS"}</p><h2 className="mt-1 text-[21px] font-black leading-tight tracking-[-.05em] text-[#800020] sm:text-3xl">{isHindi ? "कम दाम, ज़्यादा बचत" : "Best deals for your home"}</h2><p className="mt-1 text-[10px] text-[#817166] sm:text-xs">{isHindi ? "ऑफर वाले सामान सीधे कार्ट में जोड़ें।" : "Real product discounts. Add your favourites in one tap."}</p></div><Link href="/products" className="mb-1 inline-flex shrink-0 items-center gap-1 text-[10px] font-black text-[#800020]">{isHindi ? "सभी ऑफर" : "All deals"} <ArrowRight size={13}/></Link></div>
+          <ShoppingProductRail items={bestDeals} language={language} />
+        </div>
+      </section>
+
+      <section className="bg-[#FFFCF0] px-3 py-5 sm:px-6 sm:py-8" aria-label={isHindi ? "लोकप्रिय सामान" : "Popular picks"}>
+        <div className="mx-auto max-w-[1240px]">
+          <div className="mb-3 flex items-end justify-between gap-3"><div><p className="text-[9px] font-black uppercase tracking-[.18em] text-[#a47a2c]">{isHindi ? "ग्राहकों की पसंद" : "CUSTOMER FAVOURITES"}</p><h2 className="mt-1 text-[21px] font-black leading-tight tracking-[-.05em] text-[#800020] sm:text-3xl">{isHindi ? "पॉपुलर पिक्स" : "Popular picks"}</h2><p className="mt-1 text-[10px] text-[#817166] sm:text-xs">{isHindi ? "सबसे अच्छी रेटिंग वाले प्रोडक्ट।" : "Highly rated everyday essentials, ready to shop."}</p></div><Link href="/products" className="mb-1 inline-flex shrink-0 items-center gap-1 text-[10px] font-black text-[#800020]">{isHindi ? "सभी देखें" : "Shop all"} <ArrowRight size={13}/></Link></div>
+          <ShoppingProductRail items={popularPicks} language={language} />
+        </div>
+      </section>
+
+      <KitsPage />
 
       <section id="categories" aria-label="Shop products by category" className="bg-[#FFFCF0] px-3 py-5 sm:px-6 sm:py-8">
         <div className="mx-auto max-w-[1240px]">
@@ -206,28 +224,7 @@ export default function OriginalCustomerHome() {
         </div>
       </section>
 
-
-      <KitsPage />
-
-      <section aria-labelledby="delivery-models-title" className="bg-[#f8f3e9] px-3 py-3 sm:px-6 sm:py-6">
-        <div className="mx-auto max-w-[900px]">
-          <div className="mb-2 text-center">
-            <h2 id="delivery-models-title" className="text-[17px] font-black leading-tight tracking-[-.04em] text-[#800020] sm:text-2xl">{isHindi ? "क्या खरीदना है?" : "What would you like to shop?"}</h2>
-            <p className="mt-0.5 text-[10px] leading-snug text-[#76675B] sm:text-xs">{isHindi ? "एक-एक सामान लें या पूरी महीने की किट।" : "Choose individual groceries or a ready monthly kit."}</p>
-          </div>
-          <div className="grid grid-cols-2 gap-2">
-            <Link href="/products" className="group flex min-h-[76px] items-center justify-between gap-2 rounded-xl border border-[#e8d8c5] bg-white px-3 py-2.5 shadow-[0_2px_8px_rgba(74,45,25,.05)] transition hover:-translate-y-0.5 hover:border-[#b77a37] sm:min-h-[92px] sm:px-4">
-              <span className="min-w-0"><span className="block text-[8px] font-extrabold uppercase tracking-[.1em] text-[#a47a2c] sm:text-[9px]">{isHindi ? "अलग-अलग सामान" : "ITEM BY ITEM"}</span><span className="mt-1 block text-[12px] font-black leading-tight text-[#5d142b] sm:text-base">{isHindi ? "रोज़ का राशन" : "Daily groceries"}</span><span className="mt-0.5 block text-[9px] leading-tight text-[#76675B] sm:text-[10px]">{isHindi ? "चावल, दाल, तेल आदि" : "Rice, dal, oil & more"}</span></span>
-              <ArrowRight size={16} className="shrink-0 text-[#9b6b39] transition-transform group-hover:translate-x-1"/>
-            </Link>
-            <Link href="/kits" className="group flex min-h-[76px] items-center justify-between gap-2 rounded-xl border border-[#e8d8c5] bg-white px-3 py-2.5 shadow-[0_2px_8px_rgba(74,45,25,.05)] transition hover:-translate-y-0.5 hover:border-[#b77a37] sm:min-h-[92px] sm:px-4">
-              <span className="min-w-0"><span className="block text-[8px] font-extrabold uppercase tracking-[.1em] text-[#a47a2c] sm:text-[9px]">{isHindi ? "तैयार पैक" : "READY-MADE PACK"}</span><span className="mt-1 block text-[12px] font-black leading-tight text-[#5d142b] sm:text-base">{isHindi ? "महीने की राशन किट" : "Monthly ration kit"}</span><span className="mt-0.5 block text-[9px] leading-tight text-[#76675B] sm:text-[10px]">{isHindi ? "ज़रूरी सामान एक साथ" : "Essentials packed together"}</span></span>
-              <ArrowRight size={16} className="shrink-0 text-[#9b6b39] transition-transform group-hover:translate-x-1"/>
-            </Link>
-          </div>
-        </div>
-      </section>
-
+      {cartCount > 0 && <div className="fixed inset-x-2 bottom-[72px] z-[65] mx-auto max-w-xl xl:bottom-5 xl:left-auto xl:right-5 xl:mx-0 xl:w-[min(360px,calc(100vw-40px))]"><button type="button" onClick={openCart} className="flex min-h-[48px] w-full items-center justify-between rounded-2xl border border-white/70 bg-[#800020] px-4 text-white shadow-[0_10px_35px_rgba(75,15,35,.28)] transition hover:bg-[#64152b] active:scale-[.99]"><span className="flex items-center gap-2"><span className="grid h-7 w-7 place-items-center rounded-full bg-white/15"><ShoppingCart size={15}/></span><span className="text-left"><span className="block text-[11px] font-black">{isHindi ? "कार्ट देखें" : "View cart"} · {cartCount} {isHindi ? "आइटम" : "items"}</span><span className="block text-[9px] text-white/75">{isHindi ? "आपकी खरीदारी जारी रखें" : "Your shopping is saved here"}</span></span></span><span className="flex items-center gap-1 text-sm font-black">₹{cartTotal.toLocaleString("en-IN")} <ArrowRight size={15}/></span></button></div>}
       <NetworkSection language={language} />
 
       <HelpCenterFAQ language={language} />

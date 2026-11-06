@@ -4,13 +4,14 @@ import Link from "next/link";
 import { useState } from "react";
 import LoyaltyAdmin from "./LoyaltyAdmin";
 import CouponAdmin from "./CouponAdmin";
+import AdminModule from "./AdminModules";
 import {
   Activity, Bell, Boxes, ChevronDown, ChevronRight, CircleHelp, ClipboardList,
   CreditCard, Download, LayoutDashboard, Package, Plus, Search, Settings2,
-  ShoppingBag, Sparkles, Tag, Users, Wallet, X,
+  ShoppingBag, Sparkles, Tag, Users, Wallet, X, Truck, MapPin, BarChart3,
 } from "lucide-react";
 
-type Section = "overview" | "orders" | "products" | "customers" | "coupons" | "loyalty" | "monthly-kit" | "settings";
+type Section = "overview" | "orders" | "products" | "customers" | "inventory" | "suppliers" | "coupons" | "loyalty" | "monthly-kit" | "payments" | "delivery" | "reports" | "staff" | "notifications" | "activity" | "settings";
 
 const navigation: { id: Section; label: string; icon: typeof LayoutDashboard; hint?: string }[] = [
   { id: "overview", label: "Overview", icon: LayoutDashboard },
@@ -19,7 +20,7 @@ const navigation: { id: Section; label: string; icon: typeof LayoutDashboard; hi
   { id: "customers", label: "Customers", icon: Users },
   { id: "coupons", label: "Coupons", icon: Tag },
   { id: "loyalty", label: "Loyalty Club", icon: CreditCard },
-  { id: "monthly-kit", label: "Monthly Kit", icon: Boxes },
+  { id: "monthly-kit", label: "Monthly Kit", icon: Boxes },\n  { id: "payments", label: "Payments", icon: Wallet },\n  { id: "delivery", label: "Delivery", icon: MapPin },\n  { id: "reports", label: "Reports", icon: BarChart3 },\n  { id: "staff", label: "Staff & Roles", icon: Users },\n  { id: "notifications", label: "Notifications", icon: Bell },\n  { id: "activity", label: "Activity Logs", icon: ClipboardList },
 ];
 
 const orders = [
@@ -192,15 +193,15 @@ export default function AdminWorkspace({ section = "overview" }: { section?: str
       </div>
     </header>
     <main className="mx-auto w-full max-w-[1760px] px-3 py-4 sm:px-6 sm:py-6 2xl:px-9">
-      {current==="overview"?<Overview/>:current==="monthly-kit"?<MonthlyKit/>:current==="settings"?<ShopDetails/>:<><SectionTitle eyebrow={`Manage your store · ${current}`} title={title} description={current==="orders"?"Customer ke orders dekhein aur manage karein.":current==="products"?"Dukaan ke products aur stock dekhein.":current==="customers"?"Customer list aur unki details.":current==="coupons"?"Store ke discount coupons aur offers manage karein.":"Loyalty members, points aur rewards dekhein."}/><div className="mb-4 flex flex-col items-stretch justify-between gap-2.5 sm:flex-row sm:items-center"><div className="relative w-full sm:max-w-sm"><Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#a2958e]"/><input value={query} onChange={e=>setQuery(e.target.value)} placeholder={`Search ${current}...`} className="h-10 w-full rounded-xl border border-[#e9e2d9] bg-white pl-9 pr-3 text-xs outline-none transition focus:border-[#b88a42] focus:ring-4 focus:ring-[#b88a42]/10"/></div><button onClick={()=>setNotice("Export will be enabled when live admin data is connected.")} className="inline-flex h-10 w-full items-center justify-center gap-2 rounded-xl border border-[#e9e2d9] bg-white px-3 text-xs font-semibold sm:w-auto text-[#69585e] hover:bg-[#fffcf8]"><Download size={14}/>Export</button></div>{current==="loyalty"?<LoyaltyAdmin/>:current==="coupons"?<CouponAdmin/>:<><div className="overflow-hidden rounded-2xl border border-[#eee5d9] bg-white shadow-[0_5px_18px_rgba(62,37,32,.035)]"><DataTable section={current} query={query}/></div><p className="mt-3 text-[10px] text-[#a2958e]">Preview data only · Live store data will be connected separately.</p></>}</>}
+      {current==="overview"?<Overview/>:current==="monthly-kit"?<MonthlyKit/>:current==="settings"?<ShopDetails/>:["inventory","suppliers","payments","delivery","reports","staff","notifications","activity"].includes(current)?<AdminModule module={current as "inventory"|"suppliers"|"payments"|"delivery"|"reports"|"staff"|"notifications"|"activity"}/>:<><SectionTitle eyebrow={`Manage your store · ${current}`} title={title} description={current==="orders"?"Customer ke orders dekhein aur manage karein.":current==="products"?"Dukaan ke products aur stock dekhein.":current==="customers"?"Customer list aur unki details.":current==="coupons"?"Store ke discount coupons aur offers manage karein.":"Loyalty members, points aur rewards dekhein."}/><div className="mb-4 flex flex-col items-stretch justify-between gap-2.5 sm:flex-row sm:items-center"><div className="relative w-full sm:max-w-sm"><Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#a2958e]"/><input value={query} onChange={e=>setQuery(e.target.value)} placeholder={`Search ${current}...`} className="h-10 w-full rounded-xl border border-[#e9e2d9] bg-white pl-9 pr-3 text-xs outline-none transition focus:border-[#b88a42] focus:ring-4 focus:ring-[#b88a42]/10"/></div><button onClick={()=>setNotice("Export will be enabled when live admin data is connected.")} className="inline-flex h-10 w-full items-center justify-center gap-2 rounded-xl border border-[#e9e2d9] bg-white px-3 text-xs font-semibold sm:w-auto text-[#69585e] hover:bg-[#fffcf8]"><Download size={14}/>Export</button></div>{current==="loyalty"?<LoyaltyAdmin/>:current==="coupons"?<CouponAdmin/>:<><div className="overflow-hidden rounded-2xl border border-[#eee5d9] bg-white shadow-[0_5px_18px_rgba(62,37,32,.035)]"><DataTable section={current} query={query}/></div><p className="mt-3 text-[10px] text-[#a2958e]">Preview data only · Live store data will be connected separately.</p></>}</>}
       {notice&&<div role="status" className="fixed bottom-36 right-4 z-[80] flex max-w-sm items-center gap-3 rounded-xl bg-[#35131f] px-4 py-3 text-xs font-semibold text-white shadow-xl sm:bottom-28"><CircleHelp size={16} className="shrink-0 text-[#e6c77f]"/>{notice}<button onClick={()=>setNotice("")} className="ml-2 text-white/60 hover:text-white" aria-label="Dismiss"><X size={14}/></button></div>}
     </main>
     <footer className="px-4 pb-3 pt-1 text-center text-[10px] text-[#a2958e]">© {new Date().getFullYear()} Rashid Mega Mart · Store administration</footer>
     <nav aria-label="Admin navigation" className="fixed inset-x-0 bottom-0 z-50 border-t border-[#e8dcc1] bg-[#fffdf4]/95 shadow-[0_-8px_28px_rgba(62,37,32,.09)] backdrop-blur-2xl">
-      <div className="mx-auto grid w-full max-w-[1760px] grid-cols-4 gap-1 px-2 py-2 sm:px-5 sm:py-2.5 lg:grid-cols-8 lg:gap-2">
+      <div className="mx-auto flex w-full max-w-[1760px] gap-1 overflow-x-auto px-2 py-2 sm:px-5 sm:py-2.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {bottomNavigation.map(item=>{
           const active=current===item.id;
-          return <Link key={item.id} href={item.id==="overview"?"/admin":`/admin/${item.id}`} aria-current={active?"page":undefined} className={`group flex min-h-[54px] flex-col items-center justify-center gap-1 rounded-xl px-1 py-1.5 text-center transition-colors sm:min-h-[62px] ${active?"bg-[#800020] text-white shadow-[0_5px_14px_rgba(128,0,32,.18)]":"text-[#78665c] hover:bg-[#f5edda] hover:text-[#800020]"}`}>
+          return <Link key={item.id} href={item.id==="overview"?"/admin":`/admin/${item.id}`} aria-current={active?"page":undefined} className={`group flex min-h-[54px] min-w-[76px] shrink-0 flex-col items-center justify-center gap-1 rounded-xl px-2 py-1.5 text-center transition-colors sm:min-h-[62px] sm:min-w-[88px] ${active?"bg-[#800020] text-white shadow-[0_5px_14px_rgba(128,0,32,.18)]":"text-[#78665c] hover:bg-[#f5edda] hover:text-[#800020]"}`}>
             <item.icon size={18} strokeWidth={active?2.4:1.8}/>
             <span className="max-w-full truncate text-[9px] font-semibold leading-tight sm:text-[10px]">{item.label}</span>
           </Link>;

@@ -113,6 +113,8 @@ export default function OriginalCustomerHome() {
       intro.fromTo(badge, { y: 24, scale: 0.86, autoAlpha: 0 }, {
         y: 0, scale: 1, autoAlpha: 1, duration: 0.8, ease: "back.out(1.8)",
       }, "-=0.48");
+      gsap.fromTo("[data-hero-video]", { scale: 1.12 }, { scale: 1.02, duration: 2.4, ease: "power2.out" });
+      gsap.to("[data-hero-video]", { scale: 1.09, duration: 18, ease: "sine.inOut", yoyo: true, repeat: -1, delay: 2.4 });
       gsap.to(badge, { y: -5, duration: 1.8, ease: "sine.inOut", yoyo: true, repeat: -1, delay: 1.6 });
     }, section);
     return () => context.revert();
@@ -219,24 +221,24 @@ export default function OriginalCustomerHome() {
         <div aria-hidden="true" className="rmm-promo-orb rmm-promo-orb-one" />
         <div aria-hidden="true" className="rmm-promo-orb rmm-promo-orb-two" />
         <div ref={promoShineRef} aria-hidden="true" className="rmm-promo-shine" />
-        <div className="relative mx-auto flex min-h-[72px] max-w-[1440px] flex-wrap items-center justify-center gap-x-4 gap-y-2 px-3 py-3 sm:min-h-[66px] sm:flex-nowrap sm:gap-5 sm:px-7">
-          <Image ref={promoLogoRef} src="/Logo.png" alt="Rashid Mega Mart" width={118} height={40} priority className="rmm-promo-logo h-9 w-[104px] shrink-0 object-contain sm:h-10 sm:w-[118px]" />
+        <div className="relative mx-auto grid min-h-[94px] max-w-[1440px] grid-cols-[42px_minmax(0,1fr)] items-center gap-x-2 gap-y-2 px-3 py-2.5 sm:flex sm:min-h-[66px] sm:flex-nowrap sm:justify-center sm:gap-5 sm:px-7 sm:py-3">
+          <Image ref={promoLogoRef} src="/Logo.png" alt="Rashid Mega Mart" width={118} height={40} priority className="rmm-promo-logo h-10 w-[42px] shrink-0 object-contain sm:h-10 sm:w-[118px]" />
           <span className="hidden h-8 w-px bg-[#8b6b52]/20 sm:block" />
-          <div className="flex min-w-0 flex-col items-center leading-tight sm:items-start">
+          <div className="flex min-w-0 flex-col items-start leading-tight sm:items-start">
             <span className="mb-1 text-[8px] font-extrabold uppercase tracking-[.2em] text-[#98713c]">{isHindi ? "पहली खरीदारी का खास तोहफा" : "A SPECIAL FIRST-ORDER TREAT"}</span>
-            <span ref={promoLettersRef} aria-label={isHindi ? "₹499+ की खरीदारी पर ₹100 की छूट" : "₹100 OFF ON SHOPPING ABOVE ₹499"} className="rmm-promo-headline whitespace-nowrap text-[12px] font-black tracking-[-.025em] sm:text-[14px]">
+            <span ref={promoLettersRef} aria-label={isHindi ? "₹499+ की खरीदारी पर ₹100 की छूट" : "₹100 OFF ON SHOPPING ABOVE ₹499"} className="rmm-promo-headline whitespace-nowrap text-[11px] font-black tracking-[-.035em] sm:text-[14px]">
               {Array.from(isHindi ? "₹499+ की खरीदारी पर ₹100 की छूट" : "₹100 OFF ON SHOPPING ABOVE ₹499").map((letter, index) => (
                 <span key={index} data-promo-letter="true" aria-hidden="true" className="inline-block">{letter === " " ? "\u00a0" : letter}</span>
               ))}
             </span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="col-span-2 flex items-center justify-center gap-2 sm:col-span-1">
             <span className="text-[8px] font-bold tracking-[.12em] text-[#89766a]">{isHindi ? "कोड" : "CODE"}</span>
             <button type="button" disabled={promoTimeLeft.expired} aria-label="Copy FIRST100 coupon code" onClick={async () => { try { await navigator.clipboard.writeText("FIRST100"); setPromoCopied(true); } catch { setPromoCopied(false); } }} className="rmm-promo-code group inline-flex h-8 items-center gap-2 rounded-lg border px-3 text-[10px] font-black tracking-[.16em] transition duration-200 hover:-translate-y-0.5 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50">
               FIRST100<span className="text-[9px] font-bold tracking-normal">{promoTimeLeft.expired ? (isHindi ? "खत्म" : "ENDED") : promoCopied ? "✓" : (isHindi ? "कॉपी" : "COPY")}</span>
             </button>
           </div>
-          <div className="rmm-promo-countdown flex items-center gap-2 rounded-xl px-3 py-1.5">
+          <div className="rmm-promo-countdown col-span-2 flex items-center justify-center gap-2 rounded-xl px-3 py-1.5 sm:col-span-1">
             <span className="flex flex-col leading-none">
               <span className="text-[7px] font-extrabold uppercase tracking-[.17em] text-[#8b7669]">{promoTimeLeft.expired ? (isHindi ? "ऑफर समाप्त" : "OFFER ENDED") : (isHindi ? "ऑफर खत्म होगा" : "OFFER ENDS IN")}</span>
               {!promoTimeLeft.expired && <span className="mt-1 text-[11px] font-black tabular-nums tracking-[.04em] text-[#805329]">{String(promoTimeLeft.days).padStart(2, "0")}d <span className="text-[#b8a99c">:</span> {String(promoTimeLeft.hours).padStart(2, "0")}h <span className="text-[#b8a99c">:</span> {String(promoTimeLeft.minutes).padStart(2, "0")}m <span className="text-[#b8a99c">:</span> {String(promoTimeLeft.seconds).padStart(2, "0")}s</span>}
@@ -244,26 +246,20 @@ export default function OriginalCustomerHome() {
           </div>
         </div>
       </div>
-      <section id="top" ref={entranceRef} className="relative isolate flex min-h-[min(790px,calc(100svh-72px))] items-center justify-center overflow-hidden bg-[#FFFCF0] px-3 pb-20 pt-10 sm:min-h-[min(860px,calc(100svh-72px))] sm:px-6 sm:pb-24">
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_45%,rgba(224,190,119,.16),transparent_58%)]" />
+      <section id="top" ref={entranceRef} className="relative isolate flex min-h-[min(510px,calc(100svh-220px))] items-center justify-center overflow-hidden bg-[#5a1428] px-3 py-12 sm:min-h-[min(860px,calc(100svh-72px))] sm:px-6 sm:py-24">
+        <video data-hero-video aria-hidden="true" autoPlay muted loop playsInline preload="metadata" poster="https://images.unsplash.com/photo-1542838132-92c53300491e?w=1400&q=72&auto=format&fit=crop" className="pointer-events-none absolute inset-0 -z-20 h-full w-full object-cover">
+          <source src="https://cdn.pixabay.com/video/2016/08/22/4730-179738652_large.mp4" type="video/mp4" />
+        </video>
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(110deg,rgba(72,12,32,.78),rgba(91,20,42,.45)_48%,rgba(35,23,15,.62)),radial-gradient(ellipse_at_50%_45%,rgba(224,190,119,.18),transparent_65%)]" />
         <div className="mx-auto flex w-full max-w-[1500px] flex-col items-center justify-center text-center">
-          <h1 ref={entranceTitleRef} className="w-full select-none text-[clamp(3.05rem,13.2vw,12.5rem)] font-black uppercase leading-[.79] tracking-[-.105em] text-transparent [perspective:900px] sm:text-[clamp(6rem,11.2vw,11.5rem)]">
-            <span data-hero-line className="block whitespace-nowrap" style={{
-              backgroundImage: "url(https://images.unsplash.com/photo-1542838132-92c53300491e?w=1400&q=72&auto=format&fit=crop)",
-              backgroundSize: "cover", backgroundPosition: "center 42%", backgroundRepeat: "no-repeat",
-              WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent",
-              filter: "drop-shadow(0 3px 2px rgba(47,34,20,.10))",
-            }}>RASHID</span>
-            <span data-hero-line className="mt-[.035em] block whitespace-nowrap" style={{
-              backgroundImage: "url(https://images.unsplash.com/photo-1542838132-92c53300491e?w=1400&q=72&auto=format&fit=crop)",
-              backgroundSize: "cover", backgroundPosition: "center 68%", backgroundRepeat: "no-repeat",
-              WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent",
-              filter: "drop-shadow(0 3px 2px rgba(47,34,20,.10))",
-            }}>MEGA MART</span>
+          <p className="mb-4 text-[9px] font-extrabold uppercase tracking-[.34em] text-[#f5dca9] sm:mb-6 sm:text-xs">{isHindi ? "आपकी रोज़मर्रा की भरोसेमंद दुकान" : "YOUR NEIGHBOURHOOD GROCERY STORE"}</p>
+          <h1 ref={entranceTitleRef} className="w-full select-none text-[clamp(3.2rem,14vw,12.5rem)] font-black uppercase leading-[.78] tracking-[-.105em] text-[#fff9ed] [perspective:900px] [text-shadow:0_8px_30px_rgba(0,0,0,.28)] sm:text-[clamp(6rem,11.2vw,11.5rem)]">
+            <span data-hero-line className="block whitespace-nowrap">RASHID</span>
+            <span data-hero-line className="mt-[.045em] block whitespace-nowrap">MEGA MART</span>
           </h1>
-          <div ref={deliveryBadgeRef} className="mt-8 inline-flex min-h-[58px] items-center justify-center gap-3 rounded-full border border-[#d2a64c]/60 bg-[#d9ad50] px-8 py-3 text-[#382719] shadow-[0_12px_28px_rgba(75,54,24,.16)] transition-shadow duration-300 hover:shadow-[0_16px_36px_rgba(75,54,24,.22)] sm:mt-9 sm:min-h-[62px] sm:px-10">
-            <Truck size={23} strokeWidth={2.2} />
-            <span className="text-[17px] font-extrabold tracking-[-.035em] sm:text-[22px]">{isHindi ? "30 मिनट में डिलीवरी" : "Delivery in 30 Mins"}</span>
+          <div ref={deliveryBadgeRef} className="mt-7 inline-flex min-h-[52px] items-center justify-center gap-3 rounded-full border border-[#f4d18b]/70 bg-[#e0b34f] px-7 py-3 text-[#382719] shadow-[0_12px_32px_rgba(0,0,0,.24)] transition-shadow duration-300 hover:shadow-[0_16px_36px_rgba(0,0,0,.3)] sm:mt-9 sm:min-h-[62px] sm:px-10">
+            <Truck size={22} strokeWidth={2.2} />
+            <span className="text-[15px] font-extrabold tracking-[-.035em] sm:text-[22px]">{isHindi ? "30 मिनट में डिलीवरी" : "Delivery in 30 Mins"}</span>
           </div>
         </div>
       </section>

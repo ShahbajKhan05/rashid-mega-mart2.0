@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, ArrowUpRight, Clock3, Crown, Gift, History, LockKeyhole, Phone, ShieldCheck, Sparkles, Ticket, Wallet } from "lucide-react";
 
 type Entry = { id: string; name: string; phone: string; points: number; createdAt: string; ledger: { id: string; delta: number; note: string; date: string }[] };
@@ -106,7 +107,7 @@ export default function RewardsPage() {
               <div aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-[38%] w-16 -skew-x-[24deg] bg-gradient-to-r from-transparent via-white/[.07] to-transparent" />
               <div className="relative flex items-start justify-between gap-4">
                 <div className="flex items-center gap-2.5">
-                  <img src="/Logo.png" alt="" className="h-9 w-9 rounded-full bg-white/5 object-contain p-0.5" />
+                  <Image src="/Logo.png" alt="Rashid Mega Mart" width={36} height={36} sizes="36px" className="h-9 w-9 rounded-full bg-white/5 object-contain p-0.5" />
                   <div><p className="text-[15px] font-black leading-none tracking-[-.04em]">Rashid</p><p className="mt-1 text-[9px] font-black leading-none tracking-[.16em] text-[#d8ad56]">MEGA MART</p></div>
                 </div>
                 <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/10 px-3 py-1 text-[9px] font-extrabold uppercase tracking-[.12em] text-[#e9d5a9]"><Crown size={11} /> Silver</span>
@@ -155,7 +156,7 @@ export default function RewardsPage() {
         ) : (
           <>
             <header className="mb-4 text-center"><p className="text-[9px] font-extrabold uppercase tracking-[.2em] text-[#a47a2c]">RASHID MEGA MART</p><h1 className="mt-1 text-[27px] font-black leading-none tracking-[-.06em] text-[#800020]">Smart Saver Club</h1><p className="mt-1 text-[11px] text-[#88776b]">Everyday shopping. Everyday rewards.</p></header>
-            <div className="mb-4 rounded-[18px] bg-[#111] p-5 text-white shadow-[0_16px_30px_rgba(32,24,16,.22)]"><div className="flex items-center justify-between"><div className="flex items-center gap-2"><img src="/Logo.png" alt="" className="h-9 w-9 object-contain" /><div><p className="text-sm font-black">Rashid</p><p className="text-[9px] font-black tracking-[.16em] text-[#d8ad56]">MEGA MART</p></div></div><span className="rounded-full border border-white/10 bg-white/10 px-3 py-1 text-[9px] font-bold text-[#e9d5a9]"><Crown size={11} className="mr-1 inline" /> SILVER</span></div><p className="mt-5 text-[9px] font-bold uppercase tracking-[.18em] text-white/50">A LITTLE REWARD IN EVERY BILL</p><p className="mt-1 text-xl font-black tracking-[-.04em]">Shop. Earn. Save.</p></div>
+            <div className="mb-4 rounded-[18px] bg-[#111] p-5 text-white shadow-[0_16px_30px_rgba(32,24,16,.22)]"><div className="flex items-center justify-between"><div className="flex items-center gap-2"><Image src="/Logo.png" alt="Rashid Mega Mart" width={36} height={36} sizes="36px" className="h-9 w-9 object-contain" /><div><p className="text-sm font-black">Rashid</p><p className="text-[9px] font-black tracking-[.16em] text-[#d8ad56]">MEGA MART</p></div></div><span className="rounded-full border border-white/10 bg-white/10 px-3 py-1 text-[9px] font-bold text-[#e9d5a9]"><Crown size={11} className="mr-1 inline" /> SILVER</span></div><p className="mt-5 text-[9px] font-bold uppercase tracking-[.18em] text-white/50">A LITTLE REWARD IN EVERY BILL</p><p className="mt-1 text-xl font-black tracking-[-.04em]">Shop. Earn. Save.</p></div>
             <section className="rounded-[18px] border border-[#eee3d6] bg-white p-4 shadow-[0_5px_16px_rgba(70,48,20,.07)]">
               <div className="mb-4 flex items-center gap-2"><Sparkles size={16} className="text-[#b58b42]" /><div><h2 className="text-[14px] font-black">Join Rashid Rewards</h2><p className="text-[10px] text-[#8c7e73]">Free membership. Apna naam aur mobile number enter karein.</p></div></div>
               <label className="block text-[10px] font-extrabold">Full name<input value={name} onChange={(event) => setName(event.target.value)} placeholder="Aapka naam" className="mt-1.5 h-10 w-full rounded-lg border border-[#e9e2d9] bg-[#fffdfa] px-3 text-[12px] outline-none focus:border-[#800020]" /></label>

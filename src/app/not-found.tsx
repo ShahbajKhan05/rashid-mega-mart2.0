@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import { ArrowLeft, Sparkles } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 const title = "PAGE IS UNDER CONSTRUCTION";
 

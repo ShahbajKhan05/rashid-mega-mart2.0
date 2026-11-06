@@ -66,19 +66,22 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [isMounted, setIsMounted] = useState(false); 
 
   useEffect(() => {
-    try {
-      const savedCart = localStorage.getItem("rmm_cart_items");
-      if (savedCart) setCartItems(JSON.parse(savedCart));
-      
-      const savedCustom = localStorage.getItem("rmm_custom_requests");
-      if (savedCustom) setCustomRequests(JSON.parse(savedCustom));
-      
-      const savedLocation = localStorage.getItem("rmm_location");
-      if (savedLocation) setCustomerLocation(savedLocation);
-    } catch (error) {
-      console.error("Error loading cart data:", error);
-    }
-    setIsMounted(true);
+    const timer = window.setTimeout(() => {
+      try {
+        const savedCart = localStorage.getItem("rmm_cart_items");
+        if (savedCart) setCartItems(JSON.parse(savedCart));
+
+        const savedCustom = localStorage.getItem("rmm_custom_requests");
+        if (savedCustom) setCustomRequests(JSON.parse(savedCustom));
+
+        const savedLocation = localStorage.getItem("rmm_location");
+        if (savedLocation) setCustomerLocation(savedLocation);
+      } catch (error) {
+        console.error("Error loading cart data:", error);
+      }
+      setIsMounted(true);
+    }, 0);
+    return () => window.clearTimeout(timer);
   }, []);
 
   useEffect(() => {

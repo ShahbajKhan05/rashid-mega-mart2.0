@@ -348,41 +348,37 @@ export default function OriginalCustomerHome() {
         <p className="mt-3 text-center text-[9px] font-bold uppercase tracking-[.16em] text-[#a29487] md:mt-5">{isHindi ? "स्वाइप करें • अपनी पसंद की कैटेगरी चुनें" : "SWIPE TO EXPLORE THE AISLES"} <span className="ml-1 text-[#A47A2C]">→</span></p>
       </section>
 
-      <section ref={bestSellersRef} aria-labelledby="best-sellers-title" className="relative isolate overflow-hidden border-y border-[#eadfce] bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,168,79,.08),transparent_58%),#FFFCF0] px-3 py-5 sm:px-6 sm:py-9 lg:px-8">
-        <div className="mx-auto max-w-[1280px]">
-          <div className="mb-3 flex items-end justify-between gap-3 sm:mb-5">
+      <section ref={bestSellersRef} aria-labelledby="best-sellers-title" className="relative isolate overflow-hidden border-y border-[#eadfce] bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,168,79,.08),transparent_58%),#FFFCF0] px-3 py-7 sm:px-6 sm:py-10 lg:px-8">
+        <div className="mx-auto max-w-[1440px]">
+          <div className="mb-4 flex items-end justify-between gap-3 px-1 sm:mb-6">
             <div className="min-w-0">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-[#dfc99f] bg-white/75 px-2.5 py-1 text-[8px] font-black uppercase tracking-[.15em] text-[#98713c]">
-                <Sparkles size={11} /> {isHindi ? "सबकी पसंद" : "CUSTOMER FAVOURITES"}
-              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-[#dfc99f] bg-white/75 px-2.5 py-1 text-[8px] font-black uppercase tracking-[.15em] text-[#98713c]"><Sparkles size={11} /> {isHindi ? "सबकी पसंद" : "CUSTOMER FAVOURITES"}</span>
               <h2 id="best-sellers-title" className="mt-1.5 text-[clamp(1.55rem,5vw,2.45rem)] font-black leading-none tracking-[-.065em] text-[#800020]">{isHindi ? "बेस्ट सेलर्स" : "Best Sellers"}</h2>
               <p className="mt-1 text-[10px] leading-4 text-[#78685d] sm:text-xs">{isHindi ? "दुकान की पसंदीदा चीज़ें।" : "Popular picks from our store."}</p>
             </div>
             <Link href="/products" className="mb-0.5 inline-flex shrink-0 items-center gap-1 rounded-full border border-[#800020]/15 bg-white/80 px-3 py-2 text-[9px] font-extrabold text-[#800020] transition hover:bg-[#800020] hover:text-white sm:text-[10px]">{isHindi ? "सभी देखें" : "View all"} <ArrowRight size={12} /></Link>
           </div>
-          <div className="flex snap-x snap-mandatory gap-2.5 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-2 sm:gap-3 sm:overflow-visible sm:pb-0 lg:grid-cols-4">
-            {products.slice(0, 8).map((product) => {
-              const discount = product.originalPrice > product.price ? Math.round((1 - product.price / product.originalPrice) * 100) : 0;
-              return <article key={product.id} data-best-seller-card className="group relative flex w-[min(82vw,330px)] shrink-0 snap-start items-center gap-3 overflow-hidden rounded-xl border border-[#e9dfd2] bg-white/95 p-2 shadow-[0_3px_12px_rgba(67,45,27,.04)] transition duration-300 hover:border-[#d8c29d] hover:shadow-md sm:w-auto sm:rounded-2xl sm:p-2.5 lg:flex-col lg:items-stretch">
-                <div className="relative h-[104px] w-[104px] shrink-0 overflow-hidden rounded-lg bg-[#faf8f3] p-2 sm:h-32 sm:w-32 lg:h-auto lg:w-full lg:aspect-square lg:rounded-xl lg:p-3">
-                  <Link href={"/products/" + (product.slug || product.id)} aria-label={isHindi ? product.nameHi : product.name} className="block h-full w-full">
-                    <Image src={product.image} alt={isHindi ? product.nameHi : product.name} width={400} height={400} loading="lazy" sizes="(max-width: 639px) 104px, (max-width: 1023px) 30vw, 240px" className="h-full w-full object-contain mix-blend-multiply transition duration-500 ease-out group-hover:scale-105" />
+          <div className="w-full snap-x snap-mandatory overflow-x-auto overscroll-x-contain pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className="flex w-max gap-3 pr-4 sm:gap-5 md:gap-6 md:pl-[max(5vw,calc((100vw-1320px)/2))] md:pr-[max(5vw,calc((100vw-1320px)/2))]">
+              {products.slice(0, 8).map((product) => {
+                const discount = product.originalPrice > product.price ? Math.round((1 - product.price / product.originalPrice) * 100) : 0;
+                return <article key={product.id} data-best-seller-card className="group relative isolate flex h-[250px] w-[78vw] max-w-[310px] shrink-0 snap-start flex-col overflow-hidden rounded-[24px] border border-white/90 bg-gradient-to-br from-[#fff0d0] to-[#ead6b7] shadow-[0_12px_35px_rgba(67,45,27,.09)] transition duration-500 hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(67,45,27,.15)] sm:h-[330px] sm:w-[300px] md:h-[390px] md:w-[330px] md:rounded-[30px]">
+                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_22%,rgba(255,255,255,.88),transparent_62%),linear-gradient(180deg,rgba(255,250,237,.18)_0%,rgba(255,248,233,.94)_68%,#fff8e9_100%)]" />
+                  <Link href={"/products/" + (product.slug || product.id)} aria-label={isHindi ? product.nameHi : product.name} className="absolute inset-x-0 top-0 z-0 flex h-[66%] items-center justify-center p-7 sm:p-8">
+                    <Image src={product.image} alt={isHindi ? product.nameHi : product.name} width={480} height={480} loading="lazy" sizes="(max-width: 767px) 78vw, 330px" className="h-full w-full object-contain mix-blend-multiply transition duration-700 ease-out group-hover:scale-110" />
                   </Link>
-                  {discount > 0 && <span className="absolute left-1.5 top-1.5 rounded bg-[#800020] px-1.5 py-0.5 text-[8px] font-black text-white">{discount}% OFF</span>}
-                </div>
-                <div className="flex min-w-0 flex-1 flex-col self-stretch py-0.5 lg:px-0.5 lg:pt-1">
-                  <p className="truncate text-[8px] font-extrabold uppercase tracking-[.1em] text-[#a47a2c]">{product.brand || "Rashid Mega Mart"}{product.unit ? " · " + product.unit : ""}</p>
-                  <Link href={"/products/" + (product.slug || product.id)} className="mt-1 line-clamp-2 text-[11px] font-extrabold leading-[1.35] text-[#40342e] transition-colors hover:text-[#800020] sm:text-xs">{isHindi ? product.nameHi : product.name}</Link>
-                  <div className="mt-1.5 flex flex-wrap items-baseline gap-x-1.5">
-                    <span className="text-[14px] font-black tracking-[-.03em] text-[#800020]">₹{product.price.toLocaleString("en-IN")}</span>
-                    {discount > 0 && <span className="text-[9px] text-[#9b8d81] line-through">₹{product.originalPrice.toLocaleString("en-IN")}</span>}
+                  <span className="absolute left-4 top-4 z-10 max-w-[65%] truncate text-[9px] font-black uppercase tracking-[.18em] text-[#805d2d] sm:left-5 sm:top-5">{product.brand || "RASHID MEGA MART"}</span>
+                  {discount > 0 && <span className="absolute right-4 top-4 z-10 rounded-full border border-[#800020]/10 bg-[#800020] px-2.5 py-1 text-[8px] font-black tracking-wide text-white sm:right-5 sm:top-5">{discount}% OFF</span>}
+                  <div className="relative z-10 mt-auto w-full p-4 sm:p-5 md:p-6">
+                    <Link href={"/products/" + (product.slug || product.id)} className="block line-clamp-2 text-[17px] font-black leading-[1.12] tracking-[-.045em] text-[#68152b] sm:text-xl md:text-[22px]">{isHindi ? product.nameHi : product.name}</Link>
+                    <div className="mt-2 flex items-baseline gap-2"><span className="text-base font-black tracking-[-.03em] text-[#800020] sm:text-lg">₹{product.price.toLocaleString("en-IN")}</span>{discount > 0 && <span className="text-[10px] text-[#9b8d81] line-through">₹{product.originalPrice.toLocaleString("en-IN")}</span>}{product.unit && <span className="truncate text-[9px] text-[#89786b]">{product.unit}</span>}</div>
+                    <button type="button" onClick={() => addToCart(product, 1)} className="mt-2.5 inline-flex h-8 w-full items-center justify-center gap-1.5 rounded-full border border-[#800020]/15 bg-white/80 px-3 text-[9px] font-extrabold uppercase tracking-[.1em] text-[#800020] backdrop-blur transition hover:border-[#800020] hover:bg-[#800020] hover:text-white active:scale-[.98] sm:h-9 sm:text-[10px]"><ShoppingCart size={12} />{isHindi ? "कार्ट में जोड़ें" : "Add to cart"}</button>
                   </div>
-                  <button type="button" onClick={() => addToCart(product, 1)} className="mt-auto inline-flex h-7 w-full items-center justify-center gap-1 rounded-lg bg-[#800020] px-2 text-[9px] font-extrabold text-white transition hover:bg-[#65001a] active:scale-[.98] lg:mt-2 lg:h-8"><ShoppingCart size={11} />{isHindi ? "कार्ट में जोड़ें" : "Add to cart"}</button>
-                </div>
-              </article>;
-            })}
+                </article>;
+              })}
+            </div>
           </div>
-          <p className="mt-1 text-center text-[8px] font-semibold text-[#a29487] sm:hidden">{isHindi ? "और प्रोडक्ट देखने के लिए स्वाइप करें →" : "Swipe to see more products →"}</p>
+          <p className="mt-0 text-center text-[9px] font-bold uppercase tracking-[.16em] text-[#a29487]">{isHindi ? "स्वाइप करें • पसंदीदा सामान देखें" : "SWIPE TO EXPLORE BEST SELLERS"} <span className="ml-1 text-[#A47A2C]">→</span></p>
         </div>
       </section>
 

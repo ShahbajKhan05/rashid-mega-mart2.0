@@ -401,7 +401,7 @@ export default function Navbar() {
                     {searchResults.slice(0, 10).map((product) => (
                       <a key={product.id} href={`/products/${product.slug || product.id}`} onClick={() => { setSearchOpen(false); setSearchQuery(""); }} className="flex items-center gap-3 rounded-xl border border-gray-100 bg-white p-3 hover:bg-gray-50 transition">
                         <div className="h-12 w-12 shrink-0 rounded-lg bg-gray-50 p-1 flex items-center justify-center">
-                          <img src={product.image} alt={product.name} className="h-full object-contain mix-blend-multiply" />
+                          <Image src={product.image} alt={product.name} width={48} height={48} sizes="48px" className="h-full w-full object-contain mix-blend-multiply" />
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-bold text-gray-800 truncate">{isHindi ? product.nameHi : product.name}</p>

@@ -289,7 +289,7 @@ export default function OriginalCustomerHome() {
       </section>
 
 
- language={language} />
+      <BrandMarquee language={language} />
 
       <section id="deals" data-shop-section className="bg-transparent px-3 py-5 sm:px-6 sm:py-8" aria-label={isHindi ? "आज की बचत" : "Best deals"}>
         <div className="mx-auto max-w-[1240px]">

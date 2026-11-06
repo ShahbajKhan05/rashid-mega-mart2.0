@@ -214,6 +214,29 @@ export default function OriginalCustomerHome() {
         </div>
       </section>
 
+      <section data-shop-section aria-label={isHindi ? "मंथली ग्रॉसरी किट्स" : "Monthly grocery kits"} className="relative isolate overflow-hidden bg-[#fffaf2] px-3 py-5 sm:px-6 sm:py-8">
+        <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-20 h-64 w-64 rounded-full bg-[#e7c98f]/30 blur-3xl" />
+        <div className="relative mx-auto max-w-[1240px] overflow-hidden rounded-[22px] border border-[#d9bd8b] bg-[linear-gradient(112deg,#fff 0%,#fff9ed 52%,#f5e7ce 100%)] shadow-[0_12px_34px_rgba(83,48,25,.09)] sm:rounded-[28px]">
+          <div aria-hidden="true" className="absolute inset-y-0 right-0 hidden w-[34%] bg-[radial-gradient(circle_at_70%_45%,rgba(128,0,32,.10),transparent_65%)] sm:block" />
+          <div className="relative flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:px-8 sm:py-7">
+            <div className="flex min-w-0 items-start gap-3 sm:items-center sm:gap-5">
+              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-[#800020] text-[#f6d99d] shadow-[0_8px_20px_rgba(128,0,32,.2)] sm:h-[68px] sm:w-[68px] sm:rounded-[20px]"><Package size={27} strokeWidth={1.8}/></span>
+              <div className="min-w-0">
+                <span className="inline-flex rounded-full border border-[#d8bd8e] bg-white/80 px-2.5 py-1 text-[8px] font-black uppercase tracking-[.16em] text-[#8b672f] sm:text-[9px]">{isHindi ? "स्मार्ट शॉपिंग का आसान तरीका" : "A SMARTER WAY TO SHOP"}</span>
+                <h2 className="mt-2 text-[21px] font-black leading-[1.05] tracking-[-.055em] text-[#800020] sm:text-[clamp(1.7rem,3vw,2.5rem)]">{isHindi ? "मंथली ग्रॉसरी किट्स" : "Monthly grocery kits"}</h2>
+                <p className="mt-1.5 max-w-[560px] text-[10px] leading-relaxed text-[#756354] sm:text-[13px]">{isHindi ? "अपना बजट चुनें, किट के सामान की जानकारी देखें और अपनी ज़रूरत के हिसाब से चुनें।" : "Choose a budget, explore what’s included and find a kit that fits your monthly shopping."}</p>
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  <span className="rounded-full border border-[#e5d4b8] bg-white/80 px-2.5 py-1 text-[8px] font-bold text-[#73583a] sm:text-[9px]">{isHindi ? "बजट के अनुसार" : "By budget"}</span>
+                  <span className="rounded-full border border-[#e5d4b8] bg-white/80 px-2.5 py-1 text-[8px] font-bold text-[#73583a] sm:text-[9px]">{isHindi ? "किट की पूरी जानकारी" : "Kit details"}</span>
+                  <span className="rounded-full border border-[#e5d4b8] bg-white/80 px-2.5 py-1 text-[8px] font-bold text-[#73583a] sm:text-[9px]">{isHindi ? "एक ही जगह" : "All in one place"}</span>
+                </div>
+              </div>
+            </div>
+            <Link href="/kits" className="inline-flex min-h-11 w-full shrink-0 items-center justify-center gap-2 rounded-full bg-[#800020] px-5 text-[11px] font-black text-white shadow-[0_8px_20px_rgba(128,0,32,.2)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#64152b] active:scale-[.98] sm:min-h-12 sm:w-auto sm:px-7 sm:text-xs">{isHindi ? "सभी किट्स देखें" : "Explore all kits"} <ArrowRight size={15}/></Link>
+          </div>
+        </div>
+      </section>
+
       <section id="categories" data-shop-section aria-label="Shop products by category" className="bg-transparent px-3 py-5 sm:px-6 sm:py-8">
         <div className="mx-auto max-w-[1240px]">
           <div className="mb-4 text-center sm:mb-5">
@@ -266,20 +289,7 @@ export default function OriginalCustomerHome() {
       </section>
 
 
-      <section aria-label={isHindi ? "मंथली किट्स" : "Monthly grocery kits"} className="bg-[#fffaf2] px-3 py-3 sm:px-6 sm:py-5">
-        <div className="mx-auto flex max-w-[1240px] items-center justify-between gap-3 rounded-2xl border border-[#ead9c5] bg-white px-3 py-3 shadow-[0_4px_16px_rgba(68,45,27,.045)] sm:px-5 sm:py-4">
-          <div className="flex min-w-0 items-center gap-2.5">
-            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[#f8eee7] text-[#800020] sm:h-11 sm:w-11"><ShoppingCart size={18}/></span>
-            <div className="min-w-0">
-              <h2 className="text-[13px] font-black leading-tight text-[#800020] sm:text-base">{isHindi ? "मंथली ग्रॉसरी किट्स" : "Monthly grocery kits"}</h2>
-              <p className="mt-0.5 text-[9px] leading-snug text-[#817166] sm:text-[11px]">{isHindi ? "अपना बजट चुनें और पूरी जानकारी देखें।" : "Explore kits by budget and see all details."}</p>
-            </div>
-          </div>
-          <Link href="/kits" className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full bg-[#800020] px-3 text-[10px] font-black text-white transition hover:bg-[#64152b] active:scale-[.97] sm:h-10 sm:px-4 sm:text-xs">{isHindi ? "किट्स देखें" : "Explore kits"} <ArrowRight size={13}/></Link>
-        </div>
-      </section>
-
-      <BrandMarquee language={language} />
+ language={language} />
 
       <section id="deals" data-shop-section className="bg-transparent px-3 py-5 sm:px-6 sm:py-8" aria-label={isHindi ? "आज की बचत" : "Best deals"}>
         <div className="mx-auto max-w-[1240px]">

@@ -18,9 +18,17 @@ const navigation: { id: Section; label: string; icon: typeof LayoutDashboard; hi
   { id: "orders", label: "Orders", icon: ShoppingBag, hint: "8" },
   { id: "products", label: "Products", icon: Package },
   { id: "customers", label: "Customers", icon: Users },
+  { id: "inventory", label: "Inventory", icon: Package },
+  { id: "suppliers", label: "Suppliers", icon: Truck },
   { id: "coupons", label: "Coupons", icon: Tag },
   { id: "loyalty", label: "Loyalty Club", icon: CreditCard },
-  { id: "monthly-kit", label: "Monthly Kit", icon: Boxes },\n  { id: "payments", label: "Payments", icon: Wallet },\n  { id: "delivery", label: "Delivery", icon: MapPin },\n  { id: "reports", label: "Reports", icon: BarChart3 },\n  { id: "staff", label: "Staff & Roles", icon: Users },\n  { id: "notifications", label: "Notifications", icon: Bell },\n  { id: "activity", label: "Activity Logs", icon: ClipboardList },
+  { id: "monthly-kit", label: "Monthly Kit", icon: Boxes },
+  { id: "payments", label: "Payments", icon: Wallet },
+  { id: "delivery", label: "Delivery", icon: MapPin },
+  { id: "reports", label: "Reports", icon: BarChart3 },
+  { id: "staff", label: "Staff & Roles", icon: Users },
+  { id: "notifications", label: "Notifications", icon: Bell },
+  { id: "activity", label: "Activity Logs", icon: ClipboardList },
 ];
 
 const orders = [

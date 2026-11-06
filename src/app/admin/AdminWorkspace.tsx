@@ -40,21 +40,6 @@ const orders = [
   { id: "#RMM-2080", customer: "Imran Ali", initials: "IA", date: "Yesterday", items: 5, total: 1560, status: "Delivered" },
 ];
 
-const products = [
-  { name: "Aashirvaad Atta", category: "Staples", sku: "RMM-AT-001", stock: 42, price: 240, state: "In stock", color: "bg-amber-100 text-amber-800", emoji: "🌾" },
-  { name: "India Gate Basmati Rice", category: "Staples", sku: "RMM-RC-002", stock: 8, price: 280, state: "Low stock", color: "bg-orange-100 text-orange-800", emoji: "🍚" },
-  { name: "Fortune Sunflower Oil", category: "Oil & Ghee", sku: "RMM-OL-003", stock: 26, price: 135, state: "In stock", color: "bg-emerald-100 text-emerald-800", emoji: "🫒" },
-  { name: "Tata Sampann Toor Dal", category: "Pulses", sku: "RMM-DL-004", stock: 0, price: 160, state: "Out of stock", color: "bg-rose-100 text-rose-800", emoji: "🫘" },
-  { name: "Amul Butter", category: "Dairy", sku: "RMM-DA-005", stock: 19, price: 265, state: "In stock", color: "bg-emerald-100 text-emerald-800", emoji: "🧈" },
-];
-
-const customers = [
-  { name: "Aarav Sharma", email: "aarav.sharma@email.com", orders: 12, spent: 8420, initials: "AS" },
-  { name: "Sana Khan", email: "sana.khan@email.com", orders: 8, spent: 5360, initials: "SK" },
-  { name: "Rahul Patel", email: "rahul.patel@email.com", orders: 6, spent: 4290, initials: "RP" },
-  { name: "Meera Singh", email: "meera.singh@email.com", orders: 5, spent: 3180, initials: "MS" },
-];
-
 const money = (value: number) => "₹" + value.toLocaleString("en-IN");
 
 function Status({ value }: { value: string }) {
@@ -149,28 +134,6 @@ function OrderTable({ compact = false }: { compact?: boolean }) {
     <div className="grid gap-2.5 p-3 md:hidden">{rows.map(o=><article key={o.id} className="rounded-xl border border-[#f0e8df] bg-[#fffdfa] p-3.5"><div className="flex items-start justify-between gap-3"><div className="min-w-0"><p className="text-[11px] font-bold text-[#800020]">{o.id}</p><div className="mt-2 flex items-center gap-2"><span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-[#f7edf0] text-[10px] font-bold text-[#800020]">{o.initials}</span><div className="min-w-0"><p className="truncate text-xs font-semibold text-[#49383d]">{o.customer}</p><p className="mt-0.5 text-[10px] text-[#938681]">{o.date}</p></div></div></div><Status value={o.status}/></div><div className="mt-3 flex items-center justify-between border-t border-[#f1ebe4] pt-2.5"><span className="text-[10px] text-[#938681]">Order total</span><strong className="text-sm font-bold text-[#381a25]">{money(o.total)}</strong></div></article>)}</div>
   </>;
 }
-
-function DataTable({ section, query }: { section: Section; query: string }) {
-  if (section === "orders") return <OrderTable/>;
-  if (section === "products") {
-    const rows=products.filter(p=>`${p.name} ${p.sku} ${p.category}`.toLowerCase().includes(query.toLowerCase()));
-    return <>
-      <div className="hidden overflow-x-auto md:block"><table className="w-full min-w-[680px] text-left"><thead className="bg-[#fffcf8] text-[9px] font-extrabold uppercase tracking-wider text-[#a1948e]"><tr>{["Product","SKU","Category","Price","Stock","Status"].map(x=><th key={x} className="px-5 py-3">{x}</th>)}</tr></thead><tbody>{rows.map(p=><tr key={p.sku} className="border-t border-[#f1ebe4]"><td className="px-5 py-4"><div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-xl bg-[#fff7e9] text-xl">{p.emoji}</span><span className="text-xs font-bold text-[#49383d]">{p.name}</span></div></td><td className="px-5 py-4 text-[11px] text-[#938681]">{p.sku}</td><td className="px-5 py-4 text-xs text-[#716365]">{p.category}</td><td className="px-5 py-4 text-xs font-bold">{money(p.price)}</td><td className="px-5 py-4 text-xs font-semibold">{p.stock}</td><td className="px-5 py-4"><Status value={p.state}/></td></tr>)}</tbody></table></div>
-      <div className="grid gap-2.5 p-3 md:hidden">{rows.map(p=><article key={p.sku} className="rounded-xl border border-[#f0e8df] bg-[#fffdfa] p-3.5"><div className="flex items-start gap-3"><span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[#fff7e9] text-2xl">{p.emoji}</span><div className="min-w-0 flex-1"><p className="text-xs font-bold text-[#49383d]">{p.name}</p><p className="mt-1 text-[10px] text-[#938681]">{p.category} · {p.sku}</p></div><Status value={p.state}/></div><div className="mt-3 grid grid-cols-2 gap-2 border-t border-[#f1ebe4] pt-3"><div><p className="text-[10px] text-[#938681]">Selling price</p><p className="mt-0.5 text-sm font-bold text-[#381a25]">{money(p.price)}</p></div><div><p className="text-[10px] text-[#938681]">Available stock</p><p className="mt-0.5 text-sm font-bold text-[#381a25]">{p.stock} units</p></div></div></article>)}</div>
-      {rows.length===0&&<p className="p-8 text-center text-sm text-[#938681]">No matching products.</p>}
-    </>;
-  }
-  if (section === "customers") {
-    const rows=customers.filter(c=>`${c.name} ${c.email}`.toLowerCase().includes(query.toLowerCase()));
-    return <>
-      <div className="hidden overflow-x-auto md:block"><table className="w-full min-w-[600px] text-left"><thead className="bg-[#fffcf8] text-[9px] font-extrabold uppercase tracking-wider text-[#a1948e]"><tr>{["Customer","Orders","Lifetime spend","Last seen"].map(x=><th key={x} className="px-5 py-3">{x}</th>)}</tr></thead><tbody>{rows.map(c=><tr key={c.email} className="border-t border-[#f1ebe4]"><td className="px-5 py-4"><div className="flex items-center gap-3"><span className="grid h-9 w-9 place-items-center rounded-full bg-[#f7edf0] text-[10px] font-bold text-[#800020]">{c.initials}</span><div><p className="text-xs font-bold text-[#49383d]">{c.name}</p><p className="mt-1 text-[10px] text-[#a1948e]">{c.email}</p></div></div></td><td className="px-5 py-4 text-xs font-semibold">{c.orders}</td><td className="px-5 py-4 text-xs font-bold">{money(c.spent)}</td><td className="px-5 py-4 text-[11px] text-[#938681]">Today</td></tr>)}</tbody></table></div>
-      <div className="grid gap-2.5 p-3 md:hidden">{rows.map(c=><article key={c.email} className="rounded-xl border border-[#f0e8df] bg-[#fffdfa] p-3.5"><div className="flex items-center gap-3"><span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#f7edf0] text-[10px] font-bold text-[#800020]">{c.initials}</span><div className="min-w-0"><p className="truncate text-xs font-bold text-[#49383d]">{c.name}</p><p className="truncate text-[10px] text-[#a1948e]">{c.email}</p></div></div><div className="mt-3 grid grid-cols-2 gap-2 border-t border-[#f1ebe4] pt-3"><div><p className="text-[10px] text-[#938681]">Total orders</p><p className="mt-0.5 text-sm font-bold text-[#381a25]">{c.orders}</p></div><div><p className="text-[10px] text-[#938681]">Lifetime spend</p><p className="mt-0.5 text-sm font-bold text-[#381a25]">{money(c.spent)}</p></div></div></article>)}</div>
-      {rows.length===0&&<p className="p-8 text-center text-sm text-[#938681]">No matching customers.</p>}
-    </>;
-  }
-  return <div className="p-8 text-center text-sm text-[#887a5b]">No records found.</div>;
-}
-
 
 function ShopDetails() {
   const [form, setForm] = useState({ name: "Rashid Mega Mart", phone: "8962531603", whatsapp: "8962531603", address: "Ghoghar, Rewa, Madhya Pradesh 486001", email: "", hours: "", delivery: "" });

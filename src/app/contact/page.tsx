@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import PolicyPage from "@/app/components/PolicyPage";
+import RmmContactExperience from "@/app/components/RmmContactExperience";
 
 const titles: Record<string,string> = {
   "privacy-policy":"Privacy Policy", "terms-and-conditions":"Terms & Conditions", "shipping-policy":"Shipping & Delivery",
@@ -8,4 +8,4 @@ const titles: Record<string,string> = {
   "grievance-redressal":"Grievance Redressal", "food-safety":"Food Safety & FSSAI Information"
 };
 export const metadata: Metadata = { title: titles["contact"], robots: { index: true, follow: true } };
-export default function Page() { return <PolicyPage slug="contact" />; }
+export default function Page() { return <RmmContactExperience />; }

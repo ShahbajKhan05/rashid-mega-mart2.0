@@ -6,7 +6,7 @@ import LoyaltyAdmin from "./LoyaltyAdmin";
 import CouponAdmin from "./CouponAdmin";
 import AdminCoreManager from "./AdminCoreManager";
 import {
-  Activity, Boxes, ChevronRight, CircleHelp, CreditCard, LayoutDashboard,
+  Activity, Boxes, ChevronRight, CircleHelp, CreditCard, Download, LayoutDashboard,
   Package, Plus, Search, Settings2, ShoppingBag, Tag, Users, X,
 } from "lucide-react";
 

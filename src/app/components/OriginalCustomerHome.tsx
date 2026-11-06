@@ -13,7 +13,17 @@ import { useWishlist } from "./WishlistProvider";
 import HelpCenterFAQ from "./HelpCenterFAQ";
 import KitsPage from "./KitsPage";
 
-const brands = ["Aashirvaad", "Fortune", "Tata Sampann", "India Gate", "MDH", "Everest", "Tata Tea", "MAGGI", "Parle-G"];
+const brands = [
+  { name: "Aashirvaad", domain: "aashirvaad.com" },
+  { name: "Fortune", domain: "fortunefoods.com" },
+  { name: "Tata Sampann", domain: "tataconsumer.com" },
+  { name: "India Gate", domain: "indiagatefoods.com" },
+  { name: "MDH", domain: "mdhspices.com" },
+  { name: "Everest", domain: "everestspices.com" },
+  { name: "Tata Tea", domain: "tataconsumer.com" },
+  { name: "MAGGI", domain: "maggi.in" },
+  { name: "Parle-G", domain: "parleproducts.com" },
+];
 const visuals: Record<string, string> = {
   staples: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=520&q=72&auto=format&fit=crop",
   oil: "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=520&q=72&auto=format&fit=crop",
@@ -54,7 +64,6 @@ export default function OriginalCustomerHome() {
   const promoLettersRef = useRef<HTMLSpanElement>(null);
   const brandTrackRef = useRef<HTMLDivElement>(null);
   const brandSectionRef = useRef<HTMLElement>(null);
-  const brandTweenRef = useRef<gsap.core.Tween | null>(null);
   const categorySectionRef = useRef<HTMLElement>(null);
   const categoryViewportRef = useRef<HTMLDivElement>(null);
   const categoryTrackRef = useRef<HTMLDivElement>(null);
@@ -132,29 +141,17 @@ export default function OriginalCustomerHome() {
   }, []);
 
   useEffect(() => {
-    const track = brandTrackRef.current;
-    if (!track) return;
-    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (motionQuery.matches) return;
-    const tween = gsap.to(track, {
-      xPercent: -50,
-      duration: 42,
-      ease: "none",
-      repeat: -1,
-      paused: true,
-    });
-    brandTweenRef.current = tween;
     const section = brandSectionRef.current;
-    const observer = section ? new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) tween.play();
-      else tween.pause();
-    }, { threshold: 0.05 }) : null;
-    if (section && observer) observer.observe(section);
-    return () => {
-      observer?.disconnect();
-      tween.kill();
-      brandTweenRef.current = null;
-    };
+    const track = brandTrackRef.current;
+    if (!section || !track || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const items = track.querySelectorAll<HTMLElement>("[data-brand-item]");
+    const context = gsap.context(() => {
+      gsap.fromTo(items, { y: 18, autoAlpha: 0, scale: 0.92 }, {
+        y: 0, autoAlpha: 1, scale: 1, duration: 0.65, stagger: 0.055, ease: "back.out(1.5)",
+        scrollTrigger: { trigger: section, start: "top 86%", once: true },
+      });
+    }, section);
+    return () => context.revert();
   }, []);
 
   useEffect(() => {
@@ -268,55 +265,41 @@ export default function OriginalCustomerHome() {
         </div>
       </section>
 
-      <section ref={brandSectionRef} aria-label="Popular brands" className="rmm-brand-section relative isolate overflow-hidden border-y border-[#eadfce] py-7 sm:py-9">
-        <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_0%,rgba(164,122,44,.10),transparent_65%)]" />
-        <div className="mx-auto mb-5 flex max-w-[1440px] flex-col items-center justify-between gap-2 px-4 sm:mb-7 sm:flex-row sm:px-7 lg:px-10">
-          <div className="text-center sm:text-left">
-            <p className="text-[10px] font-black tracking-[.24em] text-[#A47A2C]">{isHindi ? "भरोसेमंद नाम" : "THE NAMES YOU TRUST"}</p>
-            <h2 className="mt-1 text-xl font-black tracking-[-.045em] text-[#800020] sm:text-2xl">{isHindi ? "आपके पसंदीदा ब्रांड" : "Shop your favourite brands"}</h2>
-          </div>
-          <span className="inline-flex items-center gap-2 rounded-full border border-[#e8dccb] bg-white/65 px-3 py-1.5 text-[9px] font-bold tracking-[.12em] text-[#78685d] backdrop-blur">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#16834a] shadow-[0_0_0_3px_rgba(22,131,74,.10)]" />
-            {isHindi ? "रोज़मर्रा के भरोसेमंद ब्रांड" : "EVERYDAY TRUSTED BRANDS"}
-          </span>
+      <section ref={brandSectionRef} aria-label="Popular brands" className="relative isolate overflow-hidden border-y border-[#eadfce] bg-[radial-gradient(ellipse_at_50%_0%,rgba(164,122,44,.10),transparent_68%)] px-4 py-9 sm:px-6 sm:py-12">
+        <div className="mx-auto mb-6 max-w-[760px] text-center sm:mb-8">
+          <span className="inline-flex rounded-full border border-[#e9dfd2] bg-white/75 px-3 py-1 text-[9px] font-black tracking-[.2em] text-[#8b6b43] shadow-sm">{isHindi ? "ब्रांड्स जिन्हें आप जानते हैं" : "BRANDS YOU KNOW & TRUST"}</span>
+          <h2 className="mt-3 text-[25px] font-black leading-[1.05] tracking-[-.065em] text-[#800020] sm:text-3xl">{isHindi ? "आपके पसंदीदा ब्रांड" : "Shop your favourite brands"}</h2>
+          <p className="mx-auto mt-2 max-w-sm text-[11px] leading-5 text-[#8a7a6d] sm:text-sm">{isHindi ? "रोज़मर्रा की खरीदारी के भरोसेमंद नाम, एक ही जगह।" : "Everyday favourites, all together in one place."}</p>
         </div>
-        <div
-          className="relative overflow-hidden"
-          onMouseEnter={() => brandTweenRef.current?.timeScale(0)}
-          onMouseLeave={() => brandTweenRef.current?.timeScale(1)}
-          onFocus={() => brandTweenRef.current?.timeScale(0)}
-          onBlur={() => brandTweenRef.current?.timeScale(1)}
-        >
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-[#FFFCF0] to-transparent sm:w-24" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-[#FFFCF0] to-transparent sm:w-24" />
-          <div ref={brandTrackRef} className="flex w-max items-center gap-3 pr-3 sm:gap-4 sm:pr-4">
-            {[0, 1].map((copy) => (
-              <div key={copy} aria-hidden={copy === 1} className="flex shrink-0 items-center gap-3 sm:gap-4">
-                {brands.map((brand, index) => {
-                  const brandStyles = [
-                    "font-black italic tracking-[-.09em] text-[#d51f36]",
-                    "font-black italic tracking-[-.08em] text-[#e33b22]",
-                    "font-extrabold tracking-[-.055em] text-[#25834c]",
-                    "font-black tracking-[-.07em] text-[#b21e32]",
-                    "font-black tracking-[-.08em] text-[#c9282d]",
-                    "font-black italic tracking-[-.07em] text-[#d51f2a]",
-                    "font-black tracking-[-.08em] text-[#27744b]",
-                    "font-black italic tracking-[-.08em] text-[#e3262e]",
-                    "font-black tracking-[-.07em] text-[#174a91]",
-                  ];
-                  return (
-                    <div key={brand} className="group relative grid h-[74px] w-[148px] shrink-0 place-items-center overflow-hidden rounded-2xl border border-[#e9dfd2] bg-white/75 px-4 shadow-[0_5px_18px_rgba(67,45,27,.045)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-[#d7c19e] hover:bg-white hover:shadow-[0_12px_28px_rgba(67,45,27,.10)] sm:h-[88px] sm:w-[184px]">
-                      <span className="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-white to-transparent" />
-                      <span className={`relative text-[19px] leading-none transition-transform duration-300 group-hover:scale-105 sm:text-[23px] ${brandStyles[index % brandStyles.length]}`}>{brand}</span>
-                      <span className="mt-2 text-[7px] font-bold tracking-[.2em] text-[#a69a8e] sm:text-[8px]">{index === 0 ? "WHOLE WHEAT" : index === 1 ? "COOKING OIL" : index === 2 ? "GOODNESS OF INDIA" : index === 3 ? "BASMATI RICE" : index === 4 ? "SPICE OF LIFE" : index === 5 ? "PURE & AUTHENTIC" : index === 6 ? "TEA TIME" : index === 7 ? "2-MINUTE MAGIC" : "SINCE 1929"}</span>
-                    </div>
-                  );
-                })}
-              </div>
+        <div className="mx-auto w-full max-w-[760px] rounded-[25px] border border-white/90 bg-[#f3f1ed]/90 p-3 shadow-[0_12px_34px_rgba(67,45,27,.07)] backdrop-blur-xl sm:rounded-[30px] sm:p-5">
+          <div ref={brandTrackRef} className="grid grid-cols-3 items-center justify-items-center gap-2.5 sm:grid-cols-9 sm:gap-2">
+            {brands.map((brand) => (
+              <a
+                key={brand.name}
+                data-brand-item
+                href={`https://${brand.domain}`}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Visit ${brand.name} official website`}
+                className="group flex min-h-[88px] w-full min-w-0 flex-col items-center justify-center gap-2 rounded-2xl border border-transparent px-1.5 py-2 transition-[transform,background-color,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1.5 hover:scale-110 hover:border-white hover:bg-white hover:shadow-[0_10px_22px_rgba(67,45,27,.10)] active:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a47a2c] sm:min-h-[94px] sm:rounded-xl"
+              >
+                <span className="grid h-12 w-12 place-items-center rounded-[14px] bg-white shadow-[0_2px_8px_rgba(50,35,20,.08)] ring-1 ring-[#e9e3da] transition duration-300 group-hover:shadow-[0_5px_14px_rgba(50,35,20,.12)] sm:h-[50px] sm:w-[50px]">
+                  <Image
+                    src={`https://www.google.com/s2/favicons?domain=${brand.domain}&sz=128`}
+                    alt=""
+                    width={38}
+                    height={38}
+                    unoptimized
+                    loading="lazy"
+                    className="h-9 w-9 object-contain sm:h-10 sm:w-10"
+                  />
+                </span>
+                <span className="max-w-full truncate text-center text-[9px] font-extrabold tracking-[-.02em] text-[#665448] sm:text-[10px]">{brand.name}</span>
+              </a>
             ))}
           </div>
         </div>
-        <p className="mt-4 text-center text-[9px] font-medium tracking-[.08em] text-[#a29487]">{isHindi ? "और भी कई रोज़मर्रा के पसंदीदा ब्रांड" : "A few of the everyday favourites on our shelves"}</p>
+        <p className="mt-4 text-center text-[9px] font-semibold tracking-[.08em] text-[#a29487]">{isHindi ? "और भी कई पसंदीदा ब्रांड स्टोर में उपलब्ध हैं" : "And many more everyday favourites in store"}</p>
       </section>
 
       <section

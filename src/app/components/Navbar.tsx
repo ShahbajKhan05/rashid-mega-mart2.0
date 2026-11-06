@@ -264,7 +264,7 @@ export default function Navbar() {
                 <a
                   key={cat.id}
                   href={`/products${cat.id !== "all" ? `?category=${cat.id}` : ""}`}
-                  className="flex h-7 shrink-0 items-center gap-1.5 rounded-full border border-white/80 bg-white/55 px-3 text-[10px] font-semibold text-[#514b50] shadow-[0_4px_12px_rgba(72,35,24,0.05)] backdrop-blur-lg transition-colors hover:border-[#d9c5a8] hover:text-[#68162a] active:scale-[0.98]"
+                  className="flex h-7 shrink-0 items-center gap-1.5 rounded-full border border-white/80 bg-white/55 px-3 text-[11px] font-semibold text-[#514b50] shadow-[0_4px_12px_rgba(72,35,24,0.05)] backdrop-blur-lg transition-colors hover:border-[#d9c5a8] hover:text-[#68162a] active:scale-[0.98]"
                 >
                   <Icon size={14} className="text-[#800020]" />
                   {isHindi ? cat.hi : cat.en}
@@ -291,25 +291,25 @@ export default function Navbar() {
             <span className={`flex h-8 w-12 items-center justify-center rounded-2xl transition-colors ${pathname === "/" ? "bg-[#800020]/[0.09]" : ""}`}>
               <House size={20} strokeWidth={pathname === "/" ? 2.5 : 1.8} />
             </span>
-            <span className="text-[10px] font-extrabold tracking-tight">{isHindi ? "होम" : "Home"}</span>
+            <span className="text-[11px] font-extrabold tracking-tight">{isHindi ? "होम" : "Home"}</span>
           </a>
           <a href="/products" aria-current={pathname.startsWith("/products") ? "page" : undefined} className={`group flex h-full min-w-0 flex-col items-center justify-center gap-1 transition-colors ${pathname.startsWith("/products") ? "text-[#800020]" : "text-[#887b73] hover:text-[#800020]"}`}>
             <span className={`flex h-8 w-12 items-center justify-center rounded-2xl transition-colors ${pathname.startsWith("/products") ? "bg-[#800020]/[0.09]" : ""}`}>
               <LayoutGrid size={20} strokeWidth={pathname.startsWith("/products") ? 2.5 : 1.8} />
             </span>
-            <span className="text-[10px] font-extrabold tracking-tight">{isHindi ? "सामान" : "Products"}</span>
+            <span className="text-[11px] font-extrabold tracking-tight">{isHindi ? "सामान" : "Products"}</span>
           </a>
           <a href="/order-tracking" aria-current={pathname.startsWith("/order-tracking") ? "page" : undefined} className={`group flex h-full min-w-0 flex-col items-center justify-center gap-1 transition-colors ${pathname.startsWith("/order-tracking") ? "text-[#800020]" : "text-[#887b73] hover:text-[#800020]"}`}>
             <span className={`flex h-8 w-12 items-center justify-center rounded-2xl transition-colors ${pathname.startsWith("/order-tracking") ? "bg-[#800020]/[0.09]" : ""}`}>
               <Truck size={20} strokeWidth={pathname.startsWith("/order-tracking") ? 2.5 : 1.8} />
             </span>
-            <span className="text-[10px] font-extrabold tracking-tight">{isHindi ? "ट्रैक" : "Track"}</span>
+            <span className="text-[11px] font-extrabold tracking-tight">{isHindi ? "ट्रैक" : "Track"}</span>
           </a>
           <a href="/my-orders" aria-current={pathname.startsWith("/my-orders") ? "page" : undefined} className={`group flex h-full min-w-0 flex-col items-center justify-center gap-1 transition-colors ${pathname.startsWith("/my-orders") ? "text-[#800020]" : "text-[#887b73] hover:text-[#800020]"}`}>
             <span className={`flex h-8 w-12 items-center justify-center rounded-2xl transition-colors ${pathname.startsWith("/my-orders") ? "bg-[#800020]/[0.09]" : ""}`}>
               <Package size={20} strokeWidth={pathname.startsWith("/my-orders") ? 2.5 : 1.8} />
             </span>
-            <span className="text-[10px] font-extrabold tracking-tight">{isHindi ? "मेरे ऑर्डर" : "My Orders"}</span>
+            <span className="text-[11px] font-extrabold tracking-tight">{isHindi ? "मेरे ऑर्डर" : "My Orders"}</span>
           </a>
         </div>
       </nav>

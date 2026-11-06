@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Roboto, Noto_Sans_Devanagari } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "./components/LanguageProvider";
 import AppChrome from "./components/AppChrome";
 import { CartProvider } from "./components/CartProvider";
 import { WishlistProvider } from "./components/WishlistProvider";
 
-const plusJakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-plus-jakarta", display: "swap" });
+const roboto = Roboto({ subsets: ["latin"], weight: ["400", "500", "700", "900"], variable: "--font-roboto", display: "swap" });
+const devanagari = Noto_Sans_Devanagari({ subsets: ["devanagari"], weight: ["400", "500", "700"], variable: "--font-devanagari", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://rashid-mega-mart.vercel.app"),
@@ -20,5 +21,5 @@ export const metadata: Metadata = {
 const storeJsonLd = { "@context": "https://schema.org", "@type": "GroceryStore", name: "Rashid Mega Mart", image: "https://rashid-mega-mart.vercel.app/Logo.png", url: "https://rashid-mega-mart.vercel.app", telephone: "+918962531603", priceRange: "₹₹", address: { "@type": "PostalAddress", streetAddress: "Ghoghar", addressLocality: "Rewa", addressRegion: "Madhya Pradesh", postalCode: "486001", addressCountry: "IN" } };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en" data-scroll-behavior="smooth"><body className={`${plusJakarta.variable} antialiased bg-[#FFFCF0]`}><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(storeJsonLd) }} /><LanguageProvider><CartProvider><WishlistProvider><AppChrome>{children}</AppChrome></WishlistProvider></CartProvider></LanguageProvider></body></html>;
+  return <html lang="en" data-scroll-behavior="smooth"><body className={`${roboto.variable} ${devanagari.variable} antialiased bg-[#FFFCF0]`}><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(storeJsonLd) }} /><LanguageProvider><CartProvider><WishlistProvider><AppChrome>{children}</AppChrome></WishlistProvider></CartProvider></LanguageProvider></body></html>;
 }

@@ -2,6 +2,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import {
@@ -56,9 +57,11 @@ export default function Navbar() {
   const isHindi = language === "hi";
 
   useEffect(() => {
-    const saved = localStorage.getItem("rmm_location");
-    if (saved) setSelectedLocation(saved);
-
+    const timer = window.setTimeout(() => {
+      const saved = localStorage.getItem("rmm_location");
+      if (saved) setSelectedLocation(saved);
+    }, 0);
+    return () => window.clearTimeout(timer);
   }, []);
 
   const handleLiveLocation = () => {
@@ -78,11 +81,11 @@ export default function Navbar() {
           const suburb = data.address.suburb || data.address.neighbourhood || "";
           const state = data.address.state || "";
 
-          let finalAddress = suburb && city ? `${suburb}, ${city}` : city ? `${city}, ${state}` : data.display_name.split(",").slice(0, 2).join(",");
+          const finalAddress = suburb && city ? `${suburb}, ${city}` : city ? `${city}, ${state}` : data.display_name.split(",").slice(0, 2).join(",");
           setSelectedLocation(finalAddress);
           localStorage.setItem("rmm_location", finalAddress);
           setLocationModalOpen(false);
-        } catch (error) {
+        } catch {
           setLocationError("Could not fetch address.");
         } finally {
           setIsLocating(false);
@@ -158,13 +161,13 @@ export default function Navbar() {
             ========================================= */}
         <div className="mx-auto hidden h-[76px] max-w-[1440px] items-center justify-between gap-3 px-4 xl:px-6 xl:flex">
           <div className="flex items-center gap-3">
-            <a href="/" className="flex items-center gap-2 shrink-0">
+            <Link href="/" className="flex items-center gap-2 shrink-0">
               <Image src="/Logo.png" alt="Logo" width={40} height={40} className="h-10 w-10 object-contain" />
               <div className="flex flex-col">
                 <span className="text-[19px] font-extrabold leading-none tracking-[-0.045em] text-[#5a1023]">Rashid</span>
                 <span className="text-[9px] font-bold tracking-[0.28em] text-[#a77b3e]">MEGA MART</span>
               </div>
-            </a>
+            </Link>
             <button
               onClick={() => setLocationModalOpen(true)}
               className="flex shrink-0 items-center gap-2 rounded-xl border border-[#eee5d8] bg-white/75 px-3.5 py-2 transition hover:border-[#d7c4a5] hover:bg-white"
@@ -194,7 +197,7 @@ export default function Navbar() {
 
           <div className="flex items-center gap-3">
             <nav className="flex items-center gap-1.5">
-              <motion.a href="/" className="nav-glass-link rounded-lg px-3 py-2 text-[13px] font-semibold tracking-[-0.01em] text-[#65574f] hover:bg-white/35 hover:text-[#68162a]" whileHover={{ y: -2, scale: 1.025 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 420, damping: 28 }}>{isHindi ? "होम" : "Home"}</motion.a>
+              <Link href="/" className="nav-glass-link rounded-lg px-3 py-2 text-[13px] font-semibold tracking-[-0.01em] text-[#65574f] hover:bg-white/35 hover:text-[#68162a]">{isHindi ? "होम" : "Home"}</Link>
               <motion.a href="/products" className="nav-glass-link rounded-full px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-white/40 hover:text-[#800020]" whileHover={{ y: -2, scale: 1.025 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 420, damping: 28 }}>{isHindi ? "सामान" : "Products"}</motion.a>
               
               <motion.a href="/order-tracking" className="nav-glass-link rounded-full px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-white/40 hover:text-[#800020]" whileHover={{ y: -2, scale: 1.025 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 420, damping: 28 }}>{isHindi ? "ऑर्डर ट्रैक करें" : "Track Order"}</motion.a>
@@ -214,9 +217,9 @@ export default function Navbar() {
         {/* COMPACT MOBILE HEADER */}
         <div className="flex flex-col gap-1.5 px-3 pb-1.5 pt-1.5 xl:hidden">
           <div className="relative flex h-9 items-center justify-between">
-            <a href="/" aria-label="Rashid Mega Mart home" className="relative z-10 flex h-9 w-10 shrink-0 items-center justify-start">
+            <Link href="/" aria-label="Rashid Mega Mart home" className="relative z-10 flex h-9 w-10 shrink-0 items-center justify-start">
               <Image src="/Logo.png" alt="Rashid Mega Mart" width={34} height={34} className="h-[34px] w-[34px] object-contain" />
-            </a>
+            </Link>
             <motion.span
               aria-label="Rashid Mega Mart"
               className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-[15px] font-extrabold tracking-[-0.035em] text-[#5a1023]"

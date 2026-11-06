@@ -5,6 +5,9 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 import { ArrowRight, Check, Heart, ShoppingBasket } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 import { useCart } from "./CartProvider";

@@ -207,7 +207,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
               <div className="flex items-center justify-between border-b border-[#800020]/10 bg-white p-4 sm:p-5">
                 <div>
                   <h2 className="text-xl font-black text-[#30251F]">{isHindi ? "आपका कार्ट" : "Your Cart"}</h2>
-                  <p className="mt-0.5 text-xs font-medium text-[#76665C]">{cartCount} {isHindi ? "आइटम" : "items"} • {isHindi ? "डिलीवरी चार्ज इलाके के अनुसार कन्फर्म होंगे" : "Delivery charges confirmed for your area"}</p>
+                  <p className="mt-0.5 text-xs font-medium text-[#76665C]">{cartCount} {isHindi ? "आइटम" : "items"} • {isHindi ? "डिलीवरी की जानकारी बाकी है" : "Delivery details pending"}</p>
                 </div>
                 <button onClick={() => setCartOpen(false)} className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition hover:bg-[#800020]/10 hover:text-[#800020]">
                   <X size={20} />

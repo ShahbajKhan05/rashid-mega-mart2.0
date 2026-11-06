@@ -540,3 +540,19 @@ select,
 textarea {
   font-family: var(--font-roboto), var(--font-devanagari), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
+
+
+/* Product shopping accessibility: clear keyboard focus and comfortable controls. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid #800020;
+  outline-offset: 3px;
+}
+:where(button, a) {
+  -webkit-tap-highlight-color: transparent;
+}
+@media (prefers-reduced-motion: reduce) {
+  :where(a, button, input, select, textarea) {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}

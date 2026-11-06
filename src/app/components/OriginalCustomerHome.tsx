@@ -16,7 +16,7 @@ import ShoppingProductRail from "./ShoppingProductRail";
 
 export default function OriginalCustomerHome() {
   const { language } = useLanguage();
-  const { addToCart, cartCount, cartTotal, openCart } = useCart();
+  const { addToCart } = useCart();
   const isHindi = language === "hi";
   const [promoCopied, setPromoCopied] = useState(false);
   const [promoTimeLeft, setPromoTimeLeft] = useState({days:0,hours:0,minutes:0,seconds:0,expired:false});
@@ -228,7 +228,7 @@ export default function OriginalCustomerHome() {
         </div>
       </section>
 
-      {cartCount > 0 && <div className="fixed inset-x-2 bottom-[72px] z-[65] mx-auto max-w-xl xl:bottom-5 xl:left-auto xl:right-5 xl:mx-0 xl:w-[min(360px,calc(100vw-40px))]"><button type="button" onClick={openCart} className="flex min-h-[48px] w-full items-center justify-between rounded-2xl border border-white/70 bg-[#800020] px-4 text-white shadow-[0_10px_35px_rgba(75,15,35,.28)] transition hover:bg-[#64152b] active:scale-[.99]"><span className="flex items-center gap-2"><span className="grid h-7 w-7 place-items-center rounded-full bg-white/15"><ShoppingCart size={15}/></span><span className="text-left"><span className="block text-[11px] font-black">{isHindi ? "कार्ट देखें" : "View cart"} · {cartCount} {isHindi ? "आइटम" : "items"}</span><span className="block text-[9px] text-white/75">{isHindi ? "आपकी खरीदारी जारी रखें" : "Your shopping is saved here"}</span></span></span><span className="flex items-center gap-1 text-sm font-black">₹{cartTotal.toLocaleString("en-IN")} <ArrowRight size={15}/></span></button></div>}
+
       <NetworkSection language={language} />
 
       <HelpCenterFAQ language={language} />

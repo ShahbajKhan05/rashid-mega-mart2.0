@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
-import { Search, ChevronDown, MessageCircle, ThumbsUp, ThumbsDown, Sparkles, ShoppingBag, Truck, CreditCard, Gift, RotateCcw, CircleHelp } from "lucide-react";
+import { Search, ChevronDown, ThumbsUp, ThumbsDown, Sparkles, ShoppingBag, Truck, CreditCard, Gift, RotateCcw, CircleHelp } from "lucide-react";
 
 type Language = "en" | "hi";
 type FAQ = { category: string; question: string; answer: string; questionHi: string; answerHi: string };

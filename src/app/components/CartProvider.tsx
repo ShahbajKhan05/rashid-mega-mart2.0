@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { createContext, useContext, useMemo, useState, useEffect, type ReactNode } from "react";
-import { ShoppingCart, Clock, Receipt, MapPin, Trash2, ShieldCheck, ArrowRight, X, Plus } from "lucide-react";
+import { ShoppingCart, Clock, MapPin, Trash2, ShieldCheck, ArrowRight, X, Plus } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 import { motion, AnimatePresence } from "motion/react";
 import { products } from "./data"; 

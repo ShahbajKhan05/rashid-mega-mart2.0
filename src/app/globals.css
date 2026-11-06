@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-apple);
+  --font-sans: var(--font-roboto);
   --font-weight-medium: 500;
   --font-weight-semibold: 550;
   --font-weight-bold: 600;
@@ -13,7 +13,7 @@
 }
 
 :root {
- --font-apple: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+ --font-apple: var(--font-roboto), var(--font-devanagari), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
  --burgundy: #800020;
  --cream: #fff9d8;
  --gold: #d4a84f;
@@ -284,7 +284,7 @@ html {
 .rm-admin-field{height:54px;display:flex;align-items:center;gap:12px;padding:0 15px;border:1px solid #eee5e2;border-radius:12px;background:#fff;transition:border-color .2s,box-shadow .2s,transform .2s}
 .rm-admin-field:focus-within{border-color:rgba(128,0,32,.48);box-shadow:0 0 0 4px rgba(128,0,32,.06);transform:translateY(-1px)}
 .rm-admin-field>svg{width:19px;height:19px;flex:none;fill:none;stroke:#9a858a;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-.rm-admin-field input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:#38252d;font:500 14px var(--font-plus-jakarta),sans-serif}
+.rm-admin-field input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:#38252d;font:500 14px var(--font-roboto),sans-serif}
 .rm-admin-field input::placeholder{color:#b0a5a7;font-weight:500}
 .rm-admin-toggle{padding:6px 0;border:0;background:transparent;color:var(--rm-maroon);font-size:9px;font-weight:700;letter-spacing:.08em;cursor:pointer}
 .rm-admin-submit{height:54px;display:flex;align-items:center;justify-content:center;gap:13px;margin-top:13px;border:0;border-radius:12px;color:#fff;background:linear-gradient(105deg,#92002b,#650019);box-shadow:0 10px 20px rgba(128,0,32,.17);font:650 14px var(--font-plus-jakarta),sans-serif;cursor:pointer;transition:transform .2s,box-shadow .2s,filter .2s}
@@ -525,4 +525,18 @@ input, select, textarea {
 }
 @supports not (overflow: clip) {
   html, body { overflow-x: hidden; }
+}
+
+
+/* Global iOS-inspired typography: Roboto Latin + native-quality Devanagari fallback. */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+body,
+button,
+input,
+select,
+textarea {
+  font-family: var(--font-roboto), var(--font-devanagari), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }

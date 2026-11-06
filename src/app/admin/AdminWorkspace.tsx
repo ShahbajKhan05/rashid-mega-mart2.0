@@ -6,16 +6,15 @@ import LoyaltyAdmin from "./LoyaltyAdmin";
 import CouponAdmin from "./CouponAdmin";
 import AdminCoreManager from "./AdminCoreManager";
 import {
-  Activity, Bell, Boxes, ChevronDown, ChevronRight, CircleHelp, ClipboardList,
-  CreditCard, Download, LayoutDashboard, Package, Plus, Search, Settings2,
-  ShoppingBag, Sparkles, Tag, Users, Wallet, X,
+  Activity, Boxes, ChevronRight, CircleHelp, CreditCard, LayoutDashboard,
+  Package, Plus, Search, Settings2, ShoppingBag, Tag, Users, X,
 } from "lucide-react";
 
 type Section = "overview" | "orders" | "products" | "customers" | "coupons" | "loyalty" | "monthly-kit" | "settings";
 
-const navigation: { id: Section; label: string; icon: typeof LayoutDashboard; hint?: string }[] = [
+const navigation: { id: Section; label: string; icon: typeof LayoutDashboard }[] = [
   { id: "overview", label: "Overview", icon: LayoutDashboard },
-  { id: "orders", label: "Orders", icon: ShoppingBag, hint: "8" },
+  { id: "orders", label: "Orders", icon: ShoppingBag },
   { id: "products", label: "Products", icon: Package },
   { id: "customers", label: "Customers", icon: Users },
   { id: "coupons", label: "Coupons", icon: Tag },
@@ -77,7 +76,7 @@ function MonthlyKit() {
       <div className="mt-3 divide-y divide-[#f1ebe4]">{kitItems.map((item,index)=><div key={index} className="flex items-center gap-3 py-3"><div className="min-w-0 flex-1"><p className="truncate text-xs font-extrabold text-[#49383d]">{item.name}</p><p className="mt-1 text-[10px] text-[#a1948e]">{item.qty}</p></div><p className="text-xs font-bold text-[#49383d]">{money(item.price)}</p><button onClick={()=>setKitItems(items=>items.filter((_,i)=>i!==index))} aria-label={`Remove ${item.name}`} className="rounded-lg p-2 text-[#b6aaa4] hover:bg-rose-50 hover:text-rose-600"><X size={14}/></button></div>)}</div>
       {!kitItems.length&&<p className="mt-3 rounded-xl border border-dashed border-[#e8ded4] px-4 py-8 text-center text-xs text-[#9b8d88]">No kit items added yet.</p>}
       <div className="mt-5 rounded-xl bg-[#fff8e9] px-4 py-3 text-[10px] leading-5 text-[#806c48]">Draft only — saving and customer subscriptions will be enabled after backend integration.</div>
-      <button disabled={!kitName.trim()||Number(price)<=0} className="mt-4 h-11 cursor-not-allowed rounded-xl bg-[#800020]/50 px-5 text-xs font-extrabold text-white">Save kit (backend pending)</button>
+      
     </section>:<section className="mt-5 rounded-2xl border border-dashed border-[#e8ded4] bg-white/70 px-4 py-12 text-center"><p className="text-sm font-extrabold text-[#49383d]">No delivery records</p><p className="mt-1 text-xs text-[#9b8d88]">Actual kit deliveries will appear here after backend integration.</p></section>}
   </>;
 }

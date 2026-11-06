@@ -7,7 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
-import { ArrowRight, ShoppingCart, Truck, Package, Layers3, MapPin } from "lucide-react";
+import { ArrowRight, ShoppingCart, Truck, Package, Layers3, MapPin, Sparkles } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 import { categoryOptions, products } from "./data";
 import { useCart } from "./CartProvider";

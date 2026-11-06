@@ -4,6 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 import { ArrowRight, ShoppingCart, Truck } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 import { categoryOptions, products } from "./data";
@@ -25,6 +28,7 @@ export default function OriginalCustomerHome() {
   const promoLogoRef = useRef<HTMLImageElement>(null);
   const promoLettersRef = useRef<HTMLSpanElement>(null);
   const entranceRef = useRef<HTMLElement>(null);
+  const shopMotionRef = useRef<HTMLElement>(null);
   const entranceTitleRef = useRef<HTMLHeadingElement>(null);
   const deliveryBadgeRef = useRef<HTMLDivElement>(null);
 
@@ -63,6 +67,31 @@ export default function OriginalCustomerHome() {
     return () => context.revert();
   }, []);
   useEffect(() => {
+    const root = shopMotionRef.current;
+    if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const context = gsap.context(() => {
+      gsap.utils.toArray<HTMLElement>("[data-shop-section]").forEach((section) => {
+        gsap.fromTo(section, { y: 26, autoAlpha: 0 }, {
+          y: 0, autoAlpha: 1, duration: .72, ease: "power3.out",
+          scrollTrigger: { trigger: section, start: "top 88%", once: true },
+        });
+      });
+      gsap.utils.toArray<HTMLElement>("[data-home-category]").forEach((card) => {
+        gsap.fromTo(card, { y: 20, scale: .96, autoAlpha: 0 }, {
+          y: 0, scale: 1, autoAlpha: 1, duration: .58, ease: "power3.out",
+          scrollTrigger: { trigger: card, start: "top 92%", once: true },
+        });
+      });
+      gsap.utils.toArray<HTMLElement>("[data-home-product]").forEach((card) => {
+        gsap.fromTo(card, { y: 18, autoAlpha: 0 }, {
+          y: 0, autoAlpha: 1, duration: .5, ease: "power2.out",
+          scrollTrigger: { trigger: card, start: "top 94%", once: true },
+        });
+      });
+    }, root);
+    return () => context.revert();
+  }, []);
+  useEffect(() => {
     const section = entranceRef.current;
     const title = entranceTitleRef.current;
     const badge = deliveryBadgeRef.current;
@@ -89,7 +118,7 @@ export default function OriginalCustomerHome() {
   const popularPicks = [...products].sort((a, b) => b.rating - a.rating).slice(0, 8);
 
   return (
-    <main className="overflow-clip bg-[#fff7f4] pb-24 font-[var(--font-roboto)] text-[#30251F]">
+    <main ref={shopMotionRef} className="overflow-clip bg-[#fff7f4] pb-24 font-[var(--font-roboto)] text-[#30251F]">
       <div
         ref={promoBarRef}
         role="region"
@@ -161,7 +190,7 @@ export default function OriginalCustomerHome() {
 
       <BrandMarquee language={language} />
 
-      <section id="categories" aria-label="Shop products by category" className="bg-transparent px-3 py-5 sm:px-6 sm:py-8">
+      <section id="categories" data-shop-section aria-label="Shop products by category" className="bg-transparent px-3 py-5 sm:px-6 sm:py-8">
         <div className="mx-auto max-w-[1240px]">
           <div className="mb-4 text-center sm:mb-5">
             <p className="text-[9px] font-black uppercase tracking-[.2em] text-[#A47A2C]">YOUR EVERYDAY STORE</p>
@@ -173,7 +202,7 @@ export default function OriginalCustomerHome() {
             {shopCategories.map((category) => {
               const categoryProducts = products.filter((product) => product.category === category.id);
               return (
-                <section key={category.id} aria-labelledby={"category-" + category.id} className="min-w-0">
+                <section data-home-category key={category.id} aria-labelledby={"category-" + category.id} className="min-w-0">
                   <div className="mb-2.5 flex items-center justify-between gap-2">
                     <div className="min-w-0">
                       <h3 id={"category-" + category.id} className="truncate text-[15px] font-black leading-tight tracking-[-.04em] text-[#30251F] sm:text-lg">{isHindi ? category.hi : category.en}</h3>
@@ -186,7 +215,7 @@ export default function OriginalCustomerHome() {
                     {categoryProducts.slice(0, 8).map((product) => {
                       const discount = product.originalPrice > product.price ? Math.round((1 - product.price / product.originalPrice) * 100) : 0;
                       return (
-                        <article key={product.id} className="group w-[148px] shrink-0 snap-start overflow-hidden rounded-[13px] border border-[#eee5d8] bg-white shadow-[0_3px_12px_rgba(68,45,27,.045)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(68,45,27,.09)] sm:w-[190px] sm:rounded-[16px]">
+                        <article data-home-product key={product.id} className="group w-[148px] shrink-0 snap-start overflow-hidden rounded-[13px] border border-[#eee5d8] bg-white shadow-[0_3px_12px_rgba(68,45,27,.045)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(68,45,27,.09)] sm:w-[190px] sm:rounded-[16px]">
                           <Link href={"/products/" + (product.slug || product.id)} aria-label={isHindi ? product.nameHi : product.name} className="relative flex h-[105px] items-center justify-center overflow-hidden bg-[linear-gradient(145deg,#fffdf7,#f7f0e4)] p-3 sm:h-[142px] sm:p-4">
                             {discount > 0 && <span className="absolute left-2 top-2 z-10 rounded-full bg-[#800020] px-1.5 py-1 text-[7px] font-black text-white sm:text-[8px]">{discount}% OFF</span>}
                             <Image src={product.image} alt={isHindi ? product.nameHi : product.name} width={360} height={360} loading="lazy" sizes="(max-width: 639px) 148px, 190px" className="h-full w-full object-contain mix-blend-multiply transition duration-500 group-hover:scale-105"/>
@@ -212,7 +241,7 @@ export default function OriginalCustomerHome() {
         </div>
       </section>
 
-      <section id="deals" className="bg-transparent px-3 py-5 sm:px-6 sm:py-8" aria-label={isHindi ? "आज की बचत" : "Best deals"}>
+      <section id="deals" data-shop-section className="bg-transparent px-3 py-5 sm:px-6 sm:py-8" aria-label={isHindi ? "आज की बचत" : "Best deals"}>
         <div className="mx-auto max-w-[1240px]">
           <div className="mb-3 flex items-end justify-between gap-3"><div><p className="text-[9px] font-black uppercase tracking-[.18em] text-[#a47a2c]">{isHindi ? "आज की खास बचत" : "TODAY'S BEST OFFERS"}</p><h2 className="mt-1 text-[21px] font-black leading-tight tracking-[-.05em] text-[#800020] sm:text-3xl">{isHindi ? "कम दाम, ज़्यादा बचत" : "Best deals for your home"}</h2><p className="mt-1 text-[10px] text-[#817166] sm:text-xs">{isHindi ? "ऑफर वाले सामान सीधे कार्ट में जोड़ें।" : "Real product discounts. Add your favourites in one tap."}</p></div><Link href="/products" className="mb-1 inline-flex shrink-0 items-center gap-1 text-[10px] font-black text-[#800020]">{isHindi ? "सभी ऑफर" : "All deals"} <ArrowRight size={13}/></Link></div>
           <ShoppingProductRail items={bestDeals} language={language} />

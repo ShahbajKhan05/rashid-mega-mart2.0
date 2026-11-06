@@ -81,18 +81,16 @@ export default function OriginalCustomerHome() {
         });
       });
       const stats = gsap.utils.toArray<HTMLElement>("[data-store-stat]");
-      gsap.fromTo(stats, { y: 34, scale: .88, autoAlpha: 0, rotateX: -12 }, {
-        y: 0, scale: 1, autoAlpha: 1, rotateX: 0, duration: .85, stagger: .16,
-        ease: "back.out(1.7)", clearProps: "transform",
-        scrollTrigger: { trigger: stats[0]?.parentElement, start: "top 88%", once: true },
+      gsap.fromTo(stats, { y: 18, autoAlpha: 0 }, {
+        y: 0, autoAlpha: 1, duration: .55, stagger: .12,
+        ease: "power2.out", clearProps: "transform",
+        scrollTrigger: { trigger: stats[0]?.parentElement, start: "top 92%", once: true },
       });
       stats.forEach((card) => {
         const icon = card.querySelector<HTMLElement>("[data-stat-icon]");
-        const shine = card.querySelector<HTMLElement>("[data-stat-shine]");
-        if (icon) gsap.to(icon, { y: -3, scale: 1.09, duration: 1.15, ease: "sine.inOut", yoyo: true, repeat: -1, delay: .35 });
-        if (shine) gsap.fromTo(shine, { xPercent: -150, autoAlpha: 0 }, {
-          xPercent: 180, autoAlpha: .75, duration: 1.1, ease: "power2.inOut",
-          repeat: -1, repeatDelay: 3.8, delay: .8,
+        if (icon) gsap.fromTo(icon, { scale: .82, autoAlpha: .65 }, {
+          scale: 1, autoAlpha: 1, duration: .45, ease: "back.out(1.5)",
+          scrollTrigger: { trigger: card, start: "top 92%", once: true },
         });
       });
     }, root);
@@ -191,22 +189,29 @@ export default function OriginalCustomerHome() {
         </div>
       </section>
 
-      <section aria-label="Why shop with Rashid Mega Mart" className="relative overflow-hidden border-y border-[#eadfce] bg-[linear-gradient(110deg,#fffaf4_0%,#fff_48%,#fff8f0_100%)] px-3 py-3.5 sm:px-6 sm:py-5">
-        <div className="pointer-events-none absolute -right-12 -top-16 h-36 w-36 rounded-full bg-[#ead5b5]/25 blur-3xl" />
-        <div className="relative mx-auto grid max-w-[1100px] grid-cols-3 gap-1.5 sm:gap-3">
-          <div data-store-stat className="group relative isolate flex min-w-0 flex-col items-center justify-center gap-1.5 overflow-hidden rounded-xl border border-[#ead9c5] bg-white/90 px-1 py-3 text-center shadow-[0_6px_20px_rgba(85,48,25,.07)] transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-[#c9a66b] hover:shadow-[0_14px_30px_rgba(85,48,25,.13)] active:scale-[.97] sm:flex-row sm:justify-start sm:gap-3 sm:rounded-2xl sm:px-4 sm:py-3.5 sm:text-left">
-            <span data-stat-shine aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-[#f4dfbd]/70 to-transparent opacity-0" />
-            <span data-stat-icon className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-[#f8eee7] text-[#800020] transition-colors duration-300 group-hover:bg-[#800020] group-hover:text-white sm:h-10 sm:w-10 sm:rounded-xl"><Package size={17} strokeWidth={1.8}/></span>
-            <div className="min-w-0"><p className="text-[16px] font-black leading-none tracking-[-.05em] text-[#800020] sm:text-2xl">{products.length}+</p><p className="mt-1 text-[8px] font-bold leading-tight text-[#65564c] sm:text-[11px]"><span className="sm:hidden">Products</span><span className="hidden sm:inline">Products listed</span></p><p className="mt-0.5 hidden text-[9px] text-[#a08d7e] sm:block">Everyday essentials</p></div>
+      <section aria-label="Why shop with Rashid Mega Mart" className="relative overflow-hidden border-y border-[#eadfce] bg-[linear-gradient(110deg,#fffaf4_0%,#fff_48%,#fff8f0_100%)] px-3 py-3 sm:px-6 sm:py-5">
+        <div className="pointer-events-none absolute -right-12 -top-16 h-36 w-36 rounded-full bg-[#ead5b5]/20 blur-3xl" />
+        <div className="relative mx-auto max-w-[1100px]">
+          <div className="mb-2.5 flex items-center justify-between gap-2 sm:mb-3">
+            <div>
+              <h2 className="text-[12px] font-black tracking-[-.025em] text-[#800020] sm:text-base">{isHindi ? "राशिद मेगा मार्ट में खरीदारी आसान" : "Shopping made simple"}</h2>
+              <p className="mt-0.5 text-[9px] leading-tight text-[#817166] sm:text-[11px]">{isHindi ? "ज़रूरी जानकारी, एक नज़र में" : "Everything you need to know, at a glance"}</p>
+            </div>
+            <span className="shrink-0 rounded-full border border-[#e7d6bd] bg-white/80 px-2 py-1 text-[8px] font-bold text-[#8b6b43] sm:text-[9px]">{isHindi ? "हमारे बारे में" : "AT A GLANCE"}</span>
           </div>
-          <div data-store-stat className="group relative isolate flex min-w-0 flex-col items-center justify-center gap-1.5 overflow-hidden rounded-xl border border-[#ead9c5] bg-white/90 px-1 py-3 text-center shadow-[0_6px_20px_rgba(85,48,25,.07)] transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-[#c9a66b] hover:shadow-[0_14px_30px_rgba(85,48,25,.13)] active:scale-[.97] sm:flex-row sm:justify-start sm:gap-3 sm:rounded-2xl sm:px-4 sm:py-3.5 sm:text-left">
-            <span data-stat-shine aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-0 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-[#f4dfbd]/70 to-transparent opacity-0" />
-            <span data-stat-icon className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-[#f8eee7] text-[#800020] transition-colors duration-300 group-hover:bg-[#800020] group-hover:text-white sm:h-10 sm:w-10 sm:rounded-xl"><Layers3 size={17} strokeWidth={1.8}/></span>
-            <div className="min-w-0"><p className="text-[16px] font-black leading-none tracking-[-.05em] text-[#800020] sm:text-2xl">{shopCategories.length}+</p><p className="mt-1 text-[8px] font-bold leading-tight text-[#65564c] sm:text-[11px]"><span className="sm:hidden">Categories</span><span className="hidden sm:inline">Shopping categories</span></p><p className="mt-0.5 hidden text-[9px] text-[#a08d7e] sm:block">Find it your way</p></div>
-          </div>
-          <div data-store-stat className="group relative isolate flex min-w-0 flex-col items-center justify-center gap-1.5 overflow-hidden rounded-xl border border-[#ead9c5] bg-white/90 px-1 py-3 text-center shadow-[0_6px_20px_rgba(85,48,25,.07)] transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 hover:border-[#c9a66b] hover:shadow-[0_14px_30px_rgba(85,48,25,.13)] active:scale-[.97] sm:flex-row sm:justify-start sm:gap-3 sm:rounded-2xl sm:px-4 sm:py-3.5 sm:text-left">
-            <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-[#f8eee7] text-[#800020] sm:h-10 sm:w-10 sm:rounded-xl"><MapPin size={17} strokeWidth={1.8}/></span>
-            <div className="min-w-0"><p className="text-[11px] font-black leading-tight tracking-[-.035em] text-[#800020] sm:text-lg"><span className="sm:hidden">By area</span><span className="hidden sm:inline">Area-based</span></p><p className="mt-1 text-[8px] font-bold leading-tight text-[#65564c] sm:text-[11px]"><span className="sm:hidden">Delivery by area</span><span className="hidden sm:inline">Delivery details</span></p><p className="mt-0.5 hidden text-[9px] text-[#a08d7e] sm:block">Checked for your area</p></div>
+          <div className="grid grid-cols-3 gap-2 sm:gap-3">
+            <div data-store-stat className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl border border-[#ead9c5] bg-white/95 px-1.5 py-2.5 text-center shadow-[0_3px_12px_rgba(85,48,25,.045)] transition duration-200 hover:-translate-y-0.5 hover:border-[#c9a66b] hover:shadow-[0_8px_18px_rgba(85,48,25,.09)] active:scale-[.98] sm:flex-row sm:justify-start sm:gap-3 sm:rounded-2xl sm:px-4 sm:py-3.5 sm:text-left">
+              <span data-stat-icon className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-[#f8eee7] text-[#800020] sm:h-10 sm:w-10 sm:rounded-xl"><Package size={16} strokeWidth={1.9}/></span>
+              <div className="min-w-0"><p className="text-[17px] font-black leading-none tracking-[-.05em] text-[#800020] sm:text-2xl">{products.length}+</p><p className="mt-1 text-[8px] font-extrabold leading-tight text-[#55463c] sm:text-[11px]">{isHindi ? "प्रोडक्ट" : "Products"}</p><p className="mt-1 text-[7px] leading-tight text-[#88786d] sm:text-[9px]">{isHindi ? "रोज़मर्रा का सामान" : "Daily-use essentials"}</p></div>
+            </div>
+            <div data-store-stat className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl border border-[#ead9c5] bg-white/95 px-1.5 py-2.5 text-center shadow-[0_3px_12px_rgba(85,48,25,.045)] transition duration-200 hover:-translate-y-0.5 hover:border-[#c9a66b] hover:shadow-[0_8px_18px_rgba(85,48,25,.09)] active:scale-[.98] sm:flex-row sm:justify-start sm:gap-3 sm:rounded-2xl sm:px-4 sm:py-3.5 sm:text-left">
+              <span data-stat-icon className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-[#f8eee7] text-[#800020] sm:h-10 sm:w-10 sm:rounded-xl"><Layers3 size={16} strokeWidth={1.9}/></span>
+              <div className="min-w-0"><p className="text-[17px] font-black leading-none tracking-[-.05em] text-[#800020] sm:text-2xl">{shopCategories.length}+</p><p className="mt-1 text-[8px] font-extrabold leading-tight text-[#55463c] sm:text-[11px]">{isHindi ? "कैटेगरी" : "Categories"}</p><p className="mt-1 text-[7px] leading-tight text-[#88786d] sm:text-[9px]">{isHindi ? "आसानी से चुनें" : "Browse by type"}</p></div>
+            </div>
+            <div data-store-stat className="group flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl border border-[#ead9c5] bg-white/95 px-1.5 py-2.5 text-center shadow-[0_3px_12px_rgba(85,48,25,.045)] transition duration-200 hover:-translate-y-0.5 hover:border-[#c9a66b] hover:shadow-[0_8px_18px_rgba(85,48,25,.09)] active:scale-[.98] sm:flex-row sm:justify-start sm:gap-3 sm:rounded-2xl sm:px-4 sm:py-3.5 sm:text-left">
+              <span data-stat-icon className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-[#f8eee7] text-[#800020] sm:h-10 sm:w-10 sm:rounded-xl"><MapPin size={16} strokeWidth={1.9}/></span>
+              <div className="min-w-0"><p className="text-[10px] font-black leading-tight text-[#800020] sm:text-lg">{isHindi ? "इलाके के अनुसार" : "By area"}</p><p className="mt-1 text-[8px] font-extrabold leading-tight text-[#55463c] sm:text-[11px]">{isHindi ? "डिलीवरी" : "Delivery"}</p><p className="mt-1 text-[7px] leading-tight text-[#88786d] sm:text-[9px]">{isHindi ? "चार्ज और समय पहले कन्फर्म" : "Time & charges confirmed first"}</p></div>
+            </div>
           </div>
         </div>
       </section>

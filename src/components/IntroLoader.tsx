@@ -71,7 +71,7 @@ export default function IntroLoader() {
   return (
     <div
       ref={rootRef}
-      className="pointer-events-none fixed bottom-[calc(88px+env(safe-area-inset-bottom))] right-3 z-[9999] flex translate-x-0 flex-row-reverse items-center gap-3 rounded-2xl border border-[#e9d9b9] bg-[#fffdf7] px-3.5 py-3 opacity-100 shadow-[0_16px_48px_rgba(49,28,17,.24)] sm:bottom-6 sm:right-6 sm:gap-4 sm:px-4 sm:py-3.5"
+      className="pointer-events-none fixed top-[calc(88px+env(safe-area-inset-top))] left-1/2 right-auto z-[70] flex -translate-x-1/2 flex-row items-center gap-3 rounded-2xl border border-[#e9d9b9] bg-[#fffdf7] px-3.5 py-3 opacity-100 shadow-[0_16px_48px_rgba(49,28,17,.24)] sm:top-24 sm:gap-4 sm:px-4 sm:py-3.5"
       role="status"
       aria-live="polite"
       aria-label="Rashid Mega Mart loading"
@@ -85,7 +85,7 @@ export default function IntroLoader() {
       </div>
       <div ref={copyRef} className="min-w-[132px] sm:min-w-[150px]">
         <p className="text-[11px] font-black uppercase tracking-[.1em] text-[#5a1023]">Rashid Mega Mart</p>
-        <p className="mt-1 text-[10px] font-semibold text-[#806e5c]">Freshness is loading…</p>
+        <p className="mt-1 text-[10px] font-semibold text-[#806e5c]">Getting your store ready…</p>
         <span className="mt-2 block h-1 w-full overflow-hidden rounded-full bg-[#eadfce]">
           <span ref={progressRef} className="block h-full w-full origin-left scale-x-0 rounded-full bg-gradient-to-r from-[#800020] via-[#a65b42] to-[#d9ad50]" />
         </span>

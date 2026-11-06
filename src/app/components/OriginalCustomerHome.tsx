@@ -215,28 +215,25 @@ export default function OriginalCustomerHome() {
       </section>
 
       <section data-shop-section aria-label={isHindi ? "मंथली ग्रॉसरी किट्स" : "Monthly grocery kits"} className="relative isolate overflow-hidden bg-[#fffaf2] px-3 py-5 sm:px-6 sm:py-8">
-        <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-20 h-64 w-64 rounded-full bg-[#e7c98f]/30 blur-3xl" />
-        <div className="relative mx-auto max-w-[1240px] overflow-hidden rounded-[22px] border border-[#d9bd8b] bg-[linear-gradient(112deg,#fff 0%,#fff9ed 52%,#f5e7ce 100%)] shadow-[0_12px_34px_rgba(83,48,25,.09)] sm:rounded-[28px]">
-          <div className="grid grid-cols-[minmax(0,1fr)_112px] items-center gap-2.5 p-3 sm:grid-cols-[minmax(0,1fr)_minmax(240px,34%)] sm:gap-7 sm:p-7">
-            <div className="min-w-0">
-              <div className="flex items-center gap-2 sm:gap-4">
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#800020] text-[#f6d99d] shadow-[0_8px_20px_rgba(128,0,32,.2)] sm:h-14 sm:w-14 sm:rounded-2xl"><Package size={23} strokeWidth={1.8}/></span>
-                <span className="inline-flex rounded-full border border-[#d8bd8e] bg-white/85 px-2 py-1 text-[7px] font-black uppercase tracking-[.13em] text-[#8b672f] sm:px-2.5 sm:text-[9px]">{isHindi ? "स्मार्ट शॉपिंग का आसान तरीका" : "A SMARTER WAY TO SHOP"}</span>
-              </div>
-              <h2 className="mt-3 text-[19px] font-black leading-[1.05] tracking-[-.055em] text-[#800020] sm:mt-4 sm:text-[clamp(1.7rem,3vw,2.5rem)]">{isHindi ? "मंथली ग्रॉसरी किट्स" : "Monthly grocery kits"}</h2>
-              <p className="mt-1.5 max-w-[560px] text-[9px] leading-relaxed text-[#756354] sm:text-[13px]">{isHindi ? "अपना बजट चुनें, किट के सामान की जानकारी देखें और अपनी ज़रूरत के हिसाब से चुनें।" : "Choose a budget, explore what’s included and find a kit that fits your monthly shopping."}</p>
-              <div className="mt-2.5 flex flex-wrap gap-1 sm:mt-3 sm:gap-1.5">
-                <span className="rounded-full border border-[#e5d4b8] bg-white/85 px-2 py-1 text-[7px] font-bold text-[#73583a] sm:px-2.5 sm:text-[9px]">{isHindi ? "बजट के अनुसार" : "By budget"}</span>
-                <span className="rounded-full border border-[#e5d4b8] bg-white/85 px-2 py-1 text-[7px] font-bold text-[#73583a] sm:px-2.5 sm:text-[9px]">{isHindi ? "किट की पूरी जानकारी" : "Kit details"}</span>
-                <span className="rounded-full border border-[#e5d4b8] bg-white/85 px-2 py-1 text-[7px] font-bold text-[#73583a] sm:px-2.5 sm:text-[9px]">{isHindi ? "एक ही जगह" : "All in one place"}</span>
+        <div className="relative mx-auto max-w-[1240px] overflow-hidden rounded-[22px] border border-[#d9bd8b] shadow-[0_12px_34px_rgba(83,48,25,.12)] sm:rounded-[28px]">
+          <Image src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=1600&q=85&auto=format&fit=crop" alt="" fill sizes="(max-width: 639px) 100vw, 1240px" aria-hidden="true" className="absolute inset-0 -z-20 object-cover"/>
+          <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(255,250,242,.97)_0%,rgba(255,248,235,.91)_52%,rgba(255,244,224,.78)_100%)]"/>
+          <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_90%_10%,rgba(128,0,32,.13),transparent_42%)]"/>
+          <div className="relative flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:px-8 sm:py-7">
+            <div className="flex min-w-0 items-start gap-3 sm:items-center sm:gap-5">
+              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-[#800020] text-[#f6d99d] shadow-[0_8px_20px_rgba(128,0,32,.2)] sm:h-[68px] sm:w-[68px] sm:rounded-[20px]"><Package size={27} strokeWidth={1.8}/></span>
+              <div className="min-w-0">
+                <span className="inline-flex rounded-full border border-[#d8bd8e] bg-white/90 px-2.5 py-1 text-[8px] font-black uppercase tracking-[.16em] text-[#8b672f] sm:text-[9px]">{isHindi ? "स्मार्ट शॉपिंग का आसान तरीका" : "A SMARTER WAY TO SHOP"}</span>
+                <h2 className="mt-2 text-[21px] font-black leading-[1.05] tracking-[-.055em] text-[#800020] sm:text-[clamp(1.7rem,3vw,2.5rem)]">{isHindi ? "मंथली ग्रॉसरी किट्स" : "Monthly grocery kits"}</h2>
+                <p className="mt-1.5 max-w-[560px] text-[10px] leading-relaxed text-[#59483b] sm:text-[13px]">{isHindi ? "अपना बजट चुनें, किट के सामान की जानकारी देखें और अपनी ज़रूरत के हिसाब से चुनें।" : "Choose a budget, explore what’s included and find a kit that fits your monthly shopping."}</p>
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  <span className="rounded-full border border-[#e5d4b8] bg-white/90 px-2.5 py-1 text-[8px] font-bold text-[#73583a] sm:text-[9px]">{isHindi ? "बजट के अनुसार" : "By budget"}</span>
+                  <span className="rounded-full border border-[#e5d4b8] bg-white/90 px-2.5 py-1 text-[8px] font-bold text-[#73583a] sm:text-[9px]">{isHindi ? "किट की पूरी जानकारी" : "Kit details"}</span>
+                  <span className="rounded-full border border-[#e5d4b8] bg-white/90 px-2.5 py-1 text-[8px] font-bold text-[#73583a] sm:text-[9px]">{isHindi ? "एक ही जगह" : "All in one place"}</span>
+                </div>
               </div>
             </div>
-            <div className="relative h-[150px] overflow-hidden rounded-[16px] border border-white/80 bg-[#ead9c5] shadow-[0_8px_22px_rgba(83,48,25,.13)] sm:h-[210px] sm:rounded-[22px]">
-              <Image src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=900&q=85&auto=format&fit=crop" alt={isHindi ? "ताज़ी सब्ज़ियों और रोज़मर्रा के ग्रॉसरी सामान की झलक" : "Fresh grocery essentials for monthly shopping"} fill sizes="(max-width: 639px) 112px, 34vw" className="object-cover transition duration-700 hover:scale-105"/>
-              <div className="absolute inset-0 bg-gradient-to-t from-[#351b13]/65 via-transparent to-white/10"/>
-              <span className="absolute bottom-2 left-2 right-2 rounded-lg border border-white/35 bg-white/85 px-1.5 py-1 text-center text-[7px] font-black uppercase tracking-[.08em] text-[#800020] sm:bottom-3 sm:left-3 sm:right-3 sm:py-1.5 sm:text-[9px]">{isHindi ? "हर महीने की ज़रूरतें" : "MONTHLY ESSENTIALS"}</span>
-            </div>
-            <Link href="/kits" className="col-span-2 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full bg-[#800020] px-5 text-[11px] font-black text-white shadow-[0_8px_20px_rgba(128,0,32,.2)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#64152b] active:scale-[.98] sm:min-h-12 sm:px-7 sm:text-xs">{isHindi ? "सभी किट्स देखें" : "Explore all kits"} <ArrowRight size={15}/></Link>
+            <Link href="/kits" className="inline-flex min-h-11 w-full shrink-0 items-center justify-center gap-2 rounded-full bg-[#800020] px-5 text-[11px] font-black text-white shadow-[0_8px_20px_rgba(128,0,32,.2)] transition duration-200 hover:-translate-y-0.5 hover:bg-[#64152b] active:scale-[.98] sm:min-h-12 sm:w-auto sm:px-7 sm:text-xs">{isHindi ? "सभी किट्स देखें" : "Explore all kits"} <ArrowRight size={15}/></Link>
           </div>
         </div>
       </section>

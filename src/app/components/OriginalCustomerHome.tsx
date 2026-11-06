@@ -221,7 +221,7 @@ export default function OriginalCustomerHome() {
         <div aria-hidden="true" className="rmm-promo-orb rmm-promo-orb-one" />
         <div aria-hidden="true" className="rmm-promo-orb rmm-promo-orb-two" />
         <div ref={promoShineRef} aria-hidden="true" className="rmm-promo-shine" />
-        <div className="relative mx-auto grid min-h-[94px] max-w-[1440px] grid-cols-[42px_minmax(0,1fr)] items-center gap-x-2 gap-y-2 px-3 py-2.5 sm:flex sm:min-h-[66px] sm:flex-nowrap sm:justify-center sm:gap-5 sm:px-7 sm:py-3">
+        <div className="relative mx-auto grid min-h-[124px] max-w-[1440px] grid-cols-[42px_minmax(0,1fr)] items-center gap-x-2 gap-y-2 px-3 py-2.5 sm:flex sm:min-h-[66px] sm:flex-nowrap sm:justify-center sm:gap-5 sm:px-7 sm:py-3">
           <Image ref={promoLogoRef} src="/Logo.png" alt="Rashid Mega Mart" width={118} height={40} priority className="rmm-promo-logo h-10 w-[42px] shrink-0 object-contain sm:h-10 sm:w-[118px]" />
           <span className="hidden h-8 w-px bg-[#8b6b52]/20 sm:block" />
           <div className="flex min-w-0 flex-col items-start leading-tight sm:items-start">
@@ -238,7 +238,7 @@ export default function OriginalCustomerHome() {
               FIRST100<span className="text-[9px] font-bold tracking-normal">{promoTimeLeft.expired ? (isHindi ? "खत्म" : "ENDED") : promoCopied ? "✓" : (isHindi ? "कॉपी" : "COPY")}</span>
             </button>
           </div>
-          <div className="rmm-promo-countdown hidden items-center justify-center gap-2 rounded-xl px-2 py-1.5 sm:flex">
+          <div className="rmm-promo-countdown col-span-2 flex items-center justify-center gap-2 rounded-xl px-2 py-1.5 sm:col-span-1">
             <span className="flex flex-col leading-none">
               <span className="text-[7px] font-extrabold uppercase tracking-[.17em] text-[#8b7669]">{promoTimeLeft.expired ? (isHindi ? "ऑफर समाप्त" : "OFFER ENDED") : (isHindi ? "ऑफर खत्म होगा" : "OFFER ENDS IN")}</span>
               {!promoTimeLeft.expired && <span className="mt-1 text-[11px] font-black tabular-nums tracking-[.04em] text-[#805329]">{String(promoTimeLeft.days).padStart(2, "0")}d <span className="text-[#b8a99c">:</span> {String(promoTimeLeft.hours).padStart(2, "0")}h <span className="text-[#b8a99c">:</span> {String(promoTimeLeft.minutes).padStart(2, "0")}m <span className="text-[#b8a99c">:</span> {String(promoTimeLeft.seconds).padStart(2, "0")}s</span>}

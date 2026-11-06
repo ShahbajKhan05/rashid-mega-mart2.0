@@ -22,10 +22,35 @@ function CenterPage({ title }: { title: string }) {
   );
 }
 
+function ProductCardImage({ product, isHindi }: { product: (typeof products)[number]; isHindi: boolean }) {
+  const [failed, setFailed] = useState(false);
+  return (
+    <div className="relative flex aspect-square items-center justify-center overflow-hidden rounded-[13px] bg-[radial-gradient(circle_at_50%_35%,#fffdf8_0%,#f7eddf_72%,#f0e4d4_100%)] p-3 sm:rounded-[16px] sm:p-5">
+      {!failed ? (
+        <Image
+          src={product.image}
+          alt={isHindi ? product.nameHi : product.name}
+          width={440}
+          height={440}
+          sizes="(max-width: 639px) 46vw, (max-width: 1023px) 30vw, 280px"
+          loading="lazy"
+          onError={() => setFailed(true)}
+          className="h-full w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-[1.04]"
+        />
+      ) : (
+        <div role="img" aria-label={isHindi ? product.nameHi : product.name} className="flex h-full w-full flex-col items-center justify-center gap-2 rounded-xl border border-[#e9dcc9]/80 bg-white/55 text-center">
+          <span aria-hidden="true" className="text-5xl sm:text-6xl">{product.emoji}</span>
+          <span className="max-w-[90%] text-[10px] font-bold leading-tight text-[#79634f] sm:text-xs">{product.brand || "Rashid Mega Mart"}</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function ProductsPage() {
   const { language } = useLanguage();
   const { isWishlisted, toggleWishlist } = useWishlist();
-  const { addToCart, openCart } = useCart();
+  const { addToCart } = useCart();
   const searchParams = useSearchParams();
   const isHindi = language === "hi";
   const [activeCategory, setActiveCategory] = useState(searchParams.get("category") || "all");
@@ -61,26 +86,26 @@ export function ProductsPage() {
                 {isHindi ? "सामान खरीदें" : "Shop groceries"}
               </h1>
               <p className="mt-1 text-[11px] text-[#756354] sm:text-sm">
-                {isHindi ? "कैटेगरी चुनें या अपना सामान खोजें।" : "Choose a category or search for an item."}
+                {isHindi ? "कैटेगरी चुनें या अपना सामान खोजें।" : "Find everyday essentials, compare prices and add what you need."}
               </p>
             </div>
-            <span className="rounded-full border border-[#dfcba9] bg-white/80 px-3 py-1.5 text-[9px] font-bold text-[#73583a]">
+            <span className="rounded-full border border-[#dfcba9] bg-white/80 px-3 py-1.5 text-[10px] font-bold text-[#73583a]">
               {products.length} {isHindi ? "प्रोडक्ट" : "products"}
             </span>
           </div>
 
           <label className="mt-4 flex h-12 items-center gap-3 rounded-[14px] border border-[#e4d4bf] bg-white px-3.5 shadow-[0_5px_18px_rgba(83,48,25,.06)] transition focus-within:border-[#a77b3e] focus-within:ring-2 focus-within:ring-[#d9bd8b]/30">
-            <Search size={18} className="shrink-0 text-[#8a7565]" />
+            <Search size={18} aria-hidden="true" className="shrink-0 text-[#8a7565]" />
             <input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder={isHindi ? "जैसे: आटा, चावल, तेल..." : "Search atta, rice, oil..."}
               aria-label={isHindi ? "सामान खोजें" : "Search products"}
-              className="h-full min-w-0 flex-1 bg-transparent text-[12px] font-medium text-[#30251f] outline-none placeholder:text-[#a69b90] sm:text-sm"
+              className="h-full min-w-0 flex-1 bg-transparent text-[16px] font-medium text-[#30251f] outline-none placeholder:text-[#a69b90] sm:text-sm"
             />
             {query && (
-              <button type="button" onClick={() => setQuery("")} aria-label={isHindi ? "खोज साफ़ करें" : "Clear search"} className="grid h-8 w-8 place-items-center rounded-full bg-[#f4eadc] text-[#800020]">
-                <X size={14} />
+              <button type="button" onClick={() => setQuery("")} aria-label={isHindi ? "खोज साफ़ करें" : "Clear search"} className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#f4eadc] text-[#800020] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#800020]">
+                <X size={15} />
               </button>
             )}
           </label>
@@ -89,13 +114,13 @@ export function ProductsPage() {
 
       <div className="mx-auto max-w-[1180px] px-3 pt-4 sm:px-7 sm:pt-6">
         <section aria-label={isHindi ? "कैटेगरी" : "Categories"}>
-          <div className="mb-2.5 flex items-center justify-between gap-2">
+          <div className="mb-2 flex items-center justify-between gap-2">
             <h2 className="text-[16px] font-black tracking-[-.035em] text-[#800020] sm:text-lg">
-              {isHindi ? "कैटेगरी चुनें" : "Shop by category"}
+              {isHindi ? "कैटेगरी" : "Shop by category"}
             </h2>
-            <span className="text-[9px] font-medium text-[#8b7c72]">{isHindi ? "जो चाहिए, उस पर टैप करें" : "Tap to browse"}</span>
+            <span className="text-[10px] font-medium text-[#8b7c72]">{isHindi ? "एक चुनें" : "Choose one"}</span>
           </div>
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
+          <div className="-mx-3 flex snap-x snap-mandatory gap-2 overflow-x-auto px-3 pb-2 scrollbar-hide sm:mx-0 sm:px-0" role="group" aria-label={isHindi ? "सामान की कैटेगरी फ़िल्टर" : "Filter products by category"}>
             {visibleCategories.map((category) => {
               const selected = activeCategory === category.id;
               const categoryProducts = category.id === "all" ? products : products.filter((product) => product.category === category.id);
@@ -106,32 +131,27 @@ export function ProductsPage() {
                   type="button"
                   onClick={() => setActiveCategory(category.id)}
                   aria-pressed={selected}
-                  className={`flex min-h-[58px] min-w-0 items-center gap-2.5 rounded-[14px] border px-2.5 py-2 text-left transition active:scale-[.98] sm:min-h-[66px] sm:rounded-[16px] sm:px-3 ${selected ? "border-[#800020] bg-[#800020] text-white shadow-[0_5px_15px_rgba(128,0,32,.15)]" : "border-[#eadcc8] bg-white text-[#49382d] hover:border-[#c9a66b] hover:shadow-sm"}`}
+                  className={`flex min-h-11 shrink-0 snap-start items-center gap-2 rounded-full border px-3.5 py-2 text-left transition active:scale-[.98] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#800020] ${selected ? "border-[#800020] bg-[#800020] text-white shadow-[0_5px_15px_rgba(128,0,32,.14)]" : "border-[#eadcc8] bg-white text-[#49382d] hover:border-[#c9a66b]"}`}
                 >
-                  <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-[11px] text-[22px] ${selected ? "bg-white/15" : "bg-[#f8eee7]"}`}>{emoji}</span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block text-[10px] font-extrabold leading-tight sm:text-[11px]">{isHindi ? category.hi : category.en}</span>
-                    <span className={`mt-1 block text-[8px] ${selected ? "text-white/75" : "text-[#9a8878]"}`}>
-                      {categoryProducts.length} {isHindi ? "सामान" : "items"}
-                    </span>
-                  </span>
-                  <ArrowRight size={13} className={selected ? "text-white/80" : "text-[#b18b56]"} />
+                  <span aria-hidden="true" className="text-[16px]">{emoji}</span>
+                  <span className="whitespace-nowrap text-[11px] font-extrabold">{isHindi ? category.hi : category.en}</span>
+                  <span className={`text-[10px] font-semibold ${selected ? "text-white/75" : "text-[#9a8878]"}`}>{categoryProducts.length}</span>
                 </button>
               );
             })}
           </div>
         </section>
 
-        <section className="mt-6 sm:mt-8">
-          <div className="mb-3 flex items-end justify-between gap-2 border-b border-[#e8dfd2] pb-3">
+        <section className="mt-3 sm:mt-5" aria-live="polite">
+          <div className="mb-3 flex items-end justify-between gap-2 border-b border-[#e8dfd2] pb-2.5">
             <div className="min-w-0">
-              <p className="text-[8px] font-black uppercase tracking-[.16em] text-[#a47a2c]">{isHindi ? "आपकी खरीदारी" : "YOUR SHOPPING LIST"}</p>
-              <h2 className="mt-1 truncate text-[19px] font-black tracking-[-.045em] text-[#800020] sm:text-2xl">
+              <p className="text-[9px] font-black uppercase tracking-[.14em] text-[#a47a2c]">{isHindi ? "आपके लिए उपलब्ध" : "READY TO SHOP"}</p>
+              <h2 className="mt-0.5 truncate text-[19px] font-black tracking-[-.045em] text-[#800020] sm:text-2xl">
                 {activeCategory === "all" ? (isHindi ? "सभी सामान" : "All products") : (isHindi ? activeCategoryLabel?.hi : activeCategoryLabel?.en)}
               </h2>
             </div>
-            <span className="shrink-0 rounded-full bg-[#f2e7d8] px-3 py-1.5 text-[9px] font-bold text-[#73583a]">
-              {filteredProducts.length} {isHindi ? "मिले" : "items"}
+            <span className="shrink-0 rounded-full bg-[#f2e7d8] px-3 py-1.5 text-[10px] font-bold text-[#73583a]">
+              {filteredProducts.length} {isHindi ? "सामान" : "items"}
             </span>
           </div>
 
@@ -139,41 +159,40 @@ export function ProductsPage() {
             <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
               {filteredProducts.map((product) => {
                 const discount = product.originalPrice > product.price ? Math.round((1 - product.price / product.originalPrice) * 100) : 0;
+                const wished = isWishlisted(product.id);
                 return (
                   <article key={product.id} className="group flex min-w-0 flex-col overflow-hidden rounded-[16px] border border-[#eadfce] bg-white p-2 shadow-[0_3px_14px_rgba(68,45,27,.045)] transition duration-200 hover:-translate-y-0.5 hover:border-[#d8bd91] hover:shadow-[0_9px_22px_rgba(68,45,27,.09)] sm:rounded-[20px] sm:p-3">
                     <div className="relative">
-                      <Link href={`/products/${product.slug || product.id}`} className="block">
-                        <div className="relative flex aspect-square items-center justify-center overflow-hidden rounded-[12px] bg-[#faf5ed] p-3 sm:rounded-[16px] sm:p-5">
-                          <Image src={product.image} alt={isHindi ? product.nameHi : product.name} width={440} height={440} sizes="(max-width: 639px) 46vw, (max-width: 1023px) 30vw, 280px" loading="lazy" className="h-full w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-[1.04]" />
-                        </div>
-                        {discount > 0 && <span className="absolute left-1.5 top-1.5 rounded-full bg-[#800020] px-2 py-1 text-[8px] font-black text-white">{discount}% OFF</span>}
+                      <Link href={`/products/${product.slug || product.id}`} className="block rounded-[13px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#800020]">
+                        <ProductCardImage product={product} isHindi={isHindi} />
+                        {discount > 0 && <span className="absolute left-1.5 top-1.5 rounded-full bg-[#800020] px-2 py-1 text-[9px] font-black text-white">{discount}% OFF</span>}
                         <div className="px-1 pt-2.5">
-                          <p className="truncate text-[8px] font-bold uppercase tracking-[.1em] text-[#a47a2c]">{product.brand || "Rashid Mega Mart"}</p>
-                          <h3 className="mt-1 line-clamp-2 min-h-[32px] text-[11px] font-extrabold leading-[1.35] text-[#30251f] sm:min-h-[38px] sm:text-[13px]">{isHindi ? product.nameHi : product.name}</h3>
-                          <p className="mt-1 text-[9px] font-medium text-[#8b7c72]">{product.unit || (isHindi ? "पैक साइज़ विवरण" : "Pack size as shown")}</p>
-                          <div className="mt-2 flex flex-wrap items-baseline gap-x-1.5">
-                            <span className="text-[14px] font-black text-[#800020] sm:text-base">{money(product.price)}</span>
-                            {discount > 0 && <span className="text-[9px] text-[#9b8d81] line-through">{money(product.originalPrice)}</span>}
+                          <p className="truncate text-[9px] font-bold uppercase tracking-[.08em] text-[#a47a2c]">{product.brand || "Rashid Mega Mart"}</p>
+                          <h3 className="mt-1 line-clamp-2 min-h-[38px] text-[12px] font-extrabold leading-[1.35] text-[#30251f] sm:min-h-[42px] sm:text-[14px]">{isHindi ? product.nameHi : product.name}</h3>
+                          <p className="mt-1 text-[11px] font-semibold text-[#756354]">{product.unit || (isHindi ? "पैक साइज़ विवरण" : "Pack size as shown")}</p>
+                          <div className="mt-1.5 flex flex-wrap items-baseline gap-x-1.5">
+                            <span className="text-[16px] font-black text-[#800020] sm:text-lg">{money(product.price)}</span>
+                            {discount > 0 && <span className="text-[10px] text-[#9b8d81] line-through">{money(product.originalPrice)}</span>}
                           </div>
                         </div>
                       </Link>
-                      <button type="button" onClick={() => toggleWishlist(product.id)} aria-label={isWishlisted(product.id) ? "Remove from wishlist" : "Save to wishlist"} aria-pressed={isWishlisted(product.id)} className={`absolute right-1.5 top-1.5 z-10 grid h-8 w-8 place-items-center rounded-full border shadow-sm backdrop-blur transition active:scale-90 ${isWishlisted(product.id) ? "border-[#800020] bg-[#800020] text-white" : "border-[#eadfce] bg-white/95 text-[#800020] hover:bg-[#800020] hover:text-white"}`}>
-                        <Heart size={14} fill={isWishlisted(product.id) ? "currentColor" : "none"} />
+                      <button type="button" onClick={() => toggleWishlist(product.id)} aria-label={wished ? (isHindi ? "विशलिस्ट से हटाएँ" : "Remove from wishlist") : (isHindi ? "विशलिस्ट में सेव करें" : "Save to wishlist")} aria-pressed={wished} className={`absolute right-1.5 top-1.5 z-10 grid h-10 w-10 place-items-center rounded-full border shadow-sm backdrop-blur transition active:scale-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#800020] ${wished ? "border-[#800020] bg-[#800020] text-white" : "border-[#eadfce] bg-white/95 text-[#800020] hover:bg-[#800020] hover:text-white"}`}>
+                        <Heart size={17} fill={wished ? "currentColor" : "none"} />
                       </button>
                     </div>
-                    <button type="button" onClick={() => { addToCart({ id: product.id, name: product.name, nameHi: product.nameHi, price: product.price, image: product.image, category: product.category }); openCart(); }} className="mt-auto mt-3 inline-flex min-h-9 w-full items-center justify-center gap-1.5 rounded-full bg-[#800020] px-2 text-[9px] font-black text-white transition hover:bg-[#650019] active:scale-[.97] sm:min-h-10 sm:text-[10px]">
-                      <ShoppingBag size={13} />{isHindi ? "कार्ट में डालें" : "Add to cart"}
+                    <button type="button" onClick={() => addToCart({ id: product.id, name: product.name, nameHi: product.nameHi, price: product.price, image: product.image, category: product.category })} className="mt-3 inline-flex min-h-11 w-full items-center justify-center gap-1.5 rounded-full bg-[#800020] px-2 text-[11px] font-black text-white transition hover:bg-[#650019] active:scale-[.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#800020] sm:text-xs">
+                      <ShoppingBag size={14} aria-hidden="true" />{isHindi ? "कार्ट में डालें" : "Add to cart"}
                     </button>
                   </article>
                 );
               })}
             </div>
           ) : (
-            <div className="mx-auto flex max-w-sm flex-col items-center py-14 text-center">
+            <div className="mx-auto flex max-w-sm flex-col items-center py-12 text-center">
               <span className="grid h-16 w-16 place-items-center rounded-full bg-[#f4eadc] text-[#800020]"><Search size={25} /></span>
               <p className="mt-4 text-lg font-black text-[#30251f]">{isHindi ? "कोई सामान नहीं मिला" : "No products found"}</p>
-              <p className="mt-1 text-xs leading-5 text-[#81766d]">{isHindi ? "दूसरा नाम खोजें या सभी सामान देखें।" : "Try a different name or show all products."}</p>
-              <button type="button" onClick={() => { setQuery(""); setActiveCategory("all"); }} className="mt-4 rounded-full bg-[#800020] px-5 py-2.5 text-xs font-bold text-white">{isHindi ? "सभी सामान दिखाएँ" : "Show all products"}</button>
+              <p className="mt-1 text-xs leading-5 text-[#81766d]">{isHindi ? "दूसरा नाम खोजें या सभी सामान देखें।" : "Try another product name or browse the full range."}</p>
+              <button type="button" onClick={() => { setQuery(""); setActiveCategory("all"); }} className="mt-4 min-h-11 rounded-full bg-[#800020] px-5 py-2.5 text-xs font-bold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#800020]">{isHindi ? "सभी सामान दिखाएँ" : "Show all products"}</button>
             </div>
           )}
         </section>

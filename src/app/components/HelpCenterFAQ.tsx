@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
-import { Search, ChevronDown, ThumbsUp, ThumbsDown, Sparkles, ShoppingBag, Truck, CreditCard, Gift, RotateCcw, CircleHelp } from "lucide-react";
+import { Search, ChevronDown, Sparkles, ShoppingBag, Truck, CreditCard, Gift, RotateCcw, CircleHelp } from "lucide-react";
 
 type Language = "en" | "hi";
 type FAQ = { category: string; question: string; answer: string; questionHi: string; answerHi: string };
@@ -38,7 +38,6 @@ export default function HelpCenterFAQ({ language }: { language: Language }) {
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
   const [openIndex, setOpenIndex] = useState(0);
-  const [feedback, setFeedback] = useState<Record<string, "yes" | "no">>({});
   const sectionRef = useRef<HTMLElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
@@ -78,24 +77,24 @@ export default function HelpCenterFAQ({ language }: { language: Language }) {
   const answerLabel = (item: FAQ) => isHindi ? item.answerHi : item.answer;
 
   return (
-    <section ref={sectionRef} id="help-center" className="relative isolate overflow-hidden bg-[#f8f4eb] px-4 py-8 sm:px-7 sm:py-11 lg:px-10">
+    <section ref={sectionRef} id="help-center" className="relative isolate overflow-hidden bg-[#f8f4eb] px-3 py-5 sm:px-6 sm:py-8 lg:px-8">
       <div aria-hidden="true" className="pointer-events-none absolute -left-28 top-10 -z-10 h-72 w-72 rounded-full bg-[#e8d4ae]/35 blur-3xl" />
       <div aria-hidden="true" className="pointer-events-none absolute -right-28 bottom-0 -z-10 h-80 w-80 rounded-full bg-[#e9d8d8]/40 blur-3xl" />
       <div className="mx-auto max-w-[1040px]">
-        <div className="mx-auto mb-6 flex max-w-2xl flex-col items-center gap-1 text-center sm:mb-8">
+        <div className="mx-auto mb-4 flex max-w-2xl flex-col items-center gap-0.5 text-center sm:mb-5">
           <span data-faq-intro className="inline-flex items-center justify-center gap-2 rounded-full border border-[#e5d6bd] bg-white/75 px-3 py-1.5 text-[9px] font-black uppercase tracking-[.2em] text-[#9a713a] backdrop-blur"><Sparkles size={12} /> {isHindi ? "राशिद मेगा मार्ट हेल्प सेंटर" : "RASHID MEGA MART · HELP CENTRE"}</span>
-          <h2 data-faq-intro className="mt-2 text-center text-[clamp(1.8rem,4.5vw,3rem)] font-black leading-[1.04] tracking-[-.065em] text-[#702039]">{isHindi ? "आपके हर सवाल का जवाब।" : "A little help goes a long way."}</h2>
-          <p data-faq-intro className="mx-auto mt-2 max-w-lg text-center text-xs leading-5 text-[#796b60] sm:text-[13px]">{isHindi ? "ऑर्डर से लेकर रिवॉर्ड्स तक — जो जानना है, यहाँ खोजें।" : "From placing an order to earning rewards, find clear answers to the things you shop for."}</p>
+          <h2 data-faq-intro className="mt-1 text-center text-[clamp(1.45rem,4.5vw,2.35rem)] font-black leading-[1.04] tracking-[-.06em] text-[#702039]">{isHindi ? "आपके हर सवाल का जवाब।" : "A little help goes a long way."}</h2>
+          <p data-faq-intro className="mx-auto mt-1 max-w-lg text-center text-[10px] leading-4 text-[#796b60] sm:text-xs">{isHindi ? "ऑर्डर से लेकर रिवॉर्ड्स तक — जो जानना है, यहाँ खोजें।" : "From placing an order to earning rewards, find clear answers to the things you shop for."}</p>
         </div>
 
-        <div data-faq-card className="mx-auto mb-4 flex w-full max-w-[720px] items-center gap-2.5 rounded-xl border border-[#e7dccb] bg-white/85 px-3.5 py-2.5 shadow-sm backdrop-blur-xl transition focus-within:border-[#b88b57]">
+        <div data-faq-card className="mx-auto mb-2.5 flex w-full max-w-[720px] items-center gap-2 rounded-lg border border-[#e7dccb] bg-white/85 px-3 py-2 shadow-sm backdrop-blur-xl transition focus-within:border-[#b88b57]">
           <Search size={19} className="shrink-0 text-[#8a5c3c]" />
           <input value={query} onChange={(event) => { setQuery(event.target.value); setOpenIndex(0); }} placeholder={isHindi ? "अपना सवाल खोजें..." : "Search a question, offer, delivery..."} aria-label={isHindi ? "सवाल खोजें" : "Search frequently asked questions"} className="min-w-0 flex-1 bg-transparent text-sm font-medium text-[#40342e] outline-none placeholder:text-[#a99b8e]" />
           {query && <button type="button" onClick={() => { setQuery(""); setOpenIndex(0); }} className="rounded-full px-2 py-1 text-[10px] font-bold text-[#8a5c3c] hover:bg-[#f5eee3]">{isHindi ? "हटाएँ" : "CLEAR"}</button>}
           <span className="hidden rounded-lg bg-[#f7f1e7] px-2 py-1 text-[9px] font-bold text-[#9a8877] sm:inline">FAQ</span>
         </div>
 
-        <div data-faq-card className="mx-auto mb-4 flex max-w-[900px] flex-wrap justify-center gap-1.5 sm:mb-5">
+        <div data-faq-card className="mx-auto mb-3 flex max-w-[900px] gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:justify-center sm:overflow-visible">
           {categories.map((category) => {
             const Icon = category.icon;
             const selected = activeCategory === category.id;
@@ -105,36 +104,29 @@ export default function HelpCenterFAQ({ language }: { language: Language }) {
           })}
         </div>
 
-        <div data-faq-card className="mx-auto max-w-[850px] overflow-hidden rounded-2xl border border-[#e8ddcd] bg-white/85 shadow-[0_8px_26px_rgba(76,48,30,.045)] backdrop-blur-xl">
-          <div className="flex items-center justify-between gap-3 border-b border-[#eee5d9] px-4 py-2.5 sm:px-5">
-            <div className="flex items-center gap-2"><span className="grid h-7 w-7 place-items-center rounded-lg bg-[#f6f0e7] text-[#76213b]"><CircleHelp size={15}/></span><span className="text-xs font-extrabold text-[#594a40]">{isHindi ? "सवाल और जवाब" : "Quick answers"}</span></div>
+        <div data-faq-card className="mx-auto max-w-[850px] overflow-hidden rounded-xl border border-[#e8ddcd] bg-white/90 shadow-[0_4px_16px_rgba(76,48,30,.035)]">
+          <div className="flex items-center justify-between gap-3 border-b border-[#eee5d9] px-3 py-2 sm:px-4">
+            <div className="flex items-center gap-2"><span className="grid h-6 w-6 place-items-center rounded-lg bg-[#f6f0e7] text-[#76213b]"><CircleHelp size={15}/></span><span className="text-xs font-extrabold text-[#594a40]">{isHindi ? "सवाल और जवाब" : "Quick answers"}</span></div>
             <span className="text-[10px] font-bold tabular-nums text-[#8c725c]">{filtered.length} {isHindi ? "सवाल" : "questions"}</span>
           </div>
-          <div ref={listRef} className="divide-y divide-[#eee7dd] px-3 sm:px-5">
+          <div ref={listRef} className="divide-y divide-[#eee7dd] px-2.5 sm:px-4">
             {filtered.map((item, index) => {
               const expanded = openIndex === index;
               const vote = feedback[item.question];
               return <article key={item.question}>
-                <button type="button" aria-expanded={expanded} onClick={() => setOpenIndex(expanded ? -1 : index)} className="group flex w-full items-center gap-2.5 py-3 text-left">
+                <button type="button" aria-expanded={expanded} onClick={() => setOpenIndex(expanded ? -1 : index)} className="group flex w-full items-center gap-2 py-2.5 text-left">
                   <span className={"grid h-6 w-6 shrink-0 place-items-center rounded-md text-[9px] font-black transition " + (expanded ? "bg-[#76213b] text-white" : "bg-[#f6f0e7] text-[#9a7957]")}>{String(index + 1).padStart(2, "0")}</span>
                   <span className={"flex-1 text-[12px] font-bold leading-[1.45] sm:text-[13px] " + (expanded ? "text-[#76213b]" : "text-[#514239]")}>{questionLabel(item)}</span>
                   <ChevronDown size={15} className={"shrink-0 text-[#9b8066] transition-transform duration-300 " + (expanded ? "rotate-180 text-[#76213b]" : "")} />
                 </button>
                 <div className={"grid transition-[grid-template-rows,opacity] duration-300 ease-out " + (expanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0")}><div className="overflow-hidden"><div className="pb-3 pl-[2.15rem] pr-1">
                   <p className="text-[11px] leading-[1.65] text-[#7d6e62] sm:text-xs">{answerLabel(item)}</p>
-                  <div className="mt-2 flex flex-wrap items-center justify-between gap-2 border-t border-[#f0e9df] pt-2">
-                    <span className="text-[9px] font-semibold text-[#a19386]">{isHindi ? "क्या यह जवाब मददगार था?" : "Was this helpful?"}</span>
-                    <div className="flex gap-1.5">
-                      <button type="button" onClick={() => setFeedback((old) => ({ ...old, [item.question]: "yes" }))} aria-pressed={vote === "yes"} className={"inline-flex items-center gap-1 rounded-full border px-2 py-1 text-[9px] font-bold transition " + (vote === "yes" ? "border-[#b8d6c1] bg-[#edf7ef] text-[#287447]" : "border-[#e9e0d5] text-[#8d7d70] hover:bg-[#f7f3ed]")}><ThumbsUp size={10} />{isHindi ? "हाँ" : "Yes"}</button>
-                      <button type="button" onClick={() => setFeedback((old) => ({ ...old, [item.question]: "no" }))} aria-pressed={vote === "no"} className={"inline-flex items-center gap-1 rounded-full border px-2 py-1 text-[9px] font-bold transition " + (vote === "no" ? "border-[#e5c5c5] bg-[#fbefef] text-[#9a4242]" : "border-[#e9e0d5] text-[#8d7d70] hover:bg-[#f7f3ed]")}><ThumbsDown size={10} />{isHindi ? "नहीं" : "No"}</button>
-                    </div>
-                  </div>
                 </div></div></div>
               </article>;
             })}
             {filtered.length === 0 && <div className="px-4 py-8 text-center"><Search size={18} className="mx-auto text-[#9b8066]"/><p className="mt-2 text-xs font-extrabold text-[#594a40]">{isHindi ? "कोई सवाल नहीं मिला" : "No matching questions"}</p><button type="button" onClick={() => { setQuery(""); setActiveCategory("All"); }} className="mt-2 text-[10px] font-extrabold text-[#76213b]">{isHindi ? "सभी सवाल दिखाएँ" : "Show all questions"}</button></div>}
           </div>
-          <div className="flex items-center justify-between gap-3 border-t border-[#eee5d9] bg-[#fffdf9]/80 px-4 py-2.5 sm:px-5">
+          <div className="flex items-center justify-between gap-3 border-t border-[#eee5d9] bg-[#fffdf9]/80 px-3 py-2 sm:px-4">
             <span className="text-[9px] text-[#9a8b7e]">{isHindi ? "और मदद चाहिए?" : "Need more help?"}</span>
             <button type="button" onClick={() => { setQuery(""); setActiveCategory("All"); setOpenIndex(0); }} className="text-[9px] font-extrabold text-[#76213b] hover:underline">{isHindi ? "रीसेट करें" : "RESET"}</button>
           </div>

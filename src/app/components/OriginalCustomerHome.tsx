@@ -214,18 +214,19 @@ export default function OriginalCustomerHome() {
       <section aria-labelledby="delivery-models-title" className="bg-[#f8f3e9] px-3 py-5 sm:px-6 sm:py-8">
         <div className="mx-auto max-w-[1100px]">
           <div className="mb-3 text-center">
-            <p className="text-[9px] font-black uppercase tracking-[.2em] text-[#A47A2C]">SHOP THE WAY YOU NEED</p>
-            <h2 id="delivery-models-title" className="mt-1 text-[clamp(1.3rem,4vw,1.9rem)] font-black tracking-[-.055em] text-[#800020]">{isHindi ? "आपकी खरीदारी, आपकी सुविधा" : "Choose how you shop"}</h2>
+            <p className="text-[9px] font-black uppercase tracking-[.16em] text-[#A47A2C]">{isHindi ? "खरीदारी के 2 आसान तरीके" : "TWO SIMPLE WAYS TO SHOP"}</p>
+            <h2 id="delivery-models-title" className="mt-1 text-[clamp(1.35rem,5.2vw,1.9rem)] font-black leading-[1.12] tracking-[-.045em] text-[#800020]">{isHindi ? "अपनी ज़रूरत के हिसाब से खरीदें" : "Shop your way"}</h2>
+            <p className="mx-auto mt-1.5 max-w-[290px] text-[11px] leading-[1.5] text-[#76675B] sm:max-w-none sm:text-xs">{isHindi ? "रोज़ का सामान अलग-अलग लें या तैयार मंथली किट चुनें।" : "Buy everyday items one by one, or choose a ready-made monthly kit."}</p>
           </div>
           <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-3">
             <Link href="/products" className="group relative isolate flex min-h-[112px] items-end overflow-hidden rounded-[13px] bg-[#8b263d] p-3.5 text-white shadow-[0_7px_20px_rgba(67,35,35,.12)] sm:min-h-[150px] sm:p-5">
               <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_82%_18%,rgba(255,220,160,.42),transparent_34%),linear-gradient(115deg,#8b263d,#b95750)] transition duration-500 group-hover:scale-105"/>
-              <div><span className="text-[8px] font-black uppercase tracking-[.18em] text-white/75">EVERYDAY SHOPPING</span><h3 className="mt-1 text-[18px] font-black leading-tight sm:text-2xl">{isHindi ? "रोज़ का राशन और ज़रूरतें" : "Daily grocery essentials"}</h3><p className="mt-1 text-[9px] text-white/85 sm:text-xs">{isHindi ? "अपनी लिस्ट बनाएं और ऑर्डर रिक्वेस्ट भेजें।" : "Build your basket and send an order request."}</p></div>
+              <div><span className="text-[8px] font-black uppercase tracking-[.18em] text-white/75">BUY ITEMS INDIVIDUALLY</span><h3 className="mt-1 text-[18px] font-black leading-tight sm:text-2xl">{isHindi ? "अपना रोज़ का सामान चुनें" : "Pick your daily groceries"}</h3><p className="mt-1 max-w-[245px] text-[10px] leading-[1.45] text-white/90 sm:text-xs">{isHindi ? "चावल, दाल, तेल और अपनी पसंद का सामान कार्ट में जोड़ें।" : "Choose rice, dal, oil and only what you need."}</p></div>
               <span className="absolute right-3 top-3 grid h-7 w-7 place-items-center rounded-full bg-white/15 transition group-hover:translate-x-1"><ArrowRight size={14}/></span>
             </Link>
             <Link href="/kits" className="group relative isolate flex min-h-[112px] items-end overflow-hidden rounded-[13px] bg-[#4b397f] p-3.5 text-white shadow-[0_7px_20px_rgba(67,35,35,.12)] sm:min-h-[150px] sm:p-5">
               <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_82%_18%,rgba(255,220,160,.35),transparent_34%),linear-gradient(115deg,#4b397f,#7b68a6)] transition duration-500 group-hover:scale-105"/>
-              <div><span className="text-[8px] font-black uppercase tracking-[.18em] text-white/75">VALUE PACKS</span><h3 className="mt-1 text-[18px] font-black leading-tight sm:text-2xl">{isHindi ? "मंथली ग्रॉसरी किट" : "Monthly grocery kits"}</h3><p className="mt-1 text-[9px] text-white/85 sm:text-xs">{isHindi ? "बजट के हिसाब से तैयार राशन पैक देखें।" : "Explore ready-made packs for your budget."}</p></div>
+              <div><span className="text-[8px] font-black uppercase tracking-[.18em] text-white/75">READY-MADE MONTHLY PACKS</span><h3 className="mt-1 text-[18px] font-black leading-tight sm:text-2xl">{isHindi ? "तैयार मंथली राशन किट" : "Shop monthly grocery kits"}</h3><p className="mt-1 max-w-[245px] text-[10px] leading-[1.45] text-white/90 sm:text-xs">{isHindi ? "एक पैक में महीने का ज़रूरी राशन — बजट के अनुसार चुनें।" : "Monthly essentials grouped together in one convenient pack."}</p></div>
               <span className="absolute right-3 top-3 grid h-7 w-7 place-items-center rounded-full bg-white/15 transition group-hover:translate-x-1"><ArrowRight size={14}/></span>
             </Link>
           </div>

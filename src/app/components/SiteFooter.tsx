@@ -22,9 +22,13 @@ export default function SiteFooter() {
         y: 0, opacity: 1, duration: 0.7, stagger: 0.08, ease: "power3.out",
         scrollTrigger: { trigger: root, start: "top 94%", once: true },
       });
-      gsap.fromTo("[data-footer-wordmark]", { yPercent: 28, opacity: 0.25 }, {
-        yPercent: 0, opacity: 1, duration: 1.1, ease: "power4.out",
+      gsap.fromTo("[data-footer-wordmark]", { yPercent: 35, opacity: 0, scale: 0.94, filter: "blur(12px)" }, {
+        yPercent: 0, opacity: 1, scale: 1, filter: "blur(0px)", duration: 1.3, ease: "power4.out",
         scrollTrigger: { trigger: root, start: "top 90%", once: true },
+      });
+      gsap.fromTo("[data-footer-wordmark] span", { yPercent: 110, rotateX: -65 }, {
+        yPercent: 0, rotateX: 0, duration: 1.1, stagger: 0.08, ease: "power4.out",
+        scrollTrigger: { trigger: root, start: "top 88%", once: true },
       });
     }, root);
     return () => ctx.revert();
@@ -52,7 +56,7 @@ export default function SiteFooter() {
   const headingClass = "text-[10px] font-extrabold uppercase tracking-[.22em] text-[#f0cf91] sm:text-[11px]";
 
   return (
-    <footer ref={footerRef} className="relative isolate overflow-hidden bg-[#650019] pb-[calc(76px+env(safe-area-inset-bottom))] pt-10 text-white sm:pb-8 sm:pt-14">
+    <footer ref={footerRef} className="relative isolate overflow-hidden bg-[#861b3a] pb-[calc(76px+env(safe-area-inset-bottom))] pt-10 text-white sm:pb-8 sm:pt-14">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_0%,rgba(255,224,171,.13),transparent_54%)]" />
       <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
         <div className="grid gap-9 border-b border-white/15 pb-8 text-center sm:grid-cols-[1.15fr_.85fr] sm:items-start sm:gap-10 sm:pb-10 sm:text-left">
@@ -67,7 +71,7 @@ export default function SiteFooter() {
             <p className="mt-3 max-w-[420px] text-[12px] leading-6 text-white/65 sm:text-[13px]">
               {isHindi ? "किराना, घरेलू सामान और तैयार किट — आपकी सुविधा के लिए एक ही जगह।" : "Groceries, household essentials and ready-to-shop kits — thoughtfully brought together in one place."}
             </p>
-            <Link href="/contact" className="mt-5 inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#f2d49a] px-5 text-[12px] font-extrabold text-[#650019] transition duration-300 hover:-translate-y-0.5 hover:bg-white">
+            <Link href="/contact" className="mt-5 inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#f2d49a] px-5 text-[12px] font-extrabold text-[#74132f] transition duration-300 hover:-translate-y-0.5 hover:bg-white">
               <Headset size={15} /> {isHindi ? "हमसे संपर्क करें" : "Get in touch"} <ArrowUpRight size={15} />
             </Link>
           </div>
@@ -105,11 +109,14 @@ export default function SiteFooter() {
           <p>{isHindi ? "आपकी रोज़मर्रा की खरीदारी" : "Made for everyday shopping"} <span className="mx-1 text-[#f2d49a]">✦</span> <span className="font-semibold text-white/75">Noor Technologies</span></p>
         </div>
 
-        <div aria-hidden="true" className="overflow-hidden pt-1">
-          <div data-footer-wordmark className="select-none whitespace-nowrap text-center text-[19vw] font-black leading-[.78] tracking-[-.095em] text-[#fff8ed] sm:text-[17vw] xl:text-[220px]">
-            RASHID
+        <div aria-hidden="true" className="relative overflow-hidden border-t border-white/20 pt-5 sm:pt-7">
+          <div className="absolute left-0 top-3 h-px w-full bg-gradient-to-r from-transparent via-[#f2d49a]/70 to-transparent" />
+          <div data-footer-wordmark className="flex select-none justify-center overflow-hidden whitespace-nowrap text-[18.5vw] font-black leading-[.82] tracking-[-.105em] text-[#fff8ed] [perspective:900px] sm:text-[17vw] xl:text-[220px]">
+            {"RASHID".split("").map((letter, index) => <span key={index} className="inline-block origin-bottom">{letter}</span>)}
           </div>
-          <p className="mt-3 text-center text-[8px] font-bold tracking-[.32em] text-white/35 sm:text-[9px]">MEGA MART · EVERYDAY MADE SIMPLE</p>
+          <div className="mt-4 flex items-center justify-center gap-3 text-[8px] font-bold tracking-[.28em] text-white/65 sm:text-[9px]">
+            <span className="h-px w-7 bg-[#f2d49a]/70" /> MEGA MART <span className="text-[#f2d49a]">✦</span> EVERYDAY MADE SIMPLE <span className="h-px w-7 bg-[#f2d49a]/70" />
+          </div>
         </div>
       </div>
     </footer>

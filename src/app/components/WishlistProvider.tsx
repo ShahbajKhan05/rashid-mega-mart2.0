@@ -10,9 +10,18 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
   const [wishlistIds, setWishlistIds] = useState<string[]>([]);
   const [ready, setReady] = useState(false);
   const [wishlistKitIds, setWishlistKitIds] = useState<string[]>([]);
-  useEffect(() => { try { const stored: unknown = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); if (Array.isArray(stored)) setWishlistIds(stored.filter((id): id is string => typeof id === "string"));
-      const savedKits: unknown = JSON.parse(localStorage.getItem("rmm_wishlist_kits_v1") || "[]");
-      if (Array.isArray(savedKits)) setWishlistKitIds(savedKits.filter((id): id is string => typeof id === "string" && groceryKits.some((kit) => kit.id === id))); } catch { localStorage.removeItem(STORAGE_KEY); } setReady(true); }, []);
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      try {
+        const stored: unknown = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+        if (Array.isArray(stored)) setWishlistIds(stored.filter((id): id is string => typeof id === "string"));
+        const savedKits: unknown = JSON.parse(localStorage.getItem("rmm_wishlist_kits_v1") || "[]");
+        if (Array.isArray(savedKits)) setWishlistKitIds(savedKits.filter((id): id is string => typeof id === "string" && groceryKits.some((kit) => kit.id === id)));
+      } catch { localStorage.removeItem(STORAGE_KEY); }
+      setReady(true);
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, []);
   useEffect(() => { if (ready) { localStorage.setItem(STORAGE_KEY, JSON.stringify(wishlistIds)); localStorage.setItem("rmm_wishlist_kits_v1", JSON.stringify(wishlistKitIds)); } }, [wishlistIds, wishlistKitIds, ready]);
   const toggleWishlist = useCallback((id: string) => setWishlistIds(current => current.includes(id) ? current.filter(item => item !== id) : [...current, id]), []);
   const removeFromWishlist = useCallback((id: string) => setWishlistIds(current => current.filter(item => item !== id)), []);

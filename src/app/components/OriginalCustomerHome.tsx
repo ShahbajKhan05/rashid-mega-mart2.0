@@ -249,9 +249,31 @@ export default function OriginalCustomerHome() {
       <section id="top" ref={entranceRef} className="relative isolate flex min-h-[min(390px,calc(100svh-210px))] items-center justify-center overflow-hidden border-b border-[#eadfce] bg-[radial-gradient(ellipse_at_50%_48%,rgba(226,198,151,.24),transparent_62%),linear-gradient(180deg,#fffdf7_0%,#f8f2e7_100%)] px-3 py-10 sm:min-h-[min(650px,calc(100svh-72px))] sm:px-6 sm:py-20">
         <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[240px] w-[min(92vw,980px)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/70 blur-3xl sm:h-[360px]" />
         <div className="mx-auto flex w-full max-w-[1500px] flex-col items-center justify-center text-center">
-          <p className="mb-4 text-[9px] font-extrabold uppercase tracking-[.34em] text-[#f5dca9] sm:mb-6 sm:text-xs">{isHindi ? "आपकी रोज़मर्रा की भरोसेमंद दुकान" : "YOUR NEIGHBOURHOOD GROCERY STORE"}</p>
+          <p className="mb-3 px-2 text-center text-[9px] font-extrabold uppercase tracking-[.2em] text-[#87633a] sm:mb-6 sm:text-xs sm:tracking-[.34em]">{isHindi ? "आपकी रोज़मर्रा की भरोसेमंद दुकान" : "YOUR NEIGHBOURHOOD GROCERY STORE"}</p>
           <h1 className="sr-only">Rashid Mega Mart</h1>
-          <svg ref={entranceTitleRef} viewBox="0 0 1400 500" role="img" aria-label="Rashid Mega Mart" className="block h-auto w-full max-w-[1180px] overflow-visible">
+          <svg viewBox="0 0 1000 520" role="img" aria-label="Rashid Mega Mart" className="block h-auto w-full max-w-[520px] overflow-visible sm:hidden">
+            <defs>
+              <filter id="rmm-hero-mobile-shadow" x="-20%" y="-25%" width="140%" height="165%" colorInterpolationFilters="sRGB">
+                <feDropShadow dx="0" dy="10" stdDeviation="7" floodColor="#4b2630" floodOpacity=".27" />
+                <feDropShadow dx="0" dy="2" stdDeviation="1.5" floodColor="#4b2630" floodOpacity=".18" />
+              </filter>
+              <mask id="rmm-hero-mobile-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="520">
+                <rect width="1000" height="520" fill="black" />
+                <text x="500" y="220" textAnchor="middle" fill="white" fontFamily="Arial, Helvetica, sans-serif" fontSize="238" fontWeight="900" letterSpacing="-14">RASHID</text>
+                <text x="500" y="440" textAnchor="middle" fill="white" fontFamily="Arial, Helvetica, sans-serif" fontSize="177" fontWeight="900" letterSpacing="-10">MEGA MART</text>
+              </mask>
+            </defs>
+            <g filter="url(#rmm-hero-mobile-shadow)" aria-hidden="true">
+              <text x="500" y="220" textAnchor="middle" fill="#6f2638" fontFamily="Arial, Helvetica, sans-serif" fontSize="238" fontWeight="900" letterSpacing="-14">RASHID</text>
+              <text x="500" y="440" textAnchor="middle" fill="#6f2638" fontFamily="Arial, Helvetica, sans-serif" fontSize="177" fontWeight="900" letterSpacing="-10">MEGA MART</text>
+            </g>
+            <foreignObject x="0" y="0" width="1000" height="520" mask="url(#rmm-hero-mobile-mask)">
+              <video xmlns="http://www.w3.org/1999/xhtml" autoPlay muted loop playsInline preload="metadata" poster="https://images.unsplash.com/photo-1542838132-92c53300491e?w=900&q=72&auto=format&fit=crop" className="h-full w-full object-cover">
+                <source src="https://cdn.pixabay.com/video/2016/08/22/4730-179738652_large.mp4" type="video/mp4" />
+              </video>
+            </foreignObject>
+          </svg>
+          <svg ref={entranceTitleRef} viewBox="0 0 1400 500" role="img" aria-label="Rashid Mega Mart" className="hidden h-auto w-full max-w-[1180px] overflow-visible sm:block">
             <defs>
               <filter id="rmm-hero-title-shadow" x="-20%" y="-25%" width="140%" height="165%" colorInterpolationFilters="sRGB">
                 <feDropShadow dx="0" dy="13" stdDeviation="9" floodColor="#4b2630" floodOpacity=".28" />
@@ -273,9 +295,9 @@ export default function OriginalCustomerHome() {
               </video>
             </foreignObject>
           </svg>
-          <div ref={deliveryBadgeRef} className="mt-7 inline-flex min-h-[52px] items-center justify-center gap-3 rounded-full border border-[#f4d18b]/70 bg-[#e0b34f] px-7 py-3 text-[#382719] shadow-[0_12px_32px_rgba(0,0,0,.24)] transition-shadow duration-300 hover:shadow-[0_16px_36px_rgba(0,0,0,.3)] sm:mt-9 sm:min-h-[62px] sm:px-10">
+          <div ref={deliveryBadgeRef} className="mt-4 inline-flex min-h-[44px] max-w-full items-center justify-center gap-2 rounded-full border border-[#d4ad63]/70 bg-[#e7bd68] px-5 py-2.5 text-[#382719] shadow-[0_7px_18px_rgba(90,57,25,.16)] transition-shadow duration-300 hover:shadow-[0_10px_24px_rgba(90,57,25,.2)] sm:mt-9 sm:min-h-[62px] sm:gap-3 sm:px-10 sm:py-3 sm:shadow-[0_12px_32px_rgba(0,0,0,.24)]>
             <Truck size={22} strokeWidth={2.2} />
-            <span className="text-[15px] font-extrabold tracking-[-.035em] sm:text-[22px]">{isHindi ? "30 मिनट में डिलीवरी" : "Delivery in 30 Mins"}</span>
+            <span className="text-[13px] font-extrabold tracking-[-.035em] sm:text-[22px]">{isHindi ? "30 मिनट में डिलीवरी" : "Delivery in 30 Mins"}</span>
           </div>
         </div>
       </section>

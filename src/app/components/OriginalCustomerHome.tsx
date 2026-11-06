@@ -59,7 +59,7 @@ export default function OriginalCustomerHome() {
   const categoryViewportRef = useRef<HTMLDivElement>(null);
   const categoryTrackRef = useRef<HTMLDivElement>(null);
   const entranceRef = useRef<HTMLElement>(null);
-  const entranceTitleRef = useRef<HTMLImageElement>(null);
+  const entranceTitleRef = useRef<HTMLHeadingElement>(null);
   const deliveryBadgeRef = useRef<HTMLDivElement>(null);
   const bestSellersRef = useRef<HTMLElement>(null);
 
@@ -104,9 +104,11 @@ export default function OriginalCustomerHome() {
     if (!section || !title || !badge) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const context = gsap.context(() => {
+      const lines = title.querySelectorAll<HTMLElement>("[data-hero-line]");
       const intro = gsap.timeline({ defaults: { ease: "power4.out" } });
-      intro.fromTo(title, { autoAlpha: 0, y: 24, scale: 0.94, filter: "blur(10px)" }, {
-        autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 1.1, clearProps: "transform",
+      intro.fromTo(lines, { yPercent: 115, rotateX: -28, autoAlpha: 0, filter: "blur(12px)" }, {
+        yPercent: 0, rotateX: 0, autoAlpha: 1, filter: "blur(0px)",
+        duration: 1.15, stagger: 0.16, clearProps: "transform",
       });
       intro.fromTo(badge, { y: 24, scale: 0.86, autoAlpha: 0 }, {
         y: 0, scale: 1, autoAlpha: 1, duration: 0.8, ease: "back.out(1.8)",
@@ -242,24 +244,26 @@ export default function OriginalCustomerHome() {
           </div>
         </div>
       </div>
-      <section id="top" ref={entranceRef} className="relative isolate flex min-h-[min(390px,calc(100svh-210px))] items-center justify-center overflow-hidden border-b border-[#eadfce] bg-[radial-gradient(ellipse_at_50%_48%,rgba(226,198,151,.24),transparent_62%),linear-gradient(180deg,#fffdf7_0%,#f8f2e7_100%)] px-3 py-10 sm:min-h-[min(650px,calc(100svh-72px))] sm:px-6 sm:py-20">
-        <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[240px] w-[min(92vw,980px)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/70 blur-3xl sm:h-[360px]" />
+      <section id="top" ref={entranceRef} className="relative isolate flex min-h-[min(790px,calc(100svh-72px))] items-center justify-center overflow-hidden bg-[#FFFCF0] px-3 pb-20 pt-10 sm:min-h-[min(860px,calc(100svh-72px))] sm:px-6 sm:pb-24">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_45%,rgba(224,190,119,.16),transparent_58%)]" />
         <div className="mx-auto flex w-full max-w-[1500px] flex-col items-center justify-center text-center">
-          <p className="mb-3 px-2 text-center text-[9px] font-extrabold uppercase tracking-[.2em] text-[#87633a] sm:mb-6 sm:text-xs sm:tracking-[.34em]">{isHindi ? "आपकी रोज़मर्रा की भरोसेमंद दुकान" : "YOUR NEIGHBOURHOOD GROCERY STORE"}</p>
-          <h1 className="sr-only">Rashid Mega Mart</h1>
-          <Image
-            ref={entranceTitleRef}
-            src="/Logo.png"
-            alt="Rashid Mega Mart"
-            width={1100}
-            height={520}
-            priority
-            sizes="(max-width: 639px) 94vw, (max-width: 1023px) 88vw, 1100px"
-            className="h-auto w-full max-w-[min(94vw,900px)] object-contain drop-shadow-[0_12px_18px_rgba(75,38,48,.18)]"
-          />
-          <div ref={deliveryBadgeRef} className="mt-4 inline-flex min-h-[44px] max-w-full items-center justify-center gap-2 rounded-full border border-[#d4ad63]/70 bg-[#e7bd68] px-5 py-2.5 text-[#382719] shadow-[0_7px_18px_rgba(90,57,25,.16)] transition-shadow duration-300 hover:shadow-[0_10px_24px_rgba(90,57,25,.2)] sm:mt-9 sm:min-h-[62px] sm:gap-3 sm:px-10 sm:py-3 sm:shadow-[0_12px_32px_rgba(0,0,0,.24)]">
-            <Truck size={22} strokeWidth={2.2} />
-            <span className="text-[13px] font-extrabold tracking-[-.035em] sm:text-[22px]">{isHindi ? "30 मिनट में डिलीवरी" : "Delivery in 30 Mins"}</span>
+          <h1 ref={entranceTitleRef} className="w-full select-none text-[clamp(3.05rem,13.2vw,12.5rem)] font-black uppercase leading-[.79] tracking-[-.105em] text-transparent [perspective:900px] sm:text-[clamp(6rem,11.2vw,11.5rem)]">
+            <span data-hero-line className="block whitespace-nowrap" style={{
+              backgroundImage: "url(https://images.unsplash.com/photo-1542838132-92c53300491e?w=1400&q=72&auto=format&fit=crop)",
+              backgroundSize: "cover", backgroundPosition: "center 42%", backgroundRepeat: "no-repeat",
+              WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent",
+              filter: "drop-shadow(0 3px 2px rgba(47,34,20,.10))",
+            }}>RASHID</span>
+            <span data-hero-line className="mt-[.035em] block whitespace-nowrap" style={{
+              backgroundImage: "url(https://images.unsplash.com/photo-1542838132-92c53300491e?w=1400&q=72&auto=format&fit=crop)",
+              backgroundSize: "cover", backgroundPosition: "center 68%", backgroundRepeat: "no-repeat",
+              WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent",
+              filter: "drop-shadow(0 3px 2px rgba(47,34,20,.10))",
+            }}>MEGA MART</span>
+          </h1>
+          <div ref={deliveryBadgeRef} className="mt-8 inline-flex min-h-[58px] items-center justify-center gap-3 rounded-full border border-[#d2a64c]/60 bg-[#d9ad50] px-8 py-3 text-[#382719] shadow-[0_12px_28px_rgba(75,54,24,.16)] transition-shadow duration-300 hover:shadow-[0_16px_36px_rgba(75,54,24,.22)] sm:mt-9 sm:min-h-[62px] sm:px-10">
+            <Truck size={23} strokeWidth={2.2} />
+            <span className="text-[17px] font-extrabold tracking-[-.035em] sm:text-[22px]">{isHindi ? "30 मिनट में डिलीवरी" : "Delivery in 30 Mins"}</span>
           </div>
         </div>
       </section>

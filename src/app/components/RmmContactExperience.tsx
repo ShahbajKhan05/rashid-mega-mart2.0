@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, BadgeCheck, Clock3, Headphones, MapPin, MessageCircle, PackageCheck, Phone, ShieldCheck, ShoppingBag, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUpRight, BadgeCheck, Headphones, MessageCircle, PackageCheck, Phone, ShieldCheck, ShoppingBag } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";

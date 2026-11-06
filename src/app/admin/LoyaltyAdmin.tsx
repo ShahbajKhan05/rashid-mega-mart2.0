@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Gift, Search, Plus, Minus, Users, Coins, TrendingUp, History, Copy } from "lucide-react";
+import { Gift, Search, Plus, Minus, Users, Coins, TrendingUp, History } from "lucide-react";
 
 type Entry = { id:string; name:string; phone:string; points:number; createdAt:string; ledger:{id:string;delta:number;note:string;date:string}[] };
 const KEY="rmm-rewards-v1";

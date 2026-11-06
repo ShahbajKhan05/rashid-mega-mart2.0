@@ -8,10 +8,10 @@ import { Check, ClipboardList, PackageCheck, Truck, House, ShoppingBag } from "l
 gsap.registerPlugin(ScrollTrigger);
 
 const steps = [
-  { number: "01", title: "ORDER PLACED", hindi: "ऑर्डर मिल गया", detail: "You place your order", detailHi: "आप अपना ऑर्डर करते हैं", icon: ClipboardList, tone: "bg-[#fff0d7]" },
-  { number: "02", title: "PACKED AT STORE", hindi: "स्टोर पर पैकिंग", detail: "We pick and pack your items", detailHi: "हम सामान चुनकर पैक करते हैं", icon: PackageCheck, tone: "bg-[#f8e8e8]" },
-  { number: "03", title: "ON THE WAY", hindi: "डिलीवरी रास्ते में", detail: "Our delivery partner is on the way", detailHi: "हमारा डिलीवरी पार्टनर निकल चुका है", icon: Truck, tone: "bg-[#eee8f5]" },
-  { number: "04", title: "DELIVERED HOME", hindi: "घर पर डिलीवरी", detail: "Your essentials reach your doorstep", detailHi: "आपका सामान आपके घर पहुँचता है", icon: House, tone: "bg-[#e6f2e8]" },
+  { number: "01", title: "ORDER PLACED", hindi: "ऑर्डर मिल गया", detail: "Choose your everyday favourites", detailHi: "अपनी पसंद का सामान चुनें", icon: ClipboardList, tone: "bg-[#fff0d7]" },
+  { number: "02", title: "PACKED AT STORE", hindi: "स्टोर पर पैकिंग", detail: "We carefully pack your picks", detailHi: "हम आपका सामान ध्यान से पैक करते हैं", icon: PackageCheck, tone: "bg-[#f8e8e8]" },
+  { number: "03", title: "ON THE WAY", hindi: "डिलीवरी रास्ते में", detail: "Your order heads your way", detailHi: "आपका ऑर्डर आपके घर की ओर निकलता है", icon: Truck, tone: "bg-[#eee8f5]" },
+  { number: "04", title: "DELIVERED HOME", hindi: "घर पर डिलीवरी", detail: "Unpack your favourites at home", detailHi: "घर पर अपना पसंदीदा सामान पाएँ", icon: House, tone: "bg-[#e6f2e8]" },
 ];
 
 export default function NetworkSection({ language = "en" }: { language?: "en" | "hi" }) {
@@ -22,11 +22,20 @@ export default function NetworkSection({ language = "en" }: { language?: "en" | 
     const section = sectionRef.current;
     if (!section || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const ctx = gsap.context(() => {
+      const intro = gsap.utils.toArray<HTMLElement>("[data-journey-intro]");
+      gsap.fromTo(intro, { autoAlpha: 0, y: 18 }, {
+        autoAlpha: 1, y: 0, duration: 0.75, stagger: 0.12, ease: "power3.out",
+        scrollTrigger: { trigger: section, start: "top 82%", once: true },
+      });
       const cards = gsap.utils.toArray<HTMLElement>("[data-journey-step]");
-      gsap.fromTo(cards, { autoAlpha: 0, y: 28, scale: 0.96 }, {
-        autoAlpha: 1, y: 0, scale: 1, duration: 0.7, stagger: 0.18,
+      gsap.fromTo(cards, { autoAlpha: 0, y: 30, scale: 0.95, rotateX: 5 }, {
+        autoAlpha: 1, y: 0, scale: 1, rotateX: 0, duration: 0.78, stagger: 0.16,
         ease: "power3.out",
         scrollTrigger: { trigger: section, start: "top 78%", once: true },
+      });
+      gsap.to("[data-journey-dot] svg", {
+        y: -3, duration: 1.35, repeat: -1, yoyo: true, stagger: 0.18,
+        ease: "sine.inOut", delay: 1.1,
       });
       gsap.fromTo("[data-journey-line]", { scaleX: 0 }, {
         scaleX: 1, duration: 1.5, ease: "power2.inOut",
@@ -51,13 +60,13 @@ export default function NetworkSection({ language = "en" }: { language?: "en" | 
   return (
     <section ref={sectionRef} aria-labelledby="journey-title" className="overflow-hidden bg-[#fff7f4] px-3 py-7 sm:px-6 sm:py-14">
       <div className="mx-auto max-w-[1120px]">
-        <div className="mb-7 text-center sm:mb-10">
-          <p className="text-[9px] font-black uppercase tracking-[.22em] text-[#b77a37]">{isHindi ? "आपके ऑर्डर का सफर" : "FROM OUR STORE TO YOUR DOOR"}</p>
+        <div data-journey-intro className="mb-7 text-center sm:mb-10">
+          <p className="text-[9px] font-black uppercase tracking-[.22em] text-[#b77a37]">{isHindi ? "हर ऑर्डर में थोड़ी extra care" : "A LITTLE CARE IN EVERY STEP"}</p>
           <h2 id="journey-title" className="mt-1 text-[clamp(1.35rem,4.5vw,2.5rem)] font-black leading-tight tracking-[-.055em] text-[#800020]">
-            {isHindi ? "ऑर्डर से घर तक, हर कदम पर" : "Your order, all the way home"}
+            {isHindi ? "स्टोर से आपके दरवाज़े तक" : "From our shelves to your doorstep"}
           </h2>
           <p className="mx-auto mt-2 max-w-xl text-[11px] leading-relaxed text-[#827267] sm:text-sm">
-            {isHindi ? "देखें आपका पसंदीदा सामान हमारे स्टोर से आपके घर तक कैसे पहुँचता है।" : "See how your everyday essentials travel from our store straight to your doorstep."}
+            {isHindi ? "आपकी पसंद की चीज़ें चुनने से लेकर घर पहुँचाने तक, हर कदम पर हम ध्यान रखते हैं।" : "From picking your favourites to bringing them home, we make every step feel simple."}
           </p>
         </div>
 
@@ -97,9 +106,9 @@ export default function NetworkSection({ language = "en" }: { language?: "en" | 
           ))}
         </div>
 
-        <div className="mt-6 flex items-center justify-center gap-2 rounded-2xl border border-[#efdfd1] bg-white/75 px-3 py-3 text-center sm:mt-8">
+        <div data-journey-intro className="mt-6 flex items-center justify-center gap-2 rounded-2xl border border-[#efdfd1] bg-white/75 px-3 py-3 text-center sm:mt-8">
           <ShoppingBag size={16} className="shrink-0 text-[#800020]" />
-          <p className="text-[10px] font-bold text-[#6e5549] sm:text-xs">{isHindi ? "आप ऑर्डर करें, बाकी सफर हम संभालेंगे।" : "You place the order. We take care of the journey."}</p>
+          <p className="text-[10px] font-bold text-[#6e5549] sm:text-xs">{isHindi ? "बस अपनी पसंद चुनें — बाकी सफर हम आसान बनाएँगे।" : "You pick what you love. We make getting it home easy."}</p>
         </div>
       </div>
     </section>

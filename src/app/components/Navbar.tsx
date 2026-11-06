@@ -8,7 +8,7 @@ import { AnimatePresence, motion } from "motion/react";
 import {
   House, Package, LayoutGrid, X, ArrowUpRight, ShoppingBag, Heart, ShoppingCart, Gift, MoreHorizontal,
   MapPin, Search, ChevronDown, Crosshair, ShieldCheck, Truck,
-  Wheat, Droplet, Flame, Cookie
+  Wheat, Droplet, Flame
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useLanguage } from "./LanguageProvider";
@@ -324,7 +324,6 @@ export default function Navbar() {
               <div className="grid grid-cols-2 gap-2">
                 {[
                   { href: "/kits", label: isHindi ? "किट्स" : "Shopping Kits", Icon: ShoppingBag },
-                  { href: "/#bikano", label: isHindi ? "बिकानो स्नैक्स" : "Bikano Snacks", Icon: Cookie },
                   { href: "/my-orders", label: isHindi ? "मेरे ऑर्डर" : "My Orders", Icon: Package },
                   { href: "/wishlist", label: isHindi ? "विशलिस्ट" : "Wishlist", Icon: Heart },
                   { href: "/contact", label: isHindi ? "संपर्क" : "Contact Support", Icon: ArrowUpRight },

@@ -59,10 +59,26 @@ export default function OriginalCustomerHome() {
     if (motionQuery.matches) return;
     const context = gsap.context(() => {
       const glyphs = letters.querySelectorAll<HTMLElement>("[data-promo-letter]");
-      gsap.fromTo(bar, { autoAlpha: 0, y: -12 }, { autoAlpha: 1, y: 0, duration: .7, ease: "power3.out", clearProps: "transform" });
-      gsap.fromTo(logo, { autoAlpha: 0, y: 9, scale: .88, filter: "blur(7px)" }, { autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)", duration: .9, delay: .12, ease: "back.out(1.7)" });
-      gsap.fromTo(glyphs, { y: 13, autoAlpha: 0, rotateX: -55 }, { y: 0, autoAlpha: 1, rotateX: 0, duration: .58, stagger: .022, delay: .28, ease: "power3.out" });
-      gsap.fromTo(shine, { xPercent: -20 }, { xPercent: 520, duration: 2.4, ease: "power1.inOut", repeat: -1, repeatDelay: 2.8 });
+      const promoIntro = gsap.timeline();
+      promoIntro.fromTo(bar, { autoAlpha: 0, y: -18, scale: .985 }, {
+        autoAlpha: 1, y: 0, scale: 1, duration: .72, ease: "power3.out",
+      });
+      promoIntro.fromTo(logo, { autoAlpha: 0, y: 9, scale: .88, filter: "blur(7px)" }, {
+        autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)", duration: .8, ease: "back.out(1.7)",
+      }, "-=.38");
+      promoIntro.fromTo(glyphs, { y: 13, autoAlpha: 0, rotateX: -55 }, {
+        y: 0, autoAlpha: 1, rotateX: 0, duration: .52, stagger: .018, ease: "power3.out",
+      }, "-=.48");
+      promoIntro.to({}, { duration: 4.2 });
+      promoIntro.to(bar, {
+        height: 0, minHeight: 0, paddingTop: 0, paddingBottom: 0,
+        borderTopWidth: 0, borderBottomWidth: 0, autoAlpha: 0, y: -24,
+        duration: .82, ease: "power3.inOut",
+        onComplete: () => { bar.style.display = "none"; },
+      });
+      gsap.fromTo(shine, { xPercent: -20 }, {
+        xPercent: 520, duration: 2.2, ease: "power1.inOut", repeat: 1, repeatDelay: .5,
+      });
     }, bar);
     return () => context.revert();
   }, []);
@@ -123,7 +139,7 @@ export default function OriginalCustomerHome() {
         ref={promoBarRef}
         role="region"
         aria-label={isHindi ? "सीमित समय का ऑफर" : "Limited time offer"}
-        className="rmm-promo-glass relative isolate z-30 overflow-hidden border-y"
+        className="rmm-promo-glass relative isolate z-30 overflow-hidden border-y" style={{ overflow: "hidden" }}
       >
         <div aria-hidden="true" className="rmm-promo-orb rmm-promo-orb-one" />
         <div aria-hidden="true" className="rmm-promo-orb rmm-promo-orb-two" />
@@ -177,6 +193,11 @@ export default function OriginalCustomerHome() {
             <Link href="#deals" className="inline-flex min-h-11 w-full max-w-[260px] items-center justify-center gap-2 rounded-full bg-[#800020] px-6 text-[12px] font-black text-white shadow-[0_8px_22px_rgba(128,0,32,.18)] transition hover:-translate-y-0.5 hover:bg-[#64152b] active:scale-[.98] sm:w-auto">{isHindi ? "ऑफर देखें और खरीदें" : "Shop best deals"} <ArrowRight size={15}/></Link>
             <Link href="/kits" className="inline-flex min-h-10 w-full max-w-[260px] items-center justify-center gap-2 rounded-full border border-[#d7c4a8] bg-white/80 px-5 text-[11px] font-extrabold text-[#6b4a31] transition hover:border-[#a47a2c] hover:bg-white sm:w-auto">{isHindi ? "मंथली किट देखें" : "Explore monthly kits"}</Link>
           </div>
+          {!promoTimeLeft.expired && <div className="mt-3 inline-flex max-w-full items-center gap-2 rounded-full border border-[#d9bd8b]/70 bg-white/75 px-3 py-2 text-[9px] font-bold text-[#77533a] shadow-[0_5px_18px_rgba(95,64,35,.06)] sm:mt-4 sm:text-[10px]">
+            <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-[#fff0d7] text-[#a36d24]">₹</span>
+            <span>{isHindi ? "पहली खरीद पर ₹499+ में ₹100 की छूट" : "First order: ₹100 OFF on ₹499+"}</span>
+            <button type="button" onClick={async () => { try { await navigator.clipboard.writeText("FIRST100"); setPromoCopied(true); } catch { setPromoCopied(false); } }} className="rounded-full bg-[#800020] px-2.5 py-1.5 font-black tracking-[.08em] text-white transition hover:bg-[#64152b] active:scale-95">{promoCopied ? (isHindi ? "कॉपी ✓" : "COPIED ✓") : "FIRST100"}</button>
+          </div>}
         </div>
       </section>
 

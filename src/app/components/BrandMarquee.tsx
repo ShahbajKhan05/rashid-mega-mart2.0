@@ -8,7 +8,7 @@ export default function BrandMarquee({ language = "en" }: { language?: "en" | "h
   const firstRow = useRef<HTMLDivElement>(null);
   const secondRow = useRef<HTMLDivElement>(null);
   const brands = useMemo(
-    () => Array.from(new Set(products.map((product) => product.brand?.trim()).filter((brand): brand is string => typeof brand === "string" && brand.length > 0).filter((brand) => brand.toLowerCase() !== "local" && brand.toLowerCase() !== "local farm"))),
+    () => Array.from(new Set(products.map((product) => product.brand?.trim()).filter((brand): brand is string => typeof brand === "string" && brand.length > 0).filter((brand) => !["local", "local farm", "bikano"].includes(brand.toLowerCase())))),
     [],
   );
 

@@ -174,7 +174,7 @@ export default function Navbar() {
             >
               <MapPin size={16} className="text-[#138047]" />
               <div className="flex flex-col items-start">
-                <span className="text-[10px] font-bold text-[#138047]">{isHindi ? "30 मिनट में डिलीवरी" : "Delivery in 30 mins"}</span>
+                <span className="text-[10px] font-bold text-[#138047]">{isHindi ? "इलाके के अनुसार डिलीवरी" : "Delivery details by area"}</span>
                 <span className="flex items-center gap-1 text-[11px] font-black text-gray-800">
                   {selectedLocation} <ChevronDown size={14} className="text-gray-500" />
                 </span>

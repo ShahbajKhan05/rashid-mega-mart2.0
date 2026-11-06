@@ -129,8 +129,8 @@ export default function NetworkSection({ language = "en" }: { language?: "en" | 
           </div>
           <div className="flex flex-col gap-2.5">
             {customers.map(({ label, icon: Icon, tone }) => (
-              <div data-network-node key={label} className="flex min-h-[58px] items-center gap-2 rounded-xl border border-white bg-white/90 p-2 shadow-sm">
-                <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-lg ${tone} text-[#800020]`}><Icon size={15}/></span>
+              <div data-network-node data-network-mobile-node key={label} className="flex min-h-[48px] items-center gap-2 rounded-xl border border-white bg-white/90 p-2 shadow-sm">
+                <span className={`grid h-7 w-7 shrink-0 place-items-center rounded-lg ${tone} text-[#800020]`}><Icon size={15}/></span>
                 <span className="text-[8px] font-black leading-tight tracking-[.02em] text-[#49342e]">{label}</span>
               </div>
             ))}

@@ -16,6 +16,7 @@ import KitsPage from "./KitsPage";
 import NetworkSection from "./NetworkSection";
 import BrandMarquee from "./BrandMarquee";
 import ShoppingProductRail from "./ShoppingProductRail";
+import { groceryKits } from "./kits-data";
 
 export default function OriginalCustomerHome() {
   const { language } = useLanguage();
@@ -204,7 +205,7 @@ export default function OriginalCustomerHome() {
           </h1>
           <div ref={deliveryBadgeRef} className="mt-8 inline-flex min-h-[58px] items-center justify-center gap-3 rounded-full border border-[#d2a64c]/60 bg-[#d9ad50] px-8 py-3 text-[#382719] shadow-[0_12px_28px_rgba(75,54,24,.16)] transition-shadow duration-300 hover:shadow-[0_16px_36px_rgba(75,54,24,.22)] sm:mt-9 sm:min-h-[62px] sm:px-10">
             <Truck size={23} strokeWidth={2.2} />
-            <span className="text-[17px] font-extrabold tracking-[-.035em] sm:text-[22px]">{isHindi ? "30 मिनट में डिलीवरी" : "Delivery in 30 Mins"}</span>
+            <span className="text-[17px] font-extrabold tracking-[-.035em] sm:text-[22px]">{isHindi ? "डिलीवरी आपके इलाके पर निर्भर है" : "Delivery depends on your area"}</span>
           </div>
           <div className="mt-4 flex w-full flex-col items-center justify-center gap-2 sm:mt-5 sm:flex-row">
             <Link href="#deals" className="inline-flex min-h-11 w-full max-w-[260px] items-center justify-center gap-2 rounded-full bg-[#800020] px-6 text-[12px] font-black text-white shadow-[0_8px_22px_rgba(128,0,32,.18)] transition hover:-translate-y-0.5 hover:bg-[#64152b] active:scale-[.98] sm:w-auto">{isHindi ? "ऑफर देखें और खरीदें" : "Shop best deals"} <ArrowRight size={15}/></Link>
@@ -222,7 +223,7 @@ export default function OriginalCustomerHome() {
         <div className="mx-auto grid max-w-[1100px] grid-cols-3 divide-x divide-[#eadfce] text-center">
           <div className="px-1.5"><p className="text-[17px] font-black leading-none tracking-tight text-[#800020] sm:text-2xl">{products.length}+</p><p className="mt-1 text-[8px] font-semibold leading-tight text-[#827267] sm:text-[11px]">Products listed</p></div>
           <div className="px-1.5"><p className="text-[17px] font-black leading-none tracking-tight text-[#800020] sm:text-2xl">{shopCategories.length}+</p><p className="mt-1 text-[8px] font-semibold leading-tight text-[#827267] sm:text-[11px]">Shopping categories</p></div>
-          <div className="px-1.5"><p className="text-[17px] font-black leading-none tracking-tight text-[#800020] sm:text-2xl">30 min</p><p className="mt-1 text-[8px] font-semibold leading-tight text-[#827267] sm:text-[11px]">Delivery promise</p></div>
+          <div className="px-1.5"><p className="text-[17px] font-black leading-none tracking-tight text-[#800020] sm:text-2xl">Area-based</p><p className="mt-1 text-[8px] font-semibold leading-tight text-[#827267] sm:text-[11px]">Delivery details</p></div>
         </div>
       </section>
 
@@ -273,6 +274,29 @@ export default function OriginalCustomerHome() {
                 </section>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+
+      <section aria-label={isHindi ? "मंथली ग्रॉसरी किट्स" : "Monthly grocery kits"} className="bg-[#fffaf2] px-3 py-4 sm:px-6 sm:py-6">
+        <div className="mx-auto max-w-[1240px]">
+          <div className="mb-3 flex items-end justify-between gap-3">
+            <div className="min-w-0">
+              <p className="text-[8px] font-black uppercase tracking-[.18em] text-[#a47a2c]">{isHindi ? "महीने की खरीदारी आसान" : "PLAN YOUR MONTHLY SHOP"}</p>
+              <h2 className="mt-1 text-[17px] font-black leading-tight tracking-[-.04em] text-[#800020] sm:text-xl">{isHindi ? "बजट के हिसाब से ग्रॉसरी किट" : "Monthly grocery kits"}</h2>
+              <p className="mt-1 text-[9px] text-[#817166] sm:text-[11px]">{isHindi ? "बजट चुनें; पैक साइज़ और फाइनल कीमत स्टोर कन्फर्म करेगा।" : "Choose a budget; the store confirms pack sizes and final price."}</p>
+            </div>
+            <Link href="/kits" className="shrink-0 text-[9px] font-black text-[#800020] sm:text-[10px]">{isHindi ? "सभी किट्स" : "View all kits"} <ArrowRight size={11} className="inline"/></Link>
+          </div>
+          <div className="grid grid-cols-3 gap-2 sm:gap-3">
+            {groceryKits.slice(0, 3).map((kit) => (
+              <Link key={kit.id} href="/kits" className="min-w-0 rounded-xl border border-[#eadfce] bg-white p-2.5 shadow-[0_3px_12px_rgba(68,45,27,.04)] transition hover:-translate-y-0.5 hover:border-[#d5bd96] sm:p-3">
+                <p className="line-clamp-2 min-h-[26px] text-[9px] font-black leading-tight text-[#5d172b] sm:min-h-[32px] sm:text-xs">{isHindi ? kit.titleHi : kit.title}</p>
+                <p className="mt-1 text-[12px] font-black text-[#800020] sm:text-sm">₹{kit.price.toLocaleString("en-IN")}</p>
+                <p className="mt-1 text-[7px] leading-tight text-[#88786d] sm:text-[9px]">{isHindi ? "बजट टियर · मात्रा कन्फर्म होगी" : "Budget tier · pack sizes confirmed"}</p>
+              </Link>
+            ))}
           </div>
         </div>
       </section>

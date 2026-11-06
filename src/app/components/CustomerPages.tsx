@@ -6,7 +6,7 @@ import gsap from "gsap";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
 import { useLanguage } from "./LanguageProvider";
 import Image from "next/image";
-import { AlertCircle, ArrowDownWideNarrow, ArrowLeft, ArrowRight, Check, FileDown, Headset, Home, LoaderCircle, MapPin, MessageCircle, Package, Phone, RotateCcw, Search, ShieldCheck, ShoppingBag, Star, Ticket, Truck, UserRound, X, XCircle, Heart, Trash2 } from "lucide-react";
+import { AlertCircle, ArrowLeft, ArrowRight, Home, LoaderCircle, MapPin, MessageCircle, Package, Phone, Search, ShieldCheck, ShoppingBag, Star, Truck, X, Heart, Trash2 } from "lucide-react";
 import { categoryOptions, products } from "./data";
 import { useCart } from "./CartProvider";
 import { useWishlist } from "./WishlistProvider";

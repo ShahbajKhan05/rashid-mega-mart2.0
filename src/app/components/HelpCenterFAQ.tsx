@@ -39,28 +39,61 @@ export default function HelpCenterFAQ({ language }: { language: Language }) {
   }, []);
 
   return (
-    <section id="help-center" className="bg-[#FFFCF0] px-3 py-5 sm:px-6 sm:py-8">
-      <div className="mx-auto max-w-[900px]">
-        <div className="mb-3 text-center">
-          <p className="text-[8px] font-black uppercase tracking-[.2em] text-[#A47A2C]">HELP & SUPPORT</p>
-          <h2 className="mt-1 text-[17px] font-black tracking-[-.05em] text-[#800020] sm:text-xl">{isHindi ? "अक्सर पूछे जाने वाले सवाल" : "Frequently asked questions"}</h2>
+    <section id="help-center" className="relative overflow-hidden bg-[#F5F0E6] px-3.5 py-7 sm:px-6 sm:py-10">
+      <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-20 h-52 w-52 rounded-full bg-[#fffaf0]/70 blur-2xl" />
+      <div className="relative mx-auto max-w-[760px]">
+        <div className="mb-4 text-center sm:mb-6">
+          <p className="text-[9px] font-extrabold uppercase tracking-[.22em] text-[#A47A2C]">A LITTLE HELP, RIGHT HERE</p>
+          <h2 className="mt-1.5 text-[clamp(1.3rem,5.4vw,2rem)] font-black leading-[1.12] tracking-[-.055em] text-[#70202A]">
+            {isHindi ? "आपके सवाल, हमारे जवाब" : "Good to know before you shop"}
+          </h2>
+          <p className="mx-auto mt-1.5 max-w-[310px] text-[11px] leading-[1.55] text-[#78695D] sm:max-w-none sm:text-[13px]">
+            {isHindi ? "ऑर्डर, डिलीवरी और पेमेंट से जुड़ी ज़रूरी जानकारी।" : "Quick answers about orders, delivery, payments and rewards."}
+          </p>
         </div>
-        <div className="divide-y divide-[#eee5d8] border-y border-[#eee5d8] bg-white/75">
+
+        <div className="space-y-2.5 sm:space-y-3">
           {entries.map((item, index) => {
             const expanded = openIndex === index;
             return (
-              <article data-faq-row key={item.question}>
-                <button type="button" aria-expanded={expanded} onClick={() => setOpenIndex(expanded ? -1 : index)} className="flex w-full items-center gap-2 py-3 text-left">
-                  <span className="flex-1 text-[10px] font-bold leading-[1.45] text-[#40342e] sm:text-xs">{isHindi ? item.questionHi : item.question}</span>
-                  <ChevronDown size={14} className={"shrink-0 text-[#8d7865] transition-transform duration-300 " + (expanded ? "rotate-180 text-[#800020]" : "")}/>
+              <article
+                data-faq-row
+                key={item.question}
+                className={"overflow-hidden rounded-[15px] border transition-all duration-300 sm:rounded-[18px] " + (expanded
+                  ? "border-[#D8BD91] bg-[#F8F2E7] shadow-[inset_3px_3px_7px_rgba(137,111,76,.12),inset_-3px_-3px_7px_rgba(255,255,255,.9),0_5px_14px_rgba(100,73,39,.07)]"
+                  : "border-[#E8DFD0] bg-[#F8F3E9] shadow-[5px_5px_12px_rgba(135,112,80,.12),-5px_-5px_12px_rgba(255,255,255,.92)]")}
+              >
+                <button
+                  type="button"
+                  aria-expanded={expanded}
+                  onClick={() => setOpenIndex(expanded ? -1 : index)}
+                  className="flex min-h-[52px] w-full items-center gap-3 px-3.5 py-3 text-left active:scale-[.995] sm:min-h-[58px] sm:px-5"
+                >
+                  <span className={"grid h-7 w-7 shrink-0 place-items-center rounded-full text-[10px] font-extrabold transition-colors " + (expanded ? "bg-[#812631] text-white" : "bg-[#EDE3D2] text-[#8A6A42] shadow-[inset_1px_1px_3px_rgba(125,96,59,.12),inset_-1px_-1px_3px_white]")}>
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="min-w-0 flex-1 text-[12px] font-extrabold leading-[1.4] tracking-[-.015em] text-[#3F3029] sm:text-[14px]">
+                    {isHindi ? item.questionHi : item.question}
+                  </span>
+                  <span className={"grid h-7 w-7 shrink-0 place-items-center rounded-full transition-all duration-300 " + (expanded ? "rotate-180 bg-[#812631] text-white" : "bg-[#EEE5D7] text-[#806B55]")}>
+                    <ChevronDown size={15} />
+                  </span>
                 </button>
                 <div className={"grid transition-[grid-template-rows,opacity] duration-300 ease-out " + (expanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0")}>
-                  <div className="overflow-hidden"><p className="pb-3 pr-5 text-[9px] leading-[1.6] text-[#827267] sm:text-[11px]">{isHindi ? item.answerHi : item.answer}</p></div>
+                  <div className="overflow-hidden">
+                    <p className="border-t border-[#E5D8C5] px-3.5 pb-3.5 pt-2.5 pl-[3.55rem] text-[11px] leading-[1.65] text-[#6D5C50] sm:px-5 sm:pb-4 sm:pt-3 sm:pl-[4.25rem] sm:text-[13px]">
+                      {isHindi ? item.answerHi : item.answer}
+                    </p>
+                  </div>
                 </div>
               </article>
             );
           })}
         </div>
+        <p className="mt-4 text-center text-[10px] font-medium text-[#8A7867] sm:mt-5 sm:text-[11px]">
+          {isHindi ? "कुछ और पूछना है? हमसे संपर्क करें।" : "Still need a hand? Our store team is happy to help."}
+          {" "}<a href="/contact" className="font-extrabold text-[#8B2630] underline decoration-[#C8A56B] underline-offset-2">{isHindi ? "संपर्क करें" : "Talk to us"}</a>
+        </p>
       </div>
     </section>
   );

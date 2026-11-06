@@ -74,13 +74,13 @@ export default function KitsPage() {
                   <button type="button" onClick={() => toggleKitWishlist(kit.id)} aria-label={isKitWishlisted(kit.id) ? "Remove kit from wishlist" : "Save kit to wishlist"} aria-pressed={isKitWishlisted(kit.id)} className={"grid h-6 w-6 shrink-0 place-items-center rounded-full " + (isKitWishlisted(kit.id) ? "bg-[#800020] text-white" : "bg-[#f4e9dc] text-[#800020]")}><Heart size={12} fill={isKitWishlisted(kit.id) ? "currentColor" : "none"}/></button>
                 </div>
                 <p className="mt-1 line-clamp-2 text-[8px] leading-[1.4] text-[#827267] sm:text-[9px]">{isHindi ? kit.descriptionHi : kit.description}</p>
-                <p className="mt-1 text-[7px] font-extrabold uppercase tracking-wide text-[#a47a2c]">{isHindi ? "इस किट में क्या मिलेगा?" : "WHAT'S IN THIS KIT"}</p>
+                <p className="mt-1 text-[7px] font-extrabold uppercase tracking-wide text-[#a47a2c]">{isHindi ? "सामान और पैक साइज़" : "ITEMS & PACK SIZES"}</p>
                 <details className="mt-1">
                   <summary className="cursor-pointer list-none text-[8px] font-extrabold text-[#800020] sm:text-[9px]">{isHindi ? "सामान देखें" : "View included items"}</summary>
-                  <ul className="mt-1 max-h-16 space-y-0.5 overflow-y-auto">{kit.items.map((item) => <li key={item} className="flex gap-1 text-[8px] leading-3 text-[#62554b]"><Check size={10} className="shrink-0 text-[#16834b]"/>{item}</li>)}</ul>
+                  <ul className="mt-1 max-h-16 space-y-0.5 overflow-y-auto">{kit.items.map((item) => <li key={item} className="flex items-start justify-between gap-1 text-[8px] leading-3 text-[#62554b]"><span className="flex min-w-0 gap-1"><Check size={10} className="mt-0.5 shrink-0 text-[#16834b]"/>{item}</span><span className="shrink-0 text-[7px] font-semibold text-[#9a8067]">{isHindi ? "पैक साइज़ कन्फर्म" : "size confirmed"}</span></li>)}</ul>
                 </details>
                 <div className="mt-1.5 flex items-center justify-between gap-2">
-                  <div><p className="text-[7px] font-bold uppercase tracking-wide text-[#928276]">{isHindi ? "बजट टियर" : "BUDGET TIER"}</p><p className="text-[14px] font-black leading-none text-[#800020]">₹{kit.price.toLocaleString("en-IN")}</p></div>
+                  <div><p className="text-[7px] font-bold uppercase tracking-wide text-[#928276]">{isHindi ? "अनुमानित बजट" : "EST. BUDGET TIER"}</p><p className="text-[14px] font-black leading-none text-[#800020]">₹{kit.price.toLocaleString("en-IN")}</p></div>
                   <button type="button" onClick={() => requestKit(kit)} className="inline-flex h-7 items-center gap-1 rounded-md bg-[#800020] px-2.5 text-[8px] font-extrabold text-white transition hover:bg-[#64152b] active:scale-[.98]">{isHindi ? "यह किट चुनें" : "Choose this kit"} <ArrowRight size={10}/></button>
                 </div>
               </div>
@@ -89,7 +89,7 @@ export default function KitsPage() {
         </div>
         <div className="mt-3 flex items-start justify-center gap-2 rounded-xl border border-[#eadcc7] bg-white/70 px-3 py-2 text-center">
           <ShoppingBasket size={13} className="mt-0.5 shrink-0 text-[#800020]"/>
-          <p className="text-[8px] leading-relaxed text-[#806f61] sm:text-[9px]">{isHindi ? "ध्यान दें: दिखाई गई कीमत बजट टियर है। आपकी रिक्वेस्ट मिलने के बाद स्टोर ब्रांड, सही मात्रा, स्टॉक और फाइनल कीमत कन्फर्म करेगा।" : "Good to know: displayed prices are budget tiers. After your request, our store will confirm brands, exact quantities, stock and the final price."}</p>
+          <p className="text-[8px] leading-relaxed text-[#806f61] sm:text-[9px]">{isHindi ? "ध्यान दें: यह अनुमानित बजट टियर है, पक्का बिल नहीं। रिक्वेस्ट मिलने पर स्टोर हर सामान का पैक साइज़, मात्रा, ब्रांड और स्टॉक बताएगा। आपकी मंज़ूरी के बाद ही फाइनल ऑर्डर आगे बढ़ेगा।" : "Important: this is an estimated budget tier, not a confirmed bill. After your request, the store will share pack sizes, quantities, brands and stock for each item. Your final order proceeds only after you review the confirmation."}</p>
         </div>
       </div>
     </section>

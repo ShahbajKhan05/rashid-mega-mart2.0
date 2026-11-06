@@ -7,7 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
-import { ArrowRight, ShoppingCart, Truck, Package, Layers3, MapPin, Sparkles } from "lucide-react";
+import { ArrowRight, ShoppingCart, Package, Layers3, MapPin } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 import { categoryOptions, products } from "./data";
 import { useCart } from "./CartProvider";
@@ -27,7 +27,6 @@ export default function OriginalCustomerHome() {
   const entranceRef = useRef<HTMLElement>(null);
   const shopMotionRef = useRef<HTMLElement>(null);
   const entranceTitleRef = useRef<HTMLHeadingElement>(null);
-  const deliveryBadgeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const offerEndsAt = new Date("2026-11-09T23:59:59+05:30").getTime();
@@ -94,27 +93,6 @@ export default function OriginalCustomerHome() {
     }, root);
     return () => context.revert();
   }, []);
-  useEffect(() => {
-    const section = entranceRef.current;
-    const title = entranceTitleRef.current;
-    const badge = deliveryBadgeRef.current;
-    if (!section || !title || !badge) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const context = gsap.context(() => {
-      const lines = title.querySelectorAll<HTMLElement>("[data-hero-line]");
-      const intro = gsap.timeline({ defaults: { ease: "power4.out" } });
-      intro.fromTo(lines, { yPercent: 115, rotateX: -28, autoAlpha: 0, filter: "blur(12px)" }, {
-        yPercent: 0, rotateX: 0, autoAlpha: 1, filter: "blur(0px)",
-        duration: 1.15, stagger: 0.16, clearProps: "transform",
-      });
-      intro.fromTo(badge, { y: 24, scale: 0.86, autoAlpha: 0 }, {
-        y: 0, scale: 1, autoAlpha: 1, duration: 0.8, ease: "back.out(1.8)",
-      }, "-=0.48");
-      gsap.to(badge, { y: -5, duration: 1.8, ease: "sine.inOut", yoyo: true, repeat: -1, delay: 1.6 });
-    }, section);
-    return () => context.revert();
-  }, []);
-
 
   const shopCategories = categoryOptions.filter((item) => item.id !== "all" && products.some((product) => product.category === item.id));
   const bestDeals = [...products].filter((product) => product.originalPrice > product.price).sort((a, b) => ((b.originalPrice - b.price) / b.originalPrice) - ((a.originalPrice - a.price) / a.originalPrice)).slice(0, 8);
@@ -171,10 +149,6 @@ export default function OriginalCustomerHome() {
               filter: "drop-shadow(0 3px 2px rgba(47,34,20,.10))",
             }}>MEGA MART</span>
           </h1>
-          <div ref={deliveryBadgeRef} className="mt-8 inline-flex min-h-[58px] items-center justify-center gap-3 rounded-full border border-[#d2a64c]/60 bg-[#d9ad50] px-8 py-3 text-[#382719] shadow-[0_12px_28px_rgba(75,54,24,.16)] transition-shadow duration-300 hover:shadow-[0_16px_36px_rgba(75,54,24,.22)] sm:mt-9 sm:min-h-[62px] sm:px-10">
-            <Truck size={23} strokeWidth={2.2} />
-            <span className="text-[17px] font-extrabold tracking-[-.035em] sm:text-[22px]">{isHindi ? "5 KM तक FREE HOME DELIVERY" : "FREE HOME DELIVERY UP TO 5 KM"}</span>
-          </div>
           <div className="mt-4 flex w-full flex-col items-center justify-center gap-2 sm:mt-5 sm:flex-row">
             <Link href="#deals" className="inline-flex min-h-11 w-full max-w-[260px] items-center justify-center gap-2 rounded-full bg-[#800020] px-6 text-[12px] font-black text-white shadow-[0_8px_22px_rgba(128,0,32,.18)] transition hover:-translate-y-0.5 hover:bg-[#64152b] active:scale-[.98] sm:w-auto">{isHindi ? "ऑफर देखें और खरीदें" : "Shop best deals"} <ArrowRight size={15}/></Link>
             <Link href="/kits" className="inline-flex min-h-10 w-full max-w-[260px] items-center justify-center gap-2 rounded-full border border-[#d7c4a8] bg-white/80 px-5 text-[11px] font-extrabold text-[#6b4a31] transition hover:border-[#a47a2c] hover:bg-white sm:w-auto">{isHindi ? "मंथली किट देखें" : "Explore monthly kits"}</Link>
@@ -187,33 +161,6 @@ export default function OriginalCustomerHome() {
         </div>
       </section>
 
-
-      <section
-        data-shop-section
-        aria-label={isHindi ? "5 किलोमीटर तक मुफ्त होम डिलीवरी" : "Free home delivery within 5 kilometres"}
-        className="rmm-delivery-section relative isolate overflow-hidden px-3 py-4 sm:px-6 sm:py-8"
-      >
-        <div className="rmm-delivery-promo mx-auto max-w-[1240px]">
-          <div className="rmm-delivery-copy">
-            <span className="rmm-delivery-kicker"><Sparkles size={12} /> {isHindi ? "राशिद मेगा मार्ट की खास सुविधा" : "A RASHID MEGA MART PERK"}</span>
-            <h2>{isHindi ? "घर बैठे मंगाएं," : "Your groceries,"}<br/><em>{isHindi ? "डिलीवरी हमारी!" : "at your doorstep."}</em></h2>
-            <div className="rmm-delivery-distance"><MapPin size={17} fill="currentColor" /> <strong>5 KM</strong><span>{isHindi ? "तक बिल्कुल FREE" : "RADIUS · FREE DELIVERY"}</span></div>
-            <p>{isHindi ? "5 किलोमीटर के दायरे में आपके ऑर्डर की होम डिलीवरी बिल्कुल मुफ्त।" : "Get your everyday essentials delivered FREE within a 5 kilometre radius."}</p>
-            <Link href="/products" className="rmm-delivery-shop-link">{isHindi ? "अभी खरीदारी करें" : "Shop groceries"} <ArrowRight size={15}/></Link>
-          </div>
-          <div className="rmm-delivery-art" aria-hidden="true">
-            <div className="rmm-delivery-orbit rmm-delivery-orbit-one"/>
-            <div className="rmm-delivery-orbit rmm-delivery-orbit-two"/>
-            <div className="rmm-delivery-pin"><MapPin size={18} fill="currentColor"/><span>5 KM</span></div>
-            <div className="rmm-delivery-scooter"><Truck size={100} strokeWidth={1.35}/></div>
-            <div className="rmm-delivery-road"/>
-            <span className="rmm-delivery-spark rmm-delivery-spark-one">✦</span>
-            <span className="rmm-delivery-spark rmm-delivery-spark-two">✧</span>
-            <span className="rmm-delivery-art-caption">{isHindi ? "तेज़ • आसान • मुफ्त" : "FAST  •  EASY  •  FREE"}</span>
-          </div>
-          <div className="rmm-delivery-bottom"><span><Truck size={14}/> {isHindi ? "सिर्फ 5 KM तक" : "Within 5 KM only"}</span><i/><span>{isHindi ? "कोई डिलीवरी चार्ज नहीं" : "No delivery fee"}</span></div>
-        </div>
-      </section>
 
       <section aria-label="Why shop with Rashid Mega Mart" className="relative overflow-hidden border-y border-[#eadfce] bg-[linear-gradient(110deg,#fffaf4_0%,#fff_48%,#fff8f0_100%)] px-3 py-3 sm:px-6 sm:py-5">
         <div className="pointer-events-none absolute -right-12 -top-16 h-36 w-36 rounded-full bg-[#ead5b5]/20 blur-3xl" />

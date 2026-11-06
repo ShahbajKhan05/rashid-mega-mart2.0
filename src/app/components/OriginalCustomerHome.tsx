@@ -144,6 +144,10 @@ export default function OriginalCustomerHome() {
             <Truck size={23} strokeWidth={2.2} />
             <span className="text-[17px] font-extrabold tracking-[-.035em] sm:text-[22px]">{isHindi ? "30 मिनट में डिलीवरी" : "Delivery in 30 Mins"}</span>
           </div>
+          <div className="mt-4 flex w-full flex-col items-center justify-center gap-2 sm:mt-5 sm:flex-row">
+            <Link href="#deals" className="inline-flex min-h-11 w-full max-w-[260px] items-center justify-center gap-2 rounded-full bg-[#800020] px-6 text-[12px] font-black text-white shadow-[0_8px_22px_rgba(128,0,32,.18)] transition hover:-translate-y-0.5 hover:bg-[#64152b] active:scale-[.98] sm:w-auto">{isHindi ? "ऑफर देखें और खरीदें" : "Shop best deals"} <ArrowRight size={15}/></Link>
+            <Link href="/kits" className="inline-flex min-h-10 w-full max-w-[260px] items-center justify-center gap-2 rounded-full border border-[#d7c4a8] bg-white/80 px-5 text-[11px] font-extrabold text-[#6b4a31] transition hover:border-[#a47a2c] hover:bg-white sm:w-auto">{isHindi ? "मंथली किट देखें" : "Explore monthly kits"}</Link>
+          </div>
         </div>
       </section>
 
@@ -157,7 +161,7 @@ export default function OriginalCustomerHome() {
 
       <BrandMarquee language={language} />
 
-      <section className="bg-[#fffaf0] px-3 py-5 sm:px-6 sm:py-8" aria-label={isHindi ? "आज की बचत" : "Best deals"}>
+      <section id="deals" className="bg-[#fffaf0] px-3 py-5 sm:px-6 sm:py-8" aria-label={isHindi ? "आज की बचत" : "Best deals"}>
         <div className="mx-auto max-w-[1240px]">
           <div className="mb-3 flex items-end justify-between gap-3"><div><p className="text-[9px] font-black uppercase tracking-[.18em] text-[#a47a2c]">{isHindi ? "आज की खास बचत" : "TODAY'S BEST OFFERS"}</p><h2 className="mt-1 text-[21px] font-black leading-tight tracking-[-.05em] text-[#800020] sm:text-3xl">{isHindi ? "कम दाम, ज़्यादा बचत" : "Best deals for your home"}</h2><p className="mt-1 text-[10px] text-[#817166] sm:text-xs">{isHindi ? "ऑफर वाले सामान सीधे कार्ट में जोड़ें।" : "Real product discounts. Add your favourites in one tap."}</p></div><Link href="/products" className="mb-1 inline-flex shrink-0 items-center gap-1 text-[10px] font-black text-[#800020]">{isHindi ? "सभी ऑफर" : "All deals"} <ArrowRight size={13}/></Link></div>
           <ShoppingProductRail items={bestDeals} language={language} />

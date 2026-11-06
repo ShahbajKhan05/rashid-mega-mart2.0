@@ -45,6 +45,7 @@ export default function Navbar() {
   const [moreOpen, setMoreOpen] = useState(false);
   const bodyOverflowBeforeOverlay = useRef<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [couponCopied, setCouponCopied] = useState(false);
 
   const [locationModalOpen, setLocationModalOpen] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState(DEFAULT_LOCATION);
@@ -253,6 +254,15 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center gap-1.5 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+            <button type="button" onClick={async () => {
+              try {
+                await navigator.clipboard.writeText("FIRST100");
+                setCouponCopied(true);
+                window.setTimeout(() => setCouponCopied(false), 1800);
+              } catch { setCouponCopied(false); }
+            }} aria-label="Copy FIRST100 coupon code" className="flex h-7 shrink-0 items-center gap-1.5 rounded-full border border-[#b88a42]/40 bg-[#fff4d9] px-3 text-[10px] font-black tracking-[.04em] text-[#7b4c17] shadow-[0_3px_10px_rgba(120,76,23,.08)] active:scale-[.97]">
+              <Gift size={13} />{couponCopied ? "COPIED ✓" : "FIRST100 · COPY"}
+            </button>
             {categoryOptions.map((cat) => {
               let Icon = LayoutGrid;
               const cid = cat.id.toLowerCase();
@@ -287,8 +297,8 @@ export default function Navbar() {
           {[
             { href: "/", label: isHindi ? "होम" : "Home", Icon: House, active: pathname === "/" },
             { href: "/products", label: isHindi ? "शॉप" : "Shop", Icon: LayoutGrid, active: pathname.startsWith("/products") },
-            { href: "/kits", label: isHindi ? "किट्स" : "Kits", Icon: ShoppingBag, active: pathname.startsWith("/kits") },
             { href: "/order-tracking", label: isHindi ? "ट्रैक" : "Track", Icon: Truck, active: pathname.startsWith("/order-tracking") },
+            { href: "/rewards", label: isHindi ? "रिवॉर्ड्स" : "Rewards", Icon: Gift, active: pathname.startsWith("/rewards") },
             { href: "/cart", label: isHindi ? "कार्ट" : "Cart", Icon: ShoppingCart, active: pathname.startsWith("/cart") },
           ].map(({ href, label, Icon, active }) => (
             <a key={href} href={href} aria-current={active ? "page" : undefined} className={`flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl px-0.5 transition-colors ${active ? "text-[#800020]" : "text-[#887b73]"}`}>
@@ -308,17 +318,12 @@ export default function Navbar() {
             <motion.button type="button" aria-label={isHindi ? "मेन्यू बंद करें" : "Close menu"} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setMoreOpen(false)} className="fixed inset-0 z-[68] bg-[#26141a]/35 xl:hidden" />
             <motion.section id="mobile-more-menu" role="dialog" aria-modal="true" aria-label={isHindi ? "और विकल्प" : "More options"} initial={{ y: 28, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 28, opacity: 0 }} transition={{ type: "spring", stiffness: 340, damping: 30 }} className="fixed inset-x-2 bottom-[calc(76px+env(safe-area-inset-bottom))] z-[69] mx-auto max-h-[min(68svh,560px)] max-w-xl overflow-y-auto overscroll-contain rounded-2xl border border-[#eadfd3] bg-[#fffdf9] p-3 shadow-[0_18px_55px_rgba(40,20,25,.2)] [scrollbar-width:thin] sm:inset-x-3 sm:p-4 xl:hidden">
               <div className="mb-3 flex items-center justify-between"><h2 className="text-sm font-black text-[#5d142b]">{isHindi ? "और विकल्प" : "Explore more"}</h2><button type="button" onClick={() => setMoreOpen(false)} aria-label="Close" className="rounded-full bg-[#f4ece7] p-2 text-[#6e2638]"><X size={16}/></button></div>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 gap-2">
                 {[
+                  { href: "/kits", label: isHindi ? "किट्स" : "Shopping Kits", Icon: ShoppingBag },
                   { href: "/my-orders", label: isHindi ? "मेरे ऑर्डर" : "My Orders", Icon: Package },
-                  { href: "/rewards", label: isHindi ? "रिवॉर्ड्स" : "Rashid Rewards", Icon: Gift },
                   { href: "/wishlist", label: isHindi ? "विशलिस्ट" : "Wishlist", Icon: Heart },
-                  { href: "/faqs", label: "FAQs", Icon: ShieldCheck },
-                  { href: "/about", label: isHindi ? "हमारे बारे में" : "About", Icon: House },
-                  { href: "/contact", label: isHindi ? "संपर्क" : "Contact", Icon: ArrowUpRight },
-                  { href: "/shipping-policy", label: isHindi ? "डिलीवरी नीति" : "Shipping", Icon: Truck },
-                  { href: "/return-replacement", label: isHindi ? "रिटर्न" : "Returns", Icon: Package },
-                  { href: "/privacy-policy", label: isHindi ? "प्राइवेसी" : "Privacy", Icon: ShieldCheck },
+                  { href: "/contact", label: isHindi ? "संपर्क" : "Contact Support", Icon: ArrowUpRight },
                 ].map(({href,label,Icon}) => <a key={href} href={href} onClick={() => setMoreOpen(false)} className="flex min-h-[66px] flex-col items-center justify-center gap-1.5 rounded-xl border border-[#eee4da] bg-white px-1 py-2 text-center text-[10px] font-bold text-[#5f4a46] transition hover:border-[#cda5a8] hover:text-[#800020]"><Icon size={18} className="text-[#800020]"/><span>{label}</span></a>)}
               </div>
             </motion.section>

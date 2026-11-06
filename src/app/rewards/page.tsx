@@ -30,6 +30,13 @@ export default function RewardsPage() {
   const [phone, setPhone] = useState("");
   const [member, setMember] = useState<Entry | null>(null);
   const [notice, setNotice] = useState("");
+  const [now, setNow] = useState<number | null>(null);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setNow(Date.now()), 0);
+    const interval = window.setInterval(() => setNow(Date.now()), 60000);
+    return () => { window.clearTimeout(timer); window.clearInterval(interval); };
+  }, []);
 
   useEffect(() => {
     const sync = () => { setRows(read()); setCoupons(readCoupons()); };
@@ -44,7 +51,7 @@ export default function RewardsPage() {
     };
   }, []);
 
-  const activeCoupons = useMemo(() => member ? coupons.filter((coupon) => coupon.ownerPhone === member.phone && coupon.status === "active" && new Date(coupon.expiresAt).getTime() > Date.now()) : [], [coupons, member]);
+  const activeCoupons = useMemo(() => member ? coupons.filter((coupon) => coupon.ownerPhone === member.phone && coupon.status === "active" &&  (now === null || new Date(coupon.expiresAt).getTime() > now)) : [], [coupons, member, now]);
   const progress = member ? Math.min(100, (member.points / 50) * 100) : 0;
   const remaining = member ? Math.max(0, 50 - member.points) : 50;
 

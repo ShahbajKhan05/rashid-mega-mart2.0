@@ -12,6 +12,7 @@ import HelpCenterFAQ from "./HelpCenterFAQ";
 import KitsPage from "./KitsPage";
 import NetworkSection from "./NetworkSection";
 import BrandMarquee from "./BrandMarquee";
+import BikanoShowcase from "./BikanoShowcase";
 
 export default function OriginalCustomerHome() {
   const { language } = useLanguage();
@@ -205,6 +206,8 @@ export default function OriginalCustomerHome() {
           </div>
         </div>
       </section>
+
+      <BikanoShowcase />
 
       <KitsPage />
 

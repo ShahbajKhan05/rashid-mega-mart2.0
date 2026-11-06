@@ -44,9 +44,10 @@ export default function SiteFooter() {
     <footer ref={footerRef} className="relative isolate overflow-hidden bg-[#54110F] px-3 py-5 text-white sm:px-6 sm:py-8">
       <div className="relative mx-auto max-w-[1700px]">
         <div className="relative overflow-hidden rounded-[22px] border border-[#D6A04A] bg-[#F8F0DF] shadow-[0_18px_55px_rgba(0,0,0,.28)] sm:rounded-[28px]">
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-[.23]" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1800&q=80)" }} />
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#FFF9EC]/95 via-[#FFF8EA]/90 to-[#FFF9ED]/80" />
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-[.12]" style={{ backgroundImage: "radial-gradient(ellipse at 10% 20%,#B8893D 0 1px,transparent 2px),radial-gradient(ellipse at 70% 80%,#A81712 0 1px,transparent 2px)", backgroundSize: "32px 32px,46px 46px" }} />
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-cover bg-[center_48%] opacity-100" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=2200&q=88)" }} />
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#FFF9EC]/75 via-[#FFF8EA]/48 to-[#FFF9ED]/32" />
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#FFF5E4]/52 via-transparent to-[#FFF9EC]/18" />
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-[.055]" style={{ backgroundImage: "radial-gradient(ellipse at 10% 20%,#B8893D 0 1px,transparent 2px),radial-gradient(ellipse at 70% 80%,#A81712 0 1px,transparent 2px)", backgroundSize: "32px 32px,46px 46px" }} />
           <div aria-hidden="true" className="pointer-events-none absolute -left-8 -top-20 h-44 w-[42%] -rotate-[10deg] bg-[#F8AD35] sm:-top-24 sm:h-52" />
 
           <div className="relative grid gap-7 px-5 pb-8 pt-7 sm:px-8 sm:pb-10 sm:pt-9 lg:grid-cols-[1fr_1.05fr_.66fr] lg:gap-0 lg:px-9 lg:pb-20 lg:pt-9 xl:px-10">

@@ -59,7 +59,7 @@ export default function OriginalCustomerHome() {
   const categoryViewportRef = useRef<HTMLDivElement>(null);
   const categoryTrackRef = useRef<HTMLDivElement>(null);
   const entranceRef = useRef<HTMLElement>(null);
-  const entranceTitleRef = useRef<SVGSVGElement>(null);
+  const entranceTitleRef = useRef<HTMLImageElement>(null);
   const deliveryBadgeRef = useRef<HTMLDivElement>(null);
   const bestSellersRef = useRef<HTMLElement>(null);
 
@@ -104,17 +104,13 @@ export default function OriginalCustomerHome() {
     if (!section || !title || !badge) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const context = gsap.context(() => {
-      const lines = title.querySelectorAll<HTMLElement>("[data-hero-line]");
       const intro = gsap.timeline({ defaults: { ease: "power4.out" } });
-      intro.fromTo(lines, { yPercent: 115, rotateX: -28, autoAlpha: 0, filter: "blur(12px)" }, {
-        yPercent: 0, rotateX: 0, autoAlpha: 1, filter: "blur(0px)",
-        duration: 1.15, stagger: 0.16, clearProps: "transform",
+      intro.fromTo(title, { autoAlpha: 0, y: 24, scale: 0.94, filter: "blur(10px)" }, {
+        autoAlpha: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 1.1, clearProps: "transform",
       });
       intro.fromTo(badge, { y: 24, scale: 0.86, autoAlpha: 0 }, {
         y: 0, scale: 1, autoAlpha: 1, duration: 0.8, ease: "back.out(1.8)",
       }, "-=0.48");
-      gsap.fromTo("[data-hero-video]", { scale: 1.12 }, { scale: 1.02, duration: 2.4, ease: "power2.out" });
-      gsap.to("[data-hero-video]", { scale: 1.09, duration: 18, ease: "sine.inOut", yoyo: true, repeat: -1, delay: 2.4 });
       gsap.to(badge, { y: -5, duration: 1.8, ease: "sine.inOut", yoyo: true, repeat: -1, delay: 1.6 });
     }, section);
     return () => context.revert();
@@ -251,50 +247,16 @@ export default function OriginalCustomerHome() {
         <div className="mx-auto flex w-full max-w-[1500px] flex-col items-center justify-center text-center">
           <p className="mb-3 px-2 text-center text-[9px] font-extrabold uppercase tracking-[.2em] text-[#87633a] sm:mb-6 sm:text-xs sm:tracking-[.34em]">{isHindi ? "आपकी रोज़मर्रा की भरोसेमंद दुकान" : "YOUR NEIGHBOURHOOD GROCERY STORE"}</p>
           <h1 className="sr-only">Rashid Mega Mart</h1>
-          <svg viewBox="0 0 1000 520" role="img" aria-label="Rashid Mega Mart" className="block h-auto w-full max-w-[520px] overflow-visible sm:hidden">
-            <defs>
-              <filter id="rmm-hero-mobile-shadow" x="-20%" y="-25%" width="140%" height="165%" colorInterpolationFilters="sRGB">
-                <feDropShadow dx="0" dy="10" stdDeviation="7" floodColor="#4b2630" floodOpacity=".27" />
-                <feDropShadow dx="0" dy="2" stdDeviation="1.5" floodColor="#4b2630" floodOpacity=".18" />
-              </filter>
-              <mask id="rmm-hero-mobile-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="520">
-                <rect width="1000" height="520" fill="black" />
-                <text x="500" y="220" textAnchor="middle" fill="white" fontFamily="Arial, Helvetica, sans-serif" fontSize="238" fontWeight="900" letterSpacing="-14">RASHID</text>
-                <text x="500" y="440" textAnchor="middle" fill="white" fontFamily="Arial, Helvetica, sans-serif" fontSize="177" fontWeight="900" letterSpacing="-10">MEGA MART</text>
-              </mask>
-            </defs>
-            <g filter="url(#rmm-hero-mobile-shadow)" aria-hidden="true">
-              <text x="500" y="220" textAnchor="middle" fill="#6f2638" fontFamily="Arial, Helvetica, sans-serif" fontSize="238" fontWeight="900" letterSpacing="-14">RASHID</text>
-              <text x="500" y="440" textAnchor="middle" fill="#6f2638" fontFamily="Arial, Helvetica, sans-serif" fontSize="177" fontWeight="900" letterSpacing="-10">MEGA MART</text>
-            </g>
-            <foreignObject x="0" y="0" width="1000" height="520" mask="url(#rmm-hero-mobile-mask)">
-              <video xmlns="http://www.w3.org/1999/xhtml" autoPlay muted loop playsInline preload="metadata" poster="https://images.unsplash.com/photo-1542838132-92c53300491e?w=900&q=72&auto=format&fit=crop" className="h-full w-full object-cover">
-                <source src="https://cdn.pixabay.com/video/2016/08/22/4730-179738652_large.mp4" type="video/mp4" />
-              </video>
-            </foreignObject>
-          </svg>
-          <svg ref={entranceTitleRef} viewBox="0 0 1400 500" role="img" aria-label="Rashid Mega Mart" className="hidden h-auto w-full max-w-[1180px] overflow-visible sm:block">
-            <defs>
-              <filter id="rmm-hero-title-shadow" x="-20%" y="-25%" width="140%" height="165%" colorInterpolationFilters="sRGB">
-                <feDropShadow dx="0" dy="13" stdDeviation="9" floodColor="#4b2630" floodOpacity=".28" />
-                <feDropShadow dx="0" dy="3" stdDeviation="2" floodColor="#4b2630" floodOpacity=".18" />
-              </filter>
-              <mask id="rmm-hero-video-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1400" height="500">
-                <rect width="1400" height="500" fill="black" />
-                <text data-hero-line x="700" y="205" textAnchor="middle" fill="white" fontFamily="Arial, Helvetica, sans-serif" fontSize="255" fontWeight="900" letterSpacing="-18">RASHID</text>
-                <text data-hero-line x="700" y="445" textAnchor="middle" fill="white" fontFamily="Arial, Helvetica, sans-serif" fontSize="218" fontWeight="900" letterSpacing="-15">MEGA MART</text>
-              </mask>
-            </defs>
-            <g filter="url(#rmm-hero-title-shadow)" aria-hidden="true">
-              <text x="700" y="205" textAnchor="middle" fill="#6f2638" fontFamily="Arial, Helvetica, sans-serif" fontSize="255" fontWeight="900" letterSpacing="-18">RASHID</text>
-              <text x="700" y="445" textAnchor="middle" fill="#6f2638" fontFamily="Arial, Helvetica, sans-serif" fontSize="218" fontWeight="900" letterSpacing="-15">MEGA MART</text>
-            </g>
-            <foreignObject x="0" y="0" width="1400" height="500" mask="url(#rmm-hero-video-mask)">
-              <video data-hero-video xmlns="http://www.w3.org/1999/xhtml" autoPlay muted loop playsInline preload="metadata" poster="https://images.unsplash.com/photo-1542838132-92c53300491e?w=1400&q=72&auto=format&fit=crop" className="h-full w-full object-cover">
-                <source src="https://cdn.pixabay.com/video/2016/08/22/4730-179738652_large.mp4" type="video/mp4" />
-              </video>
-            </foreignObject>
-          </svg>
+          <Image
+            ref={entranceTitleRef}
+            src="/Logo.png"
+            alt="Rashid Mega Mart"
+            width={1100}
+            height={520}
+            priority
+            sizes="(max-width: 639px) 94vw, (max-width: 1023px) 88vw, 1100px"
+            className="h-auto w-full max-w-[min(94vw,900px)] object-contain drop-shadow-[0_12px_18px_rgba(75,38,48,.18)]"
+          />
           <div ref={deliveryBadgeRef} className="mt-4 inline-flex min-h-[44px] max-w-full items-center justify-center gap-2 rounded-full border border-[#d4ad63]/70 bg-[#e7bd68] px-5 py-2.5 text-[#382719] shadow-[0_7px_18px_rgba(90,57,25,.16)] transition-shadow duration-300 hover:shadow-[0_10px_24px_rgba(90,57,25,.2)] sm:mt-9 sm:min-h-[62px] sm:gap-3 sm:px-10 sm:py-3 sm:shadow-[0_12px_32px_rgba(0,0,0,.24)]>
             <Truck size={22} strokeWidth={2.2} />
             <span className="text-[13px] font-extrabold tracking-[-.035em] sm:text-[22px]">{isHindi ? "30 मिनट में डिलीवरी" : "Delivery in 30 Mins"}</span>

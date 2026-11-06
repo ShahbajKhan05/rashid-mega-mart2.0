@@ -12,11 +12,9 @@ import { useLanguage } from "./LanguageProvider";
 import { categoryOptions, products } from "./data";
 import { useCart } from "./CartProvider";
 import HelpCenterFAQ from "./HelpCenterFAQ";
-import KitsPage from "./KitsPage";
 import NetworkSection from "./NetworkSection";
 import BrandMarquee from "./BrandMarquee";
 import ShoppingProductRail from "./ShoppingProductRail";
-import { groceryKits } from "./kits-data";
 
 export default function OriginalCustomerHome() {
   const { language } = useLanguage();
@@ -268,25 +266,16 @@ export default function OriginalCustomerHome() {
       </section>
 
 
-      <section aria-label={isHindi ? "मंथली ग्रॉसरी किट्स" : "Monthly grocery kits"} className="bg-[#fffaf2] px-3 py-4 sm:px-6 sm:py-6">
-        <div className="mx-auto max-w-[1240px]">
-          <div className="mb-3 flex items-end justify-between gap-3">
+      <section aria-label={isHindi ? "मंथली किट्स" : "Monthly grocery kits"} className="bg-[#fffaf2] px-3 py-3 sm:px-6 sm:py-5">
+        <div className="mx-auto flex max-w-[1240px] items-center justify-between gap-3 rounded-2xl border border-[#ead9c5] bg-white px-3 py-3 shadow-[0_4px_16px_rgba(68,45,27,.045)] sm:px-5 sm:py-4">
+          <div className="flex min-w-0 items-center gap-2.5">
+            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[#f8eee7] text-[#800020] sm:h-11 sm:w-11"><ShoppingCart size={18}/></span>
             <div className="min-w-0">
-              <p className="text-[8px] font-black uppercase tracking-[.18em] text-[#a47a2c]">{isHindi ? "महीने की खरीदारी आसान" : "PLAN YOUR MONTHLY SHOP"}</p>
-              <h2 className="mt-1 text-[17px] font-black leading-tight tracking-[-.04em] text-[#800020] sm:text-xl">{isHindi ? "बजट के हिसाब से ग्रॉसरी किट" : "Monthly grocery kits"}</h2>
-              <p className="mt-1 text-[9px] text-[#817166] sm:text-[11px]">{isHindi ? "बजट चुनें; पैक साइज़ और फाइनल कीमत स्टोर कन्फर्म करेगा।" : "Choose a budget; the store confirms pack sizes and final price."}</p>
+              <h2 className="text-[13px] font-black leading-tight text-[#800020] sm:text-base">{isHindi ? "मंथली ग्रॉसरी किट्स" : "Monthly grocery kits"}</h2>
+              <p className="mt-0.5 text-[9px] leading-snug text-[#817166] sm:text-[11px]">{isHindi ? "अपना बजट चुनें और पूरी जानकारी देखें।" : "Explore kits by budget and see all details."}</p>
             </div>
-            <Link href="/kits" className="shrink-0 text-[9px] font-black text-[#800020] sm:text-[10px]">{isHindi ? "सभी किट्स" : "View all kits"} <ArrowRight size={11} className="inline"/></Link>
           </div>
-          <div className="grid grid-cols-3 gap-2 sm:gap-3">
-            {groceryKits.slice(0, 3).map((kit) => (
-              <Link key={kit.id} href="/kits" className="min-w-0 rounded-xl border border-[#eadfce] bg-white p-2.5 shadow-[0_3px_12px_rgba(68,45,27,.04)] transition hover:-translate-y-0.5 hover:border-[#d5bd96] sm:p-3">
-                <p className="line-clamp-2 min-h-[26px] text-[9px] font-black leading-tight text-[#5d172b] sm:min-h-[32px] sm:text-xs">{isHindi ? kit.titleHi : kit.title}</p>
-                <p className="mt-1 text-[12px] font-black text-[#800020] sm:text-sm">₹{kit.price.toLocaleString("en-IN")}</p>
-                <p className="mt-1 text-[7px] leading-tight text-[#88786d] sm:text-[9px]">{isHindi ? "बजट टियर · मात्रा कन्फर्म होगी" : "Budget tier · pack sizes confirmed"}</p>
-              </Link>
-            ))}
-          </div>
+          <Link href="/kits" className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full bg-[#800020] px-3 text-[10px] font-black text-white transition hover:bg-[#64152b] active:scale-[.97] sm:h-10 sm:px-4 sm:text-xs">{isHindi ? "किट्स देखें" : "Explore kits"} <ArrowRight size={13}/></Link>
         </div>
       </section>
 
@@ -311,8 +300,6 @@ export default function OriginalCustomerHome() {
 
 
       <NetworkSection language={language} />
-
-      <KitsPage />
 
       <HelpCenterFAQ language={language} />
 

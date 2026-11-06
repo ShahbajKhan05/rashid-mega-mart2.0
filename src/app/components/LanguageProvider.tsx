@@ -308,10 +308,11 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }, [language]);
 
   useEffect(() => {
-    const savedLang = localStorage.getItem("app_lang") as Language;
-    if (savedLang && (savedLang === "en" || savedLang === "hi")) {
-      setLanguage(savedLang);
-    }
+    const timer = window.setTimeout(() => {
+      const savedLang = localStorage.getItem("app_lang") as Language;
+      if (savedLang === "en" || savedLang === "hi") setLanguage(savedLang);
+    }, 0);
+    return () => window.clearTimeout(timer);
   }, []);
 
   const toggleLanguage = useCallback(() => {

@@ -45,8 +45,8 @@ export default function SiteFooter() {
     { href: "/privacy-policy", en: "Privacy Policy", hi: "गोपनीयता नीति" },
     { href: "/terms-and-conditions", en: "Terms & Conditions", hi: "नियम और शर्तें" },
   ];
-  const linkClass = "group inline-flex min-h-8 items-center gap-2 text-[13px] leading-5 text-[#54221F] transition-colors hover:text-[#941F2B] focus-visible:outline-none focus-visible:underline";
-  const headingClass = "mb-3 text-[11px] font-extrabold uppercase tracking-[.17em] text-[#8C2028]";
+  const linkClass = "group inline-flex min-h-7 items-center gap-1.5 text-[12px] leading-4 text-[#54221F] transition-colors hover:text-[#941F2B] focus-visible:outline-none focus-visible:underline sm:min-h-8 sm:gap-2 sm:text-[13px] sm:leading-5";
+  const headingClass = "mb-2 text-[10px] font-extrabold uppercase tracking-[.14em] text-[#8C2028] sm:mb-3 sm:text-[11px] sm:tracking-[.17em]";
 
   return (
     <footer ref={footerRef} className="relative isolate overflow-hidden border-t border-[#D9B77D]/60 bg-[#FBF5E9] text-[#3D2924]">
@@ -92,7 +92,7 @@ export default function SiteFooter() {
               <MapPin size={16} className="mt-0.5 shrink-0 text-[#941F2B]" />
               <span><strong className="block font-bold text-[#3D2924]">{isHindi ? "मुख्य कार्यालय" : "Head Office"}</strong>Rashid Mega Mart, Ghoghar, Rewa, Madhya Pradesh 486001</span>
             </div>
-            <a href="https://wa.me/918962531603" target="_blank" rel="noreferrer" className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#8C2028] px-4 py-2 text-[11px] font-bold text-white shadow-sm transition-colors hover:bg-[#6E171E]">
+            <a href="https://wa.me/918962531603" target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center gap-2 rounded-full bg-[#8C2028] px-3.5 py-1.5 text-[10px] font-bold text-white shadow-sm transition-colors hover:bg-[#6E171E] sm:mt-4 sm:px-4 sm:py-2 sm:text-[11px]">
               <MessageCircle size={14} />{isHindi ? "व्हाट्सऐप पर बात करें" : "Chat on WhatsApp"}<ArrowUpRight size={13} />
             </a>
           </section>

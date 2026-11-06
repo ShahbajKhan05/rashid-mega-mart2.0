@@ -187,6 +187,51 @@ export default function OriginalCustomerHome() {
         </div>
       </section>
 
+
+      <section
+        data-shop-section
+        aria-label={isHindi ? "5 किलोमीटर तक मुफ्त होम डिलीवरी" : "Free home delivery within 5 kilometres"}
+        className="relative isolate overflow-hidden bg-[#fff7f4] px-3 py-5 sm:px-6 sm:py-8"
+      >
+        <div aria-hidden="true" className="pointer-events-none absolute -left-16 top-0 -z-10 h-44 w-44 rounded-full bg-[#e8c987]/20 blur-3xl" />
+        <div aria-hidden="true" className="pointer-events-none absolute -right-10 bottom-0 -z-10 h-48 w-48 rounded-full bg-[#800020]/[.06] blur-3xl" />
+        <div className="mx-auto max-w-[1240px]">
+          <div className="rmm-free-delivery-card relative overflow-hidden rounded-[22px] border border-[#d8bd8e]/80 bg-[linear-gradient(112deg,#fffdf8_0%,#fff4e4_55%,#f8e8d8_100%)] shadow-[0_14px_38px_rgba(83,48,25,.10)] sm:rounded-[28px]">
+            <div aria-hidden="true" className="pointer-events-none absolute -right-12 -top-16 h-56 w-56 rounded-full border-[22px] border-white/35" />
+            <div className="relative grid items-center gap-4 p-4 sm:grid-cols-[1fr_auto] sm:gap-8 sm:px-8 sm:py-7">
+              <div className="flex min-w-0 items-center gap-3 sm:gap-5">
+                <div className="rmm-delivery-truck-icon grid h-[58px] w-[58px] shrink-0 place-items-center rounded-[18px] bg-[#800020] text-[#ffe2a3] shadow-[0_10px_22px_rgba(128,0,32,.20)] sm:h-[76px] sm:w-[76px] sm:rounded-[22px]">
+                  <Truck size={34} strokeWidth={1.8} />
+                </div>
+                <div className="min-w-0">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[#d7bd8e] bg-white/80 px-2.5 py-1 text-[8px] font-black uppercase tracking-[.15em] text-[#906b36] sm:text-[9px]">
+                    <Sparkles size={11} /> {isHindi ? "आपके लिए खास सुविधा" : "A LITTLE EXTRA CONVENIENCE"}
+                  </span>
+                  <h2 className="mt-2 text-[23px] font-black leading-[1.02] tracking-[-.06em] text-[#800020] sm:text-[clamp(1.9rem,3.4vw,2.8rem)]">
+                    {isHindi ? "5 KM तक FREE DELIVERY!" : "FREE HOME DELIVERY!"}
+                  </h2>
+                  <p className="mt-1.5 text-[12px] font-extrabold text-[#49372e] sm:text-[15px]">
+                    {isHindi ? "आपके घर तक — 5 किलोमीटर के दायरे में।" : "Delivered to your doorstep within a 5 KM radius."}
+                  </p>
+                  <p className="mt-1 text-[10px] leading-relaxed text-[#806f62] sm:text-[12px]">
+                    {isHindi ? "अपने रोज़मर्रा के सामान का ऑर्डर करें और घर पर पाएं।" : "Order your everyday essentials and get them delivered home."}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center justify-between gap-3 rounded-[16px] border border-[#e5d2b3] bg-white/75 p-3 sm:min-w-[190px] sm:flex-col sm:justify-center sm:gap-1.5 sm:px-6 sm:py-4">
+                <div className="flex items-center gap-2 text-[#800020]">
+                  <MapPin size={18} />
+                  <span className="text-[10px] font-black uppercase tracking-[.12em]">{isHindi ? "डिलीवरी एरिया" : "DELIVERY AREA"}</span>
+                </div>
+                <strong className="text-[30px] font-black leading-none tracking-[-.07em] text-[#800020] sm:text-[38px]">5 KM</strong>
+                <span className="text-[9px] font-bold text-[#806f62] sm:text-[10px]">{isHindi ? "तक बिल्कुल मुफ्त" : "FREE DELIVERY"}</span>
+              </div>
+            </div>
+            <div aria-hidden="true" className="h-1 w-full bg-[linear-gradient(90deg,#800020_0%,#d4a84f_48%,#fff0c9_100%)]" />
+          </div>
+        </div>
+      </section>
+
       <section aria-label="Why shop with Rashid Mega Mart" className="relative overflow-hidden border-y border-[#eadfce] bg-[linear-gradient(110deg,#fffaf4_0%,#fff_48%,#fff8f0_100%)] px-3 py-3 sm:px-6 sm:py-5">
         <div className="pointer-events-none absolute -right-12 -top-16 h-36 w-36 rounded-full bg-[#ead5b5]/20 blur-3xl" />
         <div className="relative mx-auto max-w-[1100px]">

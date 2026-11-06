@@ -8,7 +8,7 @@ import { AnimatePresence, motion } from "motion/react";
 import {
   House, Package, LayoutGrid, X, ArrowUpRight, ShoppingBag, Heart, ShoppingCart, Gift, MoreHorizontal,
   MapPin, Search, ChevronDown, Crosshair, ShieldCheck, Truck,
-  Wheat, Droplet, Flame
+  Wheat, Droplet, Flame, Cookie
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useLanguage } from "./LanguageProvider";

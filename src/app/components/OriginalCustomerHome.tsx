@@ -257,7 +257,7 @@ export default function OriginalCustomerHome() {
             sizes="(max-width: 639px) 94vw, (max-width: 1023px) 88vw, 1100px"
             className="h-auto w-full max-w-[min(94vw,900px)] object-contain drop-shadow-[0_12px_18px_rgba(75,38,48,.18)]"
           />
-          <div ref={deliveryBadgeRef} className="mt-4 inline-flex min-h-[44px] max-w-full items-center justify-center gap-2 rounded-full border border-[#d4ad63]/70 bg-[#e7bd68] px-5 py-2.5 text-[#382719] shadow-[0_7px_18px_rgba(90,57,25,.16)] transition-shadow duration-300 hover:shadow-[0_10px_24px_rgba(90,57,25,.2)] sm:mt-9 sm:min-h-[62px] sm:gap-3 sm:px-10 sm:py-3 sm:shadow-[0_12px_32px_rgba(0,0,0,.24)]>
+          <div ref={deliveryBadgeRef} className="mt-4 inline-flex min-h-[44px] max-w-full items-center justify-center gap-2 rounded-full border border-[#d4ad63]/70 bg-[#e7bd68] px-5 py-2.5 text-[#382719] shadow-[0_7px_18px_rgba(90,57,25,.16)] transition-shadow duration-300 hover:shadow-[0_10px_24px_rgba(90,57,25,.2)] sm:mt-9 sm:min-h-[62px] sm:gap-3 sm:px-10 sm:py-3 sm:shadow-[0_12px_32px_rgba(0,0,0,.24)]">
             <Truck size={22} strokeWidth={2.2} />
             <span className="text-[13px] font-extrabold tracking-[-.035em] sm:text-[22px]">{isHindi ? "30 मिनट में डिलीवरी" : "Delivery in 30 Mins"}</span>
           </div>

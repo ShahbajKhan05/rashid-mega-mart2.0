@@ -69,6 +69,11 @@ export default function OriginalCustomerHome() {
       promoIntro.fromTo(glyphs, { y: 13, autoAlpha: 0, rotateX: -55 }, {
         y: 0, autoAlpha: 1, rotateX: 0, duration: .52, stagger: .018, ease: "power3.out",
       }, "-=.48");
+      const welcomeSparks = bar.querySelectorAll<SVGPathElement>("[data-welcome-spark]");
+      promoIntro.fromTo(welcomeSparks, { scale: 0, transformOrigin: "50% 50%", rotation: -45, autoAlpha: 0 }, {
+        scale: 1, rotation: 0, autoAlpha: 1, duration: .55, stagger: .08, ease: "back.out(2.4)",
+      }, "-=.38");
+      gsap.to(welcomeSparks, { rotation: 18, scale: 1.12, duration: .9, stagger: .12, yoyo: true, repeat: 3, ease: "sine.inOut", transformOrigin: "50% 50%" });
       promoIntro.to({}, { duration: 4.2 });
       promoIntro.to(bar, {
         height: 0, minHeight: 0, paddingTop: 0, paddingBottom: 0,
@@ -147,7 +152,19 @@ export default function OriginalCustomerHome() {
         <div className="relative mx-auto flex min-h-[164px] max-w-[900px] flex-col items-center justify-center gap-2.5 px-3 py-4 text-center sm:min-h-[176px] sm:gap-3 sm:px-7 sm:py-5">
           <Image ref={promoLogoRef} src="/Logo.png" alt="Rashid Mega Mart" width={118} height={40} priority className="rmm-promo-logo h-9 w-[82px] shrink-0 object-contain sm:h-11 sm:w-[108px]" />
           <div className="flex min-w-0 flex-col items-center leading-tight text-center">
-            <span className="mb-1 text-[8px] font-extrabold uppercase tracking-[.2em] text-[#98713c]">{isHindi ? "पहली खरीदारी का खास तोहफा" : "A SPECIAL FIRST-ORDER TREAT"}</span>
+            <div className="mb-1.5 inline-flex items-center gap-1.5 rounded-full border border-[#e7c987]/75 bg-white/75 px-3 py-1 text-[8px] font-black uppercase tracking-[.16em] text-[#8b5c21] shadow-[0_4px_14px_rgba(126,82,31,.08)]">
+              <svg viewBox="0 0 24 24" aria-hidden="true" className="h-3.5 w-3.5 overflow-visible">
+                <path data-welcome-spark d="M12 1.8 13.8 8l6.2 1.8-6.2 1.8-1.8 6.2-1.8-6.2L4 9.8 10.2 8 12 1.8Z" fill="#D6A64B"/>
+                <path data-welcome-spark d="m20 15 .9 2.1L23 18l-2.1.9L20 21l-.9-2.1L17 18l2.1-.9L20 15Z" fill="#800020"/>
+                <path data-welcome-spark d="m4 15 .7 1.6 1.6.7-1.6.7L4 19.6l-.7-1.6-1.6-.7 1.6-.7L4 15Z" fill="#D6A64B"/>
+              </svg>
+              <span>{isHindi ? "राशिद मेगा मार्ट में आपका स्वागत है" : "WELCOME TO RASHID MEGA MART"}</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true" className="h-3.5 w-3.5 overflow-visible">
+                <path data-welcome-spark d="M12 1.8 13.8 8l6.2 1.8-6.2 1.8-1.8 6.2-1.8-6.2L4 9.8 10.2 8 12 1.8Z" fill="#D6A64B"/>
+                <path data-welcome-spark d="m20 15 .9 2.1L23 18l-2.1.9L20 21l-.9-2.1L17 18l2.1-.9L20 15Z" fill="#800020"/>
+              </svg>
+            </div>
+            <span className="mb-1 text-[8px] font-extrabold uppercase tracking-[.2em] text-[#98713c]">{isHindi ? "आपके पहले ऑर्डर पर खास तोहफा" : "A LITTLE SOMETHING FOR YOUR FIRST ORDER"}</span>
             <span ref={promoLettersRef} aria-label={isHindi ? "₹499+ की खरीदारी पर ₹100 की छूट" : "₹100 OFF ON SHOPPING ABOVE ₹499"} className="rmm-promo-headline whitespace-normal text-center text-[12px] font-black tracking-[-.035em] sm:text-[14px]">
               {Array.from(isHindi ? "₹499+ की खरीदारी पर ₹100 की छूट" : "₹100 OFF ON SHOPPING ABOVE ₹499").map((letter, index) => (
                 <span key={index} data-promo-letter="true" aria-hidden="true" className="inline-block">{letter === " " ? "\u00a0" : letter}</span>

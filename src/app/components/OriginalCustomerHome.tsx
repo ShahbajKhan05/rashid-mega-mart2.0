@@ -14,15 +14,15 @@ import HelpCenterFAQ from "./HelpCenterFAQ";
 import KitsPage from "./KitsPage";
 
 const brands = [
-  { name: "Aashirvaad", domain: "aashirvaad.com" },
-  { name: "Fortune", domain: "fortunefoods.com" },
-  { name: "Tata Sampann", domain: "tataconsumer.com" },
-  { name: "India Gate", domain: "indiagatefoods.com" },
-  { name: "MDH", domain: "mdhspices.com" },
-  { name: "Everest", domain: "everestspices.com" },
-  { name: "Tata Tea", domain: "tataconsumer.com" },
-  { name: "MAGGI", domain: "maggi.in" },
-  { name: "Parle-G", domain: "parleproducts.com" },
+  { name: "Aashirvaad", domain: "aashirvaad.com", logo: "https://cdn.brandfetch.io/idUtruKbFk/theme/dark/logo.svg?c=1bxid64Mup7aczewSAYMX" },
+  { name: "Fortune", domain: "fortunefoods.com", logo: "https://cdn.brandfetch.io/idKeX6P0SA/w/400/h/130/theme/dark/logo.png?c=1bxid64Mup7aczewSAYMX" },
+  { name: "Tata Sampann", domain: "tataconsumer.com", logo: "https://www.tatanutrikorner.com/cdn/shop/files/Tata-Sampann-Logo.png" },
+  { name: "India Gate", domain: "indiagatefoods.com", logo: "https://cdn.brandfetch.io/idmaXGHkyM/w/400/h/488/theme/dark/logo.png?c=1bxid64Mup7aczewSAYMX" },
+  { name: "MDH", domain: "mdhspices.com", logo: "https://commons.wikimedia.org/wiki/Special:FilePath/MDH%20spices%20logo.png" },
+  { name: "Everest", domain: "everestfoods.com", logo: "https://cdn.brandfetch.io/idaMIUY7Lc/w/973/h/256/theme/dark/logo.png?c=1bxid64Mup7aczewSAYMX" },
+  { name: "Tata Tea", domain: "tataconsumer.com", logo: "https://commons.wikimedia.org/wiki/Special:FilePath/Tata%20Tea%20Logo.svg" },
+  { name: "MAGGI", domain: "maggi.in", logo: "https://cdn.brandfetch.io/idZBpfPIH0/w/803/h/505/theme/light/logo.png?c=1bxid64Mup7aczewSAYMX" },
+  { name: "Parle-G", domain: "parleproducts.com", logo: "https://cdn.brandfetch.io/idALCUGTR6/theme/dark/logo.svg?c=1bxid64Mup7aczewSAYMX" },
 ];
 const visuals: Record<string, string> = {
   staples: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=520&q=72&auto=format&fit=crop",
@@ -302,7 +302,7 @@ export default function OriginalCustomerHome() {
                         className="group flex h-[76px] w-[78px] shrink-0 flex-col items-center justify-center gap-1.5 rounded-2xl border border-transparent px-1 transition-[transform,background-color,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:scale-110 hover:border-white hover:bg-white hover:shadow-[0_9px_20px_rgba(67,45,27,.10)] active:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a47a2c] sm:h-[88px] sm:w-[104px]"
                       >
                         <span className="grid h-10 w-10 place-items-center rounded-[13px] bg-white shadow-[0_2px_8px_rgba(50,35,20,.08)] ring-1 ring-[#e9e3da] transition duration-300 group-hover:shadow-[0_5px_14px_rgba(50,35,20,.12)] sm:h-12 sm:w-12">
-                          <Image src={`https://www.google.com/s2/favicons?domain=${brand.domain}&sz=128`} alt="" width={38} height={38} unoptimized loading="lazy" className="h-8 w-8 object-contain sm:h-10 sm:w-10" />
+                          <Image src={brand.logo} alt={`${brand.name} logo`} width={180} height={72} unoptimized loading="lazy" className="h-9 w-[66px] object-contain sm:h-11 sm:w-[82px]" />
                         </span>
                         <span className="max-w-full truncate text-center text-[8px] font-extrabold tracking-[-.02em] text-[#665448] sm:text-[9px]">{brand.name}</span>
                       </a>

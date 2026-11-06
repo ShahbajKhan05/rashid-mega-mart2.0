@@ -253,10 +253,21 @@ export default function OriginalCustomerHome() {
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(110deg,rgba(72,12,32,.78),rgba(91,20,42,.45)_48%,rgba(35,23,15,.62)),radial-gradient(ellipse_at_50%_45%,rgba(224,190,119,.18),transparent_65%)]" />
         <div className="mx-auto flex w-full max-w-[1500px] flex-col items-center justify-center text-center">
           <p className="mb-4 text-[9px] font-extrabold uppercase tracking-[.34em] text-[#f5dca9] sm:mb-6 sm:text-xs">{isHindi ? "आपकी रोज़मर्रा की भरोसेमंद दुकान" : "YOUR NEIGHBOURHOOD GROCERY STORE"}</p>
-          <h1 ref={entranceTitleRef} className="w-full select-none text-[clamp(3.2rem,14vw,12.5rem)] font-black uppercase leading-[.78] tracking-[-.105em] text-[#fff9ed] [perspective:900px] [text-shadow:0_8px_30px_rgba(0,0,0,.28)] sm:text-[clamp(6rem,11.2vw,11.5rem)]">
-            <span data-hero-line className="block whitespace-nowrap">RASHID</span>
-            <span data-hero-line className="mt-[.045em] block whitespace-nowrap">MEGA MART</span>
-          </h1>
+          <h1 className="sr-only">Rashid Mega Mart</h1>
+          <svg ref={entranceTitleRef as unknown as React.Ref<SVGSVGElement>} viewBox="0 0 1400 500" role="img" aria-label="Rashid Mega Mart" className="block h-auto w-full max-w-[1180px] overflow-visible">
+            <defs>
+              <mask id="rmm-hero-video-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1400" height="500">
+                <rect width="1400" height="500" fill="black" />
+                <text data-hero-line x="700" y="205" textAnchor="middle" fill="white" fontFamily="Arial, Helvetica, sans-serif" fontSize="255" fontWeight="900" letterSpacing="-18">RASHID</text>
+                <text data-hero-line x="700" y="445" textAnchor="middle" fill="white" fontFamily="Arial, Helvetica, sans-serif" fontSize="218" fontWeight="900" letterSpacing="-15">MEGA MART</text>
+              </mask>
+            </defs>
+            <foreignObject x="0" y="0" width="1400" height="500" mask="url(#rmm-hero-video-mask)">
+              <video xmlns="http://www.w3.org/1999/xhtml" autoPlay muted loop playsInline preload="metadata" poster="https://images.unsplash.com/photo-1542838132-92c53300491e?w=1400&q=72&auto=format&fit=crop" className="h-full w-full object-cover">
+                <source src="https://cdn.pixabay.com/video/2016/08/22/4730-179738652_large.mp4" type="video/mp4" />
+              </video>
+            </foreignObject>
+          </svg>
           <div ref={deliveryBadgeRef} className="mt-7 inline-flex min-h-[52px] items-center justify-center gap-3 rounded-full border border-[#f4d18b]/70 bg-[#e0b34f] px-7 py-3 text-[#382719] shadow-[0_12px_32px_rgba(0,0,0,.24)] transition-shadow duration-300 hover:shadow-[0_16px_36px_rgba(0,0,0,.3)] sm:mt-9 sm:min-h-[62px] sm:px-10">
             <Truck size={22} strokeWidth={2.2} />
             <span className="text-[15px] font-extrabold tracking-[-.035em] sm:text-[22px]">{isHindi ? "30 मिनट में डिलीवरी" : "Delivery in 30 Mins"}</span>

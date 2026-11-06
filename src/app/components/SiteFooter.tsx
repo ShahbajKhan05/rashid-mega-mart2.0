@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, ChevronRight, Headset, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, Headset, ShieldCheck } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";

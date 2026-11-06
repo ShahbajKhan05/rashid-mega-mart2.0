@@ -248,7 +248,7 @@ export default function OriginalCustomerHome() {
           </div>
         </div>
       </div>
-      <section id="top" ref={entranceRef} className="relative isolate flex min-h-[min(790px,calc(100svh-72px))] items-center justify-center overflow-hidden bg-[#FFFCF0] px-3 pb-20 pt-10 sm:min-h-[min(860px,calc(100svh-72px))] sm:px-6 sm:pb-24">
+      <section id="top" ref={entranceRef} className="relative isolate flex min-h-[min(560px,calc(100svh-120px))] items-center justify-center overflow-hidden bg-[#FFFCF0] px-3 pb-8 pt-5 sm:min-h-[min(860px,calc(100svh-72px))] sm:px-6 sm:pb-24">
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_45%,rgba(224,190,119,.16),transparent_58%)]" />
         <div className="mx-auto flex w-full max-w-[1500px] flex-col items-center justify-center text-center">
           <h1 ref={entranceTitleRef} className="w-full select-none text-[clamp(3.05rem,13.2vw,12.5rem)] font-black uppercase leading-[.79] tracking-[-.105em] text-transparent [perspective:900px] sm:text-[clamp(6rem,11.2vw,11.5rem)]">
@@ -272,8 +272,8 @@ export default function OriginalCustomerHome() {
         </div>
       </section>
 
-      <section ref={brandSectionRef} aria-label="Popular brands" className="relative isolate overflow-hidden border-y border-[#eadfce] bg-[radial-gradient(ellipse_at_50%_0%,rgba(164,122,44,.10),transparent_68%)] px-4 py-8 sm:px-6 sm:py-11">
-        <div className="mx-auto mb-5 max-w-[760px] text-center sm:mb-7">
+      <section ref={brandSectionRef} aria-label="Popular brands" className="relative isolate overflow-hidden border-y border-[#eadfce] bg-[radial-gradient(ellipse_at_50%_0%,rgba(164,122,44,.10),transparent_68%)] px-4 py-6 sm:px-6 sm:py-11">
+        <div className="mx-auto mb-4 max-w-[760px] text-center sm:mb-7">
           <span className="inline-flex rounded-full border border-[#e9dfd2] bg-white/75 px-3 py-1 text-[9px] font-black tracking-[.2em] text-[#8b6b43] shadow-sm">{isHindi ? "ब्रांड्स जिन्हें आप जानते हैं" : "BRANDS YOU KNOW & TRUST"}</span>
           <h2 className="mt-2.5 text-[24px] font-black leading-[1.05] tracking-[-.065em] text-[#800020] sm:text-3xl">{isHindi ? "आपके पसंदीदा ब्रांड" : "Shop your favourite brands"}</h2>
           <p className="mx-auto mt-2 max-w-sm text-[11px] leading-5 text-[#8a7a6d] sm:text-sm">{isHindi ? "रोज़मर्रा की खरीदारी के भरोसेमंद नाम, एक ही जगह।" : "Everyday favourites, all together in one place."}</p>
@@ -313,9 +313,9 @@ export default function OriginalCustomerHome() {
       <section
         id="categories"
         ref={categorySectionRef}
-        className="relative flex min-h-[88svh] flex-col justify-center overflow-hidden border-y border-[#eadfce] bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,168,79,.14),transparent_62%)] py-12 sm:min-h-[92svh] sm:py-14"
+        className="relative flex min-h-0 flex-col justify-center overflow-hidden border-y border-[#eadfce] bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,168,79,.14),transparent_62%)] py-8 md:min-h-[92svh] md:py-14"
       >
-        <div className="mx-auto mb-7 w-full max-w-[1440px] px-4 text-center sm:mb-9 sm:px-7 lg:px-10">
+        <div className="mx-auto mb-5 w-full max-w-[1440px] px-4 text-center sm:mb-9 sm:px-7 lg:px-10">
           <p className="text-[10px] font-black uppercase tracking-[.24em] text-[#A47A2C]">{isHindi ? "अपनी पसंद चुनें" : "FIND YOUR EVERYDAY ESSENTIALS"}</p>
           <h2 className="mt-2 text-3xl font-black tracking-[-.065em] text-[#800020] sm:text-5xl">{isHindi ? "कैटेगरी से खरीदें" : "Shop by Category"}</h2>
           <p className="mx-auto mt-2 max-w-md text-xs leading-5 text-[#76665C] sm:text-sm">{isHindi ? "मोबाइल पर स्वाइप करें, डेस्कटॉप पर स्क्रॉल करें।" : "Swipe on mobile or scroll on desktop to explore every aisle."}</p>
@@ -332,7 +332,7 @@ export default function OriginalCustomerHome() {
                 key={category.id}
                 data-category-card
                 href={"/products?category=" + encodeURIComponent(category.id)}
-                className="group relative isolate flex h-[300px] w-[78vw] max-w-[310px] shrink-0 snap-start overflow-hidden rounded-[24px] border border-white/90 bg-gradient-to-br from-[#fff0d0] to-[#ead6b7] shadow-[0_12px_35px_rgba(67,45,27,.09)] transition duration-500 hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(67,45,27,.15)] sm:h-[330px] sm:w-[300px] md:h-[390px] md:w-[330px] md:rounded-[30px]"
+                className="group relative isolate flex h-[250px] w-[78vw] max-w-[310px] shrink-0 snap-start overflow-hidden rounded-[24px] border border-white/90 bg-gradient-to-br from-[#fff0d0] to-[#ead6b7] shadow-[0_12px_35px_rgba(67,45,27,.09)] transition duration-500 hover:-translate-y-1 hover:shadow-[0_20px_45px_rgba(67,45,27,.15)] sm:h-[330px] sm:w-[300px] md:h-[390px] md:w-[330px] md:rounded-[30px]"
               >
                 <Image src={visuals[category.id] || visuals.staples} alt="" width={720} height={520} loading="lazy" sizes="(max-width: 767px) 78vw, 330px" className="absolute inset-0 h-full w-full object-cover opacity-55 mix-blend-multiply transition duration-700 group-hover:scale-110 group-hover:opacity-70" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#fff8e9] via-[#fff8e9]/30 to-transparent" />
@@ -350,7 +350,7 @@ export default function OriginalCustomerHome() {
         <p className="mt-3 text-center text-[9px] font-bold uppercase tracking-[.16em] text-[#a29487] md:mt-5">{isHindi ? "स्वाइप करें • अपनी पसंद की कैटेगरी चुनें" : "SWIPE TO EXPLORE THE AISLES"} <span className="ml-1 text-[#A47A2C]">→</span></p>
       </section>
 
-      <section ref={bestSellersRef} aria-labelledby="best-sellers-title" className="relative isolate overflow-hidden border-y border-[#eadfce] bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,168,79,.10),transparent_58%),#FFFCF0] px-3 py-9 sm:px-6 sm:py-12 lg:px-8">
+      <section ref={bestSellersRef} aria-labelledby="best-sellers-title" className="relative isolate overflow-hidden border-y border-[#eadfce] bg-[radial-gradient(ellipse_at_50%_0%,rgba(212,168,79,.10),transparent_58%),#FFFCF0] px-3 py-7 sm:px-6 sm:py-12 lg:px-8">
         <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-0 -z-10 h-56 w-[min(90vw,900px)] -translate-x-1/2 rounded-full bg-[#d9bd87]/10 blur-3xl" />
         <div className="mx-auto max-w-[1280px]">
           <div className="mb-5 flex flex-col items-center text-center sm:mb-7">
@@ -385,13 +385,6 @@ export default function OriginalCustomerHome() {
               </article>;
             })}
           </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-[1440px] px-4 py-12 sm:px-7 sm:py-16 lg:px-10">
-        <div className="rmm-home-glass-cta grid overflow-hidden rounded-[22px] sm:grid-cols-[1.15fr_.85fr]">
-          <div className="px-6 py-9 sm:px-10 sm:py-12 lg:px-14"><p className="rmm-home-cta-accent text-[11px] font-bold tracking-[.18em]">{isHindi ? "आसान खरीदारी, भरोसे के साथ" : "A LITTLE MORE CONVENIENCE"}</p><h2 className="mt-4 max-w-xl text-[clamp(2rem,4.5vw,4rem)] font-black leading-[.98] tracking-[-.07em]">{isHindi ? "घर की ज़रूरतें, अब बस कुछ क्लिक दूर।" : "Your everyday essentials, just a few clicks away."}</h2><p className="rmm-home-cta-muted mt-4 max-w-lg text-sm leading-7">{isHindi ? "अपनी पसंद का सामान चुनें और ऑर्डर रिक्वेस्ट भेजें। हमारी टीम आपसे संपर्क करके आगे की जानकारी कन्फर्म करेगी।" : "Choose what you need and send an order request. Our team will get in touch to confirm availability and delivery details."}</p><Link href="/products" className="mt-6 inline-flex h-10 items-center gap-2 rounded-full border border-[#800020]/15 bg-white/65 px-5 text-xs font-bold text-[#70263a] transition hover:-translate-y-0.5 hover:bg-white">{isHindi ? "सभी सामान देखें" : "Explore all products"} <ArrowUpRight size={15} /></Link></div>
-          <div className="rmm-home-cta-art relative grid min-h-[190px] place-items-center overflow-hidden"><div className="absolute h-[310px] w-[310px] rounded-full border border-[#e6c88f]/35 sm:h-[390px] sm:w-[390px]" /><div className="relative grid h-[170px] w-[170px] place-items-center rounded-full border border-[#e6c88f]/35 bg-white/[.06] text-center shadow-xl backdrop-blur sm:h-[220px] sm:w-[220px]"><div className="text-6xl">🛍️</div><p className="mt-2 text-[9px] font-black tracking-[.22em]">RASHID MEGA MART</p><p className="rmm-home-cta-muted mt-1 text-[8px] tracking-[.16em]">EVERYDAY, MADE SIMPLE</p></div></div>
         </div>
       </section>
 

@@ -108,8 +108,8 @@ export default function SiteFooter() {
             <h3 className={headingClass}>{isHindi ? "संपर्क और सहायता" : "Contact & Support"}</h3>
             <p className="mt-3 max-w-[340px] text-[13px] leading-6 text-[#76665C] xl:max-w-[300px]">
               {isHindi
-                ? "सत्यापित फ़ोन नंबर, WhatsApp और स्टोर पते की जानकारी पुष्टि होने के बाद यहाँ जोड़ी जाएगी।"
-                : "Verified phone, WhatsApp and store address details will be published here once confirmed."}
+                ? "ऑर्डर, सामान की उपलब्धता या सहायता की जानकारी के लिए संपर्क पेज देखें।"
+                : "For order questions, product availability or support information, visit our Contact page."}
             </p>
             <Link
               href="/contact"

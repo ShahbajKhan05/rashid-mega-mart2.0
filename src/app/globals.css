@@ -581,3 +581,34 @@ main [class*="border-[#eadf"], main [class*="border-[#eee5"] {
  .rmm-promo-logo{opacity:1}
  .rmm-promo-headline [data-promo-letter]{opacity:1;transform:none}
 }
+
+
+/* Mobile-first safety rails: narrow Android, iPhone SE and small viewport widths. */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+body {
+  min-width: 320px;
+  padding-bottom: env(safe-area-inset-bottom);
+  -webkit-tap-highlight-color: transparent;
+}
+img, video, canvas, svg {
+  max-width: 100%;
+}
+button, a, input, select, textarea {
+  touch-action: manipulation;
+}
+input, select, textarea {
+  font-size: max(16px, 1em);
+}
+@media (max-width: 380px) {
+  .mobile-safe-gutter {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+}
+@supports not (overflow: clip) {
+  html, body { overflow-x: hidden; }
+}

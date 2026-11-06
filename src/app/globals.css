@@ -325,9 +325,9 @@ html {
   --rmm-glass-border: rgba(151,125,102,.16);
   --rmm-glass-shadow: 0 8px 28px rgba(65,43,35,.055);
 }
-body { background: #f7f5ef; }
+body { background: #fff7f4; }
 .navbar-glass-shell {
-  background: rgba(250,249,245,.86) !important;
+  background: rgba(255,247,244,.88) !important;
   border-color: rgba(151,125,102,.16) !important;
   box-shadow: 0 5px 22px rgba(65,43,35,.045) !important;
   backdrop-filter: blur(14px) saturate(115%) !important;
@@ -336,7 +336,7 @@ body { background: #f7f5ef; }
 .navbar-glass-shell::before { background: linear-gradient(110deg,rgba(255,255,255,.34),transparent 55%) !important; }
 @media (max-width: 1279px) {
   nav[aria-label="मुख्य नेविगेशन"], nav[aria-label="Main navigation"] {
-    background: rgba(250,249,245,.76) !important;
+    background: rgba(255,247,244,.82) !important;
     border-color: rgba(151,125,102,.15) !important;
     box-shadow: 0 -5px 22px rgba(65,43,35,.05) !important;
     backdrop-filter: blur(10px) saturate(110%) !important;
@@ -352,7 +352,7 @@ main [class*="shadow-[0_"][class*="rounded-"][class*="border"] {
   box-shadow: var(--rmm-glass-shadow) !important;
 }
 main [class*="bg-[#FFF9D8]"], main [class*="bg-[#FFFCF0]"] {
-  background-color: #f7f5ef !important;
+  background-color: #fff7f4 !important;
 }
 main [class*="border-[#eadf"], main [class*="border-[#eee5"] {
   border-color: rgba(151,125,102,.16) !important;

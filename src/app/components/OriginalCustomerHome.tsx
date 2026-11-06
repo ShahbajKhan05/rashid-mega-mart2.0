@@ -216,7 +216,7 @@ export default function OriginalCustomerHome() {
 
       <section data-shop-section aria-label={isHindi ? "मंथली ग्रॉसरी किट्स" : "Monthly grocery kits"} className="relative isolate overflow-hidden bg-[#fffaf2] px-3 py-5 sm:px-6 sm:py-8">
         <div className="relative mx-auto max-w-[1240px] overflow-hidden rounded-[22px] border border-[#d9bd8b] shadow-[0_12px_34px_rgba(83,48,25,.12)] sm:rounded-[28px]">
-          <Image src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=1600&q=85&auto=format&fit=crop" alt="" fill sizes="(max-width: 639px) 100vw, 1240px" aria-hidden="true" className="absolute inset-0 -z-20 object-cover"/>
+          <Image src="/grocery-kits-bg.svg" alt="" fill sizes="(max-width: 639px) 100vw, 1240px" aria-hidden="true" className="absolute inset-0 -z-20 object-cover"/>
           <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(255,250,242,.97)_0%,rgba(255,248,235,.91)_52%,rgba(255,244,224,.78)_100%)]"/>
           <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_90%_10%,rgba(128,0,32,.13),transparent_42%)]"/>
           <div className="relative flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:px-8 sm:py-7">

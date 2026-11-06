@@ -135,9 +135,25 @@ export default function SiteFooter() {
             </ul>
           </section>
 
-          <section className="rm-footer-reveal col-span-2 flex w-full min-w-0 flex-col items-start text-left sm:col-span-2 sm:max-w-[800px] sm:items-center sm:text-center xl:col-span-1 xl:max-w-none xl:items-start xl:text-left">
+          <section className="rm-footer-reveal col-span-2 flex w-full min-w-0 flex-col text-left sm:col-span-2 sm:max-w-[800px] sm:items-center sm:text-center xl:col-span-1 xl:max-w-none xl:items-start xl:text-left">
             <h3 className={headingClass}>{isHindi ? "नीतियाँ और सहायता" : "Policies & Help"}</h3>
-            <ul className="mt-2 grid w-full grid-cols-2 justify-items-start gap-x-2 gap-y-1 sm:mt-3 sm:grid-cols-2 sm:justify-items-start sm:gap-x-5 sm:gap-y-1.5 xl:gap-x-3">
+            <details className="group mt-2 w-full border-y border-[#92400E]/15 py-2 sm:hidden">
+              <summary className="flex min-h-9 cursor-pointer list-none items-center justify-between gap-3 text-[12px] font-semibold text-[#55483C] marker:content-none">
+                <span>{isHindi ? "सभी नीतियाँ देखें" : "View all store policies"}</span>
+                <ChevronRight size={16} className="shrink-0 text-[#800020] transition-transform duration-200 group-open:rotate-90" />
+              </summary>
+              <ul className="grid grid-cols-2 gap-x-3 gap-y-2 pt-2">
+                {policyLinks.map((item) => (
+                  <li key={item.href} className="min-w-0">
+                    <Link href={item.href} className={linkClass}>
+                      <ChevronRight size={13} className="mt-[2px] shrink-0 text-[#D4A84F]" />
+                      <span className="min-w-0 break-words">{isHindi ? item.hi : item.en}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </details>
+            <ul className="mt-3 hidden w-full grid-cols-2 justify-items-start gap-x-5 gap-y-1.5 sm:grid xl:gap-x-3">
               {policyLinks.map((item) => (
                 <li key={item.href} className="w-full min-w-0">
                   <Link href={item.href} className={linkClass}>

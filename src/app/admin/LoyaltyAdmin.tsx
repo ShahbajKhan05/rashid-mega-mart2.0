@@ -15,9 +15,8 @@ export default function LoyaltyAdmin(){
  const [selected,setSelected]=useState("");
  const [amount,setAmount]=useState("100");
  const [note,setNote]=useState("Shopping reward");
- const [mode,setMode]=useState<"add"|"deduct">("add");
  const [message,setMessage]=useState("");
- useEffect(()=>{setRows(read());const sync=()=>setRows(read());window.addEventListener("storage",sync);window.addEventListener("rmm-rewards-change",sync);return()=>{window.removeEventListener("storage",sync);window.removeEventListener("rmm-rewards-change",sync)}},[]);
+ useEffect(()=>{const sync=()=>setRows(read());const timer=window.setTimeout(sync,0);window.addEventListener("storage",sync);window.addEventListener("rmm-rewards-change",sync);return()=>{window.clearTimeout(timer);window.removeEventListener("storage",sync);window.removeEventListener("rmm-rewards-change",sync)}},[]);
  const filtered=useMemo(()=>rows.filter(r=>(r.name+" "+r.phone).toLowerCase().includes(query.toLowerCase())),[rows,query]);
  const total=rows.reduce((n,r)=>n+r.points,0);
  const update=(phone:string,delta:number,reason:string)=>{const next=rows.map(r=>r.phone===phone?{...r,points:Math.max(0,r.points+delta),ledger:[{id:crypto.randomUUID(),delta,note:reason,date:new Date().toISOString()},...r.ledger]}:r);write(next);setRows(next);setMessage("Points updated successfully.");};

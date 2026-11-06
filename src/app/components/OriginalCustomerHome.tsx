@@ -173,7 +173,7 @@ export default function OriginalCustomerHome() {
           </h1>
           <div ref={deliveryBadgeRef} className="mt-8 inline-flex min-h-[58px] items-center justify-center gap-3 rounded-full border border-[#d2a64c]/60 bg-[#d9ad50] px-8 py-3 text-[#382719] shadow-[0_12px_28px_rgba(75,54,24,.16)] transition-shadow duration-300 hover:shadow-[0_16px_36px_rgba(75,54,24,.22)] sm:mt-9 sm:min-h-[62px] sm:px-10">
             <Truck size={23} strokeWidth={2.2} />
-            <span className="text-[17px] font-extrabold tracking-[-.035em] sm:text-[22px]">{isHindi ? "डिलीवरी आपके इलाके पर निर्भर है" : "Delivery depends on your area"}</span>
+            <span className="text-[17px] font-extrabold tracking-[-.035em] sm:text-[22px]">{isHindi ? "5 KM तक FREE HOME DELIVERY" : "FREE HOME DELIVERY UP TO 5 KM"}</span>
           </div>
           <div className="mt-4 flex w-full flex-col items-center justify-center gap-2 sm:mt-5 sm:flex-row">
             <Link href="#deals" className="inline-flex min-h-11 w-full max-w-[260px] items-center justify-center gap-2 rounded-full bg-[#800020] px-6 text-[12px] font-black text-white shadow-[0_8px_22px_rgba(128,0,32,.18)] transition hover:-translate-y-0.5 hover:bg-[#64152b] active:scale-[.98] sm:w-auto">{isHindi ? "ऑफर देखें और खरीदें" : "Shop best deals"} <ArrowRight size={15}/></Link>
@@ -191,44 +191,27 @@ export default function OriginalCustomerHome() {
       <section
         data-shop-section
         aria-label={isHindi ? "5 किलोमीटर तक मुफ्त होम डिलीवरी" : "Free home delivery within 5 kilometres"}
-        className="relative isolate overflow-hidden bg-[#fff7f4] px-3 py-5 sm:px-6 sm:py-8"
+        className="rmm-delivery-section relative isolate overflow-hidden px-3 py-4 sm:px-6 sm:py-8"
       >
-        <div aria-hidden="true" className="pointer-events-none absolute -left-16 top-0 -z-10 h-44 w-44 rounded-full bg-[#e8c987]/20 blur-3xl" />
-        <div aria-hidden="true" className="pointer-events-none absolute -right-10 bottom-0 -z-10 h-48 w-48 rounded-full bg-[#800020]/[.06] blur-3xl" />
-        <div className="mx-auto max-w-[1240px]">
-          <div className="rmm-free-delivery-card relative overflow-hidden rounded-[22px] border border-[#d8bd8e]/80 bg-[linear-gradient(112deg,#fffdf8_0%,#fff4e4_55%,#f8e8d8_100%)] shadow-[0_14px_38px_rgba(83,48,25,.10)] sm:rounded-[28px]">
-            <div aria-hidden="true" className="pointer-events-none absolute -right-12 -top-16 h-56 w-56 rounded-full border-[22px] border-white/35" />
-            <div className="relative grid items-center gap-4 p-4 sm:grid-cols-[1fr_auto] sm:gap-8 sm:px-8 sm:py-7">
-              <div className="flex min-w-0 items-center gap-3 sm:gap-5">
-                <div className="rmm-delivery-truck-icon grid h-[58px] w-[58px] shrink-0 place-items-center rounded-[18px] bg-[#800020] text-[#ffe2a3] shadow-[0_10px_22px_rgba(128,0,32,.20)] sm:h-[76px] sm:w-[76px] sm:rounded-[22px]">
-                  <Truck size={34} strokeWidth={1.8} />
-                </div>
-                <div className="min-w-0">
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[#d7bd8e] bg-white/80 px-2.5 py-1 text-[8px] font-black uppercase tracking-[.15em] text-[#906b36] sm:text-[9px]">
-                    <Sparkles size={11} /> {isHindi ? "आपके लिए खास सुविधा" : "A LITTLE EXTRA CONVENIENCE"}
-                  </span>
-                  <h2 className="mt-2 text-[23px] font-black leading-[1.02] tracking-[-.06em] text-[#800020] sm:text-[clamp(1.9rem,3.4vw,2.8rem)]">
-                    {isHindi ? "5 KM तक FREE DELIVERY!" : "FREE HOME DELIVERY!"}
-                  </h2>
-                  <p className="mt-1.5 text-[12px] font-extrabold text-[#49372e] sm:text-[15px]">
-                    {isHindi ? "आपके घर तक — 5 किलोमीटर के दायरे में।" : "Delivered to your doorstep within a 5 KM radius."}
-                  </p>
-                  <p className="mt-1 text-[10px] leading-relaxed text-[#806f62] sm:text-[12px]">
-                    {isHindi ? "अपने रोज़मर्रा के सामान का ऑर्डर करें और घर पर पाएं।" : "Order your everyday essentials and get them delivered home."}
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center justify-between gap-3 rounded-[16px] border border-[#e5d2b3] bg-white/75 p-3 sm:min-w-[190px] sm:flex-col sm:justify-center sm:gap-1.5 sm:px-6 sm:py-4">
-                <div className="flex items-center gap-2 text-[#800020]">
-                  <MapPin size={18} />
-                  <span className="text-[10px] font-black uppercase tracking-[.12em]">{isHindi ? "डिलीवरी एरिया" : "DELIVERY AREA"}</span>
-                </div>
-                <strong className="text-[30px] font-black leading-none tracking-[-.07em] text-[#800020] sm:text-[38px]">5 KM</strong>
-                <span className="text-[9px] font-bold text-[#806f62] sm:text-[10px]">{isHindi ? "तक बिल्कुल मुफ्त" : "FREE DELIVERY"}</span>
-              </div>
-            </div>
-            <div aria-hidden="true" className="h-1 w-full bg-[linear-gradient(90deg,#800020_0%,#d4a84f_48%,#fff0c9_100%)]" />
+        <div className="rmm-delivery-promo mx-auto max-w-[1240px]">
+          <div className="rmm-delivery-copy">
+            <span className="rmm-delivery-kicker"><Sparkles size={12} /> {isHindi ? "राशिद मेगा मार्ट की खास सुविधा" : "A RASHID MEGA MART PERK"}</span>
+            <h2>{isHindi ? "घर बैठे मंगाएं," : "Your groceries,"}<br/><em>{isHindi ? "डिलीवरी हमारी!" : "at your doorstep."}</em></h2>
+            <div className="rmm-delivery-distance"><MapPin size={17} fill="currentColor" /> <strong>5 KM</strong><span>{isHindi ? "तक बिल्कुल FREE" : "RADIUS · FREE DELIVERY"}</span></div>
+            <p>{isHindi ? "5 किलोमीटर के दायरे में आपके ऑर्डर की होम डिलीवरी बिल्कुल मुफ्त।" : "Get your everyday essentials delivered FREE within a 5 kilometre radius."}</p>
+            <Link href="/products" className="rmm-delivery-shop-link">{isHindi ? "अभी खरीदारी करें" : "Shop groceries"} <ArrowRight size={15}/></Link>
           </div>
+          <div className="rmm-delivery-art" aria-hidden="true">
+            <div className="rmm-delivery-orbit rmm-delivery-orbit-one"/>
+            <div className="rmm-delivery-orbit rmm-delivery-orbit-two"/>
+            <div className="rmm-delivery-pin"><MapPin size={18} fill="currentColor"/><span>5 KM</span></div>
+            <div className="rmm-delivery-scooter"><Truck size={100} strokeWidth={1.35}/></div>
+            <div className="rmm-delivery-road"/>
+            <span className="rmm-delivery-spark rmm-delivery-spark-one">✦</span>
+            <span className="rmm-delivery-spark rmm-delivery-spark-two">✧</span>
+            <span className="rmm-delivery-art-caption">{isHindi ? "तेज़ • आसान • मुफ्त" : "FAST  •  EASY  •  FREE"}</span>
+          </div>
+          <div className="rmm-delivery-bottom"><span><Truck size={14}/> {isHindi ? "सिर्फ 5 KM तक" : "Within 5 KM only"}</span><i/><span>{isHindi ? "कोई डिलीवरी चार्ज नहीं" : "No delivery fee"}</span></div>
         </div>
       </section>
 

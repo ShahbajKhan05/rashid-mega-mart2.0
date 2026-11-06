@@ -122,15 +122,16 @@ export default function OriginalCustomerHome() {
         <div ref={promoShineRef} aria-hidden="true" className="rmm-promo-shine" />
         <div className="relative mx-auto flex min-h-[76px] max-w-[1100px] items-center justify-between gap-2 px-3 py-2.5 sm:min-h-[88px] sm:px-6 sm:py-3">
           <div className="flex min-w-0 items-center gap-2.5 sm:gap-4">
-            <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-[#e7c987]/80 bg-white/75 text-[#9b692b] shadow-[0_5px_16px_rgba(126,82,31,.10)] sm:h-12 sm:w-12">
-              <span className="text-[22px] font-black leading-none sm:text-[26px]">₹</span>
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#e7c987]/80 bg-white/85 p-1 shadow-[0_5px_16px_rgba(126,82,31,.10)] sm:h-12 sm:w-12">
+              <Image src="/Logo.png" alt="Rashid Mega Mart logo" width={88} height={88} priority className="h-full w-full object-contain" />
             </div>
             <div className="min-w-0">
-              <div className="flex flex-wrap items-center gap-1.5">
+              <div className="mb-1 flex flex-wrap items-center gap-1.5">
+                <span className="text-[8px] font-black uppercase tracking-[.13em] text-[#800020] sm:text-[9px]">RASHID MEGA MART</span>
+                <span className="h-1 w-1 rounded-full bg-[#c49a55]" />
                 <span className="rounded-full bg-[#800020] px-2 py-0.5 text-[7px] font-black uppercase tracking-[.12em] text-white sm:text-[8px]">{isHindi ? "पहला ऑर्डर" : "FIRST ORDER"}</span>
-                <span className="text-[8px] font-bold text-[#8b6c4c] sm:text-[9px]">{isHindi ? "आपके लिए खास बचत" : "A little extra savings for you"}</span>
               </div>
-              <p className="mt-1 truncate text-[15px] font-black leading-tight tracking-[-.045em] text-[#68162a] sm:text-[21px]">{isHindi ? "₹100 की सीधी छूट पाएं" : "Get ₹100 OFF your first order"}</p>
+              <p className="truncate text-[15px] font-black leading-tight tracking-[-.045em] text-[#68162a] sm:text-[21px]">{isHindi ? "₹100 की सीधी छूट पाएं" : "Get ₹100 OFF your first order"}</p>
               <p className="mt-0.5 text-[8px] font-semibold text-[#77675b] sm:text-[10px]">{isHindi ? "₹499+ की खरीदारी पर · कोड" : "On shopping above ₹499 · Use code"}</p>
             </div>
           </div>

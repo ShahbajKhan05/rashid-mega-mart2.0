@@ -63,7 +63,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [customRequests, setCustomRequests] = useState<CustomCartRequest[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
   const [customerLocation, setCustomerLocation] = useState("Ghoghar, Rewa");
-  const [isMounted, setIsMounted] = useState(false); 
+  const [isMounted, setIsMounted] = useState(false);
+  const [addedFeedback, setAddedFeedback] = useState<{ product: CartProduct; quantity: number } | null>(null); 
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -98,10 +99,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
     document.body.style.overflow = cartOpen ? "hidden" : "unset";
   }, [cartOpen]);
 
+  useEffect(() => {
+    if (!addedFeedback) return;
+    const timeout = window.setTimeout(() => setAddedFeedback(null), 2800);
+    return () => window.clearTimeout(timeout);
+  }, [addedFeedback]);
+
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0) + customRequests.reduce((sum, item) => sum + item.quantity, 0);
   const cartTotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   function addToCart(product: CartProduct, quantity: number = 1) {
+    setAddedFeedback({ product: { ...product }, quantity });
     setCartItems((previous) => {
       const existing = previous.find((item) => item.id === product.id);
       if (existing) {
@@ -161,6 +169,19 @@ export function CartProvider({ children }: { children: ReactNode }) {
     <CartContext.Provider value={value}>
       {children}
 
+
+      {addedFeedback && !cartOpen && (
+        <div role="status" aria-live="polite" aria-atomic="true" className="fixed bottom-[calc(154px+env(safe-area-inset-bottom))] left-3 right-3 z-[90] mx-auto flex max-w-[390px] items-center gap-3 rounded-2xl border border-[#e8d9c5] bg-[#fffdf8]/[.98] p-3 shadow-[0_12px_35px_rgba(54,28,28,.18)] backdrop-blur-xl xl:bottom-6">
+          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#e8f4e9] text-[#16834b]"><ShoppingCart size={17}/></span>
+          <div className="min-w-0 flex-1">
+            <p className="text-[10px] font-black text-[#16834b]">{isHindi ? "कार्ट में जोड़ दिया ✓" : "Added to cart ✓"}</p>
+            <p className="truncate text-[11px] font-bold text-[#30251F]">{isHindi ? addedFeedback.product.nameHi : addedFeedback.product.name} · {addedFeedback.quantity} × {money(addedFeedback.product.price)}</p>
+            <p className="text-[9px] text-[#76665C]">{isHindi ? "कार्ट सबटोटल" : "Cart subtotal"}: <strong className="text-[#800020]">{money(cartTotal)}</strong></p>
+          </div>
+          <button type="button" onClick={() => { setAddedFeedback(null); setCartOpen(true); }} className="shrink-0 rounded-full bg-[#800020] px-3 py-2 text-[9px] font-black text-white transition hover:bg-[#64152b]">{isHindi ? "कार्ट देखें" : "View cart"}</button>
+        </div>
+      )}
+
       {/* AWARD-WINNING CART DRAWER */}
       <AnimatePresence>
         {cartOpen && (
@@ -186,7 +207,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
               <div className="flex items-center justify-between border-b border-[#800020]/10 bg-white p-4 sm:p-5">
                 <div>
                   <h2 className="text-xl font-black text-[#30251F]">{isHindi ? "आपका कार्ट" : "Your Cart"}</h2>
-                  <p className="mt-0.5 text-xs font-medium text-[#76665C]">{cartCount} {isHindi ? "आइटम" : "items"} • <span className="text-[#138047] font-bold">Free Delivery</span></p>
+                  <p className="mt-0.5 text-xs font-medium text-[#76665C]">{cartCount} {isHindi ? "आइटम" : "items"} • {isHindi ? "डिलीवरी चार्ज इलाके के अनुसार कन्फर्म होंगे" : "Delivery charges confirmed for your area"}</p>
                 </div>
                 <button onClick={() => setCartOpen(false)} className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition hover:bg-[#800020]/10 hover:text-[#800020]">
                   <X size={20} />
@@ -200,7 +221,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
                 </div>
                 <div className="flex-1">
                   <p className="text-sm font-bold text-[#138047]">
-                    {isHindi ? "डिलीवरी: 30-45 मिनट" : "Delivery in 30-45 mins"}
+                    {isHindi ? "डिलीवरी समय और चार्ज इलाके की जाँच के बाद कन्फर्म होंगे" : "Delivery ETA and charges confirmed after area check"}
                   </p>
                   <p className="flex items-center gap-1 text-[10px] text-[#138047]/70">
                     <MapPin size={10} /> {customerLocation}

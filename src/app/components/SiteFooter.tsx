@@ -44,7 +44,7 @@ export default function SiteFooter() {
   ];
 
   const linkClass = "group inline-flex items-center gap-2.5 text-[14px] leading-6 text-[#55483C] transition-colors duration-200 hover:text-[#800020] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EAB308] focus-visible:ring-offset-2 rounded-sm";
-  const headingClass = "text-[13px] font-extrabold uppercase tracking-[.12em] text-[#800020]";
+  const headingClass = "text-center text-[13px] font-extrabold uppercase tracking-[.12em] text-[#800020] sm:text-left";
 
   return (
     <footer ref={footerRef} className="relative isolate overflow-hidden border-t border-[#D4A84F]/55 bg-[#FFF9D8] pb-[calc(78px+env(safe-area-inset-bottom))] pt-8 text-[#30251F] [font-family:Inter,sans-serif] sm:pt-10 xl:pb-6">

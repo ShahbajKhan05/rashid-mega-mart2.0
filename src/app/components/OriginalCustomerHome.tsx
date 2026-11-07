@@ -269,7 +269,7 @@ export default function OriginalCustomerHome() {
             <p className="max-w-[290px] text-[10px] leading-relaxed text-[#817166] sm:text-xs">{isHindi ? "ग्राहकों की पसंद के रोज़मर्रा के सामान।" : "Everyday essentials customers keep coming back for."}</p>
             <Link href="/products" className="inline-flex h-9 items-center justify-center gap-1.5 rounded-full border border-[#dfcba9] bg-white px-4 text-[9px] font-black text-[#800020] shadow-sm transition hover:border-[#800020] hover:bg-[#800020] hover:text-white active:scale-[.97] sm:text-[10px]">{isHindi ? "सभी देखें" : "VIEW ALL"} <ArrowRight size={12}/></Link>
           </div>
-          <ShoppingProductRail items={popularPicks} language={language} />
+          <ShoppingProductRail items={popularPicks.slice(0, 4)} language={language} variant="grid" />
         </div>
       </section>
 

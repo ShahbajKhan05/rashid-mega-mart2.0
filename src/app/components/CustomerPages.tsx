@@ -715,7 +715,7 @@ export function CheckoutPage() {
 
             <div className="mt-3 rounded-xl border border-[#d8ead9] bg-[#f1f8f0] px-3 py-3 text-[10px] leading-5 text-[#315f3e] print:mt-2">
               <strong className="flex items-center gap-2 text-xs text-[#176b3c]"><ShieldCheck size={15} />{isHindi ? "ऑर्डर इस डिवाइस पर सेव हो गया है" : "Your order has been saved on this device"}</strong>
-              <span className="mt-1 block">{isHindi ? "ऑर्डर रिक्वेस्ट दर्ज हो गई है। स्टोर उपलब्धता, अंतिम कीमत और डिलीवरी की पुष्टि करेगा। WhatsApp पर भेजना ज़रूरी नहीं है।" : "Your order request is recorded. The store will confirm availability, final pricing and delivery. You do not need to send anything on WhatsApp."}</span>
+              <span className="mt-1 block">{isHindi ? "ऑर्डर अभी सिर्फ़ इस डिवाइस पर सेव हुआ है। डेटाबेस जुड़ने तक स्टोर को इसकी सूचना अपने-आप नहीं मिलेगी। WhatsApp वैकल्पिक है।" : "Your order is saved on this device only. The store is not notified automatically until the database is connected. WhatsApp is optional."}</span>
             </div>
             <p className="mt-2 text-[8px] leading-3.5 text-[#968a7e] print:mt-1">* {isHindi ? "यह ऑर्डर इसी ब्राउज़र और डिवाइस में सेव है। दूसरे डिवाइस पर देखने और स्थायी पुष्टि के लिए बाद में डेटाबेस कनेक्शन ज़रूरी होगा।" : "This order is stored in this browser on this device only. A database connection will be needed for cross-device access and permanent store-side confirmation."}</p>
             <div className="mt-4 grid grid-cols-1 gap-2 print:hidden sm:grid-cols-2">
@@ -797,7 +797,7 @@ export function CheckoutPage() {
               <label className="block"><span className="text-base font-extrabold">{isHindi ? "डिलीवरी नोट" : "Delivery note"} <span className="text-xs font-normal text-[#9a8d82]">({isHindi ? "वैकल्पिक" : "optional"})</span></span><textarea rows={2} maxLength={240} value={note} onChange={(e) => setNote(e.target.value)} placeholder={isHindi ? "कोई खास निर्देश..." : "Any special delivery instructions..."} className="mt-3 min-h-24 w-full resize-y rounded-xl border border-[#ded8ce] bg-white px-3.5 py-3.5 text-sm outline-none transition placeholder:text-[#a69b90] focus:border-[#800020] focus:ring-2 focus:ring-[#800020]/10" /></label>
             </section>
             {error && <p role="alert" className="mb-4 rounded-lg bg-red-50 px-3 py-2.5 text-sm font-medium text-red-700">{error}</p>}
-            <p className="mb-4 flex items-start gap-2 text-xs leading-5 text-[#82776e]"><ShieldCheck size={15} className="mt-0.5 shrink-0 text-[#a77b3e]" />{isHindi ? "Confirm Order दबाते ही ऑर्डर इस डिवाइस में सेव हो जाएगा। स्टोर उपलब्धता, कीमत और डिलीवरी की पुष्टि करेगा।" : "Tap Confirm Order to save your order on this device. The store will confirm availability, final price and delivery."}</p>
+            <p className="mb-4 flex items-start gap-2 text-xs leading-5 text-[#82776e]"><ShieldCheck size={15} className="mt-0.5 shrink-0 text-[#a77b3e]" />{isHindi ? "Confirm Order दबाते ही ऑर्डर की कॉपी इस डिवाइस में सेव होगी। डेटाबेस जुड़ने तक स्टोर को ऑर्डर नहीं मिलेगा।" : "Tap Confirm Order to save a temporary copy on this device. The store will not receive it until the database is connected."}</p>
             <button type="submit" className="hidden h-12 w-full items-center justify-center gap-2 rounded-lg bg-[#800020] px-6 text-sm font-bold text-white transition hover:bg-[#650019] sm:flex"><ShieldCheck size={17} />{isHindi ? "ऑर्डर कन्फर्म करें" : "Confirm Order"}</button>
           </form>
 
@@ -871,7 +871,7 @@ export function TrackOrderPage() {
     const found = readLocalOrders().find((order) => order.id.toUpperCase() === requestedId);
     setMatchedOrder(found || null);
     setLookupMessage(found
-      ? (isHindi ? "ऑर्डर इस डिवाइस पर मिल गया। स्टोर की पुष्टि अभी बाकी है।" : "Order found on this device. Store confirmation is still pending.")
+      ? (isHindi ? "ऑर्डर इस डिवाइस पर मिल गया। अभी स्टोर को नहीं भेजा गया है।" : "Order found on this device. It has not been sent to the store yet.")
       : (isHindi ? "यह ऑर्डर इस डिवाइस के ब्राउज़र में नहीं मिला।" : "This order was not found in this device’s browser."));
   }, [searchParams, isHindi]);
 
@@ -886,7 +886,7 @@ export function TrackOrderPage() {
     const found = readLocalOrders().find((order) => order.id.toUpperCase() === value);
     setMatchedOrder(found || null);
     setLookupMessage(found
-      ? (isHindi ? "ऑर्डर इस डिवाइस पर मिल गया। स्टोर की पुष्टि अभी बाकी है।" : "Order found on this device. Store confirmation is still pending.")
+      ? (isHindi ? "ऑर्डर इस डिवाइस पर मिल गया। अभी स्टोर को नहीं भेजा गया है।" : "Order found on this device. It has not been sent to the store yet.")
       : (isHindi ? "यह ऑर्डर इस डिवाइस के ब्राउज़र में नहीं मिला।" : "This order was not found in this device’s browser."));
   }
 
@@ -911,8 +911,8 @@ export function TrackOrderPage() {
           </form>
           {lookupMessage && <p role="status" className="mt-4 rounded-xl border border-[#f0dfc7] bg-[#fff8ed] px-4 py-3 text-sm leading-5 text-[#704d20]">{lookupMessage}</p>}
           {matchedOrder && <article className="mt-4 rounded-xl border border-[#e8dfd2] bg-[#fffdf9] p-4">
-            <div className="flex flex-wrap items-start justify-between gap-2"><div><p className="text-[9px] font-black uppercase tracking-wider text-[#9a713d]">Order ID</p><p className="mt-1 text-sm font-black text-[#702039]">{matchedOrder.id}</p><p className="mt-1 text-[10px] text-[#928579]">{matchedOrder.createdAt}</p></div><span className="rounded-full bg-[#fff4dc] px-2.5 py-1 text-[9px] font-extrabold text-[#916321]">{isHindi ? "स्टोर पुष्टि बाकी" : "Awaiting store confirmation"}</span></div>
-            <div className="mt-4 rounded-lg bg-[#f5f8f1] p-3"><p className="text-xs font-extrabold text-[#315f3e]">{isHindi ? "ऑर्डर रिक्वेस्ट सेव है" : "Order request saved"}</p><p className="mt-1 text-[10px] leading-4 text-[#637b68]">{isHindi ? "यह लोकल ऑर्डर रिकॉर्ड है। लाइव डिलीवरी अपडेट के लिए डेटाबेस कनेक्शन बाद में जोड़ा जाएगा।" : "This is a local order record. Live delivery updates will be connected when the database is added."}</p></div>
+            <div className="flex flex-wrap items-start justify-between gap-2"><div><p className="text-[9px] font-black uppercase tracking-wider text-[#9a713d]">Order ID</p><p className="mt-1 text-sm font-black text-[#702039]">{matchedOrder.id}</p><p className="mt-1 text-[10px] text-[#928579]">{matchedOrder.createdAt}</p></div><span className="rounded-full bg-[#fff4dc] px-2.5 py-1 text-[9px] font-extrabold text-[#916321]">{isHindi ? "इस डिवाइस पर सेव" : "Saved on this device"}</span></div>
+            <div className="mt-4 rounded-lg bg-[#f5f8f1] p-3"><p className="text-xs font-extrabold text-[#315f3e]">{isHindi ? "ऑर्डर रिक्वेस्ट सेव है" : "Order request saved"}</p><p className="mt-1 text-[10px] leading-4 text-[#637b68]">{isHindi ? "यह सिर्फ़ लोकल रिकॉर्ड है। स्टोर को ऑर्डर नहीं मिला है; डेटाबेस जुड़ने पर ऑटोमैटिक ऑर्डर भेजना शुरू होगा।" : "This is a local order record only. The store has not received it; automatic order delivery will be added with the database."}</p></div>
             <div className="mt-3 space-y-2">{matchedOrder.items.map((item,index)=><div key={index} className="flex justify-between gap-3 text-xs"><span>{item.name} × {item.quantity}</span><strong>{item.amount === null ? "TBD" : "₹" + item.amount.toLocaleString("en-IN")}</strong></div>)}</div>
             <div className="mt-3 flex justify-between border-t border-[#eee5d9] pt-3 text-sm font-black text-[#702039]"><span>Estimated total</span><span>₹{matchedOrder.total.toLocaleString("en-IN")}</span></div>
           </article>}
@@ -960,7 +960,7 @@ export function MyOrdersPage() {
           <Link href="/products" className="mt-6 inline-flex min-h-12 items-center justify-center rounded-xl bg-[#800020] px-5 text-sm font-extrabold text-white">{isHindi ? "खरीदारी शुरू करें" : "Start shopping"} →</Link>
         </section> : <section className="space-y-3">
           {orders.map((order) => <article key={order.id} className="rounded-2xl border border-[#eee2d3] bg-white p-4 shadow-[0_8px_25px_rgba(80,32,48,.05)] sm:p-5">
-            <div className="flex flex-wrap items-start justify-between gap-2"><div><p className="text-[9px] font-black uppercase tracking-wider text-[#9a713d]">Order ID</p><p className="mt-1 text-sm font-black text-[#702039]">{order.id}</p><p className="mt-1 text-[10px] text-[#928579]">{order.createdAt}</p></div><span className="rounded-full bg-[#fff4dc] px-2.5 py-1 text-[9px] font-extrabold text-[#916321]">{isHindi ? "स्टोर पुष्टि बाकी" : "Awaiting store confirmation"}</span></div>
+            <div className="flex flex-wrap items-start justify-between gap-2"><div><p className="text-[9px] font-black uppercase tracking-wider text-[#9a713d]">Order ID</p><p className="mt-1 text-sm font-black text-[#702039]">{order.id}</p><p className="mt-1 text-[10px] text-[#928579]">{order.createdAt}</p></div><span className="rounded-full bg-[#fff4dc] px-2.5 py-1 text-[9px] font-extrabold text-[#916321]">{isHindi ? "इस डिवाइस पर सेव" : "Saved on this device"}</span></div>
             <div className="mt-3 space-y-2 border-t border-[#eee5d9] pt-3">{order.items.map((item,index)=><div key={index} className="flex justify-between gap-3 text-xs"><span className="min-w-0 truncate text-[#5e5047]">{item.name} × {item.quantity}</span><strong className="shrink-0">{item.amount === null ? "TBD" : money(item.amount)}</strong></div>)}</div>
             <div className="mt-3 flex items-center justify-between border-t border-[#eee5d9] pt-3"><span className="text-xs font-bold text-[#82776e]">{isHindi ? "अनुमानित कुल" : "Estimated total"}</span><strong className="text-lg font-black text-[#702039]">{money(order.total)}</strong></div>
             <p className="mt-2 text-[10px] leading-5 text-[#82776e]">{order.address}</p>

@@ -150,10 +150,10 @@ export function ProductsPage() {
               const emoji = category.id === "all" ? "🛒" : categoryProducts[0]?.emoji || "🛍️";
               return (
                 <button key={category.id} type="button" onClick={() => setActiveCategory(category.id)} aria-pressed={selected} className={"flex min-h-[58px] shrink-0 snap-start items-center gap-2 rounded-[15px] border px-3 py-2 text-left transition duration-200 active:scale-[.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#800020] sm:min-h-[64px] sm:px-4 " + (selected ? "border-[#762039] bg-[#762039] text-white shadow-[0_7px_18px_rgba(118,32,57,.18)]" : "border-[#eadfce] bg-white text-[#49382d] shadow-[0_3px_12px_rgba(68,45,27,.035)] hover:border-[#c9a66b]")}>
-                  <span aria-hidden="true" className={"grid h-9 w-9 shrink-0 place-items-center rounded-xl text-[19px] " + (selected ? "bg-white/12" : "bg-[#f8f0e5")}>{emoji}</span>
+                  <span aria-hidden="true" className={"grid h-9 w-9 shrink-0 place-items-center rounded-xl text-[19px] " + (selected ? "bg-white/12" : "bg-[#f8f0e5]")}>{emoji}</span>
                   <span className="min-w-0">
                     <span className="block whitespace-nowrap text-[10px] font-extrabold sm:text-[11px]">{isHindi ? category.hi : category.en}</span>
-                    <span className={"mt-0.5 block text-[9px] font-semibold " + (selected ? "text-white/65" : "text-[#a08e7d")}>{categoryProducts.length} {isHindi ? "आइटम" : "items"}</span>
+                    <span className={"mt-0.5 block text-[9px] font-semibold " + (selected ? "text-white/65" : "text-[#a08e7d]")}>{categoryProducts.length} {isHindi ? "आइटम" : "items"}</span>
                   </span>
                 </button>
               );

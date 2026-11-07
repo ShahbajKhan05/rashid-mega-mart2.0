@@ -530,7 +530,7 @@ export function CheckoutPage() {
   const [appliedCoupon, setAppliedCoupon] = useState<{code:string;discount:number;title:string}|null>(null);
   const [couponMessage, setCouponMessage] = useState("");
   const [receipt, setReceipt] = useState<{
-    id: string; createdAt: string; name: string; phone: string; address: string;
+    id: string; createdAt: string; name: string; phone: string; address: string; whatsappUrl: string;
     items: Array<{ name: string; quantity: number; amount: number | null }>;
     subtotal: number; discount: number; total: number; coupon: string;
   } | null>(null);
@@ -617,18 +617,16 @@ export function CheckoutPage() {
     const now = new Date();
     const orderRef = `RMM-${now.getFullYear().toString().slice(-2)}${String(now.getMonth()+1).padStart(2,"0")}${String(now.getDate()).padStart(2,"0")}-${String(now.getHours()).padStart(2,"0")}${String(now.getMinutes()).padStart(2,"0")}${String(now.getSeconds()).padStart(2,"0")}`;
     const whatsappUrl = `https://wa.me/918962531603?text=${encodeURIComponent([`Order reference: ${orderRef}`, ...lines].join("\n"))}`;
-    const popup = window.open(whatsappUrl, "_blank", "noopener,noreferrer");
     setReceipt({
       id: orderRef,
       createdAt: now.toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" }),
-      name: name.trim(), phone: cleanPhone, address: address.trim(),
+      name: name.trim(), phone: cleanPhone, address: address.trim(), whatsappUrl,
       items: [
         ...cartItems.map((item) => ({ name: isHindi ? item.nameHi : item.name, quantity: item.quantity, amount: item.price * item.quantity })),
         ...customRequests.map((item) => ({ name: item.name, quantity: item.quantity, amount: null })),
       ],
       subtotal: cartTotal, discount: discountAmount, total: payableTotal, coupon: appliedCoupon?.code || "",
     });
-    if (!popup) window.location.assign(whatsappUrl);
   }
 
   if (receipt) {
@@ -657,9 +655,10 @@ export function CheckoutPage() {
             <div className="flex justify-between text-base font-black text-[#800020]"><span>Estimated total</span><strong>{formatPrice(receipt.total)}</strong></div>
           </div>
           <p className="mt-5 rounded-xl border border-[#ead9bd] bg-[#fff7e8] p-3 text-[11px] leading-5 text-[#806b57]">{isHindi ? "ध्यान दें: यह ऑर्डर रिक्वेस्ट की रसीद है, भुगतान की रसीद या ऑर्डर कन्फर्मेशन नहीं। WhatsApp पर मैसेज भेजना और स्टोर से पुष्टि लेना ज़रूरी है।" : "Note: This is an order-request receipt, not a payment receipt or confirmed order. The WhatsApp message must be sent and the store must confirm your order."}</p>
-          <div className="mt-6 flex flex-col gap-2 sm:flex-row print:hidden">
-            <button type="button" onClick={() => window.print()} className="flex h-11 flex-1 items-center justify-center rounded-xl bg-[#800020] px-4 text-xs font-extrabold text-white">{isHindi ? "रसीद प्रिंट / PDF सेव करें" : "Print / Save as PDF"}</button>
-            <Link href="/products" className="flex h-11 flex-1 items-center justify-center rounded-xl border border-[#e9e2d8] px-4 text-xs font-bold text-[#800020]">{isHindi ? "खरीदारी जारी रखें" : "Continue shopping"}</Link>
+          <div className="mt-6 grid grid-cols-1 gap-2 print:hidden sm:grid-cols-2">
+            <a href={receipt.whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex h-12 items-center justify-center gap-2 rounded-xl bg-[#16834b] px-4 text-xs font-extrabold text-white transition hover:bg-[#11683b]"><MessageCircle size={16} />{isHindi ? "अब WhatsApp पर ऑर्डर भेजें" : "Send order on WhatsApp"}</a>
+            <button type="button" onClick={() => window.print()} className="flex h-12 items-center justify-center rounded-xl bg-[#800020] px-4 text-xs font-extrabold text-white">{isHindi ? "रसीद प्रिंट / PDF सेव करें" : "Print / Save as PDF"}</button>
+            <Link href="/products" className="flex h-11 items-center justify-center rounded-xl border border-[#e9e2d8] px-4 text-xs font-bold text-[#800020] sm:col-span-2">{isHindi ? "खरीदारी जारी रखें" : "Continue shopping"}</Link>
           </div>
         </section>
       </main>

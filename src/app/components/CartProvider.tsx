@@ -69,14 +69,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const timer = window.setTimeout(() => {
       try {
-        const savedCart = localStorage.getItem("rmm_cart_items");
+        const savedCart = sessionStorage.getItem("rmm_cart_items");
         if (savedCart) setCartItems(JSON.parse(savedCart));
 
-        const savedCustom = localStorage.getItem("rmm_custom_requests");
+        const savedCustom = sessionStorage.getItem("rmm_custom_requests");
         if (savedCustom) setCustomRequests(JSON.parse(savedCustom));
 
         const savedLocation = localStorage.getItem("rmm_location");
         if (savedLocation) setCustomerLocation(savedLocation);
+        // Guest basket is temporary for this browser tab; discard legacy persistent cart data.
+        localStorage.removeItem("rmm_cart_items");
+        localStorage.removeItem("rmm_custom_requests");
       } catch (error) {
         console.error("Error loading cart data:", error);
       }
@@ -87,12 +90,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!isMounted) return;
-    localStorage.setItem("rmm_cart_items", JSON.stringify(cartItems));
+    sessionStorage.setItem("rmm_cart_items", JSON.stringify(cartItems));
   }, [cartItems, isMounted]);
 
   useEffect(() => {
     if (!isMounted) return;
-    localStorage.setItem("rmm_custom_requests", JSON.stringify(customRequests));
+    sessionStorage.setItem("rmm_custom_requests", JSON.stringify(customRequests));
   }, [customRequests, isMounted]);
 
   useEffect(() => {

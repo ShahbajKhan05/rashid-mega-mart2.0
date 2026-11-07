@@ -1,6 +1,5 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import Lenis from "lenis";
 import gsap from "gsap";
@@ -17,11 +16,8 @@ import SitewideDeliveryNotice from "./SitewideDeliveryNotice";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function AppChrome({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
-  const isAdminArea = pathname.startsWith("/admin");
-
   useEffect(() => {
-    if (isAdminArea || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const lenis = new Lenis({
       lerp: 0.085,
@@ -47,9 +43,8 @@ export default function AppChrome({ children }: { children: React.ReactNode }) {
       gsap.ticker.lagSmoothing(500, 33);
       lenis.destroy();
     };
-  }, [isAdminArea]);
+  }, []);
 
-  if (isAdminArea) return <>{children}</>;
 
   return (
     <MotionConfig reducedMotion="user">

@@ -14,7 +14,8 @@ export const metadata: Metadata = {
   title: { default: "Rashid Mega Mart | Best Grocery Store in Ghoghar, Rewa", template: "%s | Rashid Mega Mart" },
   description: "Rashid Mega Mart is your trusted neighbourhood grocery store in Ghoghar, Rewa, Madhya Pradesh. Order atta, rice, dal, oil, snacks, and daily essentials online with fast delivery.",
   keywords: ["Rashid Mega Mart", "Grocery store Rewa", "Kirana store Ghoghar", "Online grocery Rewa", "Daily essentials home delivery"],
-  openGraph: { title: "Rashid Mega Mart | Your Daily Needs, Our Priority", description: "Order groceries, household items, and value kits online. Fast delivery in Rewa.", siteName: "Rashid Mega Mart", locale: "en_IN", type: "website", images: [{ url: "/og-banner.jpg", width: 1200, height: 630, alt: "Rashid Mega Mart Banner" }] },
+  openGraph: { title: "Rashid Mega Mart | Your Daily Needs, Our Priority", description: "Order groceries, household items, and value kits online. Fast delivery in Rewa.", siteName: "Rashid Mega Mart", locale: "en_IN", type: "website", images: [{ url: "/og-banner.png", width: 1200, height: 630, alt: "Rashid Mega Mart Banner" }] },
+  twitter: { card: "summary_large_image", title: "Rashid Mega Mart | Your Daily Needs, Our Priority", description: "Order groceries, household items, and value kits online. Fast delivery in Rewa.", images: ["/og-banner.png"] },
   robots: { index: true, follow: true }, icons: { icon: "/favicon.ico", shortcut: "/favicon.ico", apple: "/Logo.png" },
 };
 

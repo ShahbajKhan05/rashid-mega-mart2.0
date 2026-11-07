@@ -735,18 +735,16 @@ export function CheckoutPage() {
               <div className="flex justify-between border-t border-dashed border-[#e5d9cd] pt-1.5 text-sm font-black text-[#702039] print:text-xs"><span>Estimated total</span><strong>{formatPrice(receipt.total)}</strong></div>
             </div>
 
-            <div className="mt-3 rounded-xl border border-[#ead9bd] bg-[#fff8eb] px-3 py-2 text-[9px] leading-4 text-[#755d42] print:mt-2 print:py-1.5">
-              <strong className="block text-[9px] text-[#70451f]">{isHindi ? "एक छोटा सा रिमाइंडर ❤️" : "A little reminder ❤️"}</strong>
-              {isHindi
-                ? "WhatsApp खुलने पर अपना ऑर्डर मैसेज SEND करें। फिर इसी वेबसाइट टैब पर वापस आएँ और नीचे “Download Receipt” दबाकर रसीद PDF में सेव कर लें।"
-                : "After WhatsApp opens, tap SEND on your order message. Then return to this website tab and tap “Download Receipt” below to save your receipt as a PDF."}
+            <div className="mt-3 rounded-xl border border-[#d8ead9] bg-[#f1f8f0] px-3 py-3 text-[10px] leading-5 text-[#315f3e] print:mt-2">
+              <strong className="flex items-center gap-2 text-xs text-[#176b3c]"><ShieldCheck size={15} />{isHindi ? "ऑर्डर इस डिवाइस पर सेव हो गया है" : "Your order has been saved on this device"}</strong>
+              <span className="mt-1 block">{isHindi ? "ऑर्डर रिक्वेस्ट दर्ज हो गई है। स्टोर उपलब्धता, अंतिम कीमत और डिलीवरी की पुष्टि करेगा। WhatsApp पर भेजना ज़रूरी नहीं है।" : "Your order request is recorded. The store will confirm availability, final pricing and delivery. You do not need to send anything on WhatsApp."}</span>
             </div>
-            <p className="mt-2 text-[8px] leading-3.5 text-[#968a7e] print:mt-1">* {isHindi ? "यह ऑर्डर रिक्वेस्ट कॉपी है, भुगतान रसीद या कन्फर्म ऑर्डर नहीं। स्टोर की पुष्टि के बाद ही ऑर्डर पक्का होगा।" : "This is an order request copy, not a payment receipt or confirmed order. Your order is confirmed only after store approval."}</p>
-
+            <p className="mt-2 text-[8px] leading-3.5 text-[#968a7e] print:mt-1">* {isHindi ? "यह ऑर्डर इसी ब्राउज़र और डिवाइस में सेव है। दूसरे डिवाइस पर देखने और स्थायी पुष्टि के लिए बाद में डेटाबेस कनेक्शन ज़रूरी होगा।" : "This order is stored in this browser on this device only. A database connection will be needed for cross-device access and permanent store-side confirmation."}</p>
             <div className="mt-4 grid grid-cols-1 gap-2 print:hidden sm:grid-cols-2">
-              <a href={receipt.whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex h-11 items-center justify-center gap-2 rounded-xl bg-[#16834b] px-4 text-xs font-extrabold text-white transition hover:bg-[#11683b]"><MessageCircle size={15} />{isHindi ? "WhatsApp पर ऑर्डर भेजें" : "Send order on WhatsApp"}</a>
+              <a href={receipt.whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex h-11 items-center justify-center gap-2 rounded-xl border border-[#dce9dd] bg-[#f4faf3] px-4 text-xs font-extrabold text-[#176b3c] transition hover:bg-[#e8f4e7]"><MessageCircle size={15} />{isHindi ? "WhatsApp पर शेयर करें (वैकल्पिक)" : "Share on WhatsApp (optional)"}</a>
               <button type="button" onClick={() => window.print()} className="flex h-11 items-center justify-center gap-2 rounded-xl bg-[#702039] px-4 text-xs font-extrabold text-white transition hover:bg-[#58172c]"><Package size={15} />{isHindi ? "रसीद डाउनलोड / PDF" : "Download Receipt / PDF"}</button>
-              <Link href="/products" className="flex h-10 items-center justify-center rounded-xl border border-[#e8dfd2] px-4 text-[10px] font-bold text-[#702039] sm:col-span-2">{isHindi ? "खरीदारी जारी रखें" : "Continue shopping"}</Link>
+              <Link href="/my-orders" className="flex h-10 items-center justify-center rounded-xl border border-[#e8dfd2] px-4 text-[10px] font-bold text-[#702039]">{isHindi ? "मेरे ऑर्डर देखें" : "View my orders"}</Link>
+              <Link href="/products" className="flex h-10 items-center justify-center rounded-xl border border-[#e8dfd2] px-4 text-[10px] font-bold text-[#702039]">{isHindi ? "खरीदारी जारी रखें" : "Continue shopping"}</Link>
             </div>
           </div>
         </section>
@@ -783,7 +781,7 @@ export function CheckoutPage() {
           {[
             { label: isHindi ? "कार्ट" : "Cart", done: true, number: "01" },
             { label: isHindi ? "जानकारी" : "Details", done: true, number: "02" },
-            { label: "WhatsApp", done: false, number: "03" },
+            { label: isHindi ? "कन्फर्म" : "Confirm", done: false, number: "03" },
           ].map((step) => <div key={step.number} aria-current={step.number === "02" ? "step" : undefined} className={"flex items-center justify-center gap-1.5 rounded-lg px-1.5 py-2 " + (step.done ? "bg-[#702039] text-white" : "text-[#9b8d80]")}>
             <span className={"text-[8px] font-black tabular-nums " + (step.done ? "text-[#f1d9ad]" : "text-[#b7aa9d]")}>{step.number}</span>
             <span className="truncate text-[10px] font-extrabold">{step.label}</span>
@@ -793,7 +791,7 @@ export function CheckoutPage() {
           <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-white text-[#9a713d]">👤</span>
           <div className="min-w-0">
             <p className="text-xs font-extrabold text-[#6b3f20]">{isHindi ? "आप Guest के रूप में ऑर्डर कर रहे हैं" : "You’re shopping as a Guest"}</p>
-            <p className="mt-1 text-[11px] leading-5 text-[#806b57]">{isHindi ? "आपकी जानकारी या ऑर्डर वेबसाइट पर सेव नहीं होगा। कार्ट केवल इस टैब में अस्थायी रहेगा। WhatsApp पर भेजने के बाद ही ऑर्डर रिक्वेस्ट स्टोर तक पहुँचेगी।" : "Your details and order won’t be saved on this website. Your cart is temporary in this browser tab. The store receives your order request only after you send it on WhatsApp."}</p>
+            <p className="mt-1 text-[11px] leading-5 text-[#806b57]">{isHindi ? "ऑर्डर इस डिवाइस के ब्राउज़र में सेव होगा। WhatsApp खोलने या मैसेज भेजने की ज़रूरत नहीं है।" : "Your order will be saved in this browser on this device. No need to open WhatsApp or send a message."}</p>
           </div>
         </div>
 
@@ -821,8 +819,8 @@ export function CheckoutPage() {
               <label className="block"><span className="text-base font-extrabold">{isHindi ? "डिलीवरी नोट" : "Delivery note"} <span className="text-xs font-normal text-[#9a8d82]">({isHindi ? "वैकल्पिक" : "optional"})</span></span><textarea rows={2} maxLength={240} value={note} onChange={(e) => setNote(e.target.value)} placeholder={isHindi ? "कोई खास निर्देश..." : "Any special delivery instructions..."} className="mt-3 min-h-24 w-full resize-y rounded-xl border border-[#ded8ce] bg-white px-3.5 py-3.5 text-sm outline-none transition placeholder:text-[#a69b90] focus:border-[#800020] focus:ring-2 focus:ring-[#800020]/10" /></label>
             </section>
             {error && <p role="alert" className="mb-4 rounded-lg bg-red-50 px-3 py-2.5 text-sm font-medium text-red-700">{error}</p>}
-            <p className="mb-4 flex items-start gap-2 text-xs leading-5 text-[#82776e]"><ShieldCheck size={15} className="mt-0.5 shrink-0 text-[#a77b3e]" />{isHindi ? "WhatsApp पर ऑर्डर भेजने के बाद स्टोर उपलब्धता, कीमत और डिलीवरी की पुष्टि करेगा।" : "After sending your order on WhatsApp, the store will confirm availability, final price and delivery."}</p>
-            <button type="submit" className="hidden h-12 w-full items-center justify-center gap-2 rounded-lg bg-[#800020] px-6 text-sm font-bold text-white transition hover:bg-[#650019] sm:flex"><MessageCircle size={17} />{isHindi ? "WhatsApp पर ऑर्डर भेजें" : "Send order on WhatsApp"}</button>
+            <p className="mb-4 flex items-start gap-2 text-xs leading-5 text-[#82776e]"><ShieldCheck size={15} className="mt-0.5 shrink-0 text-[#a77b3e]" />{isHindi ? "Confirm Order दबाते ही ऑर्डर इस डिवाइस में सेव हो जाएगा। स्टोर उपलब्धता, कीमत और डिलीवरी की पुष्टि करेगा।" : "Tap Confirm Order to save your order on this device. The store will confirm availability, final price and delivery."}</p>
+            <button type="submit" className="hidden h-12 w-full items-center justify-center gap-2 rounded-lg bg-[#800020] px-6 text-sm font-bold text-white transition hover:bg-[#650019] sm:flex"><ShieldCheck size={17} />{isHindi ? "ऑर्डर कन्फर्म करें" : "Confirm Order"}</button>
           </form>
 
           <aside data-checkout-reveal className="order-1 min-w-0 lg:sticky lg:top-24 lg:order-2">
@@ -863,7 +861,7 @@ export function CheckoutPage() {
         </div>
 
         <div className="fixed inset-x-0 bottom-[calc(4.25rem+env(safe-area-inset-bottom))] z-[80] border-t border-[#e9e2d8] bg-white/[.97] px-4 py-3 shadow-[0_-8px_24px_rgba(48,39,33,.09)] backdrop-blur-xl sm:hidden">
-          <button type="submit" form="rmm-checkout-form" className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#702039] text-sm font-bold text-white shadow-[0_7px_18px_rgba(112,32,57,.2)] transition active:scale-[.99]"><MessageCircle size={17} />{isHindi ? "WhatsApp पर ऑर्डर भेजें" : "Send order on WhatsApp"}<span className="ml-auto pr-3">{formatPrice(payableTotal)}</span></button>
+          <button type="submit" form="rmm-checkout-form" className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#702039] text-sm font-bold text-white shadow-[0_7px_18px_rgba(112,32,57,.2)] transition active:scale-[.99]"><ShieldCheck size={17} />{isHindi ? "ऑर्डर कन्फर्म करें" : "Confirm Order"}<span className="ml-auto pr-3">{formatPrice(payableTotal)}</span></button>
         </div>
       </div>
     </main>

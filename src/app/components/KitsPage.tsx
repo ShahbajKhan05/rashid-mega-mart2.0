@@ -78,6 +78,10 @@ export default function KitsPage() {
           <span className="pb-1 text-[9px] font-bold text-[#8e7b6b]">{groceryKits.length} {isHindi ? "किट्स" : "KITS"}</span>
         </div>
 
+        <button type="button" onClick={() => router.push("/kits/customize")} className="mb-3 flex w-full items-center justify-between gap-3 rounded-[15px] border border-[#d8c5a8] bg-[linear-gradient(100deg,#fff,#f8f0e3)] px-3.5 py-3 text-left shadow-[0_4px_14px_rgba(70,45,30,.045)] transition hover:-translate-y-0.5 hover:border-[#b99a70] hover:shadow-md active:scale-[.99]">
+          <span className="flex min-w-0 items-center gap-2.5"><span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[#702039] text-white"><Sparkles size={17}/></span><span className="min-w-0"><span className="block text-[11px] font-black text-[#702039]">{isHindi ? "अपनी कस्टम किट खुद बनाएं" : "Build your own custom kit"}</span><span className="mt-0.5 block text-[9px] text-[#88786b]">{isHindi ? "अपनी पसंद के सामान और मात्रा चुनें" : "Choose your own products and quantities"}</span></span></span>
+          <ArrowRight size={17} className="shrink-0 text-[#16834b]"/>
+        </button>
         <div id="kit-list" className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
           {groceryKits.map((kit,index) => {
             const wished = isKitWishlisted(kit.id);

@@ -91,7 +91,7 @@ export default function KitCustomizer() {
               {visibleProducts.map((product) => {
                 const quantity = quantities[product.id] || 0;
                 return (
-                  <article key={product.id} className={`overflow-hidden rounded-[16px] border bg-white transition ${quantity ? "border-[#b98d57] shadow-[0_6px_18px_rgba(112,32,57,.08)]" : "border-[#ece2d7] shadow-[0_3px_12px_rgba(70,42,32,.035)"}`}>
+                  <article key={product.id} className={`overflow-hidden rounded-[16px] border bg-white transition ${quantity ? "border-[#b98d57] shadow-[0_6px_18px_rgba(112,32,57,.08)]" : "border-[#ece2d7] shadow-[0_3px_12px_rgba(70,42,32,.035)]"}`}>
                     <div className="relative aspect-[1.55] bg-[#f7f0e7]">
                       <Image src={product.image} alt={product.name} fill sizes="(max-width: 640px) 45vw, 220px" className="object-cover" />
                       {quantity > 0 && <span className="absolute right-2 top-2 grid h-6 w-6 place-items-center rounded-full bg-[#16834b] text-white shadow"><Check size={13}/></span>}

@@ -627,29 +627,7 @@ export function CheckoutPage() {
       return;
     }
 
-    const lines = [
-      "🛒 *Rashid Mega Mart - New Order Request*",
-      "",
-      "*Customer Details*",
-      `Name: ${name.trim()}`,
-      `Phone: +91 ${cleanPhone}`,
-      `Address: ${address.trim()}`,
-      landmark.trim() ? `Landmark: ${landmark.trim()}` : "",
-      "",
-      "*Order Items*",
-      ...cartItems.map((item) => `• ${item.name} × ${item.quantity} — ${formatPrice(item.price * item.quantity)}`),
-      ...customRequests.map((item) => `• ${item.name} × ${item.quantity} — Price to be confirmed${item.note ? ` (Note: ${item.note})` : ""}`),
-      "",
-      `*Subtotal: ${formatPrice(cartTotal)}*`,
-      appliedCoupon ? `Coupon: ${appliedCoupon.code} (${appliedCoupon.title})` : "",
-      appliedCoupon ? `Discount: -${formatPrice(discountAmount)}` : "",
-      `*Estimated total after discount: ${formatPrice(payableTotal)}*`,
-      customRequests.length ? "Custom request prices and delivery charges to be confirmed by the store." : "Delivery charges to be confirmed by the store.",
-      appliedCoupon?.code==="FIRST100" ? "First-purchase eligibility to be verified by the store before confirmation." : "",
-      note.trim() ? `\n*Delivery note:* ${note.trim()}` : "",
-      "",
-      "Please confirm availability, final total and delivery details."
-    ].filter(Boolean);
+
 
     const now = new Date();
     const orderRef = `RMM-${now.getFullYear().toString().slice(-2)}${String(now.getMonth()+1).padStart(2,"0")}${String(now.getDate()).padStart(2,"0")}-${String(now.getHours()).padStart(2,"0")}${String(now.getMinutes()).padStart(2,"0")}${String(now.getSeconds()).padStart(2,"0")}-${Math.random().toString(36).slice(2,6).toUpperCase()}`;
@@ -702,8 +680,8 @@ export function CheckoutPage() {
             <div className="flex items-center justify-between gap-3">
               <div>
                 <p className="text-[9px] font-black tracking-[.2em] text-[#f0d9ae]">RASHID MEGA MART</p>
-                <h1 className="mt-1 text-xl font-black tracking-tight sm:text-2xl print:text-lg">{isHindi ? "ऑर्डर रिक्वेस्ट रसीद" : "Order Request Receipt"}</h1>
-                <p className="mt-1 text-[10px] text-white/75">{isHindi ? "आपकी खरीदारी का विवरण" : "Your shopping summary"}</p>
+                <h1 className="mt-1 text-xl font-black tracking-tight sm:text-2xl print:text-lg">{isHindi ? "ऑर्डर दर्ज हो गया" : "Order Placed"}</h1>
+                <p className="mt-1 text-[10px] text-white/75">{isHindi ? "आपके ऑर्डर का विवरण" : "Your order details"}</p>
               </div>
               <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-white/20 bg-white/10 text-xl print:h-9 print:w-9">🛍️</div>
             </div>

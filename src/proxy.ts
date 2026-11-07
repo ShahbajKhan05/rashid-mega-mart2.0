@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 
 // Temporary customer-only launch mode: keep all admin screens out of the client experience.
 // Remove this guard when private owner authentication is ready.

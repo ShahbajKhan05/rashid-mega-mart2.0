@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useLanguage } from "./LanguageProvider";
+import { useWishlist } from "./WishlistProvider";
 import { products, categoryOptions } from "./data";
 
 type Language = "en" | "hi";
@@ -41,6 +42,7 @@ export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const { language, toggleLanguage } = useLanguage();
+  const { wishlistCount } = useWishlist();
 
   const [searchOpen, setSearchOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
@@ -214,20 +216,21 @@ export default function Navbar() {
 
         {/* COMPACT MOBILE HEADER */}
         <div className="flex flex-col gap-2 px-3 pb-2 pt-2 xl:hidden">
-          <div className="relative flex h-10 items-center justify-between">
-            <Link href="/" aria-label="Rashid Mega Mart home" className="relative z-10 flex h-9 w-10 shrink-0 items-center justify-start">
-              <Image src="/Logo.png" alt="Rashid Mega Mart" width={38} height={38} className="h-[38px] w-[38px] object-contain" />
+          <div className="relative flex h-[52px] items-center justify-between">
+            <div className="relative z-10 flex w-16 items-center">
+              <button type="button" onClick={() => setMoreOpen(true)} aria-label={isHindi ? "और विकल्प खोलें" : "Open menu"} className="grid h-9 w-9 place-items-center rounded-xl text-[#68162a] transition hover:bg-[#800020]/[.06] active:scale-95">
+                <MoreHorizontal size={23} />
+              </button>
+            </div>
+            <Link href="/" aria-label="Rashid Mega Mart home" className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center">
+              <Image src="/Logo.png" alt="Rashid Mega Mart" width={42} height={42} priority className="h-[39px] w-[39px] object-contain" />
+              <span className="whitespace-nowrap text-[9px] font-black leading-none tracking-[.12em] text-[#64152b]">RASHID MEGA MART</span>
             </Link>
-            <motion.span
-              aria-label="Rashid Mega Mart"
-              className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-[15px] font-extrabold tracking-[-0.035em] text-[#5a1023]"
-              initial={{ clipPath: "inset(0 100% 0 0)", opacity: 0.35 }}
-              animate={{ clipPath: ["inset(0 100% 0 0)", "inset(0 0% 0 0)", "inset(0 0% 0 0)"], opacity: [0.35, 1, 1] }}
-              transition={{ duration: 1.15, times: [0, 0.62, 1], repeat: Infinity, repeatDelay: 3.2, ease: "easeInOut" }}
-            >
-              Rashid Mega Mart
-            </motion.span>
-            <div className="relative z-10 shrink-0">
+            <div className="relative z-10 flex w-16 items-center justify-end gap-1">
+              <Link href="/wishlist" aria-label={isHindi ? "विशलिस्ट" : "Wishlist"} className={`relative grid h-9 w-9 place-items-center rounded-xl transition active:scale-95 ${pathname.startsWith("/wishlist") ? "bg-[#800020]/10 text-[#800020]" : "text-[#68162a] hover:bg-[#800020]/[.06]"}`}>
+                <Heart size={19} fill={pathname.startsWith("/wishlist") ? "currentColor" : "none"} />
+                {wishlistCount > 0 && <span className="absolute -right-0.5 -top-0.5 grid h-[16px] min-w-[16px] place-items-center rounded-full bg-[#138047] px-1 text-[9px] font-black text-white">{wishlistCount > 99 ? "99+" : wishlistCount}</span>}
+              </Link>
               <LanguageToggle language={language} onSelect={() => toggleLanguage()} />
             </div>
           </div>
@@ -302,12 +305,12 @@ export default function Navbar() {
             { href: "/my-orders", label: isHindi ? "मेरे ऑर्डर" : "My Orders", Icon: ClipboardList, active: pathname.startsWith("/my-orders") || pathname.startsWith("/order-tracking") },
             { href: "/rewards", label: isHindi ? "रिवॉर्ड्स" : "Rewards", Icon: Gift, active: pathname.startsWith("/rewards") },
           ].map(({ href, label, Icon, active }) => (
-            <a key={href} href={href} aria-current={active ? "page" : undefined} className={`flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl px-0.5 transition-colors ${active ? "text-[#800020]" : "text-[#887b73]"}`}>
+            <a key={href} href={href} aria-current={active ? "page" : undefined} className={`relative flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl px-0.5 transition-all duration-200 ${active ? "bg-[#800020]/[.055] text-[#800020]" : "text-[#887b73] hover:text-[#68162a]"}`}>
               <span className={`flex h-8 w-10 items-center justify-center rounded-xl ${active ? "bg-[#800020]/[0.10]" : ""}`}><Icon size={19} strokeWidth={active ? 2.5 : 1.8} /></span>
-              <span className="whitespace-nowrap text-[9px] font-extrabold">{label}</span>
+              <span className="whitespace-nowrap text-[9px] font-extrabold">{label}</span>{active && <span className="absolute bottom-0 h-[3px] w-5 rounded-full bg-[#800020]" />
             </a>
           ))}
-          <button type="button" aria-expanded={moreOpen} aria-controls="mobile-more-menu" onClick={() => setMoreOpen(v => !v)} className={`flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl transition-colors ${moreOpen ? "text-[#800020]" : "text-[#887b73]"}`}>
+          <button type="button" aria-expanded={moreOpen} aria-controls="mobile-more-menu" onClick={() => setMoreOpen(v => !v)} className={`relative flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl transition-colors ${moreOpen || pathname.startsWith("/order-tracking") || pathname.startsWith("/wishlist") || pathname.startsWith("/contact") || pathname.startsWith("/account") ? "bg-[#800020]/[.055] text-[#800020]" : "text-[#887b73]"}`}>
             <span className={`flex h-8 w-10 items-center justify-center rounded-xl ${moreOpen ? "bg-[#800020]/[0.10]" : ""}`}><MoreHorizontal size={21} strokeWidth={2.2} /></span>
             <span className="text-[9px] font-extrabold">{isHindi ? "और" : "More"}</span>
           </button>
@@ -322,6 +325,7 @@ export default function Navbar() {
               <div className="grid grid-cols-2 gap-2">
                 {[
                   { href: "/order-tracking", label: isHindi ? "ऑर्डर ट्रैक करें" : "Track Order", Icon: Truck },
+                  { href: "/account", label: isHindi ? "मेरा अकाउंट" : "My Account", Icon: Package },
                   { href: "/wishlist", label: isHindi ? "विशलिस्ट" : "Wishlist", Icon: Heart },
                   { href: "/products", label: isHindi ? "सभी सामान" : "All Products", Icon: LayoutGrid },
                   { href: "/contact", label: isHindi ? "संपर्क करें" : "Contact Support", Icon: ArrowUpRight },

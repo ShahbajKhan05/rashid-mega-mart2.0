@@ -449,7 +449,20 @@ export function CartPage() {
           </div>
           <Link href="/products" className="inline-flex h-9 items-center gap-1 text-xs font-bold text-[#800020]">{isHindi ? "खरीदारी जारी रखें" : "Continue shopping"} <ArrowRight size={14}/></Link>
         </header>
-        <div role="status" className="mb-5 flex items-start gap-3 rounded-2xl border border-[#ead9bd] bg-[#fff7e8] p-3.5">
+        <nav aria-label={isHindi ? "ऑर्डर के चरण" : "Order steps"} className="mb-4 grid grid-cols-3 overflow-hidden rounded-xl border border-[#eadfce] bg-white p-1 shadow-[0_4px_14px_rgba(62,39,30,.04)]">
+          {[
+            { label: isHindi ? "कार्ट" : "Cart", active: true, number: "01" },
+            { label: isHindi ? "जानकारी" : "Details", active: false, number: "02" },
+            { label: "WhatsApp", active: false, number: "03" },
+          ].map((step, index) => (
+            <div key={step.number} aria-current={step.active ? "step" : undefined} className={"flex min-w-0 items-center justify-center gap-1.5 rounded-lg px-1.5 py-2 " + (step.active ? "bg-[#702039] text-white" : "text-[#9b8d80]")}>
+              <span className={"text-[8px] font-black tabular-nums " + (step.active ? "text-[#f1d9ad]" : "text-[#b7aa9d]")}>{step.number}</span>
+              <span className="truncate text-[10px] font-extrabold">{step.label}</span>
+              {index < 2 && <span className="sr-only">{isHindi ? "के बाद" : "followed by"}</span>}
+            </div>
+          ))}
+        </nav>
+        <div role="status" className="mb-5 flex items-start gap-3 rounded-2xl border border-[#ead9bd] bg-[linear-gradient(110deg,#fff8eb,#fffdf8)] p-3.5 shadow-[0_5px_18px_rgba(90,61,34,.045)]">
           <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-white text-[#9a713d]">👤</span>
           <div className="min-w-0">
             <p className="text-xs font-extrabold text-[#6b3f20]">{isHindi ? "आप Guest के रूप में खरीदारी कर रहे हैं" : "You’re shopping as a Guest"}</p>
@@ -502,14 +515,21 @@ export function CartPage() {
               ))}
             </section>
 
-            <aside className="rounded-2xl border border-[#eadfce] bg-white p-4 sm:p-5 lg:sticky lg:top-24">
-              <h2 className="text-base font-extrabold">{isHindi ? "ऑर्डर सारांश" : "Order summary"}</h2>
+            <aside className="rounded-2xl border border-[#e5d7c6] bg-[linear-gradient(145deg,#fffefa_0%,#fff_70%)] p-4 shadow-[0_10px_28px_rgba(65,39,28,.055)] sm:p-5 lg:sticky lg:top-24">
+              <div className="flex items-center justify-between gap-2">
+                <h2 className="text-base font-extrabold tracking-tight text-[#702039]">{isHindi ? "ऑर्डर सारांश" : "Order summary"}</h2>
+                <span className="rounded-full bg-[#f5eee3] px-2 py-1 text-[9px] font-black text-[#80664d]">{isHindi ? "अभी भुगतान नहीं" : "NO PAYMENT NOW"}</span>
+              </div>
               <div className="mt-4 flex justify-between text-xs"><span className="text-[#81766d]">{isHindi ? "आइटम" : "Items"}</span><strong>{cartCount}</strong></div>
               <div className="mt-3 flex justify-between text-xs"><span className="text-[#81766d]">{isHindi ? "सबटोटल" : "Subtotal"}</span><strong>{formatPrice(cartTotal)}</strong></div>
               <div className="mt-3 flex justify-between text-xs"><span className="text-[#81766d]">{isHindi ? "डिलीवरी" : "Delivery"}</span><span className="font-semibold text-[#a77b3e]">{isHindi ? "पुष्टि होगी" : "To be confirmed"}</span></div>
               <div className="mt-4 flex items-center justify-between border-t border-[#eee5da] pt-4"><span className="text-sm font-extrabold">{isHindi ? "अनुमानित कुल" : "Estimated total"}</span><strong className="text-xl font-black text-[#800020]">{formatPrice(cartTotal)}</strong></div>
-              <p className="mt-2 text-[10px] leading-4 text-[#95877c]">{isHindi ? "कस्टम अनुरोध और डिलीवरी शुल्क स्टोर द्वारा कन्फर्म होंगे।" : "Custom request prices and delivery charges will be confirmed by the store."}</p>
-              <button type="button" onClick={() => router.push("/checkout")} className="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#800020] px-4 text-xs font-extrabold text-white transition hover:bg-[#650019] active:scale-[.99]">{isHindi ? "चेकआउट करें" : "Proceed to checkout"} <ArrowRight size={15}/></button>
+              <div className="mt-3 rounded-xl border border-[#dcebdc] bg-[#f2f8f1] px-3 py-2.5">
+                <p className="flex items-center gap-1.5 text-[10px] font-extrabold text-[#247044]"><span aria-hidden="true">🚚</span>{isHindi ? "5 KM तक फ्री होम डिलीवरी" : "Free home delivery up to 5 KM"}</p>
+                <p className="mt-1 text-[9px] leading-4 text-[#637b68]">{isHindi ? "पता और उपलब्धता की पुष्टि स्टोर करेगा।" : "Store will confirm address eligibility and availability."}</p>
+              </div>
+              <p className="mt-2 text-[10px] leading-4 text-[#95877c]">{isHindi ? "कस्टम अनुरोध की कीमत और 5 KM से बाहर की डिलीवरी स्टोर द्वारा कन्फर्म होगी।" : "Custom request prices and delivery outside 5 KM will be confirmed by the store."}</p>
+              <button type="button" onClick={() => router.push("/checkout")} className="mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#702039] px-4 text-xs font-extrabold text-white shadow-[0_7px_16px_rgba(112,32,57,.18)] transition hover:bg-[#58172c] active:scale-[.99]">{isHindi ? "चेकआउट करें" : "Proceed to checkout"} <ArrowRight size={15}/></button>
             </aside>
           </div>
         )}

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import KitCustomizer from "../components/KitCustomizer";
+import KitCustomizer from "../../components/KitCustomizer";
 
 export const metadata: Metadata = {
   title: "Build Your Own Grocery Kit",

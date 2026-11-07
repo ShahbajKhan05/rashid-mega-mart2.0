@@ -226,10 +226,10 @@ export default function Navbar() {
               <Image src="/Logo.png" alt="Rashid Mega Mart" width={42} height={42} priority className="h-[39px] w-[39px] object-contain" />
               <span className="whitespace-nowrap text-[9px] font-black leading-none tracking-[.12em] text-[#64152b]">RASHID MEGA MART</span>
             </Link>
-            <div className="relative z-10 flex w-16 items-center justify-end gap-1">
-              <Link href="/wishlist" aria-label={isHindi ? "विशलिस्ट" : "Wishlist"} className={`relative grid h-9 w-9 place-items-center rounded-xl transition active:scale-95 ${pathname.startsWith("/wishlist") ? "bg-[#800020]/10 text-[#800020]" : "text-[#68162a] hover:bg-[#800020]/[.06]"}`}>
+            <div className="relative z-10 flex w-[116px] items-center justify-end gap-1.5">
+              <Link href="/wishlist" aria-label={isHindi ? "विशलिस्ट" : "Wishlist"} className={`relative grid h-10 w-10 shrink-0 place-items-center rounded-xl border shadow-[0_2px_9px_rgba(80,0,24,.08)] transition active:scale-95 ${pathname.startsWith("/wishlist") ? "border-[#800020]/25 bg-[#800020]/10 text-[#800020]" : "border-[#eadfd4] bg-white text-[#68162a] hover:bg-[#fff8f4]"}`}>
                 <Heart size={19} fill={pathname.startsWith("/wishlist") ? "currentColor" : "none"} />
-                {wishlistCount > 0 && <span className="absolute -right-0.5 -top-0.5 grid h-[16px] min-w-[16px] place-items-center rounded-full bg-[#138047] px-1 text-[9px] font-black text-white">{wishlistCount > 99 ? "99+" : wishlistCount}</span>}
+                {wishlistCount > 0 && <span className="absolute -right-0.5 -top-0.5 grid h-[17px] min-w-[17px] place-items-center rounded-full border border-white bg-[#138047] px-1 text-[9px] font-black text-white">{wishlistCount > 99 ? "99+" : wishlistCount}</span>}
               </Link>
               <LanguageToggle language={language} onSelect={() => toggleLanguage()} />
             </div>
@@ -295,23 +295,21 @@ export default function Navbar() {
 
       <div className="h-[150px] xl:h-[76px]" />
 
-      {/* Mobile bottom navigation: key shopping destinations stay visible */}
+      {/* Mobile bottom navigation: five clear primary destinations */}
       <nav aria-label={isHindi ? "मुख्य नेविगेशन" : "Main navigation"} className="fixed inset-x-0 bottom-0 z-[70] border-t border-[#d8cfc2]/60 bg-[#fffdf9]/[.97] shadow-[0_-5px_22px_rgba(65,43,35,0.09)] backdrop-blur-2xl xl:hidden" style={{ paddingBottom: "max(env(safe-area-inset-bottom), 7px)" }}>
-        <div className="mx-auto grid h-[68px] max-w-xl grid-cols-6 items-stretch gap-0 px-1">
+        <div className="mx-auto grid h-[68px] max-w-xl grid-cols-5 items-stretch gap-0 px-2">
           {[
             { href: "/", label: isHindi ? "होम" : "Home", Icon: House, active: pathname === "/" },
             { href: "/products", label: isHindi ? "शॉप" : "Shop", Icon: LayoutGrid, active: pathname.startsWith("/products") },
             { href: "/kits", label: isHindi ? "किट्स" : "Kits", Icon: ShoppingBag, active: pathname.startsWith("/kits") },
             { href: "/my-orders", label: isHindi ? "मेरे ऑर्डर" : "My Orders", Icon: ClipboardList, active: pathname.startsWith("/my-orders") || pathname.startsWith("/order-tracking") },
-            { href: "/wishlist", label: isHindi ? "विशलिस्ट" : "Wishlist", Icon: Heart, active: pathname.startsWith("/wishlist"), count: wishlistCount },
             { href: "/account", label: isHindi ? "मेरा अकाउंट" : "My Account", Icon: UserRound, active: pathname.startsWith("/account") },
-          ].map(({ href, label, Icon, active, count }) => (
-            <a key={href} href={href} aria-current={active ? "page" : undefined} className={`relative flex min-w-0 flex-col items-center justify-center gap-0.5 rounded-xl px-0 py-1 transition-all duration-200 ${active ? "bg-[#800020]/[.065] text-[#800020]" : "text-[#75665f] hover:text-[#68162a]"}`}>
-              <span className={`relative flex h-[34px] w-10 items-center justify-center rounded-xl transition-colors ${active ? "bg-[#800020]/[0.10]" : ""}`}>
+          ].map(({ href, label, Icon, active }) => (
+            <a key={href} href={href} aria-current={active ? "page" : undefined} className={`relative flex min-w-0 flex-col items-center justify-center gap-0.5 rounded-xl px-0.5 py-1 transition-all duration-200 ${active ? "bg-[#800020]/[.065] text-[#800020]" : "text-[#75665f] hover:text-[#68162a]"}`}>
+              <span className={`flex h-[34px] w-10 items-center justify-center rounded-xl transition-colors ${active ? "bg-[#800020]/[0.10]" : ""}`}>
                 <Icon size={21} strokeWidth={active ? 2.5 : 2} />
-                {typeof count === "number" && count > 0 && <span className="absolute -right-1 -top-1 grid h-[16px] min-w-[16px] place-items-center rounded-full bg-[#138047] px-1 text-[9px] font-black text-white">{count > 99 ? "99+" : count}</span>}
               </span>
-              <span className="max-w-full whitespace-nowrap text-[9px] font-extrabold leading-none tracking-[-.02em]">{label}</span>
+              <span className="whitespace-nowrap text-[9px] font-extrabold leading-none tracking-[-.02em]">{label}</span>
               {active && <span className="absolute bottom-0 h-[3px] w-5 rounded-full bg-[#800020]" />}
             </a>
           ))}

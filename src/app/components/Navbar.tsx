@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import {
-  House, Package, LayoutGrid, X, ArrowUpRight, ShoppingBag, Heart, Gift, MoreHorizontal,
+  House, Package, LayoutGrid, X, ArrowUpRight, ShoppingBag, Heart, Gift, MoreHorizontal, UserRound,
   MapPin, Search, ChevronDown, Crosshair, Truck, ClipboardList,
   Wheat, Droplet, Flame, Cookie
 } from "lucide-react";
@@ -295,25 +295,26 @@ export default function Navbar() {
 
       <div className="h-[150px] xl:h-[76px]" />
 
-      {/* Mobile bottom navigation with always-visible More */}
-      <nav aria-label={isHindi ? "मुख्य नेविगेशन" : "Main navigation"} className="fixed inset-x-0 bottom-0 z-[70] border-t border-[#d8cfc2]/60 bg-[#fffdf9]/95 shadow-[0_-5px_22px_rgba(65,43,35,0.08)] backdrop-blur-2xl xl:hidden" style={{ paddingBottom: "max(env(safe-area-inset-bottom), 7px)" }}>
-        <div className="mx-auto grid h-[66px] max-w-xl grid-cols-6 items-stretch gap-0.5 px-1.5">
+      {/* Mobile bottom navigation: key shopping destinations stay visible */}
+      <nav aria-label={isHindi ? "मुख्य नेविगेशन" : "Main navigation"} className="fixed inset-x-0 bottom-0 z-[70] border-t border-[#d8cfc2]/60 bg-[#fffdf9]/[.97] shadow-[0_-5px_22px_rgba(65,43,35,0.09)] backdrop-blur-2xl xl:hidden" style={{ paddingBottom: "max(env(safe-area-inset-bottom), 7px)" }}>
+        <div className="mx-auto grid h-[68px] max-w-xl grid-cols-6 items-stretch gap-0 px-1">
           {[
             { href: "/", label: isHindi ? "होम" : "Home", Icon: House, active: pathname === "/" },
             { href: "/products", label: isHindi ? "शॉप" : "Shop", Icon: LayoutGrid, active: pathname.startsWith("/products") },
             { href: "/kits", label: isHindi ? "किट्स" : "Kits", Icon: ShoppingBag, active: pathname.startsWith("/kits") },
             { href: "/my-orders", label: isHindi ? "मेरे ऑर्डर" : "My Orders", Icon: ClipboardList, active: pathname.startsWith("/my-orders") || pathname.startsWith("/order-tracking") },
-            { href: "/rewards", label: isHindi ? "रिवॉर्ड्स" : "Rewards", Icon: Gift, active: pathname.startsWith("/rewards") },
-          ].map(({ href, label, Icon, active }) => (
-            <a key={href} href={href} aria-current={active ? "page" : undefined} className={`relative flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl px-0.5 transition-all duration-200 ${active ? "bg-[#800020]/[.055] text-[#800020]" : "text-[#887b73] hover:text-[#68162a]"}`}>
-              <span className={`flex h-8 w-10 items-center justify-center rounded-xl ${active ? "bg-[#800020]/[0.10]" : ""}`}><Icon size={19} strokeWidth={active ? 2.5 : 1.8} /></span>
-              <span className="whitespace-nowrap text-[9px] font-extrabold">{label}</span>{active && <span className="absolute bottom-0 h-[3px] w-5 rounded-full bg-[#800020]" />}
+            { href: "/wishlist", label: isHindi ? "विशलिस्ट" : "Wishlist", Icon: Heart, active: pathname.startsWith("/wishlist"), count: wishlistCount },
+            { href: "/account", label: isHindi ? "मेरा अकाउंट" : "My Account", Icon: UserRound, active: pathname.startsWith("/account") },
+          ].map(({ href, label, Icon, active, count }) => (
+            <a key={href} href={href} aria-current={active ? "page" : undefined} className={`relative flex min-w-0 flex-col items-center justify-center gap-0.5 rounded-xl px-0 py-1 transition-all duration-200 ${active ? "bg-[#800020]/[.065] text-[#800020]" : "text-[#75665f] hover:text-[#68162a]"}`}>
+              <span className={`relative flex h-[34px] w-10 items-center justify-center rounded-xl transition-colors ${active ? "bg-[#800020]/[0.10]" : ""}`}>
+                <Icon size={21} strokeWidth={active ? 2.5 : 2} />
+                {typeof count === "number" && count > 0 && <span className="absolute -right-1 -top-1 grid h-[16px] min-w-[16px] place-items-center rounded-full bg-[#138047] px-1 text-[9px] font-black text-white">{count > 99 ? "99+" : count}</span>}
+              </span>
+              <span className="max-w-full whitespace-nowrap text-[9px] font-extrabold leading-none tracking-[-.02em]">{label}</span>
+              {active && <span className="absolute bottom-0 h-[3px] w-5 rounded-full bg-[#800020]" />}
             </a>
           ))}
-          <button type="button" aria-expanded={moreOpen} aria-controls="mobile-more-menu" onClick={() => setMoreOpen(v => !v)} className={`relative flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl transition-colors ${moreOpen || pathname.startsWith("/order-tracking") || pathname.startsWith("/wishlist") || pathname.startsWith("/contact") || pathname.startsWith("/account") ? "bg-[#800020]/[.055] text-[#800020]" : "text-[#887b73]"}`}>
-            <span className={`flex h-8 w-10 items-center justify-center rounded-xl ${moreOpen ? "bg-[#800020]/[0.10]" : ""}`}><MoreHorizontal size={21} strokeWidth={2.2} /></span>
-            <span className="text-[9px] font-extrabold">{isHindi ? "और" : "More"}</span>
-          </button>
         </div>
       </nav>
       <AnimatePresence>

@@ -747,7 +747,17 @@ export function CheckoutPage() {
           </div>
           <Link href="/cart" className="shrink-0 text-xs font-bold text-[#800020] transition hover:underline"><ArrowLeft size={14} className="mr-1 inline" />{isHindi ? "कार्ट में वापस" : "Back to cart"}</Link>
         </header>
-        <div role="status" className="mb-5 flex items-start gap-3 rounded-2xl border border-[#ead9bd] bg-[#fff7e8] p-3.5 shadow-[0_5px_18px_rgba(80,50,20,.045)]">
+        <nav aria-label={isHindi ? "ऑर्डर के चरण" : "Order steps"} className="mb-4 grid grid-cols-3 gap-1 rounded-xl border border-[#e9e2d8] bg-white p-1 shadow-[0_4px_14px_rgba(62,39,30,.035)]">
+          {[
+            { label: isHindi ? "कार्ट" : "Cart", done: true, number: "01" },
+            { label: isHindi ? "जानकारी" : "Details", done: true, number: "02" },
+            { label: "WhatsApp", done: false, number: "03" },
+          ].map((step) => <div key={step.number} aria-current={step.number === "02" ? "step" : undefined} className={"flex items-center justify-center gap-1.5 rounded-lg px-1.5 py-2 " + (step.done ? "bg-[#702039] text-white" : "text-[#9b8d80]")}>
+            <span className={"text-[8px] font-black tabular-nums " + (step.done ? "text-[#f1d9ad]" : "text-[#b7aa9d]")}>{step.number}</span>
+            <span className="truncate text-[10px] font-extrabold">{step.label}</span>
+          </div>)}
+        </nav>
+        <div role="status" className="mb-5 flex items-start gap-3 rounded-2xl border border-[#ead9bd] bg-[linear-gradient(110deg,#fff8eb,#fffdf8)] p-3.5 shadow-[0_5px_18px_rgba(80,50,20,.045)]">
           <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-white text-[#9a713d]">👤</span>
           <div className="min-w-0">
             <p className="text-xs font-extrabold text-[#6b3f20]">{isHindi ? "आप Guest के रूप में ऑर्डर कर रहे हैं" : "You’re shopping as a Guest"}</p>
@@ -755,9 +765,9 @@ export function CheckoutPage() {
           </div>
         </div>
 
-        <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-14">
-          <form id="rmm-checkout-form" onSubmit={handleCheckout} className="order-2 min-w-0 lg:order-1">
-            <section data-checkout-reveal className="border-b border-[#e9e2d8] pb-7 sm:pb-6">
+        <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-8">
+          <form id="rmm-checkout-form" onSubmit={handleCheckout} className="order-2 min-w-0 rounded-2xl border border-[#e9e2d8] bg-white px-4 shadow-[0_7px_24px_rgba(50,35,20,.035)] sm:px-6 lg:order-1">
+            <section data-checkout-reveal className="border-b border-[#eee8df] py-5 sm:py-6">
               <h2 className="text-base font-extrabold">{isHindi ? "कॉन्टैक्ट डिटेल्स" : "Contact details"}</h2>
               <p className="mt-1 text-xs text-[#82776e]">{isHindi ? "ऑर्डर अपडेट के लिए" : "For order updates and confirmation"}</p>
               <div className="mt-5 grid gap-5 sm:grid-cols-2 sm:gap-4">
@@ -766,7 +776,7 @@ export function CheckoutPage() {
               </div>
             </section>
 
-            <section data-checkout-reveal className="border-b border-[#e9e2d8] py-7 sm:py-6">
+            <section data-checkout-reveal className="border-b border-[#eee8df] py-5 sm:py-6">
               <h2 className="text-base font-extrabold">{isHindi ? "डिलीवरी का पता" : "Delivery address"}</h2>
               <p className="mt-1 text-xs text-[#82776e]">{isHindi ? "जहाँ सामान पहुँचाना है" : "Where should we deliver?"}</p>
               <div className="mt-5 space-y-5">
@@ -775,7 +785,7 @@ export function CheckoutPage() {
               </div>
             </section>
 
-            <section data-checkout-reveal className="py-7 sm:py-6">
+            <section data-checkout-reveal className="py-5 sm:py-6">
               <label className="block"><span className="text-base font-extrabold">{isHindi ? "डिलीवरी नोट" : "Delivery note"} <span className="text-xs font-normal text-[#9a8d82]">({isHindi ? "वैकल्पिक" : "optional"})</span></span><textarea rows={2} maxLength={240} value={note} onChange={(e) => setNote(e.target.value)} placeholder={isHindi ? "कोई खास निर्देश..." : "Any special delivery instructions..."} className="mt-3 min-h-24 w-full resize-y rounded-xl border border-[#ded8ce] bg-white px-3.5 py-3.5 text-sm outline-none transition placeholder:text-[#a69b90] focus:border-[#800020] focus:ring-2 focus:ring-[#800020]/10" /></label>
             </section>
             {error && <p role="alert" className="mb-4 rounded-lg bg-red-50 px-3 py-2.5 text-sm font-medium text-red-700">{error}</p>}
@@ -784,7 +794,11 @@ export function CheckoutPage() {
           </form>
 
           <aside data-checkout-reveal className="order-1 min-w-0 lg:sticky lg:top-24 lg:order-2">
-            <div className="rounded-2xl border border-[#e9e2d8] bg-white p-4 shadow-[0_5px_18px_rgba(50,35,20,.045)] sm:p-5">
+            <div className="rounded-2xl border border-[#e5d7c6] bg-[linear-gradient(145deg,#fffefa_0%,#fff_70%)] p-4 shadow-[0_10px_28px_rgba(65,39,28,.055)] sm:p-5">
+              <div className="mb-3 rounded-xl border border-[#dcebdc] bg-[#f2f8f1] px-3 py-2.5">
+                <p className="flex items-center gap-1.5 text-[10px] font-extrabold text-[#247044]"><span aria-hidden="true">🚚</span>{isHindi ? "5 KM तक फ्री होम डिलीवरी" : "Free home delivery up to 5 KM"}</p>
+                <p className="mt-1 text-[9px] leading-4 text-[#637b68]">{isHindi ? "पता और उपलब्धता की पुष्टि स्टोर करेगा।" : "Store will confirm address eligibility and availability."}</p>
+              </div>
               <div className="flex items-center justify-between"><h2 className="text-base font-extrabold">{isHindi ? "आपका ऑर्डर" : "Your order"}</h2><span className="text-xs text-[#82776e]">{itemCount} {isHindi ? "आइटम" : "items"}</span></div>
               <div className="mt-4 max-h-64 space-y-3 overflow-y-auto">
                 {cartItems.map((item) => <div key={item.id} className="flex items-center gap-3"><div className="grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-lg bg-[#f7f5f0] p-1"><Image src={item.image} alt={item.name} width={48} height={48} unoptimized className="h-full w-full object-contain" /></div><div className="min-w-0 flex-1"><p className="line-clamp-2 text-xs font-semibold">{isHindi ? item.nameHi : item.name}</p><p className="mt-0.5 text-[11px] text-[#82776e]">Qty {item.quantity}</p></div><span className="shrink-0 text-xs font-bold">{formatPrice(item.price * item.quantity)}</span></div>)}
@@ -816,8 +830,8 @@ export function CheckoutPage() {
           </aside>
         </div>
 
-        <div className="fixed inset-x-0 bottom-[calc(4.25rem+env(safe-area-inset-bottom))] z-[80] border-t border-[#e9e2d8] bg-[#faf8f3]/[.98] px-4 py-3 shadow-[0_-8px_24px_rgba(48,39,33,.08)] backdrop-blur-xl sm:hidden">
-          <button type="submit" form="rmm-checkout-form" className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#800020] shadow-[0_5px_14px_rgba(128,0,32,.18)] text-sm font-bold text-white active:scale-[.99]"><MessageCircle size={17} />{isHindi ? "WhatsApp पर ऑर्डर भेजें" : "Send order on WhatsApp"}<span className="ml-auto pr-3">{formatPrice(payableTotal)}</span></button>
+        <div className="fixed inset-x-0 bottom-[calc(4.25rem+env(safe-area-inset-bottom))] z-[80] border-t border-[#e9e2d8] bg-white/[.97] px-4 py-3 shadow-[0_-8px_24px_rgba(48,39,33,.09)] backdrop-blur-xl sm:hidden">
+          <button type="submit" form="rmm-checkout-form" className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#702039] text-sm font-bold text-white shadow-[0_7px_18px_rgba(112,32,57,.2)] transition active:scale-[.99]"><MessageCircle size={17} />{isHindi ? "WhatsApp पर ऑर्डर भेजें" : "Send order on WhatsApp"}<span className="ml-auto pr-3">{formatPrice(payableTotal)}</span></button>
         </div>
       </div>
     </main>

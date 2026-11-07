@@ -653,7 +653,7 @@ export function CheckoutPage() {
       landmark.trim() ? `Landmark: ${landmark.trim()}` : "",
       ...orderRecord.items.map((item) => `${item.name} x ${item.quantity} — ${item.amount === null ? "Price to confirm" : formatPrice(item.amount)}`),
       `Estimated total: ${formatPrice(payableTotal)}`, note.trim() ? `Delivery note: ${note.trim()}` : "",
-    ].filter(Boolean).join("\\n");
+    ].filter(Boolean).join("\n");
     const whatsappUrl = `https://wa.me/918962531603?text=${encodeURIComponent(whatsappText)}`;
     setReceipt({
       id: orderRecord.id, createdAt: orderRecord.createdAt, name: orderRecord.name, phone: orderRecord.phone, address: orderRecord.address, whatsappUrl,
@@ -860,9 +860,20 @@ const trackingSteps = [
 export function TrackOrderPage() {
   const { language } = useLanguage();
   const isHindi = language === "hi";
-  const [orderId, setOrderId] = useState("");
+  const searchParams = useSearchParams();
+  const [orderId, setOrderId] = useState(searchParams.get("orderId") || "");
   const [lookupMessage, setLookupMessage] = useState("");
   const [matchedOrder, setMatchedOrder] = useState<RmmLocalOrder | null>(null);
+
+  useEffect(() => {
+    const requestedId = searchParams.get("orderId")?.trim().toUpperCase();
+    if (!requestedId) return;
+    const found = readLocalOrders().find((order) => order.id.toUpperCase() === requestedId);
+    setMatchedOrder(found || null);
+    setLookupMessage(found
+      ? (isHindi ? "ऑर्डर इस डिवाइस पर मिल गया। स्टोर की पुष्टि अभी बाकी है।" : "Order found on this device. Store confirmation is still pending.")
+      : (isHindi ? "यह ऑर्डर इस डिवाइस के ब्राउज़र में नहीं मिला।" : "This order was not found in this device’s browser."));
+  }, [searchParams, isHindi]);
 
   function handleTrack(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();

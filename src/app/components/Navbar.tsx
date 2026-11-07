@@ -7,7 +7,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import {
   House, Package, LayoutGrid, X, ArrowUpRight, ShoppingBag, Heart, Gift, MoreHorizontal,
-  MapPin, Search, ChevronDown, Crosshair, ShieldCheck, Truck,
+  MapPin, Search, ChevronDown, Crosshair, Truck, ClipboardList,
   Wheat, Droplet, Flame, Cookie
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
@@ -204,9 +204,6 @@ export default function Navbar() {
               <motion.a href="/my-orders" className="nav-glass-link rounded-full px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-white/40 hover:text-[#800020]" whileHover={{ y: -2, scale: 1.025 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 420, damping: 28 }}>{isHindi ? "मेरे ऑर्डर" : "My Orders"}</motion.a>
               <motion.a href="/kits" className="nav-glass-link rounded-full px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-white/40 hover:text-[#800020]" whileHover={{ y: -2, scale: 1.025 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 420, damping: 28 }}>{isHindi ? "किट्स" : "Kits"}</motion.a>
               <motion.a href="/rewards" className="nav-glass-link rounded-full px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-white/40 hover:text-[#800020]" whileHover={{ y: -2, scale: 1.025 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 420, damping: 28 }}>{isHindi ? "रिवॉर्ड्स" : "Rewards"}</motion.a>
-              <motion.a href="/admin" className="nav-glass-link flex items-center gap-1 rounded-lg px-3 py-2 text-[13px] font-semibold text-[#88796f] hover:bg-white/35 hover:text-[#68162a]" whileHover={{ y: -2, scale: 1.025 }} whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 420, damping: 28 }}>
-                <ShieldCheck size={14} /> {isHindi ? "एडमिन" : "Admin"}
-              </motion.a>
             </nav>
 
             <LanguageToggle language={language} onSelect={() => toggleLanguage()} />
@@ -216,10 +213,10 @@ export default function Navbar() {
         </div>
 
         {/* COMPACT MOBILE HEADER */}
-        <div className="flex flex-col gap-1.5 px-3 pb-1.5 pt-1.5 xl:hidden">
-          <div className="relative flex h-9 items-center justify-between">
+        <div className="flex flex-col gap-2 px-3 pb-2 pt-2 xl:hidden">
+          <div className="relative flex h-10 items-center justify-between">
             <Link href="/" aria-label="Rashid Mega Mart home" className="relative z-10 flex h-9 w-10 shrink-0 items-center justify-start">
-              <Image src="/Logo.png" alt="Rashid Mega Mart" width={34} height={34} className="h-[34px] w-[34px] object-contain" />
+              <Image src="/Logo.png" alt="Rashid Mega Mart" width={38} height={38} className="h-[38px] w-[38px] object-contain" />
             </Link>
             <motion.span
               aria-label="Rashid Mega Mart"
@@ -235,12 +232,12 @@ export default function Navbar() {
             </div>
           </div>
 
-          <div className="flex h-10 items-center gap-2">
+          <div className="flex h-11 items-center gap-2">
             <button
               type="button"
               aria-label={isHindi ? "उत्पाद खोजें" : "Search products"}
               onClick={() => setSearchOpen(true)}
-              className="flex h-9 min-w-0 flex-1 items-center gap-2 rounded-xl border border-white/80 bg-white/55 px-3 text-left text-[#817780] shadow-[0_5px_16px_rgba(72,35,24,0.07)] backdrop-blur-xl transition active:scale-[0.99]"
+              className="flex h-10 min-w-0 flex-1 items-center gap-2 rounded-[14px] border border-[#eadfd4] bg-white/90 px-3 text-left text-[#817780] shadow-[0_3px_12px_rgba(72,35,24,0.06)] transition active:scale-[0.99]"
             >
               <Search size={16} className="shrink-0 text-[#800020]" />
               <span className="truncate text-xs font-medium">{isHindi ? "आटा, तेल खोजें..." : "Search atta, oil..."}</span>
@@ -248,7 +245,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setLocationModalOpen(true)}
-              className="flex h-9 max-w-[42%] shrink-0 items-center gap-1.5 rounded-xl border border-white/80 bg-white/55 px-2.5 text-left shadow-[0_5px_16px_rgba(72,35,24,0.07)] backdrop-blur-xl"
+              className="flex h-10 max-w-[43%] shrink-0 items-center gap-1.5 rounded-[14px] border border-[#eadfd4] bg-white/90 px-2.5 text-left shadow-[0_3px_12px_rgba(72,35,24,0.06)] backdrop-blur-xl"
               aria-label={isHindi ? "डिलीवरी लोकेशन बदलें" : "Change delivery location"}
             >
               <MapPin size={15} className="shrink-0 text-[#138047]" />
@@ -293,15 +290,16 @@ export default function Navbar() {
 
       {/* Spacer */}
 
-      <div className="h-[136px] xl:h-[76px]" />
+      <div className="h-[150px] xl:h-[76px]" />
 
       {/* Mobile bottom navigation with always-visible More */}
       <nav aria-label={isHindi ? "मुख्य नेविगेशन" : "Main navigation"} className="fixed inset-x-0 bottom-0 z-[70] border-t border-[#d8cfc2]/60 bg-[#fffdf9]/95 shadow-[0_-5px_22px_rgba(65,43,35,0.08)] backdrop-blur-2xl xl:hidden" style={{ paddingBottom: "max(env(safe-area-inset-bottom), 7px)" }}>
-        <div className="mx-auto grid h-[64px] max-w-xl grid-cols-5 items-stretch gap-px px-1">
+        <div className="mx-auto grid h-[66px] max-w-xl grid-cols-6 items-stretch gap-0.5 px-1.5">
           {[
             { href: "/", label: isHindi ? "होम" : "Home", Icon: House, active: pathname === "/" },
             { href: "/products", label: isHindi ? "शॉप" : "Shop", Icon: LayoutGrid, active: pathname.startsWith("/products") },
             { href: "/kits", label: isHindi ? "किट्स" : "Kits", Icon: ShoppingBag, active: pathname.startsWith("/kits") },
+            { href: "/my-orders", label: isHindi ? "मेरे ऑर्डर" : "My Orders", Icon: ClipboardList, active: pathname.startsWith("/my-orders") || pathname.startsWith("/order-tracking") },
             { href: "/rewards", label: isHindi ? "रिवॉर्ड्स" : "Rewards", Icon: Gift, active: pathname.startsWith("/rewards") },
           ].map(({ href, label, Icon, active }) => (
             <a key={href} href={href} aria-current={active ? "page" : undefined} className={`flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl px-0.5 transition-colors ${active ? "text-[#800020]" : "text-[#887b73]"}`}>
@@ -323,11 +321,11 @@ export default function Navbar() {
               <div className="mb-3 flex items-center justify-between"><h2 className="text-sm font-black text-[#5d142b]">{isHindi ? "और विकल्प" : "Explore more"}</h2><button type="button" onClick={() => setMoreOpen(false)} aria-label="Close" className="rounded-full bg-[#f4ece7] p-2 text-[#6e2638]"><X size={16}/></button></div>
               <div className="grid grid-cols-2 gap-2">
                 {[
-                  { href: "/kits", label: isHindi ? "किट्स" : "Shopping Kits", Icon: ShoppingBag },
                   { href: "/order-tracking", label: isHindi ? "ऑर्डर ट्रैक करें" : "Track Order", Icon: Truck },
-                  { href: "/my-orders", label: isHindi ? "मेरे ऑर्डर" : "My Orders", Icon: Package },
                   { href: "/wishlist", label: isHindi ? "विशलिस्ट" : "Wishlist", Icon: Heart },
-                  { href: "/contact", label: isHindi ? "संपर्क" : "Contact Support", Icon: ArrowUpRight },
+                  { href: "/products", label: isHindi ? "सभी सामान" : "All Products", Icon: LayoutGrid },
+                  { href: "/contact", label: isHindi ? "संपर्क करें" : "Contact Support", Icon: ArrowUpRight },
+                  { href: "/rewards", label: isHindi ? "रिवॉर्ड्स" : "Rewards & Points", Icon: Gift },
                 ].map(({href,label,Icon}) => <a key={href} href={href} onClick={() => setMoreOpen(false)} className="flex min-h-[66px] flex-col items-center justify-center gap-1.5 rounded-xl border border-[#eee4da] bg-white px-1 py-2 text-center text-[10px] font-bold text-[#5f4a46] transition hover:border-[#cda5a8] hover:text-[#800020]"><Icon size={18} className="text-[#800020]"/><span>{label}</span></a>)}
               </div>
             </motion.section>

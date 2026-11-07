@@ -652,18 +652,36 @@ export function CheckoutPage() {
     ].filter(Boolean);
 
     const now = new Date();
-    const orderRef = `RMM-${now.getFullYear().toString().slice(-2)}${String(now.getMonth()+1).padStart(2,"0")}${String(now.getDate()).padStart(2,"0")}-${String(now.getHours()).padStart(2,"0")}${String(now.getMinutes()).padStart(2,"0")}${String(now.getSeconds()).padStart(2,"0")}`;
-    const whatsappUrl = `https://wa.me/918962531603?text=${encodeURIComponent([`Order reference: ${orderRef}`, ...lines].join("\n"))}`;
-    setReceipt({
+    const orderRef = `RMM-${now.getFullYear().toString().slice(-2)}${String(now.getMonth()+1).padStart(2,"0")}${String(now.getDate()).padStart(2,"0")}-${String(now.getHours()).padStart(2,"0")}${String(now.getMinutes()).padStart(2,"0")}${String(now.getSeconds()).padStart(2,"0")}-${Math.random().toString(36).slice(2,6).toUpperCase()}`;
+    const orderRecord: RmmLocalOrder = {
       id: orderRef,
       createdAt: now.toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" }),
-      name: name.trim(), phone: cleanPhone, address: address.trim(), whatsappUrl,
+      createdAtISO: now.toISOString(),
+      name: name.trim(), phone: cleanPhone, address: address.trim(), landmark: landmark.trim(), note: note.trim(), status: "placed",
       items: [
         ...cartItems.map((item) => ({ name: isHindi ? item.nameHi : item.name, quantity: item.quantity, amount: item.price * item.quantity })),
         ...customRequests.map((item) => ({ name: item.name, quantity: item.quantity, amount: null })),
       ],
       subtotal: cartTotal, discount: discountAmount, total: payableTotal, coupon: appliedCoupon?.code || "",
+    };
+    try {
+      localStorage.setItem(RMM_ORDERS_KEY, JSON.stringify([orderRecord, ...readLocalOrders()]));
+    } catch {
+      setError(isHindi ? "ऑर्डर इस डिवाइस पर सेव नहीं हो पाया। दोबारा कोशिश करें।" : "Could not save the order on this device. Please try again.");
+      return;
+    }
+    const whatsappText = [
+      `Order ID: ${orderRef}`, `Customer: ${name.trim()}`, `Phone: +91 ${cleanPhone}`, `Address: ${address.trim()}`,
+      landmark.trim() ? `Landmark: ${landmark.trim()}` : "",
+      ...orderRecord.items.map((item) => `${item.name} x ${item.quantity} — ${item.amount === null ? "Price to confirm" : formatPrice(item.amount)}`),
+      `Estimated total: ${formatPrice(payableTotal)}`, note.trim() ? `Delivery note: ${note.trim()}` : "",
+    ].filter(Boolean).join("\\n");
+    const whatsappUrl = `https://wa.me/918962531603?text=${encodeURIComponent(whatsappText)}`;
+    setReceipt({
+      id: orderRecord.id, createdAt: orderRecord.createdAt, name: orderRecord.name, phone: orderRecord.phone, address: orderRecord.address, whatsappUrl,
+      items: orderRecord.items, subtotal: orderRecord.subtotal, discount: orderRecord.discount, total: orderRecord.total, coupon: orderRecord.coupon,
     });
+    clearCart();
   }
 
   if (receipt) {

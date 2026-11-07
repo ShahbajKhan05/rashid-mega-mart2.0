@@ -577,3 +577,14 @@ textarea {
 @keyframes rmm-delivery-dot-pulse{0%,100%{box-shadow:0 0 0 3px rgba(184,138,66,.12)}50%{box-shadow:0 0 0 5px rgba(184,138,66,.04)}}
 @media(max-width:380px){.rmm-site-delivery-inner{min-height:28px;font-size:9px;gap:6px}}
 @media(prefers-reduced-motion:reduce){.rmm-site-delivery-dot{animation:none}}
+
+
+/* Compact product grid entrance motion */
+@keyframes rmm-product-enter {
+  from { opacity: 0; transform: translate3d(0,12px,0) scale(.985); }
+  to { opacity: 1; transform: translate3d(0,0,0) scale(1); }
+}
+.rmm-product-enter { animation: rmm-product-enter .48s cubic-bezier(.2,.75,.25,1) both; }
+@media (prefers-reduced-motion: reduce) {
+  .rmm-product-enter { animation: none !important; }
+}

@@ -1,14 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
-import { ArrowRight, Check, Heart, ShoppingBasket } from "lucide-react";
+import { ArrowRight, Check, Heart, ShoppingBasket, Sparkles } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 import { useCart } from "./CartProvider";
 import { useWishlist } from "./WishlistProvider";
@@ -24,13 +23,13 @@ export default function KitsPage() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const ctx = gsap.context(() => {
-      gsap.fromTo("[data-kit-heading]", { y: 18, autoAlpha: 0 }, {
-        y: 0, autoAlpha: 1, duration: .65, ease: "power3.out",
-        scrollTrigger: { trigger: "#ration-kits", start: "top 86%", once: true },
+      gsap.fromTo("[data-kit-heading]", { y: 20, autoAlpha: 0 }, {
+        y: 0, autoAlpha: 1, duration: .7, ease: "power3.out",
+        scrollTrigger: { trigger: "#ration-kits", start: "top 90%", once: true },
       });
-      gsap.fromTo("[data-kit-row]", { y: 22, autoAlpha: 0, scale: .97 }, {
-        y: 0, autoAlpha: 1, scale: 1, duration: .62, stagger: .1, ease: "power3.out",
-        scrollTrigger: { trigger: "#ration-kits", start: "top 78%", once: true },
+      gsap.fromTo("[data-kit-row]", { y: 24, autoAlpha: 0 }, {
+        y: 0, autoAlpha: 1, duration: .58, stagger: .09, ease: "power3.out",
+        scrollTrigger: { trigger: "#kit-list", start: "top 88%", once: true },
       });
     });
     return () => ctx.revert();
@@ -46,52 +45,110 @@ export default function KitsPage() {
   };
 
   return (
-    <section id="ration-kits" className="bg-transparent px-3 py-6 sm:px-6 sm:py-9">
-      <div className="mx-auto max-w-[1240px]">
-        <div data-kit-heading className="mb-4 text-center sm:mb-6">
-          <p className="text-[9px] font-black uppercase tracking-[.2em] text-[#A47A2C]">{isHindi ? "महीने की खरीदारी, हुई आसान" : "YOUR MONTHLY GROCERY, MADE SIMPLE"}</p>
-          <h2 className="mt-1 text-[clamp(1.35rem,4vw,2rem)] font-black leading-tight tracking-[-.055em] text-[#800020]">{isHindi ? "अपना ग्रॉसरी बजट चुनें" : "Pick a grocery kit that fits your budget"}</h2>
-          <p className="mx-auto mt-1.5 max-w-[560px] text-[10px] leading-relaxed text-[#827267] sm:text-xs">{isHindi ? "आटा, चावल, दाल, तेल और रोज़मर्रा की ज़रूरतों के कॉम्बो देखें। अपना बजट चुनें और हमें ऑर्डर रिक्वेस्ट भेजें।" : "Explore useful combinations of atta, rice, dals, oil and daily essentials. Choose a budget and send us your grocery request."}</p>
-          <div className="mt-3 flex flex-wrap items-center justify-center gap-2 text-[8px] font-bold text-[#705b4c] sm:text-[9px]">
-            <span className="rounded-full border border-[#eadcc7] bg-white/75 px-2.5 py-1">{isHindi ? "अपना बजट चुनें" : "1. Choose your budget"}</span>
-            <span className="text-[#b18a55]">→</span>
-            <span className="rounded-full border border-[#eadcc7] bg-white/75 px-2.5 py-1">{isHindi ? "सामान देखें" : "2. Check included items"}</span>
-            <span className="text-[#b18a55]">→</span>
-            <span className="rounded-full border border-[#eadcc7] bg-white/75 px-2.5 py-1">{isHindi ? "रिक्वेस्ट भेजें" : "3. Send your request"}</span>
+    <main id="ration-kits" className="min-h-screen overflow-hidden bg-[#fbf6ed] pb-24 text-[#34252a]">
+      <section className="relative isolate overflow-hidden border-b border-[#e8dccb] bg-[linear-gradient(135deg,#f7ecdd_0%,#fffaf2_52%,#f2e8d9_100%)] px-4 pb-5 pt-5 sm:px-7 sm:pb-8 sm:pt-8">
+        <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-[#d7bd8e]/30 blur-3xl"/>
+        <div aria-hidden="true" className="pointer-events-none absolute -bottom-24 -left-16 h-48 w-48 rounded-full bg-[#16834b]/10 blur-3xl"/>
+        <div data-kit-heading className="relative mx-auto max-w-[900px] text-center">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-[#dfcba9] bg-white/75 px-3 py-1.5 text-[8px] font-black uppercase tracking-[.19em] text-[#8a6536] sm:text-[9px]">
+            <Sparkles size={11} className="text-[#16834b]"/> {isHindi ? "स्मार्ट किराना शॉपिंग" : "THE SMART GROCERY EDIT"}
+          </span>
+          <h1 className="mt-3 text-[29px] font-black leading-[1.02] tracking-[-.065em] text-[#702039] sm:text-5xl">
+            {isHindi ? <>आपका बजट। <span className="text-[#16834b]">आपकी किट।</span></> : <>A better basket.<br className="sm:hidden"/> <span className="text-[#16834b]">A smarter budget.</span></>}
+          </h1>
+          <p className="mx-auto mt-2 max-w-[470px] text-[11px] leading-[1.55] text-[#78685b] sm:text-sm">
+            {isHindi ? "अपना बजट चुनें, किट में शामिल सामान देखें और अपनी रिक्वेस्ट भेजें।" : "Choose your budget, see what goes into your kit, and send your request in a few taps."}
+          </p>
+          <div className="mx-auto mt-4 grid max-w-[540px] grid-cols-3 gap-1.5 sm:gap-2">
+            {[{n:"01",t:isHindi?"बजट चुनें":"PICK A BUDGET"},{n:"02",t:isHindi?"सामान देखें":"CHECK THE ITEMS"},{n:"03",t:isHindi?"रिक्वेस्ट भेजें":"SEND REQUEST"}].map((step)=>(
+              <div key={step.n} className="flex items-center justify-center gap-1.5 rounded-lg border border-white/90 bg-white/65 px-1.5 py-2 text-[8px] font-extrabold text-[#6e5748] shadow-[0_2px_8px_rgba(70,45,30,.035)] sm:gap-2 sm:text-[9px]">
+                <span className="text-[10px] font-black text-[#16834b]">{step.n}</span>{step.t}
+              </div>
+            ))}
           </div>
         </div>
+      </section>
 
-        <div className="flex snap-x snap-mandatory gap-2.5 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-3">
-          {groceryKits.map((kit) => (
-            <article data-kit-row key={kit.id} className="flex w-[min(84vw,330px)] shrink-0 snap-start gap-3 rounded-[13px] border border-[#eee5d8] bg-white/90 p-2.5 shadow-[0_3px_12px_rgba(68,45,27,.045)] sm:w-[360px] sm:rounded-[16px] sm:p-3">
-              <div className="relative h-[88px] w-[82px] shrink-0 overflow-hidden rounded-[10px] bg-[#f4ead8] sm:h-[104px] sm:w-[96px]">
-                <Image src={kit.image} alt={kit.imageAlt} width={240} height={240} sizes="96px" loading="lazy" className="h-full w-full object-cover"/>
-                <span className="absolute bottom-1 left-1 right-1 truncate rounded bg-white/90 px-1 py-0.5 text-center text-[7px] font-black text-[#805d2d]">{kit.badge}</span>
-              </div>
-              <div className="min-w-0 flex-1">
-                <div className="flex items-start justify-between gap-1">
-                  <h3 className="line-clamp-2 text-[11px] font-black leading-[1.3] text-[#68152b] sm:text-xs">{isHindi ? kit.titleHi : kit.title}</h3>
-                  <button type="button" onClick={() => toggleKitWishlist(kit.id)} aria-label={isKitWishlisted(kit.id) ? "Remove kit from wishlist" : "Save kit to wishlist"} aria-pressed={isKitWishlisted(kit.id)} className={"grid h-6 w-6 shrink-0 place-items-center rounded-full " + (isKitWishlisted(kit.id) ? "bg-[#800020] text-white" : "bg-[#f4e9dc] text-[#800020]")}><Heart size={12} fill={isKitWishlisted(kit.id) ? "currentColor" : "none"}/></button>
-                </div>
-                <p className="mt-1 line-clamp-2 text-[8px] leading-[1.4] text-[#827267] sm:text-[9px]">{isHindi ? kit.descriptionHi : kit.description}</p>
-                <p className="mt-1 text-[7px] font-extrabold uppercase tracking-wide text-[#a47a2c]">{isHindi ? "सामान और पैक साइज़" : "ITEMS & PACK SIZES"}</p>
-                <details className="mt-1">
-                  <summary className="cursor-pointer list-none text-[8px] font-extrabold text-[#800020] sm:text-[9px]">{isHindi ? "सामान देखें" : "View included items"}</summary>
-                  <ul className="mt-1 max-h-16 space-y-0.5 overflow-y-auto">{kit.items.map((item) => <li key={item} className="flex items-start justify-between gap-1 text-[8px] leading-3 text-[#62554b]"><span className="flex min-w-0 gap-1"><Check size={10} className="mt-0.5 shrink-0 text-[#16834b]"/>{item}</span><span className="shrink-0 text-[7px] font-semibold text-[#9a8067]">{isHindi ? "पैक साइज़ कन्फर्म" : "size confirmed"}</span></li>)}</ul>
-                </details>
-                <div className="mt-1.5 flex items-center justify-between gap-2">
-                  <div><p className="text-[7px] font-bold uppercase tracking-wide text-[#928276]">{isHindi ? "अनुमानित बजट" : "EST. BUDGET TIER"}</p><p className="text-[14px] font-black leading-none text-[#800020]">₹{kit.price.toLocaleString("en-IN")}</p></div>
-                  <button type="button" onClick={() => requestKit(kit)} className="inline-flex h-7 items-center gap-1 rounded-md bg-[#800020] px-2.5 text-[8px] font-extrabold text-white transition hover:bg-[#64152b] active:scale-[.98]">{isHindi ? "यह किट चुनें" : "Choose this kit"} <ArrowRight size={10}/></button>
-                </div>
-              </div>
-            </article>
-          ))}
+      <section className="mx-auto max-w-[980px] px-3 pb-4 pt-4 sm:px-7 sm:pt-7">
+        <div className="mb-3 flex items-end justify-between gap-2">
+          <div>
+            <p className="text-[8px] font-black uppercase tracking-[.17em] text-[#16834b]">{isHindi ? "आपके लिए तैयार" : "MADE FOR YOUR HOUSEHOLD"}</p>
+            <h2 className="mt-0.5 text-[19px] font-black tracking-[-.05em] text-[#702039] sm:text-2xl">{isHindi ? "अपनी ग्रॉसरी किट चुनें" : "Choose your grocery kit"}</h2>
+          </div>
+          <span className="pb-1 text-[9px] font-bold text-[#8e7b6b]">{groceryKits.length} {isHindi ? "किट्स" : "KITS"}</span>
         </div>
-        <div className="mt-3 flex items-start justify-center gap-2 rounded-xl border border-[#eadcc7] bg-white/70 px-3 py-2 text-center">
-          <ShoppingBasket size={13} className="mt-0.5 shrink-0 text-[#800020]"/>
-          <p className="text-[8px] leading-relaxed text-[#806f61] sm:text-[9px]">{isHindi ? "ध्यान दें: यह अनुमानित बजट टियर है, पक्का बिल नहीं। रिक्वेस्ट मिलने पर स्टोर हर सामान का पैक साइज़, मात्रा, ब्रांड और स्टॉक बताएगा। आपकी मंज़ूरी के बाद ही फाइनल ऑर्डर आगे बढ़ेगा।" : "Important: this is an estimated budget tier, not a confirmed bill. After your request, the store will share pack sizes, quantities, brands and stock for each item. Your final order proceeds only after you review the confirmation."}</p>
+
+        <div id="kit-list" className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
+          {groceryKits.map((kit,index) => {
+            const wished = isKitWishlisted(kit.id);
+            return (
+              <article data-kit-row key={kit.id} className="group relative isolate overflow-hidden rounded-[19px] border border-[#e8ddce] bg-white shadow-[0_5px_18px_rgba(62,39,30,.06)] transition duration-300 hover:-translate-y-1 hover:border-[#c9b18d] hover:shadow-[0_14px_30px_rgba(62,39,30,.11)]">
+                <div className="relative flex min-h-[132px] overflow-hidden bg-[linear-gradient(115deg,#f5eadb,#fff9ef)]">
+                  <div className="relative min-h-[132px] w-[39%] shrink-0 overflow-hidden">
+                    <Image src={kit.image} alt={kit.imageAlt} fill sizes="(max-width: 639px) 38vw, 190px" loading="lazy" className="object-cover transition duration-700 group-hover:scale-110"/>
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#fff9ef]/35"/>
+                  </div>
+                  <div className="flex min-w-0 flex-1 flex-col justify-between p-3 sm:p-4">
+                    <div className="flex items-start justify-between gap-2">
+                      <span className="inline-flex max-w-full rounded-full border border-[#d9c5a5] bg-white/80 px-2 py-1 text-[7px] font-black uppercase tracking-[.12em] text-[#856233] sm:text-[8px]">{kit.badge}</span>
+                      <button type="button" onClick={()=>toggleKitWishlist(kit.id)} aria-label={wished?"Remove kit from wishlist":"Save kit to wishlist"} aria-pressed={wished} className={"grid h-8 w-8 shrink-0 place-items-center rounded-full border transition duration-200 active:scale-90 "+(wished?"border-[#702039] bg-[#702039] text-white":"border-[#e8d9c6] bg-white/90 text-[#702039] hover:bg-[#702039] hover:text-white")}>
+                        <Heart size={15} fill={wished?"currentColor":"none"}/>
+                      </button>
+                    </div>
+                    <div className="min-w-0">
+                      <h3 className="text-[15px] font-black leading-tight tracking-[-.04em] text-[#702039] sm:text-lg">{isHindi?kit.titleHi:kit.title}</h3>
+                      <p className="mt-1 line-clamp-2 text-[9px] leading-[1.4] text-[#78695e] sm:text-[10px]">{isHindi?kit.descriptionHi:kit.description}</p>
+                      <div className="mt-2 flex items-end justify-between gap-2">
+                        <div>
+                          <p className="text-[7px] font-bold uppercase tracking-[.1em] text-[#8d7b6c]">{isHindi?"अनुमानित बजट":"ESTIMATED BUDGET"}</p>
+                          <p className="mt-0.5 text-[21px] font-black leading-none tracking-[-.06em] text-[#702039]">₹{kit.price.toLocaleString("en-IN")}</p>
+                        </div>
+                        <span className="rounded-md bg-[#eaf4ec] px-2 py-1 text-[8px] font-extrabold text-[#16834b]">{isHindi?"बजट किट":"BUDGET KIT"}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="px-3 pb-3 pt-2.5 sm:px-4 sm:pb-4">
+                  <div className="mb-2 flex items-center justify-between gap-2">
+                    <p className="text-[9px] font-black uppercase tracking-[.1em] text-[#6c5849]">{isHindi?"किट में क्या मिलेगा":"WHAT'S INSIDE"}</p>
+                    <span className="text-[8px] font-semibold text-[#16834b]">{kit.items.length} {isHindi?"कैटेगरी":"item groups"}</span>
+                  </div>
+                  <ul className="grid grid-cols-2 gap-x-2 gap-y-1.5">
+                    {kit.items.slice(0,4).map((item)=>(
+                      <li key={item} className="flex min-w-0 items-start gap-1.5 text-[9px] leading-[1.3] text-[#66574d]">
+                        <span className="mt-0.5 grid h-3.5 w-3.5 shrink-0 place-items-center rounded-full bg-[#eaf4ec] text-[#16834b]"><Check size={9} strokeWidth={3}/></span>
+                        <span className="line-clamp-2">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <details className="group/details mt-2 border-t border-dashed border-[#e9dfd2] pt-2">
+                    <summary className="flex cursor-pointer list-none items-center justify-between text-[9px] font-extrabold text-[#702039]">
+                      <span>{isHindi?"पूरी किट की जानकारी":"View full kit details"}</span>
+                      <span className="transition-transform group-open/details:rotate-90"><ArrowRight size={13}/></span>
+                    </summary>
+                    <ul className="mt-2 grid grid-cols-1 gap-1">
+                      {kit.items.map((item)=><li key={item} className="flex items-center gap-2 text-[9px] text-[#6f6258]"><Check size={11} className="shrink-0 text-[#16834b]"/>{item}</li>)}
+                    </ul>
+                  </details>
+                  <button type="button" onClick={()=>requestKit(kit)} className="mt-3 inline-flex h-10 w-full items-center justify-center gap-2 rounded-xl bg-[#702039] px-3 text-[10px] font-black tracking-[.025em] text-white shadow-[0_5px_13px_rgba(112,32,57,.16)] transition duration-200 hover:bg-[#16834b] hover:shadow-[0_8px_18px_rgba(22,131,75,.2)] active:scale-[.98]">
+                    <ShoppingBasket size={15}/>{isHindi?"यह किट चुनें":"CHOOSE THIS KIT"}<ArrowRight size={14}/>
+                  </button>
+                </div>
+                <span aria-hidden="true" className="pointer-events-none absolute -right-8 -top-8 -z-10 h-24 w-24 rounded-full border-[12px] border-[#f4eadb]/55 transition duration-500 group-hover:scale-125"/>
+              </article>
+            );
+          })}
         </div>
-      </div>
-    </section>
+
+        <div className="mt-4 flex items-start gap-2.5 rounded-xl border border-[#dce9dd] bg-[#f1f7f0] px-3 py-3">
+          <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-white text-[#16834b]"><ShoppingBasket size={15}/></span>
+          <p className="text-[9px] leading-[1.55] text-[#526b58] sm:text-[10px]">
+            <strong className="font-black text-[#285d3d]">{isHindi?"ऑर्डर से पहले ज़रूरी जानकारी: ":"BEFORE YOU ORDER: "}</strong>
+            {isHindi?"दिखाई गई कीमत अनुमानित बजट है। सामान की मात्रा, पैक साइज़, ब्रांड और उपलब्धता स्टोर आपसे कन्फर्म करेगा।":"Prices are budget estimates, not confirmed bills. The store will confirm exact quantities, pack sizes, brands and availability with you before finalising the order."}
+          </p>
+        </div>
+      </section>
+    </main>
   );
 }

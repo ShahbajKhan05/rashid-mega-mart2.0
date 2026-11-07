@@ -602,7 +602,7 @@ export function CheckoutPage() {
       "Please confirm availability, final total and delivery details."
     ].filter(Boolean);
 
-    const whatsappUrl = `https://wa.me/918962531603?text=${encodeURIComponent(lines.join("\\n"))}`;
+    const whatsappUrl = `https://wa.me/918962531603?text=${encodeURIComponent(lines.join("\n"))}`;
     const popup = window.open(whatsappUrl, "_blank", "noopener,noreferrer");
     if (!popup) window.location.assign(whatsappUrl);
   }
@@ -632,6 +632,13 @@ export function CheckoutPage() {
           </div>
           <Link href="/cart" className="shrink-0 text-xs font-bold text-[#800020] transition hover:underline"><ArrowLeft size={14} className="mr-1 inline" />{isHindi ? "कार्ट में वापस" : "Back to cart"}</Link>
         </header>
+        <div role="status" className="mb-5 flex items-start gap-3 rounded-2xl border border-[#ead9bd] bg-[#fff7e8] p-3.5 shadow-[0_5px_18px_rgba(80,50,20,.045)]">
+          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-white text-[#9a713d]">👤</span>
+          <div className="min-w-0">
+            <p className="text-xs font-extrabold text-[#6b3f20]">{isHindi ? "आप Guest के रूप में ऑर्डर कर रहे हैं" : "You’re shopping as a Guest"}</p>
+            <p className="mt-1 text-[11px] leading-5 text-[#806b57]">{isHindi ? "आपकी जानकारी या ऑर्डर वेबसाइट पर सेव नहीं होगा। कार्ट केवल इस टैब में अस्थायी रहेगा। WhatsApp पर भेजने के बाद ही ऑर्डर रिक्वेस्ट स्टोर तक पहुँचेगी।" : "Your details and order won’t be saved on this website. Your cart is temporary in this browser tab. The store receives your order request only after you send it on WhatsApp."}</p>
+          </div>
+        </div>
 
         <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-14">
           <form id="rmm-checkout-form" onSubmit={handleCheckout} className="order-2 min-w-0 lg:order-1">

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { gsap } from "gsap";
 import {
   House, Package, LayoutGrid, X, ArrowUpRight, ShoppingBag, Heart, Gift, MoreHorizontal, UserRound,
   MapPin, Search, ChevronDown, Crosshair, Truck, ClipboardList,
@@ -47,6 +48,7 @@ export default function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
   const bodyOverflowBeforeOverlay = useRef<string | null>(null);
+  const mobileBrandRef = useRef<HTMLDivElement>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [couponCopied, setCouponCopied] = useState(false);
 
@@ -57,6 +59,20 @@ export default function Navbar() {
   const [locationError, setLocationError] = useState("");
 
   const isHindi = language === "hi";
+  useEffect(() => {
+    const brand = mobileBrandRef.current;
+    if (!brand || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const logo = brand.querySelector("[data-brand-logo]");
+    const letters = brand.querySelectorAll("[data-brand-letter]");
+    const ctx = gsap.context(() => {
+      gsap.set(letters, { autoAlpha: 0, y: 7, rotateX: -45 });
+      gsap.timeline({ defaults: { ease: "power3.out" } })
+        .fromTo(logo, { autoAlpha: 0, y: -7, scale: .78, rotate: -7 }, { autoAlpha: 1, y: 0, scale: 1, rotate: 0, duration: .48 })
+        .to(letters, { autoAlpha: 1, y: 0, rotateX: 0, duration: .28, stagger: .035, ease: "back.out(1.5)" }, "-=.04");
+    }, brand);
+    return () => ctx.revert();
+  }, []);
+
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -222,9 +238,17 @@ export default function Navbar() {
                 <MoreHorizontal size={23} />
               </button>
             </div>
-            <Link href="/" aria-label="Rashid Mega Mart home" className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center">
-              <Image src="/Logo.png" alt="Rashid Mega Mart" width={42} height={42} priority className="h-[39px] w-[39px] object-contain" />
-              <span className="whitespace-nowrap text-[9px] font-black leading-none tracking-[.12em] text-[#64152b]">RASHID MEGA MART</span>
+            <Link href="/" aria-label="Rashid Mega Mart home" className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center">
+              <div ref={mobileBrandRef} className="flex flex-col items-center justify-center gap-[1px]">
+                <span data-brand-logo className="grid h-[34px] w-[38px] place-items-center">
+                  <Image src="/Logo.png" alt="Rashid Mega Mart" width={42} height={42} priority className="h-full w-full object-contain drop-shadow-[0_2px_2px_rgba(89,20,39,.12)]" />
+                </span>
+                <span aria-hidden="true" className="flex h-[12px] items-center whitespace-nowrap text-[10px] font-black leading-none tracking-[.16em] text-[#64152b] [perspective:300px]">
+                  {"RASHID MEGA MART".split("").map((letter, index) => (
+                    <span key={index} data-brand-letter className="inline-block">{letter === " " ? "\u00a0" : letter}</span>
+                  ))}
+                </span>
+              </div>
             </Link>
             <div className="relative z-10 flex w-[116px] items-center justify-end gap-1.5">
               <Link href="/wishlist" aria-label={isHindi ? "विशलिस्ट" : "Wishlist"} className={`relative grid h-10 w-10 shrink-0 place-items-center rounded-xl border shadow-[0_2px_9px_rgba(80,0,24,.08)] transition active:scale-95 ${pathname.startsWith("/wishlist") ? "border-[#800020]/25 bg-[#800020]/10 text-[#800020]" : "border-[#eadfd4] bg-white text-[#68162a] hover:bg-[#fff8f4]"}`}>

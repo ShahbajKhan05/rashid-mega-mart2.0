@@ -258,9 +258,19 @@ export default function OriginalCustomerHome() {
         </div>
       </section>
 
-      <section className="bg-[#FFFCF0] px-3 py-5 sm:px-6 sm:py-8" aria-label={isHindi ? "लोकप्रिय सामान" : "Popular picks"}>
-        <div className="mx-auto max-w-[1240px]">
-          <div className="mb-3 flex items-end justify-between gap-3"><div><p className="text-[9px] font-black uppercase tracking-[.18em] text-[#a47a2c]">{isHindi ? "ग्राहकों की पसंद" : "CUSTOMER FAVOURITES"}</p><h2 className="mt-1 text-[21px] font-black leading-tight tracking-[-.05em] text-[#800020] sm:text-3xl">{isHindi ? "पॉपुलर पिक्स" : "Popular picks"}</h2><p className="mt-1 text-[10px] text-[#817166] sm:text-xs">{isHindi ? "सबसे अच्छी रेटिंग वाले प्रोडक्ट।" : "Highly rated everyday essentials, ready to shop."}</p></div><Link href="/products" className="mb-1 inline-flex shrink-0 items-center gap-1 text-[10px] font-black text-[#800020]">{isHindi ? "सभी देखें" : "Shop all"} <ArrowRight size={13}/></Link></div>
+      <section data-shop-section className="relative overflow-hidden bg-[linear-gradient(180deg,#fffaf2_0%,#fff7f4_100%)] px-3 py-5 sm:px-6 sm:py-8" aria-label={isHindi ? "सबसे ज़्यादा पसंद किए गए सामान" : "Best sellers"}>
+        <div aria-hidden="true" className="pointer-events-none absolute -right-16 top-2 h-44 w-44 rounded-full bg-[#ead6b8]/25 blur-3xl" />
+        <div className="relative mx-auto max-w-[1240px]">
+          <div className="mb-3 flex items-end justify-between gap-3 sm:mb-4">
+            <div className="min-w-0">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-[#e7d5b7] bg-white/80 px-2.5 py-1 text-[8px] font-black uppercase tracking-[.14em] text-[#956b32]">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#b88a42]" /> {isHindi ? "आपकी पसंद, हमारी खास लिस्ट" : "THE COMMUNITY FAVOURITES"}
+              </span>
+              <h2 className="mt-2 text-[23px] font-black leading-[1.02] tracking-[-.06em] text-[#800020] sm:text-3xl">{isHindi ? "सबसे ज़्यादा बिकने वाले" : "Best Sellers"}</h2>
+              <p className="mt-1.5 text-[10px] leading-relaxed text-[#817166] sm:text-xs">{isHindi ? "ग्राहकों की पसंद के रोज़मर्रा के सामान।" : "Everyday essentials customers keep coming back for."}</p>
+            </div>
+            <Link href="/products" className="mb-0.5 inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full border border-[#dfcba9] bg-white px-3 text-[9px] font-black text-[#800020] shadow-sm transition hover:border-[#800020] hover:bg-[#800020] hover:text-white active:scale-[.97] sm:px-4 sm:text-[10px]">{isHindi ? "सभी देखें" : "VIEW ALL"} <ArrowRight size={12}/></Link>
+          </div>
           <ShoppingProductRail items={popularPicks} language={language} />
         </div>
       </section>

@@ -25,7 +25,7 @@ function CenterPage({ title }: { title: string }) {
 function ProductCardImage({ product, isHindi }: { product: (typeof products)[number]; isHindi: boolean }) {
   const [failed, setFailed] = useState(false);
   return (
-    <div className="relative flex aspect-square items-center justify-center overflow-hidden rounded-[13px] bg-[radial-gradient(circle_at_50%_35%,#fffdf8_0%,#f7eddf_72%,#f0e4d4_100%)] p-3 sm:rounded-[16px] sm:p-5">
+    <div className="relative flex aspect-[1/0.78] items-center justify-center overflow-hidden rounded-[11px] bg-[radial-gradient(circle_at_50%_35%,#fffdf8_0%,#f7eddf_72%,#f0e4d4_100%)] p-2 sm:aspect-square sm:rounded-[14px] sm:p-4">
       {!failed ? (
         <Image
           src={product.image}
@@ -77,12 +77,12 @@ export function ProductsPage() {
 
   return (
     <main className="min-h-[calc(100svh-76px)] bg-[#fffaf2] pb-28 text-[#30251f]">
-      <section className="border-b border-[#eadbc5] bg-[linear-gradient(120deg,#fff7ef_0%,#f5e8d8_100%)] px-3 pb-4 pt-5 sm:px-7 sm:pb-6 sm:pt-8">
+      <section className="border-b border-[#eadbc5] bg-[linear-gradient(120deg,#fff7ef_0%,#f5e8d8_100%)] px-3 pb-3 pt-4 sm:px-7 sm:pb-6 sm:pt-8">
         <div className="mx-auto max-w-[1180px]">
           <p className="text-[9px] font-black uppercase tracking-[.18em] text-[#a47a2c]">RASHID MEGA MART · SHOP</p>
           <div className="mt-1 flex flex-wrap items-end justify-between gap-2">
             <div>
-              <h1 className="text-[27px] font-black leading-tight tracking-[-.055em] text-[#800020] sm:text-4xl">
+              <h1 className="text-[23px] font-black leading-tight tracking-[-.055em] text-[#800020] sm:text-4xl">
                 {isHindi ? "सामान खरीदें" : "Shop groceries"}
               </h1>
               <p className="mt-1 text-[11px] text-[#756354] sm:text-sm">
@@ -94,7 +94,7 @@ export function ProductsPage() {
             </span>
           </div>
 
-          <label className="mt-4 flex h-12 items-center gap-3 rounded-[14px] border border-[#e4d4bf] bg-white px-3.5 shadow-[0_5px_18px_rgba(83,48,25,.06)] transition focus-within:border-[#a77b3e] focus-within:ring-2 focus-within:ring-[#d9bd8b]/30">
+          <label className="mt-3 flex h-10 items-center gap-3 rounded-[14px] border border-[#e4d4bf] bg-white px-3.5 shadow-[0_5px_18px_rgba(83,48,25,.06)] transition focus-within:border-[#a77b3e] focus-within:ring-2 focus-within:ring-[#d9bd8b]/30">
             <Search size={18} aria-hidden="true" className="shrink-0 text-[#8a7565]" />
             <input
               value={query}
@@ -112,7 +112,7 @@ export function ProductsPage() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-[1180px] px-3 pt-4 sm:px-7 sm:pt-6">
+      <div className="mx-auto max-w-[1180px] px-3 pt-3 sm:px-7 sm:pt-6">
         <section aria-label={isHindi ? "कैटेगरी" : "Categories"}>
           <div className="mb-2 flex items-center justify-between gap-2">
             <h2 className="text-[16px] font-black tracking-[-.035em] text-[#800020] sm:text-lg">
@@ -156,22 +156,22 @@ export function ProductsPage() {
           </div>
 
           {filteredProducts.length ? (
-            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4">
               {filteredProducts.map((product) => {
                 const discount = product.originalPrice > product.price ? Math.round((1 - product.price / product.originalPrice) * 100) : 0;
                 const wished = isWishlisted(product.id);
                 return (
-                  <article key={product.id} className="group flex min-w-0 flex-col overflow-hidden rounded-[16px] border border-[#eadfce] bg-white p-2 shadow-[0_3px_14px_rgba(68,45,27,.045)] transition duration-200 hover:-translate-y-0.5 hover:border-[#d8bd91] hover:shadow-[0_9px_22px_rgba(68,45,27,.09)] sm:rounded-[20px] sm:p-3">
+                  <article key={product.id} className="group flex min-w-0 flex-col overflow-hidden rounded-[13px] border border-[#eadfce] bg-white p-1.5 shadow-[0_3px_14px_rgba(68,45,27,.045)] transition duration-200 hover:-translate-y-0.5 hover:border-[#d8bd91] hover:shadow-[0_9px_22px_rgba(68,45,27,.09)] sm:rounded-[20px] sm:p-3">
                     <div className="relative">
                       <Link href={`/products/${product.slug || product.id}`} className="block rounded-[13px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#800020]">
                         <ProductCardImage product={product} isHindi={isHindi} />
                         {discount > 0 && <span className="absolute left-1.5 top-1.5 rounded-full bg-[#800020] px-2 py-1 text-[9px] font-black text-white">{discount}% OFF</span>}
-                        <div className="px-1 pt-2.5">
+                        <div className="px-1 pt-2">
                           <p className="truncate text-[9px] font-bold uppercase tracking-[.08em] text-[#a47a2c]">{product.brand || "Rashid Mega Mart"}</p>
-                          <h3 className="mt-1 line-clamp-2 min-h-[38px] text-[12px] font-extrabold leading-[1.35] text-[#30251f] sm:min-h-[42px] sm:text-[14px]">{isHindi ? product.nameHi : product.name}</h3>
-                          <p className="mt-1 text-[11px] font-semibold text-[#756354]">{product.unit || (isHindi ? "पैक साइज़ विवरण" : "Pack size as shown")}</p>
-                          <div className="mt-1.5 flex flex-wrap items-baseline gap-x-1.5">
-                            <span className="text-[16px] font-black text-[#800020] sm:text-lg">{money(product.price)}</span>
+                          <h3 className="mt-0.5 line-clamp-2 min-h-[32px] text-[11px] font-extrabold leading-[1.3] text-[#30251f] sm:min-h-[42px] sm:text-[14px]">{isHindi ? product.nameHi : product.name}</h3>
+                          <p className="mt-0.5 text-[10px] font-semibold text-[#756354]">{product.unit || (isHindi ? "पैक साइज़ विवरण" : "Pack size as shown")}</p>
+                          <div className="mt-1 flex flex-wrap items-baseline gap-x-1.5">
+                            <span className="text-[14px] font-black text-[#800020] sm:text-lg">{money(product.price)}</span>
                             {discount > 0 && <span className="text-[10px] text-[#9b8d81] line-through">{money(product.originalPrice)}</span>}
                           </div>
                         </div>
@@ -180,7 +180,7 @@ export function ProductsPage() {
                         <Heart size={17} fill={wished ? "currentColor" : "none"} />
                       </button>
                     </div>
-                    <button type="button" onClick={() => addToCart({ id: product.id, name: product.name, nameHi: product.nameHi, price: product.price, image: product.image, category: product.category })} className="mt-3 inline-flex min-h-11 w-full items-center justify-center gap-1.5 rounded-full bg-[#800020] px-2 text-[11px] font-black text-white transition hover:bg-[#650019] active:scale-[.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#800020] sm:text-xs">
+                    <button type="button" onClick={() => addToCart({ id: product.id, name: product.name, nameHi: product.nameHi, price: product.price, image: product.image, category: product.category })} className="mt-2 inline-flex min-h-9 w-full items-center justify-center gap-1.5 rounded-full bg-[#800020] px-2 text-[10px] font-black text-white transition hover:bg-[#650019] active:scale-[.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#800020] sm:text-xs">
                       <ShoppingBag size={14} aria-hidden="true" />{isHindi ? "कार्ट में डालें" : "Add to cart"}
                     </button>
                   </article>

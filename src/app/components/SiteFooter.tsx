@@ -49,7 +49,7 @@ export default function SiteFooter() {
   const headingClass = "mb-1.5 text-[10px] font-black uppercase tracking-[.13em] text-[#8C2028] sm:mb-3 sm:text-[11px] sm:tracking-[.17em]";
 
   return (
-    <footer ref={footerRef} className="relative isolate overflow-hidden border-t border-[#D9B77D]/60 bg-[#FBF5E9] text-[#3D2924]">
+    <footer ref={footerRef} className="relative isolate overflow-hidden border-t border-[#D9B77D]/60 bg-[#FBF5E9] pb-24 text-[#3D2924] sm:pb-0">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-10 bg-cover bg-center opacity-[.13]"
@@ -120,40 +120,38 @@ export default function SiteFooter() {
           </section>
         </div>
 
-        <section aria-label="Store information" className="rm-footer-reveal grid grid-cols-2 gap-2 border-t border-[#D8B36B]/55 py-3 sm:grid-cols-4 sm:gap-3 sm:py-4">
-          <div className="rounded-xl border border-[#E5D6BC] bg-white/75 px-3 py-2.5">
-            <h2 className="mb-1.5 flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wide text-[#8C2028]"><Clock3 size={13} />{isHindi ? "स्टोर टाइमिंग" : "STORE TIMINGS"}</h2>
-            <p className="text-[11px] font-bold leading-4 text-[#54221F]">{isHindi ? "आज का समय जानने के लिए कॉल करें" : "Call to confirm today's hours"}</p>
+        <section aria-label="Store information" className="rm-footer-reveal grid grid-cols-2 items-stretch gap-2.5 border-t border-[#D8B36B]/55 py-4 sm:grid-cols-4 sm:gap-3 sm:py-5">
+          <div className="flex min-w-0 flex-col justify-start rounded-xl border border-[#E5D6BC] bg-white/80 p-3 shadow-[0_3px_12px_rgba(86,54,28,.035)] sm:p-3.5">
+            <h2 className="mb-2 flex min-h-4 flex-wrap items-center gap-1.5 text-[9px] font-black uppercase leading-4 tracking-[.055em] text-[#8C2028] sm:text-[10px]"><Clock3 size={13} />{isHindi ? "स्टोर टाइमिंग" : "STORE TIMINGS"}</h2>
+            <p className="break-words text-[11px] font-bold leading-[1.45] text-[#54221F]">{isHindi ? "आज का समय जानने के लिए कॉल करें" : "Call to confirm today's hours"}</p>
             <a href={`tel:${PHONE_LINK}`} className="mt-1 inline-block text-[10px] font-extrabold text-[#168B55] underline underline-offset-2">{PHONE}</a>
           </div>
-          <div className="rounded-xl border border-[#E5D6BC] bg-white/75 px-3 py-2.5">
-            <h2 className="mb-1.5 flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wide text-[#8C2028]"><Smartphone size={13} />{isHindi ? "पेमेंट विकल्प" : "PAYMENT OPTIONS"}</h2>
+          <div className="flex min-w-0 flex-col justify-start rounded-xl border border-[#E5D6BC] bg-white/80 p-3 shadow-[0_3px_12px_rgba(86,54,28,.035)] sm:p-3.5">
+            <h2 className="mb-2 flex min-h-4 flex-wrap items-center gap-1.5 text-[9px] font-black uppercase leading-4 tracking-[.055em] text-[#8C2028] sm:text-[10px]"><Smartphone size={13} />{isHindi ? "पेमेंट विकल्प" : "PAYMENT OPTIONS"}</h2>
             <div className="flex flex-wrap gap-1.5">
               <span className="inline-flex items-center gap-1 rounded-md bg-[#EAF6EF] px-2 py-1 text-[10px] font-bold text-[#167344]"><Smartphone size={11} />UPI</span>
               <span className="inline-flex items-center gap-1 rounded-md bg-[#F8F0E5] px-2 py-1 text-[10px] font-bold text-[#68452F]"><Banknote size={11} />Cash</span>
             </div>
           </div>
-          <div className="rounded-xl border border-[#E5D6BC] bg-white/75 px-3 py-2.5">
-            <h2 className="mb-1.5 flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wide text-[#8C2028]"><ShieldCheck size={13} />{isHindi ? "हमें क्यों चुनें" : "WHY SHOP WITH US"}</h2>
+          <div className="flex min-w-0 flex-col justify-start rounded-xl border border-[#E5D6BC] bg-white/80 p-3 shadow-[0_3px_12px_rgba(86,54,28,.035)] sm:p-3.5">
+            <h2 className="mb-2 flex min-h-4 flex-wrap items-center gap-1.5 text-[9px] font-black uppercase leading-4 tracking-[.055em] text-[#8C2028] sm:text-[10px]"><ShieldCheck size={13} />{isHindi ? "हमें क्यों चुनें" : "WHY SHOP WITH US"}</h2>
             <p className="text-[11px] font-bold leading-4 text-[#54221F]">{isHindi ? "लोकल स्टोर · भरोसेमंद सेवा" : "Local store · Trusted service"}</p>
-            <p className="mt-0.5 text-[10px] leading-4 text-[#78645A]">{isHindi ? "रोज़मर्रा की ज़रूरतें एक जगह" : "Everyday essentials in one place"}</p>
+            <p className="mt-0.5 break-words text-[10px] leading-[1.45] text-[#78645A]">{isHindi ? "रोज़मर्रा की ज़रूरतें एक जगह" : "Everyday essentials in one place"}</p>
           </div>
-          <div className="rounded-xl border border-[#E5D6BC] bg-white/75 px-3 py-2.5">
-            <h2 className="mb-1.5 flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wide text-[#8C2028]"><Truck size={13} />{isHindi ? "होम डिलीवरी" : "HOME DELIVERY"}</h2>
+          <div className="flex min-w-0 flex-col justify-start rounded-xl border border-[#E5D6BC] bg-white/80 p-3 shadow-[0_3px_12px_rgba(86,54,28,.035)] sm:p-3.5">
+            <h2 className="mb-2 flex min-h-4 flex-wrap items-center gap-1.5 text-[9px] font-black uppercase leading-4 tracking-[.055em] text-[#8C2028] sm:text-[10px]"><Truck size={13} />{isHindi ? "होम डिलीवरी" : "HOME DELIVERY"}</h2>
             <p className="text-[11px] font-black leading-4 text-[#168B55]">{isHindi ? "5 KM तक FREE" : "FREE up to 5 KM"}</p>
             <p className="mt-0.5 text-[10px] leading-4 text-[#78645A]">{isHindi ? "घर बैठे ऑर्डर करें" : "Order from home on WhatsApp"}</p>
           </div>
         </section>
 
-        <div className="rm-footer-reveal flex flex-wrap items-center justify-center gap-x-2 gap-y-1 border-y border-[#D8B36B]/55 bg-[#F4EBDD]/65 px-2 py-2 text-center sm:gap-4">
-          <span className="inline-flex items-center gap-1 text-[9px] font-black tracking-[.08em] text-[#54221F] sm:text-[10px]"><Store size={12} className="text-[#168B55]" />LOCAL STORE</span>
-          <span className="h-1 w-1 rounded-full bg-[#B88B4C]" />
-          <span className="inline-flex items-center gap-1 text-[9px] font-black tracking-[.08em] text-[#168B55] sm:text-[10px]"><Truck size={12} />FREE DELIVERY UP TO 5 KM</span>
-          <span className="h-1 w-1 rounded-full bg-[#B88B4C]" />
-          <span className="inline-flex items-center gap-1 text-[9px] font-black tracking-[.08em] text-[#54221F] sm:text-[10px]"><MessageCircle size={12} className="text-[#168B55]" />CUSTOMER SUPPORT</span>
+        <div className="rm-footer-reveal grid grid-cols-3 items-center divide-x divide-[#D8B36B]/70 border-y border-[#D8B36B]/55 bg-[#F4EBDD]/65 px-1 py-3 text-center sm:py-3.5">
+          <span className="flex min-w-0 flex-col items-center justify-center gap-1 px-1 text-[8px] font-black leading-3 tracking-[.04em] text-[#54221F] sm:flex-row sm:text-[10px] sm:leading-4"><Store size={13} className="shrink-0 text-[#168B55]" /><span>LOCAL STORE</span></span>
+          <span className="flex min-w-0 flex-col items-center justify-center gap-1 px-1 text-[8px] font-black leading-3 tracking-[.035em] text-[#168B55] sm:flex-row sm:text-[10px] sm:leading-4"><Truck size={13} className="shrink-0" /><span>FREE DELIVERY<br className="sm:hidden" /> UP TO 5 KM</span></span>
+          <span className="flex min-w-0 flex-col items-center justify-center gap-1 px-1 text-[8px] font-black leading-3 tracking-[.035em] text-[#54221F] sm:flex-row sm:text-[10px] sm:leading-4"><MessageCircle size={13} className="shrink-0 text-[#168B55]" /><span>CUSTOMER<br className="sm:hidden" /> SUPPORT</span></span>
         </div>
 
-        <div className="rm-footer-reveal flex flex-col items-center justify-between gap-1 border-t border-[#D8B36B]/70 py-2.5 text-center sm:flex-row sm:gap-2 sm:py-4 sm:text-left">
+        <div className="rm-footer-reveal flex flex-col items-center justify-between gap-1 border-t border-[#D8B36B]/70 py-3 text-center sm:flex-row sm:gap-2 sm:py-4 sm:text-left">
           <p className="text-[10px] leading-5 text-[#78645A] sm:text-[11px]">© {new Date().getFullYear()} <span className="font-bold text-[#54221F]">Rashid Mega Mart</span>. {isHindi ? "सर्वाधिकार सुरक्षित।" : "All Rights Reserved."}</p>
           <p className="text-[10px] font-semibold tracking-wide text-[#8C2028] sm:text-[11px]">{isHindi ? "आपका भरोसेमंद किराना स्टोर" : "Shop Smart. Shop Local."}</p>
           <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="inline-flex min-h-8 items-center gap-1.5 rounded-full border border-[#D9B77D] bg-white/80 px-3 text-[10px] font-extrabold text-[#8C2028] transition-all hover:-translate-y-0.5 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8C2028]">

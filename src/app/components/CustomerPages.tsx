@@ -631,34 +631,68 @@ export function CheckoutPage() {
 
   if (receipt) {
     return (
-      <main className="min-h-screen bg-[#faf8f3] px-4 py-8 text-[#302721] sm:py-12">
-        <section className="mx-auto max-w-xl rounded-3xl border border-[#e9e2d8] bg-white p-5 shadow-[0_16px_50px_rgba(50,35,20,.07)] sm:p-8 print:rounded-none print:border-0 print:shadow-none">
-          <div className="text-center">
-            <p className="text-[10px] font-extrabold tracking-[.2em] text-[#a77b3e]">RASHID MEGA MART</p>
-            <h1 className="mt-2 text-2xl font-black text-[#800020]">{isHindi ? "ऑर्डर रिक्वेस्ट रसीद" : "Order Request Receipt"}</h1>
-            <p className="mt-2 text-xs text-[#82776e]">{isHindi ? "यह आपके भेजे गए ऑर्डर अनुरोध की कॉपी है।" : "A copy of the order request you prepared to send."}</p>
+      <main className="min-h-screen bg-[#f7f3ed] px-3 py-5 text-[#302721] sm:px-5 sm:py-8 print:min-h-0 print:bg-white print:p-0">
+        <style>{`
+          @page { size: A4; margin: 9mm; }
+          @media print {
+            html, body { background: #fff !important; }
+            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .rmm-receipt-page { width: 100% !important; max-width: none !important; margin: 0 !important; padding: 0 !important; border: 0 !important; box-shadow: none !important; }
+            .rmm-receipt-items { max-height: none !important; overflow: visible !important; }
+            .rmm-receipt-row { break-inside: avoid; }
+          }
+        `}</style>
+        <section className="rmm-receipt-page mx-auto max-w-[620px] overflow-hidden rounded-[22px] border border-[#e8dfd2] bg-white shadow-[0_14px_42px_rgba(65,39,28,.08)] print:rounded-none print:border-0 print:shadow-none">
+          <div className="bg-[#702039] px-5 py-4 text-white sm:px-7 print:px-4 print:py-2.5">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <p className="text-[9px] font-black tracking-[.2em] text-[#f0d9ae]">RASHID MEGA MART</p>
+                <h1 className="mt-1 text-xl font-black tracking-tight sm:text-2xl print:text-lg">{isHindi ? "ऑर्डर रिक्वेस्ट रसीद" : "Order Request Receipt"}</h1>
+                <p className="mt-1 text-[10px] text-white/75">{isHindi ? "आपकी खरीदारी का विवरण" : "Your shopping summary"}</p>
+              </div>
+              <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-white/20 bg-white/10 text-xl print:h-9 print:w-9">🛍️</div>
+            </div>
           </div>
-          <div className="my-6 rounded-2xl bg-[#faf8f3] p-4 text-xs">
-            <div className="flex justify-between gap-3"><span className="text-[#82776e]">Reference</span><strong className="text-[#800020]">{receipt.id}</strong></div>
-            <div className="mt-2 flex justify-between gap-3"><span className="text-[#82776e]">Date</span><strong>{receipt.createdAt}</strong></div>
-            <div className="mt-2 flex justify-between gap-3"><span className="text-[#82776e]">Customer</span><strong>{receipt.name}</strong></div>
-            <div className="mt-2 flex justify-between gap-3"><span className="text-[#82776e]">Mobile</span><strong>+91 {receipt.phone}</strong></div>
-            <p className="mt-2 border-t border-[#e9e2d8] pt-2 leading-5"><span className="text-[#82776e]">Address: </span>{receipt.address}</p>
-          </div>
-          <h2 className="text-sm font-extrabold">{isHindi ? "सामान का विवरण" : "Items"}</h2>
-          <div className="mt-3 divide-y divide-[#eee8df]">
-            {receipt.items.map((item, index) => <div key={index} className="flex justify-between gap-3 py-3 text-xs"><div className="min-w-0"><p className="font-bold">{item.name}</p><p className="mt-1 text-[#82776e]">Qty: {item.quantity}</p></div><strong className="shrink-0">{item.amount === null ? "To confirm" : formatPrice(item.amount)}</strong></div>)}
-          </div>
-          <div className="mt-4 space-y-2 border-t border-[#e9e2d8] pt-4 text-xs">
-            <div className="flex justify-between"><span>Subtotal</span><strong>{formatPrice(receipt.subtotal)}</strong></div>
-            {receipt.coupon && <div className="flex justify-between text-emerald-700"><span>Discount ({receipt.coupon})</span><strong>-{formatPrice(receipt.discount)}</strong></div>}
-            <div className="flex justify-between text-base font-black text-[#800020]"><span>Estimated total</span><strong>{formatPrice(receipt.total)}</strong></div>
-          </div>
-          <p className="mt-5 rounded-xl border border-[#ead9bd] bg-[#fff7e8] p-3 text-[11px] leading-5 text-[#806b57]">{isHindi ? "ध्यान दें: यह ऑर्डर रिक्वेस्ट की रसीद है, भुगतान की रसीद या ऑर्डर कन्फर्मेशन नहीं। WhatsApp पर मैसेज भेजना और स्टोर से पुष्टि लेना ज़रूरी है।" : "Note: This is an order-request receipt, not a payment receipt or confirmed order. The WhatsApp message must be sent and the store must confirm your order."}</p>
-          <div className="mt-6 grid grid-cols-1 gap-2 print:hidden sm:grid-cols-2">
-            <a href={receipt.whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex h-12 items-center justify-center gap-2 rounded-xl bg-[#16834b] px-4 text-xs font-extrabold text-white transition hover:bg-[#11683b]"><MessageCircle size={16} />{isHindi ? "अब WhatsApp पर ऑर्डर भेजें" : "Send order on WhatsApp"}</a>
-            <button type="button" onClick={() => window.print()} className="flex h-12 items-center justify-center rounded-xl bg-[#800020] px-4 text-xs font-extrabold text-white">{isHindi ? "रसीद प्रिंट / PDF सेव करें" : "Print / Save as PDF"}</button>
-            <Link href="/products" className="flex h-11 items-center justify-center rounded-xl border border-[#e9e2d8] px-4 text-xs font-bold text-[#800020] sm:col-span-2">{isHindi ? "खरीदारी जारी रखें" : "Continue shopping"}</Link>
+
+          <div className="px-4 py-4 sm:px-7 print:px-4 print:py-2.5">
+            <div className="mb-3 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-[#eee4d8] bg-[#fbf8f3] px-3 py-2 print:mb-2 print:py-1.5">
+              <div><p className="text-[8px] font-bold uppercase tracking-[.14em] text-[#9a8b7d]">Order reference</p><p className="mt-0.5 text-xs font-black text-[#702039]">{receipt.id}</p></div>
+              <div className="text-right"><p className="text-[8px] font-bold uppercase tracking-[.14em] text-[#9a8b7d]">Date & time</p><p className="mt-0.5 text-[10px] font-bold text-[#51443c]">{receipt.createdAt}</p></div>
+            </div>
+
+            <div className="mb-3 grid grid-cols-2 gap-x-4 gap-y-2 border-b border-[#eee8df] pb-3 text-[10px] print:mb-2 print:gap-y-1 print:pb-2">
+              <div><p className="text-[8px] font-bold uppercase tracking-wider text-[#9a8b7d]">Customer</p><p className="mt-0.5 break-words font-extrabold">{receipt.name}</p></div>
+              <div><p className="text-[8px] font-bold uppercase tracking-wider text-[#9a8b7d]">Mobile</p><p className="mt-0.5 font-extrabold">+91 {receipt.phone}</p></div>
+              <div className="col-span-2"><p className="text-[8px] font-bold uppercase tracking-wider text-[#9a8b7d]">Delivery address</p><p className="mt-0.5 break-words font-semibold leading-4">{receipt.address}</p></div>
+            </div>
+
+            <div className="mb-1 flex items-center justify-between">
+              <h2 className="text-[11px] font-black uppercase tracking-[.12em] text-[#702039]">{isHindi ? "सामान का विवरण" : "Items ordered"}</h2>
+              <span className="text-[9px] font-semibold text-[#938579]">{receipt.items.length} {isHindi ? "प्रकार" : "line items"}</span>
+            </div>
+            <div className="rmm-receipt-items divide-y divide-[#f0ebe4]">
+              {receipt.items.map((item, index) => <div key={index} className="rmm-receipt-row flex items-center justify-between gap-3 py-1.5 text-[10px] print:py-1"><div className="min-w-0"><p className="break-words font-bold text-[#3c302a]">{item.name}</p><p className="mt-0.5 text-[9px] text-[#928579]">Qty: {item.quantity}</p></div><strong className="shrink-0 text-[10px] text-[#4b3c34]">{item.amount === null ? "To confirm" : formatPrice(item.amount)}</strong></div>)}
+            </div>
+
+            <div className="mt-3 ml-auto max-w-[260px] space-y-1.5 border-t border-[#e9e0d6] pt-2.5 text-[10px] print:mt-2 print:pt-2">
+              <div className="flex justify-between"><span className="text-[#82776e]">Subtotal</span><strong>{formatPrice(receipt.subtotal)}</strong></div>
+              {receipt.coupon && <div className="flex justify-between text-[#16834b]"><span>Discount · {receipt.coupon}</span><strong>-{formatPrice(receipt.discount)}</strong></div>}
+              <div className="flex justify-between border-t border-dashed border-[#e5d9cd] pt-1.5 text-sm font-black text-[#702039] print:text-xs"><span>Estimated total</span><strong>{formatPrice(receipt.total)}</strong></div>
+            </div>
+
+            <div className="mt-3 rounded-xl border border-[#ead9bd] bg-[#fff8eb] px-3 py-2 text-[9px] leading-4 text-[#755d42] print:mt-2 print:py-1.5">
+              <strong className="block text-[9px] text-[#70451f]">{isHindi ? "एक छोटा सा रिमाइंडर ❤️" : "A little reminder ❤️"}</strong>
+              {isHindi
+                ? "WhatsApp खुलने पर अपना ऑर्डर मैसेज SEND करें। फिर इसी वेबसाइट टैब पर वापस आएँ और नीचे “Download Receipt” दबाकर रसीद PDF में सेव कर लें।"
+                : "After WhatsApp opens, tap SEND on your order message. Then return to this website tab and tap “Download Receipt” below to save your receipt as a PDF."}
+            </div>
+            <p className="mt-2 text-[8px] leading-3.5 text-[#968a7e] print:mt-1">* {isHindi ? "यह ऑर्डर रिक्वेस्ट कॉपी है, भुगतान रसीद या कन्फर्म ऑर्डर नहीं। स्टोर की पुष्टि के बाद ही ऑर्डर पक्का होगा।" : "This is an order request copy, not a payment receipt or confirmed order. Your order is confirmed only after store approval."}</p>
+
+            <div className="mt-4 grid grid-cols-1 gap-2 print:hidden sm:grid-cols-2">
+              <a href={receipt.whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex h-11 items-center justify-center gap-2 rounded-xl bg-[#16834b] px-4 text-xs font-extrabold text-white transition hover:bg-[#11683b]"><MessageCircle size={15} />{isHindi ? "WhatsApp पर ऑर्डर भेजें" : "Send order on WhatsApp"}</a>
+              <button type="button" onClick={() => window.print()} className="flex h-11 items-center justify-center gap-2 rounded-xl bg-[#702039] px-4 text-xs font-extrabold text-white transition hover:bg-[#58172c]"><Package size={15} />{isHindi ? "रसीद डाउनलोड / PDF" : "Download Receipt / PDF"}</button>
+              <Link href="/products" className="flex h-10 items-center justify-center rounded-xl border border-[#e8dfd2] px-4 text-[10px] font-bold text-[#702039] sm:col-span-2">{isHindi ? "खरीदारी जारी रखें" : "Continue shopping"}</Link>
+            </div>
           </div>
         </section>
       </main>

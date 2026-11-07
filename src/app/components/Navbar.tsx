@@ -307,7 +307,7 @@ export default function Navbar() {
           ].map(({ href, label, Icon, active }) => (
             <a key={href} href={href} aria-current={active ? "page" : undefined} className={`relative flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl px-0.5 transition-all duration-200 ${active ? "bg-[#800020]/[.055] text-[#800020]" : "text-[#887b73] hover:text-[#68162a]"}`}>
               <span className={`flex h-8 w-10 items-center justify-center rounded-xl ${active ? "bg-[#800020]/[0.10]" : ""}`}><Icon size={19} strokeWidth={active ? 2.5 : 1.8} /></span>
-              <span className="whitespace-nowrap text-[9px] font-extrabold">{label}</span>{active && <span className="absolute bottom-0 h-[3px] w-5 rounded-full bg-[#800020]" />
+              <span className="whitespace-nowrap text-[9px] font-extrabold">{label}</span>{active && <span className="absolute bottom-0 h-[3px] w-5 rounded-full bg-[#800020]" />}
             </a>
           ))}
           <button type="button" aria-expanded={moreOpen} aria-controls="mobile-more-menu" onClick={() => setMoreOpen(v => !v)} className={`relative flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl transition-colors ${moreOpen || pathname.startsWith("/order-tracking") || pathname.startsWith("/wishlist") || pathname.startsWith("/contact") || pathname.startsWith("/account") ? "bg-[#800020]/[.055] text-[#800020]" : "text-[#887b73]"}`}>

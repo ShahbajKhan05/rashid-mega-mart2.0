@@ -7,7 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
-import { ArrowRight, ShoppingCart, Package, Layers3, MapPin, Truck } from "lucide-react";
+import { ArrowRight, Package, Layers3, MapPin, Truck } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 import { categoryOptions, products } from "./data";
 import { useCart } from "./CartProvider";
@@ -18,7 +18,6 @@ import ShoppingProductRail from "./ShoppingProductRail";
 
 export default function OriginalCustomerHome() {
   const { language } = useLanguage();
-  const { addToCart } = useCart();
   const isHindi = language === "hi";
   const [promoCopied, setPromoCopied] = useState(false);
   const [promoTimeLeft, setPromoTimeLeft] = useState({days:0,hours:0,minutes:0,seconds:0,expired:false});
@@ -279,10 +278,10 @@ export default function OriginalCustomerHome() {
         <div className="relative mx-auto max-w-[1240px]">
           <div className="mb-4 flex flex-col items-center gap-2.5 text-center sm:mb-5">
             <span className="inline-flex items-center gap-1.5 rounded-full border border-[#e7d5b7] bg-white/85 px-3 py-1.5 text-[8px] font-black uppercase tracking-[.14em] text-[#956b32] shadow-sm">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#b88a42]" /> {isHindi ? "आपकी पसंद, हमारी खास लिस्ट" : "THE COMMUNITY FAVOURITES"}
+              <span className="h-1.5 w-1.5 rounded-full bg-[#b88a42]" /> {isHindi ? "अच्छी रेटिंग वाले प्रोडक्ट" : "TOP-RATED PICKS"}
             </span>
-            <h2 className="text-[27px] font-black leading-[1.02] tracking-[-.06em] text-[#800020] sm:text-3xl">{isHindi ? "सबसे ज़्यादा बिकने वाले" : "Best Sellers"}</h2>
-            <p className="max-w-[290px] text-[10px] leading-relaxed text-[#817166] sm:text-xs">{isHindi ? "ग्राहकों की पसंद के रोज़मर्रा के सामान।" : "Everyday essentials customers keep coming back for."}</p>
+            <h2 className="text-[27px] font-black leading-[1.02] tracking-[-.06em] text-[#800020] sm:text-3xl">{isHindi ? "टॉप रेटेड प्रोडक्ट्स" : "Top-rated picks"}</h2>
+            <p className="max-w-[290px] text-[10px] leading-relaxed text-[#817166] sm:text-xs">{isHindi ? "अच्छी रेटिंग के आधार पर चुने गए प्रोडक्ट्स।" : "Products highlighted by their customer ratings."}</p>
             <Link href="/products" className="inline-flex h-9 items-center justify-center gap-1.5 rounded-full border border-[#dfcba9] bg-white px-4 text-[9px] font-black text-[#800020] shadow-sm transition hover:border-[#800020] hover:bg-[#800020] hover:text-white active:scale-[.97] sm:text-[10px]">{isHindi ? "सभी देखें" : "VIEW ALL"} <ArrowRight size={12}/></Link>
           </div>
           <ShoppingProductRail items={popularPicks.slice(0, 4)} language={language} variant="grid" />

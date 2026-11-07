@@ -446,6 +446,13 @@ export function CartPage() {
           </div>
           <Link href="/products" className="inline-flex h-9 items-center gap-1 text-xs font-bold text-[#800020]">{isHindi ? "खरीदारी जारी रखें" : "Continue shopping"} <ArrowRight size={14}/></Link>
         </header>
+        <div role="status" className="mb-5 flex items-start gap-3 rounded-2xl border border-[#ead9bd] bg-[#fff7e8] p-3.5">
+          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-white text-[#9a713d]">👤</span>
+          <div className="min-w-0">
+            <p className="text-xs font-extrabold text-[#6b3f20]">{isHindi ? "आप Guest के रूप में खरीदारी कर रहे हैं" : "You’re shopping as a Guest"}</p>
+            <p className="mt-1 text-[11px] leading-5 text-[#806b57]">{isHindi ? "कार्ट इस टैब में अस्थायी है। वेबसाइट पर ऑर्डर हिस्ट्री सेव नहीं होगी। ऑर्डर भेजने के लिए Checkout पर जाकर WhatsApp पर मैसेज भेजें।" : "Your cart is temporary in this browser tab. Order history won’t be saved on this website. Continue to checkout and send the WhatsApp message to place your request."}</p>
+          </div>
+        </div>
 
         {cartItems.length === 0 && customRequests.length === 0 ? (
           <section className="flex min-h-[300px] flex-col items-center justify-center rounded-2xl border border-[#eadfce] bg-white px-5 py-12 text-center">

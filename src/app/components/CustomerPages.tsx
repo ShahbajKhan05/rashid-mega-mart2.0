@@ -138,7 +138,7 @@ export function ProductsPage() {
           <div className="mb-2.5 flex items-center justify-between gap-2">
             <div className="min-w-0">
               <p className="text-[8px] font-black uppercase tracking-[.16em] text-[#16834b]">{isHindi ? "आपके लिए चुना गया" : "PICKED FOR YOUR HOME"}</p>
-              <h2 className="truncate text-[18px] font-black leading-tight tracking-[-.05em] text-[#702039] sm:text-2xl">{activeCategory === "all" ? (isHindi ? "लोकप्रिय सामान" : "Popular essentials") : (isHindi ? activeCategoryLabel?.hi : activeCategoryLabel?.en)}</h2>
+              <div className="flex flex-wrap items-center gap-2"><h2 className="truncate text-[18px] font-black leading-tight tracking-[-.05em] text-[#702039] sm:text-2xl">{activeCategory === "all" ? (isHindi ? "लोकप्रिय सामान" : "Popular essentials") : (isHindi ? activeCategoryLabel?.hi : activeCategoryLabel?.en)}</h2><span className="rounded-full bg-[#f2e9dc] px-2 py-0.5 text-[8px] font-extrabold tabular-nums text-[#80664d]">{sortedProducts.length} {isHindi ? "आइटम" : "items"}</span></div>
             </div>
             <label className="flex h-8 shrink-0 items-center gap-1 rounded-lg border border-[#e5d9c9] bg-white px-2 text-[9px] font-bold text-[#702039]">
               <span>{isHindi ? "क्रम" : "Sort"}</span>
@@ -161,6 +161,9 @@ export function ProductsPage() {
                         <div className="relative">
                           <ProductCardImage product={product} isHindi={isHindi} />
                           {discount > 0 && <span className="absolute left-1.5 top-1.5 rounded-md bg-[#16834b] px-1.5 py-1 text-[8px] font-black text-white shadow-sm">{discount}% OFF</span>}
+                          <span className="absolute bottom-1.5 left-1.5 inline-flex items-center gap-1 rounded-full border border-white/80 bg-white/90 px-1.5 py-1 text-[8px] font-black text-[#806126] shadow-sm backdrop-blur">
+                            <Star size={9} fill="currentColor" /> {product.rating.toFixed(1)}
+                          </span>
                         </div>
                         <div className="px-1 pt-1.5">
                           <p className="truncate text-[8px] font-black uppercase tracking-[.08em] text-[#16834b]">{product.brand || "RASHID MEGA MART"}</p>

@@ -1,74 +1,85 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import gsap from "gsap";
-import { Headset, ShoppingCart } from "lucide-react";
+import { Headset, ShoppingCart, Gift, Plus, X, Sparkles } from "lucide-react";
 import { useCart } from "./CartProvider";
 import { useLanguage } from "./LanguageProvider";
 
 export default function FloatingQuickActions() {
   const { cartCount, openCart } = useCart();
   const { language } = useLanguage();
+  const [expanded, setExpanded] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
-  const helpRef = useRef<HTMLAnchorElement>(null);
   const cartRef = useRef<HTMLButtonElement>(null);
   const isHindi = language === "hi";
 
   useEffect(() => {
     const root = rootRef.current;
-    const help = helpRef.current;
     const cart = cartRef.current;
-    if (!root || !help || !cart) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
+    if (!root || !cart || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const ctx = gsap.context(() => {
-      gsap.fromTo([help, cart], { autoAlpha: 0, x: 34, scale: .72 }, {
-        autoAlpha: 1, x: 0, scale: 1, duration: .72, stagger: .12,
-        ease: "back.out(1.8)", delay: .35, clearProps: "transform",
-      });
-      gsap.to(help.querySelector("[data-help-ring]"), {
-        scale: 1.32, autoAlpha: 0, duration: 1.8, repeat: -1, yoyo: true,
-        ease: "sine.out", transformOrigin: "center",
+      gsap.fromTo(root, { autoAlpha: 0, y: 24, scale: .92 }, {
+        autoAlpha: 1, y: 0, scale: 1, duration: .65, ease: "back.out(1.6)", delay: .25,
+        clearProps: "transform",
       });
     }, root);
     return () => ctx.revert();
   }, []);
 
-  const animatePress = (element: HTMLAnchorElement | HTMLButtonElement, entering: boolean) => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    gsap.to(element, { scale: entering ? 1.08 : 1, y: entering ? -3 : 0, duration: .22, ease: "power2.out" });
+  useEffect(() => {
+    if (!expanded) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setExpanded(false);
+    };
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [expanded]);
+
+  const handleCartClick = () => {
+    setExpanded(false);
+    openCart();
   };
 
   return (
-    <div ref={rootRef} aria-label={isHindi ? "त्वरित सहायता और कार्ट" : "Quick help and cart"} className="pointer-events-none fixed bottom-[calc(82px+env(safe-area-inset-bottom))] right-3 z-[85] flex flex-col items-end gap-3 xl:bottom-6 xl:right-6">
-      <Link
-        ref={helpRef}
-        href="/contact"
-        aria-label={isHindi ? "सहायता और संपर्क" : "Help and support"}
-        onMouseEnter={(event) => animatePress(event.currentTarget, true)}
-        onMouseLeave={(event) => animatePress(event.currentTarget, false)}
-        className="pointer-events-auto group relative flex h-[54px] w-[54px] items-center justify-center rounded-full border border-white/90 bg-[linear-gradient(145deg,#fffdf8,#f3e9d9)] text-[#7b2638] shadow-[0_8px_24px_rgba(67,34,29,.20),inset_2px_2px_5px_rgba(255,255,255,.95),inset_-2px_-2px_5px_rgba(155,119,80,.10)] transition-colors hover:text-[#a47a2c] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#a47a2c]/25"
-      >
-        <span data-help-ring aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-full border border-[#a47a2c]/55" />
-        <span className="absolute right-[62px] whitespace-nowrap rounded-full border border-[#eadfce] bg-[#fffdf8]/95 px-3 py-1.5 text-[10px] font-black text-[#6d2736] opacity-0 shadow-lg backdrop-blur-xl transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">{isHindi ? "मदद चाहिए?" : "Need help?"}</span>
-        <Headset size={22} strokeWidth={2.2} />
-        <span className="absolute -bottom-1 -right-1 h-3.5 w-3.5 rounded-full border-2 border-[#fffdf8] bg-[#16834b]" />
-      </Link>
+    <div ref={rootRef} className="pointer-events-none fixed bottom-[calc(82px+env(safe-area-inset-bottom))] right-3 z-[85] flex flex-col items-end gap-2.5 xl:bottom-6 xl:right-6">
+      {expanded && (
+        <div className="pointer-events-auto mb-1 flex flex-col items-end gap-2.5" aria-label={isHindi ? "क्विक लिंक" : "Quick links"}>
+          <Link href="/rewards" onClick={() => setExpanded(false)} className="group flex h-12 items-center gap-3 rounded-full border border-[#e8d6b7] bg-[linear-gradient(120deg,#fffdf8,#fff1d5)] py-1 pl-4 pr-1.5 text-[#754719] shadow-[0_8px_24px_rgba(65,43,35,.17)] transition hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(65,43,35,.2)]">
+            <span className="text-right"><span className="block text-[11px] font-black leading-tight">{isHindi ? "मेरे रिवॉर्ड्स" : "My Rewards"}</span><span className="block text-[9px] font-medium text-[#9a7548]">{isHindi ? "पॉइंट्स और ऑफर्स" : "Points & special offers"}</span></span>
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-[linear-gradient(145deg,#e8c477,#bd8735)] text-white shadow-inner"><Gift size={18} strokeWidth={2.2}/></span>
+          </Link>
+          <Link href="/contact" onClick={() => setExpanded(false)} className="group flex h-12 items-center gap-3 rounded-full border border-[#e5d7c8] bg-[linear-gradient(120deg,#fff,#f8eee8)] py-1 pl-4 pr-1.5 text-[#762b3c] shadow-[0_8px_24px_rgba(65,43,35,.17)] transition hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(65,43,35,.2)]">
+            <span className="text-right"><span className="block text-[11px] font-black leading-tight">{isHindi ? "संपर्क करें" : "Contact us"}</span><span className="block text-[9px] font-medium text-[#9b7770]">{isHindi ? "हम मदद के लिए हैं" : "We're here to help"}</span></span>
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-[linear-gradient(145deg,#9d4054,#68172e)] text-white shadow-inner"><Headset size={18} strokeWidth={2.2}/></span>
+          </Link>
+        </div>
+      )}
 
-      <button
-        ref={cartRef}
-        type="button"
-        onClick={openCart}
-        aria-label={isHindi ? `कार्ट खोलें, ${cartCount} आइटम` : `Open cart, ${cartCount} items`}
-        onMouseEnter={(event) => animatePress(event.currentTarget, true)}
-        onMouseLeave={(event) => animatePress(event.currentTarget, false)}
-        className="pointer-events-auto group relative flex h-[58px] w-[58px] items-center justify-center rounded-full border-[3px] border-white bg-[linear-gradient(145deg,#941b3d,#650019)] text-white shadow-[0_10px_28px_rgba(92,0,28,.34),inset_2px_2px_5px_rgba(255,255,255,.22)] transition-colors hover:from-[#a52a4c] hover:to-[#74001e] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#800020]/25"
-      >
-        <span className="absolute right-[66px] whitespace-nowrap rounded-full border border-[#eadfce] bg-[#fffdf8]/95 px-3 py-1.5 text-[10px] font-black text-[#6d2736] opacity-0 shadow-lg backdrop-blur-xl transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">{isHindi ? "मेरा कार्ट" : "My cart"}</span>
-        <ShoppingCart size={22} strokeWidth={2.2} />
-        {cartCount > 0 && <span className="absolute -right-1 -top-1 grid h-[22px] min-w-[22px] place-items-center rounded-full border-2 border-white bg-[#d6a84e] px-1 text-[9px] font-black leading-none text-[#4b2c14] shadow-md">{cartCount > 99 ? "99+" : cartCount}</span>}
-      </button>
+      <div className="pointer-events-auto flex items-center gap-2 rounded-full border border-white/90 bg-white/90 p-1.5 shadow-[0_10px_30px_rgba(58,31,30,.18)] backdrop-blur-xl">
+        <button
+          type="button"
+          onClick={() => setExpanded(value => !value)}
+          aria-expanded={expanded}
+          aria-label={expanded ? (isHindi ? "क्विक लिंक बंद करें" : "Hide quick links") : (isHindi ? "कॉन्टैक्ट और रिवॉर्ड्स दिखाएं" : "Show contact and rewards")}
+          className={`grid h-10 w-10 shrink-0 place-items-center rounded-full transition-all duration-300 ${expanded ? "rotate-45 bg-[#f4e8e6] text-[#762b3c]" : "bg-[#f8f2e9] text-[#8a6331] hover:bg-[#f1e5d3]"}`}
+        >
+          {expanded ? <X size={18}/> : <Sparkles size={18}/>}
+        </button>
+        <button
+          ref={cartRef}
+          type="button"
+          onClick={handleCartClick}
+          aria-label={isHindi ? `कार्ट खोलें, ${cartCount} आइटम` : `Open cart, ${cartCount} items`}
+          className={`relative flex h-11 min-w-[112px] items-center justify-center gap-2 overflow-hidden rounded-full border-2 border-white px-3.5 text-white shadow-[0_5px_16px_rgba(92,0,28,.28)] transition-all duration-300 active:scale-95 ${cartCount > 0 ? "bg-[linear-gradient(120deg,#a52a4c,#69001d)]" : "bg-[linear-gradient(120deg,#84213d,#650019)]"}`}
+        >
+          {cartCount > 0 && <span className="pointer-events-none absolute inset-0 animate-pulse bg-[linear-gradient(110deg,transparent_20%,rgba(255,255,255,.16)_48%,transparent_72%)]"/>}
+          <ShoppingCart size={19} strokeWidth={2.4}/>
+          <span className="relative text-[11px] font-black">{isHindi ? "कार्ट" : "My Cart"}</span>
+          <span className={`relative grid h-[22px] min-w-[22px] place-items-center rounded-full px-1 text-[10px] font-black ${cartCount > 0 ? "bg-[#e5c06e] text-[#512d16]" : "bg-white/20 text-white"}`}>{cartCount > 99 ? "99+" : cartCount}</span>
+        </button>
+      </div>
     </div>
   );
 }

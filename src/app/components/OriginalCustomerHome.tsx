@@ -254,7 +254,7 @@ export default function OriginalCustomerHome() {
       <section id="deals" data-shop-section className="bg-transparent px-3 py-5 sm:px-6 sm:py-8" aria-label={isHindi ? "आज की बचत" : "Best deals"}>
         <div className="mx-auto max-w-[1240px]">
           <div className="mb-3 flex items-end justify-between gap-3"><div><p className="text-[9px] font-black uppercase tracking-[.18em] text-[#a47a2c]">{isHindi ? "आज की खास बचत" : "TODAY'S BEST OFFERS"}</p><h2 className="mt-1 text-[21px] font-black leading-tight tracking-[-.05em] text-[#800020] sm:text-3xl">{isHindi ? "कम दाम, ज़्यादा बचत" : "Best deals for your home"}</h2><p className="mt-1 text-[10px] text-[#817166] sm:text-xs">{isHindi ? "ऑफर वाले सामान सीधे कार्ट में जोड़ें।" : "Real product discounts. Add your favourites in one tap."}</p></div><Link href="/products" className="mb-1 inline-flex shrink-0 items-center gap-1 text-[10px] font-black text-[#800020]">{isHindi ? "सभी ऑफर" : "All deals"} <ArrowRight size={13}/></Link></div>
-          <ShoppingProductRail items={bestDeals} language={language} />
+          <ShoppingProductRail items={bestDeals.slice(0, 4)} language={language} variant="grid" />
         </div>
       </section>
 

@@ -155,7 +155,7 @@ export function ProductsPage() {
                 const wished = isWishlisted(product.id);
                 return (
                   <article key={product.id} style={{ animationDelay: Math.min(index, 8) * 45 + "ms" }}
-                    className="group relative flex min-w-0 flex-col overflow-hidden rounded-[15px] border border-[#e8ddce] bg-white p-1.5 shadow-[0_3px_12px_rgba(62,39,30,.055)] transition-all duration-300 ease-out hover:-translate-y-1 hover:border-[#16834b]/50 hover:shadow-[0_12px_24px_rgba(62,39,30,.12)] active:scale-[.985] sm:rounded-[19px] sm:p-2">
+                    className="rmm-product-enter group relative flex min-w-0 flex-col overflow-hidden rounded-[15px] border border-[#e8ddce] bg-white p-1.5 shadow-[0_3px_12px_rgba(62,39,30,.055)] transition-all duration-300 ease-out hover:-translate-y-1 hover:border-[#16834b]/50 hover:shadow-[0_12px_24px_rgba(62,39,30,.12)] active:scale-[.985] sm:rounded-[19px] sm:p-2">
                     <div className="relative">
                       <Link href={"/products/" + (product.slug || product.id)} className="block rounded-[11px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#16834b]">
                         <div className="relative">

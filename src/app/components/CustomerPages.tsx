@@ -529,6 +529,11 @@ export function CheckoutPage() {
   const [couponCode, setCouponCode] = useState("");
   const [appliedCoupon, setAppliedCoupon] = useState<{code:string;discount:number;title:string}|null>(null);
   const [couponMessage, setCouponMessage] = useState("");
+  const [receipt, setReceipt] = useState<{
+    id: string; createdAt: string; name: string; phone: string; address: string;
+    items: Array<{ name: string; quantity: number; amount: number | null }>;
+    subtotal: number; discount: number; total: number; coupon: string;
+  } | null>(null);
 
   const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0)
     + customRequests.reduce((sum, item) => sum + item.quantity, 0);
@@ -609,9 +614,56 @@ export function CheckoutPage() {
       "Please confirm availability, final total and delivery details."
     ].filter(Boolean);
 
-    const whatsappUrl = `https://wa.me/918962531603?text=${encodeURIComponent(lines.join("\n"))}`;
+    const now = new Date();
+    const orderRef = `RMM-${now.getFullYear().toString().slice(-2)}${String(now.getMonth()+1).padStart(2,"0")}${String(now.getDate()).padStart(2,"0")}-${String(now.getHours()).padStart(2,"0")}${String(now.getMinutes()).padStart(2,"0")}${String(now.getSeconds()).padStart(2,"0")}`;
+    const whatsappUrl = `https://wa.me/918962531603?text=${encodeURIComponent([`Order reference: ${orderRef}`, ...lines].join("\n"))}`;
     const popup = window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    setReceipt({
+      id: orderRef,
+      createdAt: now.toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" }),
+      name: name.trim(), phone: cleanPhone, address: address.trim(),
+      items: [
+        ...cartItems.map((item) => ({ name: isHindi ? item.nameHi : item.name, quantity: item.quantity, amount: item.price * item.quantity })),
+        ...customRequests.map((item) => ({ name: item.name, quantity: item.quantity, amount: null })),
+      ],
+      subtotal: cartTotal, discount: discountAmount, total: payableTotal, coupon: appliedCoupon?.code || "",
+    });
     if (!popup) window.location.assign(whatsappUrl);
+  }
+
+  if (receipt) {
+    return (
+      <main className="min-h-screen bg-[#faf8f3] px-4 py-8 text-[#302721] sm:py-12">
+        <section className="mx-auto max-w-xl rounded-3xl border border-[#e9e2d8] bg-white p-5 shadow-[0_16px_50px_rgba(50,35,20,.07)] sm:p-8 print:rounded-none print:border-0 print:shadow-none">
+          <div className="text-center">
+            <p className="text-[10px] font-extrabold tracking-[.2em] text-[#a77b3e]">RASHID MEGA MART</p>
+            <h1 className="mt-2 text-2xl font-black text-[#800020]">{isHindi ? "ऑर्डर रिक्वेस्ट रसीद" : "Order Request Receipt"}</h1>
+            <p className="mt-2 text-xs text-[#82776e]">{isHindi ? "यह आपके भेजे गए ऑर्डर अनुरोध की कॉपी है।" : "A copy of the order request you prepared to send."}</p>
+          </div>
+          <div className="my-6 rounded-2xl bg-[#faf8f3] p-4 text-xs">
+            <div className="flex justify-between gap-3"><span className="text-[#82776e]">Reference</span><strong className="text-[#800020]">{receipt.id}</strong></div>
+            <div className="mt-2 flex justify-between gap-3"><span className="text-[#82776e]">Date</span><strong>{receipt.createdAt}</strong></div>
+            <div className="mt-2 flex justify-between gap-3"><span className="text-[#82776e]">Customer</span><strong>{receipt.name}</strong></div>
+            <div className="mt-2 flex justify-between gap-3"><span className="text-[#82776e]">Mobile</span><strong>+91 {receipt.phone}</strong></div>
+            <p className="mt-2 border-t border-[#e9e2d8] pt-2 leading-5"><span className="text-[#82776e]">Address: </span>{receipt.address}</p>
+          </div>
+          <h2 className="text-sm font-extrabold">{isHindi ? "सामान का विवरण" : "Items"}</h2>
+          <div className="mt-3 divide-y divide-[#eee8df]">
+            {receipt.items.map((item, index) => <div key={index} className="flex justify-between gap-3 py-3 text-xs"><div className="min-w-0"><p className="font-bold">{item.name}</p><p className="mt-1 text-[#82776e]">Qty: {item.quantity}</p></div><strong className="shrink-0">{item.amount === null ? "To confirm" : formatPrice(item.amount)}</strong></div>)}
+          </div>
+          <div className="mt-4 space-y-2 border-t border-[#e9e2d8] pt-4 text-xs">
+            <div className="flex justify-between"><span>Subtotal</span><strong>{formatPrice(receipt.subtotal)}</strong></div>
+            {receipt.coupon && <div className="flex justify-between text-emerald-700"><span>Discount ({receipt.coupon})</span><strong>-{formatPrice(receipt.discount)}</strong></div>}
+            <div className="flex justify-between text-base font-black text-[#800020]"><span>Estimated total</span><strong>{formatPrice(receipt.total)}</strong></div>
+          </div>
+          <p className="mt-5 rounded-xl border border-[#ead9bd] bg-[#fff7e8] p-3 text-[11px] leading-5 text-[#806b57]">{isHindi ? "ध्यान दें: यह ऑर्डर रिक्वेस्ट की रसीद है, भुगतान की रसीद या ऑर्डर कन्फर्मेशन नहीं। WhatsApp पर मैसेज भेजना और स्टोर से पुष्टि लेना ज़रूरी है।" : "Note: This is an order-request receipt, not a payment receipt or confirmed order. The WhatsApp message must be sent and the store must confirm your order."}</p>
+          <div className="mt-6 flex flex-col gap-2 sm:flex-row print:hidden">
+            <button type="button" onClick={() => window.print()} className="flex h-11 flex-1 items-center justify-center rounded-xl bg-[#800020] px-4 text-xs font-extrabold text-white">{isHindi ? "रसीद प्रिंट / PDF सेव करें" : "Print / Save as PDF"}</button>
+            <Link href="/products" className="flex h-11 flex-1 items-center justify-center rounded-xl border border-[#e9e2d8] px-4 text-xs font-bold text-[#800020]">{isHindi ? "खरीदारी जारी रखें" : "Continue shopping"}</Link>
+          </div>
+        </section>
+      </main>
+    );
   }
 
   if (itemCount === 0) {

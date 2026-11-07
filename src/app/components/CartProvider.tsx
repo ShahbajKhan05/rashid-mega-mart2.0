@@ -37,6 +37,7 @@ type CartContextType = {
   removeFromCart: (id: string) => void;
   addCustomRequest: (request: NewCustomRequest) => void;
   removeCustomRequest: (id: string) => void;
+  clearCart: () => void;
   openCart: () => void;
   closeCart: () => void;
   cartOpen: boolean;
@@ -139,9 +140,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setCustomRequests((previous) => previous.filter((item) => item.id !== id));
   }
 
+  function clearCart() {
+    setCartItems([]);
+    setCustomRequests([]);
+    sessionStorage.removeItem("rmm_cart_items");
+    sessionStorage.removeItem("rmm_custom_requests");
+  }
+
   const value = useMemo<CartContextType>(
     () => ({
-      cartItems, customRequests, cartCount, cartTotal, addToCart, changeQuantity, removeFromCart, addCustomRequest, removeCustomRequest,
+      cartItems, customRequests, cartCount, cartTotal, addToCart, changeQuantity, removeFromCart, addCustomRequest, removeCustomRequest, clearCart,
       openCart: () => setCartOpen(true),
       closeCart: () => setCartOpen(false),
       cartOpen,

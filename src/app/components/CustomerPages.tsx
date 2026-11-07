@@ -12,6 +12,20 @@ import { useCart } from "./CartProvider";
 import { useWishlist } from "./WishlistProvider";
 import { groceryKits } from "./kits-data";
 
+type RmmLocalOrder = {
+  id: string; createdAt: string; createdAtISO: string; name: string; phone: string;
+  address: string; landmark: string; note: string; status: "placed";
+  items: Array<{ name: string; quantity: number; amount: number | null }>;
+  subtotal: number; discount: number; total: number; coupon: string;
+};
+const RMM_ORDERS_KEY = "rmm-orders-v1";
+function readLocalOrders(): RmmLocalOrder[] {
+  try {
+    const parsed: unknown = JSON.parse(localStorage.getItem(RMM_ORDERS_KEY) || "[]");
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter((order): order is RmmLocalOrder => Boolean(order && typeof order === "object" && typeof order.id === "string" && typeof order.phone === "string" && Array.isArray(order.items)));
+  } catch { return []; }
+}
 function CenterPage({ title }: { title: string }) {
   return (
     <main className="relative z-0 flex min-h-[calc(100svh-112px)] items-center justify-center px-4 pb-8 pt-6 xl:min-h-[calc(100svh-76px)]">
@@ -541,7 +555,7 @@ export function CartPage() {
 export function CheckoutPage() {
   const checkoutRef = useRef<HTMLDivElement>(null);
   const { language } = useLanguage();
-  const { cartItems, customRequests, cartTotal, addToCart } = useCart();
+  const { cartItems, customRequests, cartTotal, addToCart, clearCart } = useCart();
   const isHindi = language === "hi";
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");

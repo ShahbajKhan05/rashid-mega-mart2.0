@@ -46,7 +46,7 @@ export default function SiteFooter() {
     { href: "/terms-and-conditions", en: "Terms & Conditions", hi: "नियम और शर्तें" },
   ];
   const linkClass = "group inline-flex min-h-7 items-center gap-1.5 text-[12px] leading-4 text-[#54221F] transition-colors hover:text-[#941F2B] focus-visible:outline-none focus-visible:underline sm:min-h-8 sm:gap-2 sm:text-[13px] sm:leading-5";
-  const headingClass = "mb-2 text-[10px] font-extrabold uppercase tracking-[.14em] text-[#8C2028] sm:mb-3 sm:text-[11px] sm:tracking-[.17em]";
+  const headingClass = "mb-1.5 text-[10px] font-black uppercase tracking-[.13em] text-[#8C2028] sm:mb-3 sm:text-[11px] sm:tracking-[.17em]";
 
   return (
     <footer ref={footerRef} className="relative isolate overflow-hidden border-t border-[#D9B77D]/60 bg-[#FBF5E9] text-[#3D2924]">

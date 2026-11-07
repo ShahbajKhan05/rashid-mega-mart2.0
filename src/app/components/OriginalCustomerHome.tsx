@@ -132,47 +132,35 @@ export default function OriginalCustomerHome() {
           </div>
         </div>
       </div>
-      <section id="top" ref={entranceRef} className="relative isolate overflow-hidden bg-[#fffaf2] px-3 pb-6 pt-5 sm:px-6 sm:pb-10 sm:pt-8">
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_78%_28%,rgba(219,190,139,.25),transparent_42%),radial-gradient(ellipse_at_12%_90%,rgba(128,0,32,.06),transparent_38%)]" />
-        <div className="mx-auto grid w-full max-w-[1240px] items-center gap-5 overflow-hidden rounded-[24px] border border-[#eadcc8] bg-[linear-gradient(112deg,#fffefa_0%,#fff8ed_58%,#f6ead8_100%)] p-4 shadow-[0_12px_34px_rgba(77,48,28,.08)] sm:gap-8 sm:rounded-[30px] sm:p-8 lg:grid-cols-[1.08fr_.92fr] lg:p-10">
-          <div className="relative z-10 min-w-0">
-            <span className="inline-flex items-center gap-2 rounded-full border border-[#e6d4b6] bg-white/85 px-3 py-1.5 text-[8px] font-black uppercase tracking-[.17em] text-[#946b35] sm:text-[10px]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#168B55]" />
-              {isHindi ? "आपके अपने शहर की भरोसेमंद शॉपिंग" : "YOUR LOCAL EVERYDAY STORE"}
-            </span>
-            <h1 ref={entranceTitleRef} className="mt-4 max-w-[680px] text-[clamp(2.45rem,8vw,5.6rem)] font-black leading-[.91] tracking-[-.075em] text-[#68162a]">
-              {isHindi ? <>हर घर की जरूरत,<br/><span className="text-[#a77b3e]">एक ही जगह।</span></> : <>Rashid Mega Mart<span className="text-[#a77b3e]">.</span></>}
-            </h1>
-            <p className="mt-3 max-w-[510px] text-[12px] leading-relaxed text-[#756458] sm:mt-4 sm:text-[15px]">
-              {isHindi ? "रोज़मर्रा का किराना, घर की ज़रूरतें और तैयार ग्रॉसरी किट्स — आसान ऑनलाइन खरीदारी के साथ।" : "Everyday groceries, home essentials and ready-to-shop kits — all in one convenient place."}
-            </p>
-            <div className="mt-5 flex flex-col gap-2 sm:mt-6 sm:flex-row">
-              <Link href="/products" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#800020] px-6 text-[11px] font-black text-white shadow-[0_8px_20px_rgba(128,0,32,.18)] transition hover:-translate-y-0.5 hover:bg-[#64152b] active:scale-[.98] sm:min-h-12 sm:text-xs">
-                {isHindi ? "खरीदारी शुरू करें" : "Start shopping"} <ArrowRight size={15}/>
-              </Link>
-              <Link href="/kits" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-[#d9c5a5] bg-white/85 px-5 text-[11px] font-extrabold text-[#684a32] transition hover:border-[#a77b3e] hover:bg-white active:scale-[.98] sm:min-h-12 sm:text-xs">
-                {isHindi ? "ग्रॉसरी किट्स देखें" : "Explore grocery kits"} <Package size={14}/>
-              </Link>
-            </div>
-            <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[9px] font-bold text-[#7a6858] sm:mt-5 sm:text-[10px]">
-              <span className="inline-flex items-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-[#168B55]"/> {isHindi ? "आसान ऑर्डर" : "Easy ordering"}</span>
-              <span className="h-3 w-px bg-[#dfcfb8]"/>
-              <span className="inline-flex items-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-[#a77b3e]"/> {isHindi ? "लोकल स्टोर" : "Local store"}</span>
-            </div>
+      <section id="top" ref={entranceRef} className="relative isolate flex min-h-[min(560px,calc(100svh-120px))] items-center justify-center overflow-hidden bg-[#fff7f4] px-3 pb-8 pt-5 sm:min-h-[min(860px,calc(100svh-72px))] sm:px-6 sm:pb-24">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_50%_45%,rgba(224,190,119,.16),transparent_58%)]" />
+        <div className="mx-auto flex w-full max-w-[1500px] flex-col items-center justify-center text-center">
+          <h1 ref={entranceTitleRef} className="w-full select-none text-[clamp(3.05rem,13.2vw,12.5rem)] font-black uppercase leading-[.79] tracking-[-.105em] text-transparent [perspective:900px] sm:text-[clamp(6rem,11.2vw,11.5rem)]">
+            <span data-hero-line className="block whitespace-nowrap" style={{
+              backgroundImage: "url(https://images.unsplash.com/photo-1542838132-92c53300491e?w=1400&q=72&auto=format&fit=crop)",
+              backgroundSize: "cover", backgroundPosition: "center 42%", backgroundRepeat: "no-repeat",
+              WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent",
+              filter: "drop-shadow(0 3px 2px rgba(47,34,20,.10))",
+            }}>RASHID</span>
+            <span data-hero-line className="mt-[.035em] block whitespace-nowrap" style={{
+              backgroundImage: "url(https://images.unsplash.com/photo-1542838132-92c53300491e?w=1400&q=72&auto=format&fit=crop)",
+              backgroundSize: "cover", backgroundPosition: "center 68%", backgroundRepeat: "no-repeat",
+              WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent",
+              filter: "drop-shadow(0 3px 2px rgba(47,34,20,.10))",
+            }}>MEGA MART</span>
+          </h1>
+          <div className="mt-4 flex w-full flex-col items-center justify-center gap-2 sm:mt-5 sm:flex-row">
+            <Link href="#deals" className="inline-flex min-h-11 w-full max-w-[260px] items-center justify-center gap-2 rounded-full bg-[#800020] px-6 text-[12px] font-black text-white shadow-[0_8px_22px_rgba(128,0,32,.18)] transition hover:-translate-y-0.5 hover:bg-[#64152b] active:scale-[.98] sm:w-auto">{isHindi ? "ऑफर देखें और खरीदें" : "Shop best deals"} <ArrowRight size={15}/></Link>
+            <Link href="/kits" className="inline-flex min-h-10 w-full max-w-[260px] items-center justify-center gap-2 rounded-full border border-[#d7c4a8] bg-white/80 px-5 text-[11px] font-extrabold text-[#6b4a31] transition hover:border-[#a47a2c] hover:bg-white sm:w-auto">{isHindi ? "मंथली किट देखें" : "Explore monthly kits"}</Link>
           </div>
-          <div className="relative mx-auto flex min-h-[190px] w-full max-w-[520px] items-center justify-center overflow-hidden rounded-[20px] border border-[#ead8bb] bg-[linear-gradient(145deg,#f7ead6,#fffaf1_55%,#f0dfc4)] p-4 sm:min-h-[270px] sm:rounded-[25px] sm:p-6">
-            <div aria-hidden="true" className="absolute -right-10 -top-12 h-44 w-44 rounded-full border-[22px] border-white/35 sm:h-64 sm:w-64 sm:border-[30px]"/>
-            <div aria-hidden="true" className="absolute -bottom-16 -left-10 h-44 w-44 rounded-full bg-[#d8bd8b]/25 blur-2xl"/>
-            <div className="relative z-10 flex w-full max-w-[360px] flex-col items-center text-center">
-              <Image src="/Logo.png" alt="Rashid Mega Mart" width={190} height={150} priority className="h-[104px] w-[150px] object-contain drop-shadow-[0_8px_12px_rgba(77,48,28,.12)] sm:h-[150px] sm:w-[205px]"/>
-              <p className="mt-2 text-[10px] font-black uppercase tracking-[.2em] text-[#8a6337] sm:text-xs">{isHindi ? "आपकी अपनी किराना शॉप" : "YOUR NEIGHBOURHOOD GROCERY STORE"}</p>
-              <span className="mt-3 inline-flex items-center gap-2 rounded-full border border-[#d9c49f] bg-white/85 px-3 py-2 text-[9px] font-extrabold text-[#6b4b32] shadow-sm sm:text-[10px]">
-                <MapPin size={13} className="text-[#168B55]"/> Ghoghar, Rewa
-              </span>
-            </div>
-          </div>
+          {!promoTimeLeft.expired && <div className="mt-3 inline-flex max-w-full items-center gap-2 rounded-full border border-[#d9bd8b]/70 bg-white/75 px-3 py-2 text-[9px] font-bold text-[#77533a] shadow-[0_5px_18px_rgba(95,64,35,.06)] sm:mt-4 sm:text-[10px]">
+            <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-[#fff0d7] text-[#a36d24]">₹</span>
+            <span>{isHindi ? "पहली खरीद पर ₹499+ में ₹100 की छूट" : "First order: ₹100 OFF on ₹499+"}</span>
+            <button type="button" onClick={async () => { try { await navigator.clipboard.writeText("FIRST100"); setPromoCopied(true); } catch { setPromoCopied(false); } }} className="rounded-full bg-[#800020] px-2.5 py-1.5 font-black tracking-[.08em] text-white transition hover:bg-[#64152b] active:scale-95">{promoCopied ? (isHindi ? "कॉपी ✓" : "COPIED ✓") : "FIRST100"}</button>
+          </div>}
         </div>
       </section>
+
 
       <section aria-label={isHindi ? "5 किलोमीटर तक मुफ्त होम डिलीवरी" : "Free home delivery up to 5 kilometres"} className="bg-[#fffaf2] px-3 pb-3 sm:px-6 sm:pb-5">
         <div className="mx-auto flex max-w-[1240px] flex-col items-start justify-between gap-3 rounded-2xl border border-[#cfe4d5] bg-[linear-gradient(100deg,#f0f8f1,#fff 62%,#f7fbf6)] px-4 py-3 shadow-[0_5px_18px_rgba(22,112,65,.06)] sm:flex-row sm:items-center sm:px-6 sm:py-4">

@@ -232,30 +232,27 @@ export default function Navbar() {
 
         {/* COMPACT MOBILE HEADER */}
         <div className="flex flex-col gap-2 px-3 pb-2 pt-2 xl:hidden">
-          <div className="relative flex h-[52px] items-center justify-between">
-            <div className="relative z-10 flex w-16 items-center">
-              <button type="button" onClick={() => setMoreOpen(true)} aria-label={isHindi ? "और विकल्प खोलें" : "Open menu"} className="grid h-9 w-9 place-items-center rounded-xl text-[#68162a] transition hover:bg-[#800020]/[.06] active:scale-95">
-                <MoreHorizontal size={23} />
-              </button>
-            </div>
-            <Link href="/" aria-label="Rashid Mega Mart home" className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center">
-              <div ref={mobileBrandRef} className="flex flex-col items-center justify-center gap-[1px]">
-                <span data-brand-logo className="grid h-[34px] w-[38px] place-items-center">
-                  <Image src="/Logo.png" alt="Rashid Mega Mart" width={42} height={42} priority className="h-full w-full object-contain drop-shadow-[0_2px_2px_rgba(89,20,39,.12)]" />
+          <div className="flex h-[52px] items-center justify-between gap-2">
+            <Link href="/" aria-label="Rashid Mega Mart home" className="flex min-w-0 shrink items-center gap-1.5">
+              <span ref={mobileBrandRef} className="flex shrink-0 items-center gap-1.5">
+                <span data-brand-logo className="grid h-[38px] w-[40px] place-items-center">
+                  <Image src="/Logo.png" alt="Rashid Mega Mart" width={44} height={44} priority className="h-full w-full object-contain drop-shadow-[0_2px_2px_rgba(89,20,39,.12)]" />
                 </span>
-                <span aria-hidden="true" className="flex h-[12px] items-center whitespace-nowrap text-[10px] font-black leading-none tracking-[.16em] text-[#64152b] [perspective:300px]">
-                  {"RASHID MEGA MART".split("").map((letter, index) => (
-                    <span key={index} data-brand-letter className="inline-block">{letter === " " ? "\u00a0" : letter}</span>
-                  ))}
+                <span className="flex min-w-0 flex-col justify-center leading-none">
+                  <span className="whitespace-nowrap text-[13px] font-black tracking-[-.045em] text-[#64152b]">RASHID</span>
+                  <span className="mt-[3px] whitespace-nowrap text-[8px] font-extrabold tracking-[.19em] text-[#a77b3e]">MEGA MART</span>
                 </span>
-              </div>
+              </span>
             </Link>
-            <div className="relative z-10 flex w-[116px] items-center justify-end gap-1.5">
-              <Link href="/wishlist" aria-label={isHindi ? "विशलिस्ट" : "Wishlist"} className={`relative grid h-10 w-10 shrink-0 place-items-center rounded-xl border shadow-[0_2px_9px_rgba(80,0,24,.08)] transition active:scale-95 ${pathname.startsWith("/wishlist") ? "border-[#800020]/25 bg-[#800020]/10 text-[#800020]" : "border-[#eadfd4] bg-white text-[#68162a] hover:bg-[#fff8f4]"}`}>
-                <Heart size={19} fill={pathname.startsWith("/wishlist") ? "currentColor" : "none"} />
+            <div className="flex shrink-0 items-center justify-end gap-1.5">
+              <Link href="/wishlist" aria-label={isHindi ? "विशलिस्ट" : "Wishlist"} className={`relative grid h-9 w-9 shrink-0 place-items-center rounded-xl border shadow-[0_2px_9px_rgba(80,0,24,.08)] transition active:scale-95 ${pathname.startsWith("/wishlist") ? "border-[#800020]/25 bg-[#800020]/10 text-[#800020]" : "border-[#eadfd4] bg-white text-[#68162a] hover:bg-[#fff8f4]"}`}>
+                <Heart size={18} fill={pathname.startsWith("/wishlist") ? "currentColor" : "none"} />
                 {wishlistCount > 0 && <span className="absolute -right-0.5 -top-0.5 grid h-[17px] min-w-[17px] place-items-center rounded-full border border-white bg-[#138047] px-1 text-[9px] font-black text-white">{wishlistCount > 99 ? "99+" : wishlistCount}</span>}
               </Link>
               <LanguageToggle language={language} onSelect={() => toggleLanguage()} />
+              <button type="button" onClick={() => setMoreOpen(true)} aria-label={isHindi ? "और विकल्प खोलें" : "Open menu"} className="grid h-9 w-8 shrink-0 place-items-center rounded-xl text-[#68162a] transition hover:bg-[#800020]/[.06] active:scale-95">
+                <MoreHorizontal size={22} />
+              </button>
             </div>
           </div>
 
